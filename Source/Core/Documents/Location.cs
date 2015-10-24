@@ -39,6 +39,14 @@ namespace Quip {
       }
     }
 
+    /// <summary>
+    /// Compute a hash value for the object.
+    /// </summary>
+    /// <returns>Returns a hash value for the object.</returns>
+    public override int GetHashCode () {
+      return Row.GetHashCode() ^ Column.GetHashCode();
+    }
+
     public override bool Equals (object other) {
       return !ReferenceEquals(null, other) && this == (Location)other;
     }
