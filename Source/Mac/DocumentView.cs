@@ -12,9 +12,34 @@ namespace Quip {
     public DocumentView (RectangleF frame)
       : base(frame) {
       Mode = new NormalMode(this);
+      Selections = new SelectionSet(new Selection(Location.Zero, Location.Zero));
 
       m_cursorTimer = NSTimer.CreateRepeatingTimer(m_cursorBlinkInterval, new NSAction(UpdateCursor));
       NSRunLoop.Current.AddTimer(m_cursorTimer, NSRunLoopMode.Common);
+    }
+
+    /// <summary>
+    /// Gets the view's document.
+    /// </summary>
+    public Document Document {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// Gets the view's active mode.
+    /// </summary>
+    public Mode Mode {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// Gets the view's active selection set.
+    /// </summary>
+    public SelectionSet Selections {
+      get;
+      private set;
     }
 
     public Location Cursor {
@@ -22,20 +47,14 @@ namespace Quip {
       set;
     }
 
-    public Document Document {
-      get;
-      set;
-    }
+    public void MoveTo (Location location) {
+      if (location.Row >= 0 && location.Row < Document.Rows) {
+        var line = Document.GetRow(location.Row);
 
-    public Mode Mode {
-      get;
-      set;
-    }
+        Cursor = new Location(Math.Min(line.Length - 1, location.Column), location.Row);
+        Selections.Primary.Origin = Cursor;
+        Selections.Primary.Extent = Cursor;
 
-    public void MoveTo (Location cursor) {
-      if (cursor.Row >= 0 && cursor.Row < Document.Rows) {
-        var line = Document.GetRow(cursor.Row);
-        Cursor = new Location(Math.Min(line.Length - 1, cursor.Column), cursor.Row);
         UpdateCursor();
       }
     }
@@ -98,10 +117,16 @@ namespace Quip {
           drawable.Draw(context);
         }
 
+        foreach (var selection in Selections.All) {
+          DrawSelection(selection, context, cellSize.Width, cellSize.Height);
+        }
+
         if (m_cursorIsVisible) {
           var cursorX = Cursor.Column * cellSize.Width;
           var cursorY = Frame.Height - cellSize.Height - (Cursor.Row * cellSize.Height);
           var style = m_cursorStack.Count == 0 ? CursorStyle.Underbar : m_cursorStack.Peek();
+
+          context.SetFillColor(0.0f, 0.0f, 0.0f, 1.0f);
           switch (style) {
             case CursorStyle.VerticalBar:
               context.FillRect(new RectangleF(cursorX, cursorY - 2, 1, cellSize.Height - 2));
@@ -113,6 +138,25 @@ namespace Quip {
           }
         }
       }
+    }
+
+    void DrawSelection(Selection selection, CGContext context, float cellWidth, float cellHeight) {
+      var earlier = selection.Origin < selection.Extent ? selection.Origin : selection.Extent;
+      var later = selection.Origin < selection.Extent ? selection.Extent : selection.Origin;
+      var row = earlier.Row;
+
+      do {
+        var firstColumn = row == earlier.Row ? earlier.Column : 0;
+        var lastColumn = row == later.Row ? later.Column : Document.GetRow(row).Length - 1;
+
+        var x = firstColumn * cellWidth;
+        var y = Frame.Height - cellHeight - (row * cellHeight);
+
+        context.SetFillColor(1.0f, 0.0f, 0.0f, 1.0f);
+        context.FillRect(new RectangleF(x, y - 1, cellWidth * (lastColumn + 1 - firstColumn), 1));
+
+        ++row;
+      } while (row <= later.Row);
     }
 
     public override bool AcceptsFirstResponder () {

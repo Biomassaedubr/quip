@@ -43,11 +43,14 @@
     <Compile Include="Documents\Location.cs" />
     <Compile Include="Iterators\LineIterator.cs" />
     <Compile Include="CursorStyle.cs" />
+    <Compile Include="Selections\Selection.cs" />
+    <Compile Include="Selections\SelectionSet.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Iterators\" />
     <Folder Include="Modes\" />
     <Folder Include="Documents\" />
+    <Folder Include="Selections\" />
   </ItemGroup>
 </Project>
