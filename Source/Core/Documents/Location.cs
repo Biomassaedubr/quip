@@ -55,6 +55,10 @@ namespace Quip {
       return !ReferenceEquals(null, other) && this == other;
     }
 
+    public override string ToString () {
+      return string.Format("{0}, {1}", Column, Row);
+    }
+
     /// <summary>
     /// Determines if two locations are equal.
     /// </summary>
