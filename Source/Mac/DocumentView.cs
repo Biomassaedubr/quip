@@ -96,6 +96,10 @@ namespace Quip {
       var location = GetLocationFromCoordinate(eventData.LocationInWindow);
       if (location == m_mouseDragOrigin) {
         MoveTo(location);
+      } else {
+        MoveTo(m_mouseDragOrigin);
+        Selections.Primary.Origin = m_mouseDragOrigin;
+        Selections.Primary.Extent = location;
       }
     }
 
@@ -151,12 +155,6 @@ namespace Quip {
       }
     }
 
-    Location GetLocationFromCoordinate (PointF coordinate) {
-      var column = coordinate.X / m_textCellSize.Width;
-      var row = (Frame.Height - coordinate.Y) / m_textCellSize.Height;
-      return new Location((int)column, (int)row);
-    }
-
     void DrawSelection(Selection selection, CGContext context) {
       var earlier = selection.Origin < selection.Extent ? selection.Origin : selection.Extent;
       var later = selection.Origin < selection.Extent ? selection.Extent : selection.Origin;
@@ -183,6 +181,12 @@ namespace Quip {
     void UpdateCursor () {
       m_cursorIsVisible = !m_cursorIsVisible;
       SetNeedsDisplayInRect(Frame);
+    }
+
+    Location GetLocationFromCoordinate (PointF coordinate) {
+      var column = coordinate.X / m_textCellSize.Width;
+      var row = (Frame.Height - coordinate.Y) / m_textCellSize.Height;
+      return new Location((int)column, (int)row);
     }
       
     bool m_cursorIsVisible;
