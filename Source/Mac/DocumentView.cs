@@ -96,7 +96,12 @@ namespace Quip {
       var location = GetLocationFromCoordinate(eventData.LocationInWindow);
       if (location == m_mouseDragOrigin) {
         MoveTo(location);
-      } else {
+      }
+    }
+
+    public override void MouseDragged (NSEvent eventData) {
+      var location = GetLocationFromCoordinate(eventData.LocationInWindow);
+      if (location != m_mouseDragOrigin) {
         MoveTo(m_mouseDragOrigin);
         Selections.Primary.Origin = m_mouseDragOrigin;
         Selections.Primary.Extent = location;
