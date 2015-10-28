@@ -45,6 +45,7 @@
     <Compile Include="CursorStyle.cs" />
     <Compile Include="Selections\Selection.cs" />
     <Compile Include="Selections\SelectionSet.cs" />
+    <Compile Include="Math\Clamp.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -52,5 +53,6 @@
     <Folder Include="Modes\" />
     <Folder Include="Documents\" />
     <Folder Include="Selections\" />
+    <Folder Include="Math\" />
   </ItemGroup>
 </Project>

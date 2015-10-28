@@ -189,9 +189,10 @@ namespace Quip {
     }
 
     Location GetLocationFromCoordinate (PointF coordinate) {
-      var column = coordinate.X / m_textCellSize.Width;
-      var row = (Frame.Height - coordinate.Y) / m_textCellSize.Height;
-      return new Location((int)column, (int)row);
+      var row = (int)Clamp.Between(0, Document.Rows - 1, (Frame.Height - coordinate.Y) / m_textCellSize.Height);
+      var column = (int)Clamp.Between(0, Document.GetRow(row).Length - 1, coordinate.X / m_textCellSize.Width);
+
+      return new Location(column, row);
     }
       
     bool m_cursorIsVisible;
