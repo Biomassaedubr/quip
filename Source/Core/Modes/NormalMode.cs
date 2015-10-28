@@ -53,7 +53,7 @@ namespace Quip {
     bool MoveToNextWord (IDocumentView view) {
       var iterator = view.Document.GetWordIterator(view.Cursor);
       iterator.MoveNext();
-      view.Cursor = iterator.Location;
+      view.MoveTo(iterator.Location);
 
       return true;
     }
@@ -61,7 +61,7 @@ namespace Quip {
     bool MoveToPriorWord (IDocumentView view) {
       var iterator = view.Document.GetWordIterator(view.Cursor);
       iterator.MovePrior();
-      view.Cursor = iterator.Location;
+      view.MoveTo(iterator.Location);
 
       return true;
     }

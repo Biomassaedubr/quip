@@ -9,9 +9,9 @@
 
     protected override bool OnHandleKey (Key input, IDocumentView view) {
       if (input != Key.Backspace) {
-        view.Cursor = view.Document.Insert(input.ToText(), view.Cursor);
+        view.MoveTo(view.Document.Insert(input.ToText(), view.Cursor));
       } else {
-        view.Cursor = view.Document.Erase(view.Cursor);
+        view.MoveTo(view.Document.Erase(view.Cursor));
       }
 
       return true;

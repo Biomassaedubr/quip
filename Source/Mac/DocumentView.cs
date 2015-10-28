@@ -44,7 +44,7 @@ namespace Quip {
 
     public Location Cursor {
       get;
-      set;
+      private set;
     }
 
     public void MoveTo (Location location) {

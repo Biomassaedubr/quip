@@ -2,7 +2,7 @@
 
 namespace Quip {
   public interface IDocumentView {
-    Location Cursor { get; set; }
+    Location Cursor { get; }
 
     Document Document { get; set; }
     Mode Mode { get; set; }
