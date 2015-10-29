@@ -27,10 +27,36 @@ namespace Quip {
       }
     }
 
+    /// <summary>
+    /// Gets the secondary selections in the set.
+    /// </summary>
+    public IEnumerable<Selection> Secondary {
+      get {
+        var primary = m_primary;
+        var current = 0;
+        while (current < m_selections.Count) {
+          if (current != primary) {
+            yield return m_selections[current];
+          }
+
+          ++current;
+        }
+
+        yield break;
+      }
+    }
+
+    /// <summary>
+    /// Gets all selections in the set.
+    /// </summary>
     public IEnumerable<Selection> All {
       get {
         return m_selections;
       }
+    }
+
+    public void Add (Selection selection) {
+      m_selections.Add(selection);
     }
 
     int m_primary = 0;

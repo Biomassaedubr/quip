@@ -137,8 +137,9 @@ namespace Quip {
           drawable.Draw(context);
         }
 
-        foreach (var selection in Selections.All) {
-          DrawSelection(selection, context);
+        DrawSelection(Selections.Primary, context, true);
+        foreach (var selection in Selections.Secondary) {
+          DrawSelection(selection, context, false);
         }
 
         if (m_cursorIsVisible) {
@@ -160,7 +161,7 @@ namespace Quip {
       }
     }
 
-    void DrawSelection(Selection selection, CGContext context) {
+    void DrawSelection(Selection selection, CGContext context, bool primary) {
       var earlier = selection.Origin < selection.Extent ? selection.Origin : selection.Extent;
       var later = selection.Origin < selection.Extent ? selection.Extent : selection.Origin;
       var row = earlier.Row;
@@ -172,7 +173,12 @@ namespace Quip {
         var x = firstColumn * m_textCellSize.Width;
         var y = Frame.Height - m_textCellSize.Height - (row * m_textCellSize.Height);
 
-        context.SetFillColor(1.0f, 0.0f, 0.0f, 1.0f);
+        if(primary) {
+          context.SetFillColor(1.0f, 0.0f, 0.0f, 1.0f);
+        } else {
+          context.SetFillColor(0.8f, 0.2f, 0.2f, 1.0f);
+        }
+
         context.FillRect(new RectangleF(x, y - 1, m_textCellSize.Width * (lastColumn + 1 - firstColumn), 1));
 
         ++row;
