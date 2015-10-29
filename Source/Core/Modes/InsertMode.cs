@@ -2,7 +2,7 @@
   class InsertMode : Mode {
     public InsertMode (IDocumentView view)
       : base("Insert", view) {
-      AddMapping(Key.Escape, LeaveInsertMode);
+      AddMapping(new Keystroke(Key.Escape), LeaveInsertMode);
 
       view.PushCursorStyle(CursorStyle.VerticalBar);
     }

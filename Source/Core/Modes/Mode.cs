@@ -20,11 +20,19 @@ namespace Quip {
     }
 
     public bool HandleKey (Key input, IDocumentView view) {
-      var mapping = default(Func<IDocumentView, bool>);
-      if (m_mappings.TryGetValue(input, out mapping)) {
+      m_current.Append(input);
+
+      var mapping = m_mappings.Find(m_current);
+      if(mapping != null) {
+        m_current.Clear();
         return mapping(view);
       } else {
-        return OnHandleKey(input, view);
+        var handled = OnHandleKey(input, view);
+        if (handled) {
+          m_current.Clear();
+        }
+
+        return handled;
       }
     }
 
@@ -37,10 +45,11 @@ namespace Quip {
       return false;
     }
 
-    protected void AddMapping (Key input, Func<IDocumentView, bool> callback) {
-      m_mappings[input] = callback;
+    protected void AddMapping (Keystroke keystroke, MapHandler handler) {
+      m_mappings.Insert(keystroke, handler);
     }
 
-    Dictionary<Key, Func<IDocumentView, bool>> m_mappings = new Dictionary<Key, Func<IDocumentView, bool>>();
+    Keystroke m_current = new Keystroke();
+    MapTrie m_mappings = new MapTrie();
   }
 }

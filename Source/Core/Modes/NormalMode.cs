@@ -3,13 +3,16 @@ namespace Quip {
   public class NormalMode : Mode {
     public NormalMode (IDocumentView view)
       : base("Normal", view) {
-      AddMapping(new Key('h'), MoveCursorLeft);
-      AddMapping(new Key('j'), MoveCursorDown);
-      AddMapping(new Key('k'), MoveCursorUp);
-      AddMapping(new Key('l'), MoveCursorRight);
-      AddMapping(new Key('w'), MoveToNextWord);
-      AddMapping(new Key('b'), MoveToPriorWord);
-      AddMapping(new Key('i'), EnterInsertMode);
+      AddMapping(new Keystroke("h"), MoveCursorLeft);
+      AddMapping(new Keystroke("j"), MoveCursorDown);
+      AddMapping(new Keystroke("k"), MoveCursorUp);
+      AddMapping(new Keystroke("l"), MoveCursorRight);
+      AddMapping(new Keystroke("w"), MoveToNextWord);
+      AddMapping(new Keystroke("b"), MoveToPriorWord);
+      AddMapping(new Keystroke("i"), EnterInsertMode);
+
+      AddMapping(new Keystroke("gg"), GoToStart);
+      AddMapping(new Keystroke("G"), GoToEnd);
     }
 
     bool EnterInsertMode (IDocumentView view) {
@@ -62,6 +65,20 @@ namespace Quip {
       var iterator = view.Document.GetWordIterator(view.Cursor);
       iterator.MovePrior();
       view.MoveTo(iterator.Location);
+
+      return true;
+    }
+
+    bool GoToStart (IDocumentView view) {
+      view.MoveTo(Location.Zero);
+
+      return true;
+    }
+
+    bool GoToEnd (IDocumentView view) {
+      var row = view.Document.Rows - 1;
+      var column = view.Document.GetRow(row).Length - 1;
+      view.MoveTo(new Location(column, row));
 
       return true;
     }
