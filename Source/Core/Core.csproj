@@ -49,6 +49,7 @@
     <Compile Include="Mappings\MapHandler.cs" />
     <Compile Include="Mappings\Key.cs" />
     <Compile Include="Mappings\Keystroke.cs" />
+    <Compile Include="Modes\SearchMode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

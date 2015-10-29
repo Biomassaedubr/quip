@@ -9,7 +9,9 @@ namespace Quip {
       AddMapping(new Keystroke("l"), MoveCursorRight);
       AddMapping(new Keystroke("w"), MoveToNextWord);
       AddMapping(new Keystroke("b"), MoveToPriorWord);
+
       AddMapping(new Keystroke("i"), EnterInsertMode);
+      AddMapping(new Keystroke("/"), EnterSearchMode);
 
       AddMapping(new Keystroke("gg"), GoToStart);
       AddMapping(new Keystroke("G"), GoToEnd);
@@ -17,6 +19,12 @@ namespace Quip {
 
     bool EnterInsertMode (IDocumentView view) {
       view.Mode = new InsertMode(view);
+
+      return true;
+    }
+
+    bool EnterSearchMode (IDocumentView view) {
+      view.Mode = new SearchMode(view);
 
       return true;
     }

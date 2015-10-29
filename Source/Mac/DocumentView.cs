@@ -131,8 +131,8 @@ namespace Quip {
           }
         }
       
-        // Draw status.
-        using (var drawable = new CTLine(new NSAttributedString(Mode.Status, attributes))) {
+        // Draw mode name.
+        using (var drawable = new CTLine(new NSAttributedString(Mode.Name, attributes))) {
           context.TextPosition = new PointF(5.0f, 5.0f);
           drawable.Draw(context);
         }

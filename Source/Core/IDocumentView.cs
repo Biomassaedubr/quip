@@ -6,6 +6,7 @@ namespace Quip {
 
     Document Document { get; set; }
     Mode Mode { get; set; }
+    SelectionSet Selections { get; }
 
     void MoveTo (Location cursor);
 

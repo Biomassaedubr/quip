@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Quip {
   /// <summary>
@@ -71,6 +72,26 @@ namespace Quip {
 
         return new Location(0, target.Row + 1);
       }
+    }
+
+    public IEnumerable<Selection> Search (string pattern) {
+      var results = new List<Selection>();
+      var regex = new Regex(pattern);
+      var row = 0;
+      foreach (var line in m_lines) {
+        foreach (var item in regex.Matches(line)) {
+          var match = item as Match;
+          if (match != null) {
+            var start = new Location(match.Index, row);
+            var stop = new Location(match.Index + match.Length - 1, row);
+            results.Add(new Selection(start, stop));
+          }
+        }
+
+        ++row;
+      }
+
+      return results;
     }
 
     public Location Erase (Location target) {

@@ -5,18 +5,12 @@ namespace Quip {
   public abstract class Mode {
     protected Mode (string name, IDocumentView view) {
       Name = name;
-      Status = Name;
       View = view;
     }
 
     public string Name {
       get;
-      private set;
-    }
-
-    public string Status {
-      get;
-      private set;
+      protected set;
     }
 
     public bool HandleKey (Key input, IDocumentView view) {

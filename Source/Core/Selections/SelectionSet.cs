@@ -59,6 +59,12 @@ namespace Quip {
       m_selections.Add(selection);
     }
 
+    public void ReplaceWith (IEnumerable<Selection> selections) {
+      m_primary = 0;
+      m_selections.Clear();
+      m_selections.AddRange(selections);
+    }
+
     int m_primary = 0;
     List<Selection> m_selections = new List<Selection>();
   }
