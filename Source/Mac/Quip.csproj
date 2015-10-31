@@ -24,7 +24,6 @@
     <UseSGen>false</UseSGen>
     <IncludeMonoRuntime>false</IncludeMonoRuntime>
     <EnablePackageSigning>false</EnablePackageSigning>
-    <CodeSigningKey>Mac Developer</CodeSigningKey>
     <EnableCodeSigning>false</EnableCodeSigning>
     <CreatePackage>false</CreatePackage>
   </PropertyGroup>
@@ -56,7 +55,7 @@
     </Compile>
     <Compile Include="ApplicationDelegate.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="DocumentView.cs" />
+    <Compile Include="MacDocumentView.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainMenu.xib" />
