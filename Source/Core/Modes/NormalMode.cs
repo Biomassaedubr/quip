@@ -1,7 +1,7 @@
 ﻿
 namespace Quip {
   public class NormalMode : Mode {
-    public NormalMode (IDocumentView view)
+    public NormalMode (DocumentView view)
       : base("Normal", view) {
       AddMapping(new Keystroke("h"), MoveCursorLeft);
       AddMapping(new Keystroke("j"), MoveCursorDown);
@@ -17,19 +17,19 @@ namespace Quip {
       AddMapping(new Keystroke("G"), GoToEnd);
     }
 
-    bool EnterInsertMode (IDocumentView view) {
+    bool EnterInsertMode (DocumentView view) {
       view.Mode = new InsertMode(view);
 
       return true;
     }
 
-    bool EnterSearchMode (IDocumentView view) {
+    bool EnterSearchMode (DocumentView view) {
       view.Mode = new SearchMode(view);
 
       return true;
     }
 
-    bool MoveCursorLeft (IDocumentView view) {
+    bool MoveCursorLeft (DocumentView view) {
       var iterator = new CharacterIterator(view.Document, view.Cursor);
       if (iterator.CanMovePrior) {
         iterator.MovePrior();
@@ -39,7 +39,7 @@ namespace Quip {
       return true;
     }
 
-    bool MoveCursorRight (IDocumentView view) {
+    bool MoveCursorRight (DocumentView view) {
       var iterator = new CharacterIterator(view.Document, view.Cursor);
       if (iterator.CanMoveNext) {
         iterator.MoveNext();
@@ -49,19 +49,19 @@ namespace Quip {
       return true;
     }
 
-    bool MoveCursorDown (IDocumentView view) {
+    bool MoveCursorDown (DocumentView view) {
       view.MoveTo(new Location(view.Cursor.Column, view.Cursor.Row + 1));
 
       return true;
     }
 
-    bool MoveCursorUp (IDocumentView view) {
+    bool MoveCursorUp (DocumentView view) {
       view.MoveTo(new Location(view.Cursor.Column, view.Cursor.Row - 1));
 
       return true;
     }
 
-    bool MoveToNextWord (IDocumentView view) {
+    bool MoveToNextWord (DocumentView view) {
       var iterator = view.Document.GetWordIterator(view.Cursor);
       iterator.MoveNext();
       view.MoveTo(iterator.Location);
@@ -69,7 +69,7 @@ namespace Quip {
       return true;
     }
 
-    bool MoveToPriorWord (IDocumentView view) {
+    bool MoveToPriorWord (DocumentView view) {
       var iterator = view.Document.GetWordIterator(view.Cursor);
       iterator.MovePrior();
       view.MoveTo(iterator.Location);
@@ -77,13 +77,13 @@ namespace Quip {
       return true;
     }
 
-    bool GoToStart (IDocumentView view) {
+    bool GoToStart (DocumentView view) {
       view.MoveTo(Location.Zero);
 
       return true;
     }
 
-    bool GoToEnd (IDocumentView view) {
+    bool GoToEnd (DocumentView view) {
       var row = view.Document.Rows - 1;
       var column = view.Document.GetRow(row).Length - 1;
       view.MoveTo(new Location(column, row));

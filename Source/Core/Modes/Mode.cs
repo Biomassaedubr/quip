@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Quip {
   public abstract class Mode {
-    protected Mode (string name, IDocumentView view) {
+    protected Mode (string name, DocumentView view) {
       Name = name;
       View = view;
     }
@@ -13,7 +13,7 @@ namespace Quip {
       protected set;
     }
 
-    public bool HandleKey (Key input, IDocumentView view) {
+    public bool HandleKey (Key input, DocumentView view) {
       m_current.Append(input);
 
       var mapping = m_mappings.Find(m_current);
@@ -30,12 +30,12 @@ namespace Quip {
       }
     }
 
-    protected IDocumentView View {
+    protected DocumentView View {
       get;
       private set;
     }
 
-    protected virtual bool OnHandleKey (Key input, IDocumentView view) {
+    protected virtual bool OnHandleKey (Key input, DocumentView view) {
       return false;
     }
 

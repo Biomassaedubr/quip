@@ -32,7 +32,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IDocumentView.cs" />
     <Compile Include="Iterators\CharacterIterator.cs" />
     <Compile Include="Iterators\WordIterator.cs" />
     <Compile Include="Modes\Mode.cs" />
@@ -50,6 +49,7 @@
     <Compile Include="Mappings\Key.cs" />
     <Compile Include="Mappings\Keystroke.cs" />
     <Compile Include="Modes\SearchMode.cs" />
+    <Compile Include="Documents\DocumentView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

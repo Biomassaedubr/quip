@@ -1,11 +1,11 @@
 ﻿namespace Quip {
   class SearchMode : Mode {
-    public SearchMode (IDocumentView view)
+    public SearchMode (DocumentView view)
       : base("/", view) {
       AddMapping(new Keystroke(Key.Escape), LeaveMode);
     }
 
-    protected override bool OnHandleKey (Key input, IDocumentView view) {
+    protected override bool OnHandleKey (Key input, DocumentView view) {
       if (input != Key.Backspace) {
         m_pattern += input.ToText();
       } else {
@@ -18,7 +18,7 @@
       return true;
     }
 
-    bool LeaveMode (IDocumentView view) {
+    bool LeaveMode (DocumentView view) {
       view.Mode = new NormalMode(view);
       return true;
     }

@@ -47,6 +47,6 @@ namespace Quip {
     [DllImport("user32.dll")]
     static extern char MapVirtualKey (int code, MapVirtualKeyMode mode);
 
-    DocumentView m_view = new DocumentView();
+    WindowsDocumentView m_view = new WindowsDocumentView();
   }
 }

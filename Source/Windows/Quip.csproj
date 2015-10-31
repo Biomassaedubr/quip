@@ -43,7 +43,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DocumentView.cs">
+    <Compile Include="WindowsDocumentView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />

@@ -7,64 +7,22 @@ using MonoMac.Foundation;
 using System.Collections.Generic;
 
 namespace Quip {
-  public class DocumentView : NSView, IDocumentView {
-    [Export("initWithFrame:")]
-    public DocumentView (RectangleF frame)
-      : base(frame) {
-      Mode = new NormalMode(this);
-      Selections = new SelectionSet(new Selection(Location.Zero, Location.Zero));
+  public class MacDocumentView : NSView {
 
+    [Export("initWithFrame:")]
+    public MacDocumentView (RectangleF frame)
+      : base(frame) {
       m_cursorTimer = NSTimer.CreateRepeatingTimer(m_cursorBlinkInterval, new NSAction(UpdateCursor));
       NSRunLoop.Current.AddTimer(m_cursorTimer, NSRunLoopMode.Common);
     }
 
-    /// <summary>
-    /// Gets the view's document.
-    /// </summary>
     public Document Document {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets the view's active mode.
-    /// </summary>
-    public Mode Mode {
-      get;
-      set;
-    }
-
-    /// <summary>
-    /// Gets the view's active selection set.
-    /// </summary>
-    public SelectionSet Selections {
-      get;
-      private set;
-    }
-
-    public Location Cursor {
-      get;
-      private set;
-    }
-
-    public void MoveTo (Location location) {
-      if (location.Row >= 0 && location.Row < Document.Rows) {
-        var line = Document.GetRow(location.Row);
-
-        Cursor = new Location(Math.Min(line.Length - 1, location.Column), location.Row);
-        Selections.Primary.Origin = Cursor;
-        Selections.Primary.Extent = Cursor;
-
-        UpdateCursor();
+      get {
+        return m_view.Document;
       }
-    }
-
-    public void PushCursorStyle(CursorStyle style) {
-      m_cursorStack.Push(style);
-    }
-
-    public void PopCursorStyle() {
-      m_cursorStack.Pop();
+      set {
+        m_view.Document = value;
+      }
     }
 
     public override void KeyDown (NSEvent eventData) {
@@ -82,7 +40,7 @@ namespace Quip {
         key = new Key(eventData.Characters[0]);
       }
 
-      if (key != null && Mode.HandleKey(key, this)) {
+      if (key != null && m_view.Mode.HandleKey(key, m_view)) {
         m_cursorIsVisible = true;
         SetNeedsDisplayInRect(Frame);
       }
@@ -95,16 +53,16 @@ namespace Quip {
     public override void MouseUp (NSEvent eventData) {
       var location = GetLocationFromCoordinate(eventData.LocationInWindow);
       if (location == m_mouseDragOrigin) {
-        MoveTo(location);
+        m_view.MoveTo(location);
       }
     }
 
     public override void MouseDragged (NSEvent eventData) {
       var location = GetLocationFromCoordinate(eventData.LocationInWindow);
       if (location != m_mouseDragOrigin) {
-        MoveTo(m_mouseDragOrigin);
-        Selections.Primary.Origin = m_mouseDragOrigin;
-        Selections.Primary.Extent = location;
+        m_view.MoveTo(m_mouseDragOrigin);
+        m_view.Selections.Primary.Origin = m_mouseDragOrigin;
+        m_view.Selections.Primary.Extent = location;
       }
     }
 
@@ -132,20 +90,20 @@ namespace Quip {
         }
       
         // Draw mode name.
-        using (var drawable = new CTLine(new NSAttributedString(Mode.Name, attributes))) {
+        using (var drawable = new CTLine(new NSAttributedString(m_view.Mode.Name, attributes))) {
           context.TextPosition = new PointF(5.0f, 5.0f);
           drawable.Draw(context);
         }
 
-        DrawSelection(Selections.Primary, context, true);
-        foreach (var selection in Selections.Secondary) {
+        DrawSelection(m_view.Selections.Primary, context, true);
+        foreach (var selection in m_view.Selections.Secondary) {
           DrawSelection(selection, context, false);
         }
 
         if (m_cursorIsVisible) {
-          var cursorX = Cursor.Column * m_textCellSize.Width;
-          var cursorY = Frame.Height - m_textCellSize.Height - (Cursor.Row * m_textCellSize.Height);
-          var style = m_cursorStack.Count == 0 ? CursorStyle.Underbar : m_cursorStack.Peek();
+          var cursorX = m_view.Cursor.Column * m_textCellSize.Width;
+          var cursorY = Frame.Height - m_textCellSize.Height - (m_view.Cursor.Row * m_textCellSize.Height);
+          var style = m_view.CursorStyle;
 
           context.SetFillColor(0.0f, 0.0f, 0.0f, 1.0f);
           switch (style) {
@@ -201,9 +159,10 @@ namespace Quip {
       return new Location(column, row);
     }
       
+    DocumentView m_view = new DocumentView();
+
     bool m_cursorIsVisible;
 
-    Stack<CursorStyle> m_cursorStack = new Stack<CursorStyle>();
     NSTimer m_cursorTimer;
     const double m_cursorBlinkInterval = 0.57;
 
