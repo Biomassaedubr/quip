@@ -10,7 +10,8 @@ namespace Quip {
     /// </summary>
     /// <param name="column">The column.</param>
     /// <param name="row">The row.</param>
-    public Location (int column, int row) {
+    public Location (int column, int row)
+      : this() {
       Column = column;
       Row = row;
     }
