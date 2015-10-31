@@ -55,6 +55,18 @@ namespace Quip {
       }
     }
 
+    /// <summary>
+    /// Rotate the primary selection.
+    /// </summary>
+    /// <remarks>>
+    /// This method causes the next selection in the set to become the primary selection.
+    /// If the current selection is the last selection, the first selection becomes the
+    /// primary instead.
+    /// </remarks>
+    public void Rotate () {
+      m_primary = (m_primary + 1) % m_selections.Count;
+    }
+
     public void Add (Selection selection) {
       m_selections.Add(selection);
     }

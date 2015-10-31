@@ -15,6 +15,8 @@ namespace Quip {
 
       AddMapping(new Keystroke("gg"), GoToStart);
       AddMapping(new Keystroke("G"), GoToEnd);
+
+      AddMapping(new Keystroke(Key.Enter), RotateSelection);
     }
 
     bool EnterInsertMode (DocumentView view) {
@@ -88,6 +90,11 @@ namespace Quip {
       var column = view.Document.GetRow(row).Length - 1;
       view.MoveTo(new Location(column, row));
 
+      return true;
+    }
+
+    bool RotateSelection (DocumentView view) {
+      view.Selections.Rotate();
       return true;
     }
   }
