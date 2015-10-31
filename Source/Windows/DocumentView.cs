@@ -30,7 +30,7 @@ namespace Quip {
     }
 
     public void MoveTo (Location location) {
-      if (location.Row >= 0 && location.Row <= Document.Rows) {
+      if (location.Row >= 0 && location.Row < Document.Rows) {
         var line = Document.GetRow(location.Row);
         Cursor = new Location(Math.Min(line.Length - 1, location.Column), location.Row);
         HandleCursorMove();
