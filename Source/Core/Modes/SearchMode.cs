@@ -3,6 +3,7 @@
     public SearchMode (DocumentView view)
       : base("/", view) {
       AddMapping(new Keystroke(Key.Escape), LeaveMode);
+      AddMapping(new Keystroke(Key.Enter), JumpToMatchAndLeave);
     }
 
     protected override bool OnHandleKey (Key input, DocumentView view) {
@@ -20,6 +21,13 @@
 
     bool LeaveMode (DocumentView view) {
       view.Mode = new NormalMode(view);
+      return true;
+    }
+
+    bool JumpToMatchAndLeave (DocumentView view) {
+      view.Mode = new NormalMode(view);
+      view.MoveTo(view.Selections.Primary.Origin);
+
       return true;
     }
 
