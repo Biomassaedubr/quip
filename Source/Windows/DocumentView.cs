@@ -9,6 +9,7 @@ namespace Quip {
       DoubleBuffered = true;
 
       Mode = new NormalMode(this);
+      Selections = new SelectionSet(new Selection(Quip.Location.Zero, Quip.Location.Zero));
       m_cursorTimer.Interval = SystemInformation.CaretBlinkTime;
       m_cursorTimer.Tick += HandleBlinkTimerTick;
       m_cursorTimer.Enabled = true;
@@ -27,6 +28,11 @@ namespace Quip {
     public Mode Mode {
       get;
       set;
+    }
+
+    public SelectionSet Selections {
+      get;
+      private set;
     }
 
     public void MoveTo (Location location) {
