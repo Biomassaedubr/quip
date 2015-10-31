@@ -15,7 +15,7 @@ namespace Quip {
     void HandleKeyDown (object sender, KeyEventArgs e) {
       var key = CreateFromWindowsEvent(e);
       if (key != null) {
-        if (m_view.Mode.HandleKey(key, m_view)) {
+        if (m_view.Mode.HandleKey(key, m_view.View)) {
           m_modeStatusLabel.Text = m_view.Mode.Name;
         }
       }
