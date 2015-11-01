@@ -19,6 +19,8 @@ namespace Quip {
       AddMapping(new Keystroke("x"), CutSelections);
 
       AddMapping(new Keystroke(Key.Enter), RotateSelection);
+      AddMapping(new Keystroke("\\"), SelectPrimary);
+
     }
 
     bool EnterInsertMode (DocumentView view) {
@@ -97,6 +99,11 @@ namespace Quip {
 
     bool CutSelections (DocumentView view) {
       view.Document.Erase(view.Selections);
+      return true;
+    }
+
+    bool SelectPrimary (DocumentView view) {
+      view.Selections.ReplaceWith(new [] { view.Selections.Primary });
       return true;
     }
 
