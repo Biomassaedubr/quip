@@ -127,7 +127,7 @@ namespace Quip {
               break;
             case CursorStyle.Underbar:
             default:
-              context.FillRect(new RectangleF(x, y - 2, m_textCellSize.Width, 1));
+              context.FillRect(new RectangleF(x, y - 2, m_textCellSize.Width * (lastColumn + 1 - firstColumn), 1));
               break;
           }
         } else {
