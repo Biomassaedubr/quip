@@ -1,4 +1,6 @@
-﻿namespace Quip {
+﻿using System.Linq;
+
+namespace Quip {
   class SearchMode : Mode {
     public SearchMode (DocumentView view)
       : base("/", view) {
@@ -13,8 +15,13 @@
         m_pattern = m_pattern.Substring(0, m_pattern.Length - 1);
       }
 
-      view.Selections.ReplaceWith(view.Document.Search(m_pattern));
-      Name = string.Format("/{0}", m_pattern);
+      var selections = view.Document.Search(m_pattern);
+      if (selections.Any()) {
+        view.Selections.ReplaceWith(selections);
+        Name = string.Format("/{0}", m_pattern);
+      } else {
+        Name = string.Format("/{0} [NOT FOUND]", m_pattern);
+      }
 
       return true;
     }
