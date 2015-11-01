@@ -4,7 +4,7 @@ namespace Quip {
   /// <summary>
   /// A 2D (column, row) location within a document.
   /// </summary>
-  public struct Location : IEquatable<Location> {
+  public struct Location : IComparable<Location>, IEquatable<Location> {
     /// <summary>
     /// Initializes a new instance.
     /// </summary>
@@ -54,6 +54,16 @@ namespace Quip {
 
     public bool Equals (Location other) {
       return !ReferenceEquals(null, other) && this == other;
+    }
+
+    public int CompareTo (Location other) {
+      if (this == other) {
+        return 0;
+      } else if (this < other) {
+        return -1;
+      } else {
+        return 1;
+      }
     }
 
     public override string ToString () {
