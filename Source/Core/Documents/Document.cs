@@ -9,18 +9,32 @@ namespace Quip {
   /// A Quip document.
   /// </summary>
   public class Document {
+    /// <summary>
+    /// Initializes a new instance.
+    /// </summary>
     public Document () {
       m_lines = new List<string>();
     }
 
+    /// <summary>
+    /// Initializes a new instance.
+    /// </summary>
+    /// <param name="content">The initial document content.</param>
     public Document (string content) {
       m_lines = new List<string>(SplitText(content));
     }
 
+    /// <summary>
+    /// Initializes a new instance.
+    /// </summary>
+    /// <param name="lines">The initial document content.</param>
     public Document (IEnumerable<string> lines) {
       m_lines = new List<string>(lines);
     }
       
+    /// <summary>
+    /// Gets the number of rows in the document.
+    /// </summary>
     public int Rows {
       get {
         return m_lines.Count;
@@ -114,6 +128,45 @@ namespace Quip {
 
         m_lines[target.Row] = first + second;
         return new Location(target.Column - 1, target.Row);
+      }
+    }
+
+    /// <summary>
+    /// Erases the text covered by the specified selections.
+    /// </summary>
+    /// <param name="selections">The selections describing the text to erase.</param>
+    public void Erase (SelectionSet selections) {
+      var rowDelta = 0;
+      var columnDelta = 0;
+      var priorRow = -1;
+
+      foreach (var selection in selections.All) {
+        // Reset the column delta when changing rows.
+        if (selection.LowerBound.Row != priorRow) {
+          priorRow = selection.LowerBound.Row;
+          columnDelta = 0;
+        }
+
+        var lower = selection.LowerBound.AdjustBy(columnDelta, rowDelta);
+        var upper = selection.UpperBound.AdjustBy(columnDelta, rowDelta);
+        var prefix = m_lines[lower.Row].Substring(0, lower.Column);
+        var suffix = m_lines[upper.Row].Substring(upper.Column + 1);
+        m_lines[lower.Row] = prefix + suffix;
+
+        var remove = selection.Height - 1;
+        selection.Origin = selection.Origin.AdjustBy(columnDelta, 0);
+        selection.Extent = selection.Origin;
+
+        if (selection.Height == 1) {
+          columnDelta -= (upper.Column - lower.Column + 1);
+        } else {
+          columnDelta = upper.Column;
+          while(remove > 0) {
+            m_lines.RemoveAt(lower.Row + 1);
+            --rowDelta;
+            --remove;
+          }
+        }
       }
     }
 

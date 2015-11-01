@@ -16,6 +16,8 @@ namespace Quip {
       AddMapping(new Keystroke("gg"), GoToStart);
       AddMapping(new Keystroke("G"), GoToEnd);
 
+      AddMapping(new Keystroke("x"), CutSelections);
+
       AddMapping(new Keystroke(Key.Enter), RotateSelection);
     }
 
@@ -90,6 +92,11 @@ namespace Quip {
       var column = view.Document.GetRow(row).Length - 1;
       view.MoveTo(new Location(column, row));
 
+      return true;
+    }
+
+    bool CutSelections (DocumentView view) {
+      view.Document.Erase(view.Selections);
       return true;
     }
 

@@ -40,6 +40,10 @@ namespace Quip {
       }
     }
 
+    public Location AdjustBy (int columnOffset, int rowOffset) {
+      return new Location(Column + columnOffset, Row + rowOffset);
+    }
+
     /// <summary>
     /// Compute a hash value for the object.
     /// </summary>

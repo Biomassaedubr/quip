@@ -31,6 +31,24 @@ namespace Quip {
       get;
       set;
     }
+
+    public Location LowerBound {
+      get {
+        return Origin < Extent ? Origin : Extent;
+      }
+    }
+
+    public Location UpperBound {
+      get {
+        return Origin < Extent ? Extent : Origin;
+      }
+    }
+
+    public int Height {
+      get {
+        return UpperBound.Row - LowerBound.Row + 1;
+      }
+    }
   }
 }
 
