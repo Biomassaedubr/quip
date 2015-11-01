@@ -12,7 +12,6 @@ namespace Quip {
       AddMapping(new Keystroke("w"), MoveToNextWord);
       AddMapping(new Keystroke("b"), MoveToPriorWord);
 
-      AddMapping(new Keystroke("i"), EnterInsertMode);
 
       AddMapping(new Keystroke("s"), EnterSearchMode);
 
@@ -21,16 +20,11 @@ namespace Quip {
 
       AddMapping(new Keystroke("x"), CutSelections);
       AddMapping(new Keystroke("c"), ChangeSelections);
+      AddMapping(new Keystroke("i"), InsertBeforeSelections);
 
       AddMapping(new Keystroke(Key.Enter), RotateSelection);
       AddMapping(new Keystroke("\\"), SelectPrimaryOnly);
 
-    }
-
-    bool EnterInsertMode (DocumentView view) {
-      view.Mode = new InsertMode(view);
-
-      return true;
     }
 
     bool EnterSearchMode (DocumentView view) {
@@ -116,7 +110,13 @@ namespace Quip {
 
     bool ChangeSelections (DocumentView view) {
       view.Document.Erase(view.Selections);
-      view.Mode = new InsertMode(view);
+      view.Mode = new EditMode(view, EditStyle.Append);
+      return true;
+    }
+
+    bool InsertBeforeSelections (DocumentView view) {
+      view.Mode = new EditMode(view, EditStyle.Insert);
+
       return true;
     }
 

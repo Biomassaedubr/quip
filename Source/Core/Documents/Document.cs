@@ -131,6 +131,40 @@ namespace Quip {
       }
     }
 
+    /// <summary>
+    /// Inserts the given text prior to the origin of the specified selections.
+    /// </summary>
+    /// <param name="text">Text to insert.</param>
+    /// <param name="selections">The selection set.</param>
+    public void Insert (string text, SelectionSet selections) {
+      var rowDelta = 0;
+      var columnDelta = 0;
+      var priorRow = -1;
+
+      foreach (var selection in selections.All) {
+        // Reset the column delta when changing rows.
+        if (selection.LowerBound.Row != priorRow) {
+          priorRow = selection.LowerBound.Row;
+          columnDelta = 0;
+        }
+
+        var lower = selection.LowerBound.AdjustBy(columnDelta, rowDelta);
+        var prefix = m_lines[lower.Row].Substring(0, lower.Column);
+        var suffix = m_lines[lower.Row].Substring(lower.Column);
+        m_lines[lower.Row] = prefix + text + suffix;
+
+        columnDelta += text.Length;
+
+        selection.Origin = selection.Origin.AdjustBy(columnDelta, 0);
+        selection.Extent = selection.Origin;
+      }
+    }
+
+    /// <summary>
+    /// Appens the given text after the extent of the specified selections.
+    /// </summary>
+    /// <param name="text">Text to append.</param>
+    /// <param name="selections">The selection set.</param>
     public void Append (string text, SelectionSet selections) {
       var rowDelta = 0;
       var columnDelta = 0;
