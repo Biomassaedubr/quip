@@ -22,9 +22,7 @@ namespace Quip {
         return mapping(view);
       } else {
         var handled = OnHandleKey(input, view);
-        if (handled) {
-          m_current.Clear();
-        }
+        m_current.Clear();
 
         return handled;
       }
