@@ -21,7 +21,7 @@
             break;
         }
       } else {
-        //view.MoveTo(view.Document.Erase(view.Selections.Primary.LowerBound));
+        view.Document.EraseBefore(view.Selections);
       }
 
       return true;

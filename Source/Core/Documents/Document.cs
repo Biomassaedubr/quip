@@ -229,6 +229,41 @@ namespace Quip {
       }
     }
 
+    public void EraseBefore (SelectionSet selections) {
+      var rowDelta = 0;
+      var columnDelta = 0;
+      var priorRow = -1;
+
+      foreach (var selection in selections.All) {
+        // Reset the column delta when changing rows.
+        if (selection.LowerBound.Row != priorRow) {
+          priorRow = selection.LowerBound.Row;
+          columnDelta = 0;
+        }
+
+        var lower = selection.LowerBound.AdjustBy(columnDelta, rowDelta);
+        var upper = selection.UpperBound.AdjustBy(columnDelta, rowDelta);
+        var prefix = m_lines[lower.Row].Substring(0, lower.Column - 1);
+        var suffix = m_lines[upper.Row].Substring(lower.Column);
+        m_lines[lower.Row] = prefix + suffix;
+
+        var remove = selection.Height - 1;
+        selection.Origin = selection.Origin.AdjustBy(-1, 0);
+        selection.Extent = selection.Origin;
+
+        if (selection.Height == 1) {
+          columnDelta -= (upper.Column - lower.Column + 1);
+        } else {
+          columnDelta = upper.Column;
+          while(remove > 0) {
+            m_lines.RemoveAt(lower.Row + 1);
+            --rowDelta;
+            --remove;
+          }
+        }
+      }
+    }
+
     static IEnumerable<string> SplitText (string text) {
       if (text == null || text.Length == 0) {
         yield break;
