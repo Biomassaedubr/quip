@@ -71,6 +71,18 @@ namespace Quip {
       m_selections.Add(selection);
     }
 
+    /// <summary>
+    /// Replace the selections int he set with the specified selection.
+    /// </summary>
+    /// <param name="selection">The new selection.</param>
+    public void ReplaceWith (Selection selection) {
+      ReplaceWith(new [] { selection });
+    }
+
+    /// <summary>
+    /// Replace the selections in the set with the specified selections.
+    /// </summary>
+    /// <param name="selections">The new selections.</param>
     public void ReplaceWith (IEnumerable<Selection> selections) {
       m_primary = 0;
       m_selections.Clear();

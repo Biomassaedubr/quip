@@ -41,14 +41,6 @@ namespace Quip {
       private set;
     }
 
-    /// <summary>
-    /// Get's the view's cursor location.
-    /// </summary>
-    public Location Cursor {
-      get;
-      private set;
-    }
-
     public CursorStyle CursorStyle {
       get {
         return m_cursorStack.Count == 0 ? CursorStyle.Underbar : m_cursorStack.Peek();
@@ -58,10 +50,9 @@ namespace Quip {
     public void MoveTo (Location location) {
       if (location.Row >= 0 && location.Row < Document.Rows) {
         var line = Document.GetRow(location.Row);
+        var actual = new Location(Math.Min(line.Length - 1, location.Column), location.Row);
 
-        Cursor = new Location(Math.Min(line.Length - 1, location.Column), location.Row);
-        Selections.Primary.Origin = Cursor;
-        Selections.Primary.Extent = Cursor;
+        Selections.ReplaceWith(new [] { Selection.At(actual) });
       }
     }
 

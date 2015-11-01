@@ -49,6 +49,10 @@ namespace Quip {
         return UpperBound.Row - LowerBound.Row + 1;
       }
     }
+
+    public static Selection At (Location location) {
+      return new Selection(location, location);
+    }
   }
 }
 

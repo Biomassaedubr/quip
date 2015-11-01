@@ -1,25 +1,27 @@
-﻿
+﻿using System;
+
 namespace Quip {
   public class NormalMode : Mode {
     public NormalMode (DocumentView view)
       : base("Normal", view) {
-      AddMapping(new Keystroke("h"), MoveCursorLeft);
-      AddMapping(new Keystroke("j"), MoveCursorDown);
-      AddMapping(new Keystroke("k"), MoveCursorUp);
-      AddMapping(new Keystroke("l"), MoveCursorRight);
+      AddMapping(new Keystroke("h"), SelectCharacterLeftOfPrimary);
+      AddMapping(new Keystroke("l"), SelectCharacterRightOfPrimary);
+      AddMapping(new Keystroke("j"), SelectCharacterBelowPrimary);
+      AddMapping(new Keystroke("k"), SelectCharacterAbovePrimary);
+
       AddMapping(new Keystroke("w"), MoveToNextWord);
       AddMapping(new Keystroke("b"), MoveToPriorWord);
 
       AddMapping(new Keystroke("i"), EnterInsertMode);
       AddMapping(new Keystroke("/"), EnterSearchMode);
 
-      AddMapping(new Keystroke("gg"), GoToStart);
-      AddMapping(new Keystroke("G"), GoToEnd);
+      AddMapping(new Keystroke("gg"), SelectFirstCharacterInDocument);
+      AddMapping(new Keystroke("G"), SelectLastCharacterInDocument);
 
       AddMapping(new Keystroke("x"), CutSelections);
 
       AddMapping(new Keystroke(Key.Enter), RotateSelection);
-      AddMapping(new Keystroke("\\"), SelectPrimary);
+      AddMapping(new Keystroke("\\"), SelectPrimaryOnly);
 
     }
 
@@ -35,40 +37,48 @@ namespace Quip {
       return true;
     }
 
-    bool MoveCursorLeft (DocumentView view) {
-      var iterator = new CharacterIterator(view.Document, view.Cursor);
+    bool SelectCharacterLeftOfPrimary (DocumentView view) {
+      var iterator = new CharacterIterator(view.Document, view.Selections.Primary.LowerBound);
       if (iterator.CanMovePrior) {
         iterator.MovePrior();
-        view.MoveTo(iterator.Location);
+        view.Selections.ReplaceWith(Selection.At(iterator.Location));
       }
 
       return true;
     }
 
-    bool MoveCursorRight (DocumentView view) {
-      var iterator = new CharacterIterator(view.Document, view.Cursor);
+    bool SelectCharacterRightOfPrimary (DocumentView view) {
+      var iterator = new CharacterIterator(view.Document, view.Selections.Primary.UpperBound);
       if (iterator.CanMoveNext) {
         iterator.MoveNext();
-        view.MoveTo(iterator.Location);
+        view.Selections.ReplaceWith(Selection.At(iterator.Location));
       }
 
       return true;
     }
 
-    bool MoveCursorDown (DocumentView view) {
-      view.MoveTo(new Location(view.Cursor.Column, view.Cursor.Row + 1));
+    bool SelectCharacterBelowPrimary (DocumentView view) {
+      var location = view.Selections.Primary.UpperBound.AdjustBy(0, 1);
+      if (location.Row < view.Document.Rows) {
+        location.Column = Math.Min(location.Column, view.Document.GetRow(location.Row).Length - 1);
+        view.Selections.ReplaceWith(Selection.At(location));
+      }
 
       return true;
     }
 
-    bool MoveCursorUp (DocumentView view) {
-      view.MoveTo(new Location(view.Cursor.Column, view.Cursor.Row - 1));
+    bool SelectCharacterAbovePrimary (DocumentView view) {
+      var location = view.Selections.Primary.UpperBound.AdjustBy(0, -1);
+      if (location.Row >= 0) {
+        location.Column = Math.Min(location.Column, view.Document.GetRow(location.Row).Length - 1);
+        view.Selections.ReplaceWith(Selection.At(location));
+      }
 
       return true;
     }
 
     bool MoveToNextWord (DocumentView view) {
-      var iterator = view.Document.GetWordIterator(view.Cursor);
+      var iterator = view.Document.GetWordIterator(view.Selections.Primary.UpperBound);
       iterator.MoveNext();
       view.MoveTo(iterator.Location);
 
@@ -76,20 +86,20 @@ namespace Quip {
     }
 
     bool MoveToPriorWord (DocumentView view) {
-      var iterator = view.Document.GetWordIterator(view.Cursor);
+      var iterator = view.Document.GetWordIterator(view.Selections.Primary.LowerBound);
       iterator.MovePrior();
       view.MoveTo(iterator.Location);
 
       return true;
     }
 
-    bool GoToStart (DocumentView view) {
+    bool SelectFirstCharacterInDocument (DocumentView view) {
       view.MoveTo(Location.Zero);
 
       return true;
     }
 
-    bool GoToEnd (DocumentView view) {
+    bool SelectLastCharacterInDocument (DocumentView view) {
       var row = view.Document.Rows - 1;
       var column = view.Document.GetRow(row).Length - 1;
       view.MoveTo(new Location(column, row));
@@ -102,7 +112,7 @@ namespace Quip {
       return true;
     }
 
-    bool SelectPrimary (DocumentView view) {
+    bool SelectPrimaryOnly (DocumentView view) {
       view.Selections.ReplaceWith(new [] { view.Selections.Primary });
       return true;
     }

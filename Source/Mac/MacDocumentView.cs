@@ -95,26 +95,12 @@ namespace Quip {
           drawable.Draw(context);
         }
 
-        DrawSelection(m_view.Selections.Primary, context, true);
-        foreach (var selection in m_view.Selections.Secondary) {
-          DrawSelection(selection, context, false);
+        if (m_cursorIsVisible) {
+          DrawSelection(m_view.Selections.Primary, context, true);
         }
 
-        if (m_cursorIsVisible) {
-          var cursorX = m_view.Cursor.Column * m_textCellSize.Width;
-          var cursorY = Frame.Height - m_textCellSize.Height - (m_view.Cursor.Row * m_textCellSize.Height);
-          var style = m_view.CursorStyle;
-
-          context.SetFillColor(0.0f, 0.0f, 0.0f, 1.0f);
-          switch (style) {
-            case CursorStyle.VerticalBar:
-              context.FillRect(new RectangleF(cursorX, cursorY - 2, 1, m_textCellSize.Height - 2));
-              break;
-            case CursorStyle.Underbar:
-            default:
-              context.FillRect(new RectangleF(cursorX, cursorY - 2, m_textCellSize.Width, 1));
-              break;
-          }
+        foreach (var selection in m_view.Selections.Secondary) {
+          DrawSelection(selection, context, false);
         }
       }
     }
@@ -133,11 +119,21 @@ namespace Quip {
 
         if(primary) {
           context.SetFillColor(1.0f, 0.0f, 0.0f, 1.0f);
+
+          var style = m_view.CursorStyle;
+          switch (style) {
+            case CursorStyle.VerticalBar:
+              context.FillRect(new RectangleF(x, y - 2, 1, m_textCellSize.Height - 2));
+              break;
+            case CursorStyle.Underbar:
+            default:
+              context.FillRect(new RectangleF(x, y - 2, m_textCellSize.Width, 1));
+              break;
+          }
         } else {
           context.SetFillColor(0.8f, 0.2f, 0.2f, 1.0f);
+          context.FillRect(new RectangleF(x, y - 1, m_textCellSize.Width * (lastColumn + 1 - firstColumn), 1));
         }
-
-        context.FillRect(new RectangleF(x, y - 1, m_textCellSize.Width * (lastColumn + 1 - firstColumn), 1));
 
         ++row;
       } while (row <= later.Row);
