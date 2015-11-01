@@ -13,7 +13,7 @@ namespace Quip {
       AddMapping(new Keystroke("b"), MoveToPriorWord);
 
       AddMapping(new Keystroke("i"), EnterInsertMode);
-      AddMapping(new Keystroke("/"), EnterSearchMode);
+      AddMapping(new Keystroke("s"), EnterSearchMode);
 
       AddMapping(new Keystroke("gg"), SelectFirstCharacterInDocument);
       AddMapping(new Keystroke("G"), SelectLastCharacterInDocument);
