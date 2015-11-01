@@ -119,20 +119,20 @@ namespace Quip {
 
         if(primary) {
           context.SetFillColor(1.0f, 0.0f, 0.0f, 1.0f);
-
-          var style = m_view.CursorStyle;
-          switch (style) {
-            case CursorStyle.VerticalBar:
-              context.FillRect(new RectangleF(x, y - 2, 1, m_textCellSize.Height - 2));
-              break;
-            case CursorStyle.Underbar:
-            default:
-              context.FillRect(new RectangleF(x, y - 2, m_textCellSize.Width * (lastColumn + 1 - firstColumn), 1));
-              break;
-          }
-        } else {
+        }
+        else {
           context.SetFillColor(0.8f, 0.2f, 0.2f, 1.0f);
-          context.FillRect(new RectangleF(x, y - 1, m_textCellSize.Width * (lastColumn + 1 - firstColumn), 1));
+        }
+
+        var style = m_view.CursorStyle;
+        switch (style) {
+          case CursorStyle.VerticalBar:
+            context.FillRect(new RectangleF(x, y - 2, 1, m_textCellSize.Height - 2));
+            break;
+          case CursorStyle.Underbar:
+          default:
+            context.FillRect(new RectangleF(x, y - 2, m_textCellSize.Width * (lastColumn + 1 - firstColumn), 1));
+            break;
         }
 
         ++row;

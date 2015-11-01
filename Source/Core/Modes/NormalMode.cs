@@ -13,12 +13,14 @@ namespace Quip {
       AddMapping(new Keystroke("b"), MoveToPriorWord);
 
       AddMapping(new Keystroke("i"), EnterInsertMode);
+
       AddMapping(new Keystroke("s"), EnterSearchMode);
 
       AddMapping(new Keystroke("gg"), SelectFirstCharacterInDocument);
       AddMapping(new Keystroke("G"), SelectLastCharacterInDocument);
 
       AddMapping(new Keystroke("x"), CutSelections);
+      AddMapping(new Keystroke("c"), ChangeSelections);
 
       AddMapping(new Keystroke(Key.Enter), RotateSelection);
       AddMapping(new Keystroke("\\"), SelectPrimaryOnly);
@@ -109,6 +111,12 @@ namespace Quip {
 
     bool CutSelections (DocumentView view) {
       view.Document.Erase(view.Selections);
+      return true;
+    }
+
+    bool ChangeSelections (DocumentView view) {
+      view.Document.Erase(view.Selections);
+      view.Mode = new InsertMode(view);
       return true;
     }
 

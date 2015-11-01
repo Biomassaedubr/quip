@@ -131,6 +131,31 @@ namespace Quip {
       }
     }
 
+    public void Append (string text, SelectionSet selections) {
+      var rowDelta = 0;
+      var columnDelta = 0;
+      var priorRow = -1;
+
+      foreach (var selection in selections.All) {
+        // Reset the column delta when changing rows.
+        if (selection.LowerBound.Row != priorRow) {
+          priorRow = selection.LowerBound.Row;
+          columnDelta = 0;
+        }
+
+        var lower = selection.LowerBound.AdjustBy(columnDelta, rowDelta);
+        var upper = selection.UpperBound.AdjustBy(columnDelta, rowDelta);
+        var prefix = m_lines[lower.Row].Substring(0, upper.Column);
+        var suffix = m_lines[upper.Row].Substring(upper.Column);
+        m_lines[lower.Row] = prefix + text + suffix;
+
+        columnDelta += text.Length;
+
+        selection.Origin = selection.Origin.AdjustBy(columnDelta, 0);
+        selection.Extent = selection.Origin;
+      }
+    }
+
     /// <summary>
     /// Erases the text covered by the specified selections.
     /// </summary>
