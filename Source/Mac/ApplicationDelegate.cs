@@ -14,6 +14,7 @@ namespace Quip {
       m_view.Document = new Document("Welcome to Quip.\n\nQuip is a toy text editor built around modal editing principles.");
 
       m_window = new NSWindow(frame, NSWindowStyle.Titled, NSBackingStore.Buffered, true);
+      m_window.Title = "Untitled";
       m_window.ContentView = m_view;
       m_window.Center();
       m_window.MakeKeyAndOrderFront(this);
@@ -28,6 +29,7 @@ namespace Quip {
       if (dialog.RunModal() == 1) {
         var lines = File.ReadAllLines(dialog.Url.Path);
         m_view.Document = new Document(lines);
+        m_window.Title = dialog.Url.Path;
       }
     }
 
