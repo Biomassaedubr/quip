@@ -22,6 +22,7 @@ namespace Quip {
       }
       set {
         m_view.Document = value;
+        m_view.Selections.ReplaceWith(new Selection(Location.Zero, Location.Zero));
       }
     }
 
