@@ -9,9 +9,8 @@ namespace Quip {
       AddMapping(new Keystroke("j"), SelectCharacterBelowPrimary);
       AddMapping(new Keystroke("k"), SelectCharacterAbovePrimary);
 
-      AddMapping(new Keystroke("w"), MoveToNextWord);
-      AddMapping(new Keystroke("b"), MoveToPriorWord);
-
+      AddMapping(new Keystroke("w"), SelectNextWord);
+      AddMapping(new Keystroke("b"), SelectPriorWord);
 
       AddMapping(new Keystroke("s"), EnterSearchMode);
 
@@ -24,7 +23,6 @@ namespace Quip {
 
       AddMapping(new Keystroke(Key.Enter), RotateSelection);
       AddMapping(new Keystroke("\\"), SelectPrimaryOnly);
-
     }
 
     bool EnterSearchMode (DocumentView view) {
@@ -73,19 +71,25 @@ namespace Quip {
       return true;
     }
 
-    bool MoveToNextWord (DocumentView view) {
-      var iterator = view.Document.GetWordIterator(view.Selections.Primary.UpperBound);
-      iterator.MoveNext();
-      view.MoveTo(iterator.Location);
+    bool SelectNextWord (DocumentView view) {
+      var iterator = view.Document.GetWordIterator(view.Selections.Primary.Extent);
 
+      if (iterator.Current.Origin == view.Selections.Primary.Origin && iterator.Current.Extent == view.Selections.Primary.Extent) {
+        iterator.MoveNext();
+      }
+
+      view.Selections.ReplaceWith(iterator.Current);
       return true;
     }
 
-    bool MoveToPriorWord (DocumentView view) {
-      var iterator = view.Document.GetWordIterator(view.Selections.Primary.LowerBound);
-      iterator.MovePrior();
-      view.MoveTo(iterator.Location);
+    bool SelectPriorWord (DocumentView view) {
+      var iterator = view.Document.GetWordIterator(view.Selections.Primary.Origin);
 
+      if (iterator.Current.Origin == view.Selections.Primary.Origin && iterator.Current.Extent == view.Selections.Primary.Extent) {
+        iterator.MovePrior();
+      }
+
+      view.Selections.ReplaceWith(iterator.Current);
       return true;
     }
 

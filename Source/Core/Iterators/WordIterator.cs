@@ -7,6 +7,25 @@ namespace Quip {
   public class WordIterator {
     internal WordIterator (Document document, Location location) {
       m_iterator = document.GetCharacterIterator(location);
+
+      // Initialize to the word containing the location.
+      m_iterator.BackwardTo(x => char.IsWhiteSpace(x));
+      if (char.IsWhiteSpace(m_iterator.Value)) {
+        m_iterator.MoveNext();
+      }
+
+      var origin = m_iterator.Location;
+      m_iterator.ForwardTo(x => char.IsWhiteSpace(x));
+      if (char.IsWhiteSpace(m_iterator.Value)) {
+        m_iterator.MovePrior();
+      }
+
+      Current = new Selection(origin, m_iterator.Location);
+    }
+
+    public Selection Current {
+      get;
+      private set;
     }
 
     public Location Location {
@@ -22,24 +41,20 @@ namespace Quip {
     }
 
     public void MoveNext () {
-      var scout = m_iterator.Clone();
-      while (!char.IsWhiteSpace(scout.Value)) {
-        if (scout.CanMoveNext) {
-          scout.MoveNext();
-        } else {
-          return;
-        }
+      if (!m_iterator.CanMoveNext) {
+        return;
       }
 
-      while (char.IsWhiteSpace(scout.Value)) {
-        if (scout.CanMoveNext) {
-          scout.MoveNext();
-        } else {
-          return;
-        }
+      m_iterator.MoveNext();
+      m_iterator.ForwardTo(x => !char.IsWhiteSpace(x));
+
+      var origin = m_iterator.Location;
+      m_iterator.ForwardTo(x => char.IsWhiteSpace(x));
+      if (char.IsWhiteSpace(m_iterator.Value)) {
+        m_iterator.MovePrior();
       }
 
-      m_iterator = scout;
+      Current = new Selection(origin, m_iterator.Location);
     }
 
     public void MovePrior () {
@@ -47,38 +62,26 @@ namespace Quip {
         return;
       }
 
-      // The first unqualified backwards step moves into whitespace if the
-      // iterator was current at the start of a word.
-      var scout = m_iterator.Clone();
-      scout.MovePrior();
+      // The iterator will be at the end of the current word, and so much first
+      // traverse that word.
+      m_iterator.BackwardTo(x => char.IsWhiteSpace(x));
+      m_iterator.BackwardTo(x => !char.IsWhiteSpace(x));
 
-      while (char.IsWhiteSpace(scout.Value)) {
-        if (scout.CanMovePrior) {
-          scout.MovePrior();
-        } else {
-          return;
-        }
+      var extent = m_iterator.Location;
+      m_iterator.BackwardTo(x => char.IsWhiteSpace(x));
+      if (char.IsWhiteSpace(m_iterator.Value)) {
+        m_iterator.MoveNext();
       }
 
-      // Bail out if nothing but whitespace exists behind the original word.
-      if (!scout.CanMovePrior) {
-        return;
+      // Similarly, once the origin is found the iterator must be
+      // returned to the end of the word.
+      var origin = m_iterator.Location;
+      m_iterator.ForwardTo(x => char.IsWhiteSpace(x));
+      if (char.IsWhiteSpace(m_iterator.Value)) {
+        m_iterator.MovePrior();
       }
 
-      while (!char.IsWhiteSpace(scout.Value)) {
-        if (!scout.CanMovePrior) {
-          m_iterator = scout;
-          return;
-        }
-
-        scout.MovePrior();
-      }
-
-      // At this point, the scout iterator will be referring to the first
-      // whitespace before the desired word, so it needs to step forward 
-      // one final time.
-      scout.MoveNext();
-      m_iterator = scout;
+      Current = new Selection(origin, extent);
     }
 
     CharacterIterator m_iterator;

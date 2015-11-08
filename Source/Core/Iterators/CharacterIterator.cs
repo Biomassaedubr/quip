@@ -64,6 +64,18 @@ namespace Quip {
       }
     }
 
+    public void BackwardTo (Func<char, bool> predicate) {
+      while (!predicate(Value) && CanMovePrior) {
+        MovePrior();
+      }
+    }
+
+    public void ForwardTo (Func<char, bool> predicate) {
+      while (!predicate(Value) && CanMoveNext) {
+        MoveNext();
+      }
+    }
+
     Document m_document;
     Location m_location;
   }
