@@ -31,6 +31,17 @@ namespace Quip {
     public Document (IEnumerable<string> lines) {
       m_lines = new List<string>(lines);
     }
+
+    /// <summary>
+    /// Gets the file path of the document.
+    /// </summary>
+    /// <remarks>
+    /// This value will be null for documents that are not yet backed by a file.
+    /// </remarks>
+    public string FilePath {
+      get;
+      set;
+    }
       
     /// <summary>
     /// Gets the number of rows in the document.

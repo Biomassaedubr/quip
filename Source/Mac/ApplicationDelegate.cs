@@ -35,12 +35,21 @@ namespace Quip {
 
     [Export("saveDocument:")]
     void SaveDocument (NSObject sender) {
-      var dialog = NSSavePanel.SavePanel;
-      dialog.CanCreateDirectories = true;
+      var path = m_view.Document.FilePath;
+      if (string.IsNullOrWhiteSpace(path)) {
+        var dialog = NSSavePanel.SavePanel;
+        dialog.CanCreateDirectories = true;
 
-      if (dialog.RunModal() == 1) {
-        File.WriteAllText(dialog.Url.Path, m_view.Document.GetText());
+        if (dialog.RunModal() == 1) {
+          path = dialog.Url.Path;
+        } else {
+          return;
+        }
       }
+
+      File.WriteAllText(path, m_view.Document.GetText());
+      m_view.Document.FilePath = path;
+      m_window.Title = path;
     }
 
     NSWindow m_window;
