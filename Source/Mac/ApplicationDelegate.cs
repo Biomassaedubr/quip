@@ -8,13 +8,24 @@ namespace Quip {
     public ApplicationDelegate () {
     }
 
+    public override bool OpenFile (NSApplication sender, string filename) {
+      m_document = LoadFromFile(filename);
+      return true;
+    }
+
     public override void FinishedLaunching (NSObject notification) {
       var frame = new RectangleF(0.0f, 0.0f, 1024.0f, 768.0f);
       m_view = new MacDocumentView(frame);
-      m_view.Document = new Document("Welcome to Quip.\n\nQuip is a toy text editor built around modal editing principles.");
-
       m_window = new NSWindow(frame, NSWindowStyle.Titled, NSBackingStore.Buffered, true);
-      m_window.Title = "Untitled";
+
+      if (m_document == null) {
+        m_document = new Document("Welcome to Quip.\n\nQuip is a toy text editor built around modal editing principles.");
+        m_window.Title = "Untitled";
+      } else {
+        m_window.Title = m_document.FilePath;
+      }
+
+      m_view.Document = m_document;
       m_window.ContentView = m_view;
       m_window.Center();
       m_window.MakeKeyAndOrderFront(this);
@@ -27,9 +38,9 @@ namespace Quip {
       dialog.CanChooseDirectories = false;
 
       if (dialog.RunModal() == 1) {
-        var lines = File.ReadAllLines(dialog.Url.Path);
-        m_view.Document = new Document(lines);
-        m_window.Title = dialog.Url.Path;
+        m_document = LoadFromFile(dialog.Url.Path);
+        m_view.Document = m_document;
+        m_window.Title = m_document.FilePath;
       }
     }
 
@@ -52,7 +63,16 @@ namespace Quip {
       m_window.Title = path;
     }
 
+    Document LoadFromFile (string path) {
+      var lines = File.ReadAllLines(path);
+      var document = new Document(lines);
+      document.FilePath = path;
+
+      return document;
+    }
+
     NSWindow m_window;
     MacDocumentView m_view;
+    Document m_document;
   }
 }
