@@ -25,14 +25,6 @@ namespace Quip {
     }
 
     /// <summary>
-    /// Initializes a new instance.
-    /// </summary>
-    /// <param name="lines">The initial document content.</param>
-    public Document (IEnumerable<string> lines) {
-      m_lines = new List<string>(lines);
-    }
-
-    /// <summary>
     /// Gets the file path of the document.
     /// </summary>
     /// <remarks>

@@ -64,8 +64,7 @@ namespace Quip {
     }
 
     Document LoadFromFile (string path) {
-      var lines = File.ReadAllLines(path);
-      var document = new Document(lines);
+      var document = new Document(File.ReadAllText(path));
       document.FilePath = path;
 
       return document;
