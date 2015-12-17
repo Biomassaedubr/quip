@@ -1,0 +1,382 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0350E5BE1C1756B900878E86 /* NavigationMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0350E5BC1C1756B900878E86 /* NavigationMode.cpp */; };
+		038F08741C00FD520058EAF9 /* EditContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08721C00FD520058EAF9 /* EditContext.cpp */; };
+		038F08781C00FD940058EAF9 /* Selection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08761C00FD940058EAF9 /* Selection.cpp */; };
+		038F087B1C00FD9F0058EAF9 /* SelectionSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08791C00FD9F0058EAF9 /* SelectionSet.cpp */; };
+		038F08811C00FDB80058EAF9 /* Location.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F087F1C00FDB80058EAF9 /* Location.cpp */; };
+		03B2C3BE1BF9196000AFE681 /* Mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03B2C3BC1BF9196000AFE681 /* Mode.cpp */; };
+		03CCFB041BF1A5980033929E /* ApplicationDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB001BF1A5980033929E /* ApplicationDelegate.mm */; };
+		03CCFB061BF1A5980033929E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB021BF1A5980033929E /* main.m */; };
+		03CCFB071BF1A5980033929E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03CCFB031BF1A5980033929E /* MainMenu.xib */; };
+		03CCFB0D1BF1A6480033929E /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB0B1BF1A6480033929E /* Document.cpp */; };
+		03CCFB101BF1AB550033929E /* QuipView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB0F1BF1AB550033929E /* QuipView.mm */; };
+		03F716B61C226015008B3AB0 /* InsertMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03F716B41C226015008B3AB0 /* InsertMode.cpp */; };
+		03F716B91C226A83008B3AB0 /* KeyStroke.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03F716B71C226A83008B3AB0 /* KeyStroke.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		030E08841C08D70800DC7CB0 /* Key.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Key.hpp; path = Source/Key.hpp; sourceTree = SOURCE_ROOT; };
+		0350E5BC1C1756B900878E86 /* NavigationMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NavigationMode.cpp; path = Source/NavigationMode.cpp; sourceTree = SOURCE_ROOT; };
+		0350E5BD1C1756B900878E86 /* NavigationMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NavigationMode.hpp; path = Source/NavigationMode.hpp; sourceTree = SOURCE_ROOT; };
+		038F08721C00FD520058EAF9 /* EditContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EditContext.cpp; path = Source/EditContext.cpp; sourceTree = SOURCE_ROOT; };
+		038F08731C00FD520058EAF9 /* EditContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EditContext.hpp; path = Source/EditContext.hpp; sourceTree = SOURCE_ROOT; };
+		038F08761C00FD940058EAF9 /* Selection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Selection.cpp; path = Source/Selection.cpp; sourceTree = SOURCE_ROOT; };
+		038F08771C00FD940058EAF9 /* Selection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Selection.hpp; path = Source/Selection.hpp; sourceTree = SOURCE_ROOT; };
+		038F08791C00FD9F0058EAF9 /* SelectionSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionSet.cpp; path = Source/SelectionSet.cpp; sourceTree = SOURCE_ROOT; };
+		038F087A1C00FD9F0058EAF9 /* SelectionSet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionSet.hpp; path = Source/SelectionSet.hpp; sourceTree = SOURCE_ROOT; };
+		038F087F1C00FDB80058EAF9 /* Location.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Location.cpp; path = Source/Location.cpp; sourceTree = SOURCE_ROOT; };
+		038F08801C00FDB80058EAF9 /* Location.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Location.hpp; path = Source/Location.hpp; sourceTree = SOURCE_ROOT; };
+		03B2C3BC1BF9196000AFE681 /* Mode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mode.cpp; path = Source/Mode.cpp; sourceTree = SOURCE_ROOT; };
+		03B2C3BD1BF9196000AFE681 /* Mode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Mode.hpp; path = Source/Mode.hpp; sourceTree = SOURCE_ROOT; };
+		03CCFAEB1BF1A1BE0033929E /* Quip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quip.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03CCFAFF1BF1A5980033929E /* ApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplicationDelegate.h; path = Source/ApplicationDelegate.h; sourceTree = SOURCE_ROOT; };
+		03CCFB001BF1A5980033929E /* ApplicationDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ApplicationDelegate.mm; path = Source/ApplicationDelegate.mm; sourceTree = SOURCE_ROOT; };
+		03CCFB011BF1A5980033929E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Info.plist; sourceTree = SOURCE_ROOT; };
+		03CCFB021BF1A5980033929E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Source/main.m; sourceTree = SOURCE_ROOT; };
+		03CCFB031BF1A5980033929E /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenu.xib; path = Source/MainMenu.xib; sourceTree = SOURCE_ROOT; };
+		03CCFB0B1BF1A6480033929E /* Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Document.cpp; path = Source/Document.cpp; sourceTree = SOURCE_ROOT; };
+		03CCFB0C1BF1A6480033929E /* Document.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Document.hpp; path = Source/Document.hpp; sourceTree = SOURCE_ROOT; };
+		03CCFB0E1BF1AB550033929E /* QuipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipView.h; path = Source/QuipView.h; sourceTree = SOURCE_ROOT; };
+		03CCFB0F1BF1AB550033929E /* QuipView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipView.mm; path = Source/QuipView.mm; sourceTree = SOURCE_ROOT; };
+		03F716B41C226015008B3AB0 /* InsertMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InsertMode.cpp; path = Source/InsertMode.cpp; sourceTree = SOURCE_ROOT; };
+		03F716B51C226015008B3AB0 /* InsertMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = InsertMode.hpp; path = Source/InsertMode.hpp; sourceTree = SOURCE_ROOT; };
+		03F716B71C226A83008B3AB0 /* KeyStroke.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KeyStroke.cpp; path = Source/KeyStroke.cpp; sourceTree = SOURCE_ROOT; };
+		03F716B81C226A83008B3AB0 /* KeyStroke.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = KeyStroke.hpp; path = Source/KeyStroke.hpp; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		03CCFAE81BF1A1BE0033929E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0350E5BB1C17569000878E86 /* Implementations */ = {
+			isa = PBXGroup;
+			children = (
+				03F716B51C226015008B3AB0 /* InsertMode.hpp */,
+				03F716B41C226015008B3AB0 /* InsertMode.cpp */,
+				0350E5BD1C1756B900878E86 /* NavigationMode.hpp */,
+				0350E5BC1C1756B900878E86 /* NavigationMode.cpp */,
+			);
+			name = Implementations;
+			sourceTree = "<group>";
+		};
+		038F08711C00FD410058EAF9 /* Context */ = {
+			isa = PBXGroup;
+			children = (
+				038F08731C00FD520058EAF9 /* EditContext.hpp */,
+				038F08721C00FD520058EAF9 /* EditContext.cpp */,
+			);
+			name = Context;
+			sourceTree = "<group>";
+		};
+		038F08751C00FD820058EAF9 /* Selections */ = {
+			isa = PBXGroup;
+			children = (
+				038F08771C00FD940058EAF9 /* Selection.hpp */,
+				038F08761C00FD940058EAF9 /* Selection.cpp */,
+				038F087A1C00FD9F0058EAF9 /* SelectionSet.hpp */,
+				038F08791C00FD9F0058EAF9 /* SelectionSet.cpp */,
+			);
+			name = Selections;
+			sourceTree = "<group>";
+		};
+		03B2C3BB1BF9194B00AFE681 /* Mode */ = {
+			isa = PBXGroup;
+			children = (
+				030E08841C08D70800DC7CB0 /* Key.hpp */,
+				03F716B81C226A83008B3AB0 /* KeyStroke.hpp */,
+				03F716B71C226A83008B3AB0 /* KeyStroke.cpp */,
+				03B2C3BD1BF9196000AFE681 /* Mode.hpp */,
+				03B2C3BC1BF9196000AFE681 /* Mode.cpp */,
+				0350E5BB1C17569000878E86 /* Implementations */,
+			);
+			name = Mode;
+			sourceTree = "<group>";
+		};
+		03CCFAE21BF1A1BE0033929E = {
+			isa = PBXGroup;
+			children = (
+				03CCFAED1BF1A1BE0033929E /* Quip */,
+				03CCFAEC1BF1A1BE0033929E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		03CCFAEC1BF1A1BE0033929E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				03CCFAEB1BF1A1BE0033929E /* Quip.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		03CCFAED1BF1A1BE0033929E /* Quip */ = {
+			isa = PBXGroup;
+			children = (
+				03CCFB091BF1A62A0033929E /* Core */,
+				03CCFB081BF1A6210033929E /* Application */,
+			);
+			path = Quip;
+			sourceTree = "<group>";
+		};
+		03CCFB081BF1A6210033929E /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				03CCFB021BF1A5980033929E /* main.m */,
+				03CCFAFF1BF1A5980033929E /* ApplicationDelegate.h */,
+				03CCFB001BF1A5980033929E /* ApplicationDelegate.mm */,
+				03CCFB0E1BF1AB550033929E /* QuipView.h */,
+				03CCFB0F1BF1AB550033929E /* QuipView.mm */,
+				03CCFB011BF1A5980033929E /* Info.plist */,
+				03CCFB031BF1A5980033929E /* MainMenu.xib */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		03CCFB091BF1A62A0033929E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				038F08751C00FD820058EAF9 /* Selections */,
+				038F08711C00FD410058EAF9 /* Context */,
+				03CCFB0A1BF1A6380033929E /* Documents */,
+				03B2C3BB1BF9194B00AFE681 /* Mode */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		03CCFB0A1BF1A6380033929E /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				03CCFB0C1BF1A6480033929E /* Document.hpp */,
+				03CCFB0B1BF1A6480033929E /* Document.cpp */,
+				038F08801C00FDB80058EAF9 /* Location.hpp */,
+				038F087F1C00FDB80058EAF9 /* Location.cpp */,
+			);
+			name = Documents;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		03CCFAEA1BF1A1BE0033929E /* Quip */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03CCFAFC1BF1A1BE0033929E /* Build configuration list for PBXNativeTarget "Quip" */;
+			buildPhases = (
+				03CCFAE71BF1A1BE0033929E /* Sources */,
+				03CCFAE81BF1A1BE0033929E /* Frameworks */,
+				03CCFAE91BF1A1BE0033929E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Quip;
+			productName = Quip;
+			productReference = 03CCFAEB1BF1A1BE0033929E /* Quip.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		03CCFAE31BF1A1BE0033929E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "Josh Petrie";
+				TargetAttributes = {
+					03CCFAEA1BF1A1BE0033929E = {
+						CreatedOnToolsVersion = 7.1;
+					};
+				};
+			};
+			buildConfigurationList = 03CCFAE61BF1A1BE0033929E /* Build configuration list for PBXProject "Quip" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 03CCFAE21BF1A1BE0033929E;
+			productRefGroup = 03CCFAEC1BF1A1BE0033929E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				03CCFAEA1BF1A1BE0033929E /* Quip */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		03CCFAE91BF1A1BE0033929E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03CCFB071BF1A5980033929E /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		03CCFAE71BF1A1BE0033929E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03CCFB101BF1AB550033929E /* QuipView.mm in Sources */,
+				03CCFB061BF1A5980033929E /* main.m in Sources */,
+				0350E5BE1C1756B900878E86 /* NavigationMode.cpp in Sources */,
+				03F716B91C226A83008B3AB0 /* KeyStroke.cpp in Sources */,
+				03CCFB041BF1A5980033929E /* ApplicationDelegate.mm in Sources */,
+				038F087B1C00FD9F0058EAF9 /* SelectionSet.cpp in Sources */,
+				038F08741C00FD520058EAF9 /* EditContext.cpp in Sources */,
+				038F08781C00FD940058EAF9 /* Selection.cpp in Sources */,
+				03CCFB0D1BF1A6480033929E /* Document.cpp in Sources */,
+				038F08811C00FDB80058EAF9 /* Location.cpp in Sources */,
+				03B2C3BE1BF9196000AFE681 /* Mode.cpp in Sources */,
+				03F716B61C226015008B3AB0 /* InsertMode.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		03CCFAFA1BF1A1BE0033929E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		03CCFAFB1BF1A1BE0033929E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		03CCFAFD1BF1A1BE0033929E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.joshpetrie.Quip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		03CCFAFE1BF1A1BE0033929E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.joshpetrie.Quip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		03CCFAE61BF1A1BE0033929E /* Build configuration list for PBXProject "Quip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03CCFAFA1BF1A1BE0033929E /* Debug */,
+				03CCFAFB1BF1A1BE0033929E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03CCFAFC1BF1A1BE0033929E /* Build configuration list for PBXNativeTarget "Quip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03CCFAFD1BF1A1BE0033929E /* Debug */,
+				03CCFAFE1BF1A1BE0033929E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 03CCFAE31BF1A1BE0033929E /* Project object */;
+}

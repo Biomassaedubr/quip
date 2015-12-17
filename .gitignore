@@ -1,14 +1,2 @@
-# Products and Intermediates
-Source/Core/bin/*
-Source/Core/obj/*
-Source/Mac/bin/*
-Source/Mac/obj/*
-Source/Windows/bin/*
-Source/Windows/obj/*
-
-# Xamarin Solution Settings
-*.userprefs
-
-# Visual Studio Solution Settings
-*.suo
-
+# Xcode User Settings
+xcuserdata
