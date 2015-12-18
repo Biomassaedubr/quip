@@ -9,6 +9,10 @@ namespace quip {
     addMapping(Key::Escape, &InsertMode::commitInsert);
   }
   
+  std::string InsertMode::status () const {
+    return "Insert";
+  }
+  
   bool InsertMode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
     if (keyStroke.text().size() > 0) {
       context.document().insert(context.selections(), keyStroke.text());

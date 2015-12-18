@@ -13,6 +13,10 @@ namespace quip {
     addMapping(Key::I, &NavigationMode::enterInsertMode);
   }
   
+  std::string NavigationMode::status () const {
+    return "Navigate";
+  }
+  
   void NavigationMode::selectBeforePrimaryOrigin (EditContext & context) {
     Location location = context.selections().primary().extent();
     Location target(location.column() - 1, location.row());

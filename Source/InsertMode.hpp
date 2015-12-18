@@ -9,6 +9,8 @@ namespace quip {
   struct InsertMode : Mode {
     InsertMode ();
     
+    std::string status () const override;
+    
   protected:
     bool onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) override;
     

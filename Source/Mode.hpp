@@ -14,6 +14,8 @@ namespace quip {
     
     virtual ~Mode ();
     
+    virtual std::string status () const;
+    
     bool processKey (const KeyStroke & keyStroke, EditContext & context);
     
   protected:

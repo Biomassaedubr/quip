@@ -6,6 +6,10 @@ namespace quip {
   Mode::~Mode () {
   }
   
+  std::string Mode::status () const {
+    return "";
+  }
+  
   bool Mode::processKey (const KeyStroke & keyStroke, EditContext & context) {
     auto cursor = m_mappings.find(keyStroke.key());
     if (cursor != std::end(m_mappings)) {

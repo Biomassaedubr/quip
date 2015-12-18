@@ -9,6 +9,8 @@
 @interface QuipView () {
 @private
   CTFontRef m_font;
+  CFDictionaryRef m_fontAttributes;
+  
   CGSize m_cellSize;
   
   std::shared_ptr<quip::EditContext> m_context;
@@ -16,6 +18,9 @@
 @end
 
 static NSString * gSizeQueryString = @"m";
+
+static CGFloat gStatusLineBottomPadding = 4.0;
+static CGFloat gStatusLineLeftPadding = 2.0;
 
 @implementation QuipView
 
@@ -27,6 +32,12 @@ static NSString * gSizeQueryString = @"m";
     NSDictionary * attributes = @{NSFontAttributeName: [NSFont fontWithName:@"Menlo" size:13.0f]};
     m_cellSize = [gSizeQueryString sizeWithAttributes:attributes];
     
+    CFStringRef keys[] = { kCTFontAttributeName };
+    CFTypeRef values[] = { m_font };
+    const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
+    const void ** opaqueValues = reinterpret_cast<const void **>(&values);
+    m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    
     m_context = std::make_shared<quip::EditContext>(document);
   }
   
@@ -34,6 +45,7 @@ static NSString * gSizeQueryString = @"m";
 }
 
 - (void)dealloc {
+  CFRelease(m_fontAttributes);
   CFRelease(m_font);
 }
 
@@ -46,6 +58,19 @@ static NSString * gSizeQueryString = @"m";
   if (m_context->processKey(keyStroke)) {
     [self setNeedsDisplay:YES];
   }
+}
+
+- (void)drawStatusLine:(const std::string &)status context:(CGContextRef)context {
+  CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, status.c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
+  CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, text, m_fontAttributes);
+  CTLineRef line = CTLineCreateWithAttributedString(attributed);
+  
+  CGContextSetTextPosition(context, gStatusLineLeftPadding, gStatusLineBottomPadding);
+  CTLineDraw(line, context);
+  
+  CFRelease(line);
+  CFRelease(attributed);
+  CFRelease(text);
 }
 
 - (void)drawSelection:(quip::Selection &)selection context:(CGContextRef)context {
@@ -72,17 +97,11 @@ static NSString * gSizeQueryString = @"m";
 
   quip::Document & document = m_context->document();
   CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
-  
-  CFStringRef keys[] = { kCTFontAttributeName };
-  CFTypeRef values[] = { m_font };
-  const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
-  const void ** opaqueValues = reinterpret_cast<const void **>(&values);
-  CFDictionaryRef attributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  
+
   CGFloat y = self.frame.size.height - m_cellSize.height;
   for (std::size_t row = 0; row < document.rows(); ++row) {
     CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, document.row(row).c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
-    CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, text, attributes);
+    CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, text, m_fontAttributes);
     CTLineRef line = CTLineCreateWithAttributedString(attributed);
     
     CGContextSetTextPosition(context, 0.0f, y);
@@ -99,7 +118,7 @@ static NSString * gSizeQueryString = @"m";
     CFRelease(text);
   }
   
-  CFRelease(attributes);
+  [self drawStatusLine:m_context->mode().status() context:context];
 }
 
 

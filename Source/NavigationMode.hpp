@@ -8,6 +8,8 @@ namespace quip {
   struct NavigationMode : Mode {
     NavigationMode ();
     
+    std::string status () const override;
+
   private:
     void selectBeforePrimaryOrigin (EditContext & context);
     void selectBelowPrimaryExtent (EditContext & context);
