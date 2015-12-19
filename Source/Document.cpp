@@ -3,7 +3,9 @@
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
 
+#include <iostream>
 #include <regex>
+#include <string>
 
 namespace {
   static std::regex gNewlinePattern("\\n");
@@ -47,5 +49,25 @@ namespace quip {
       selection.setOrigin(selection.origin().adjustBy(columnDelta, 0));
       selection.setExtent(selection.origin());
     }
+  }
+  
+  SelectionSet Document::matches (const std::string & pattern) const {
+    std::vector<Selection> results;
+    std::regex regex(pattern);
+    std::smatch match;
+    
+    for (std::size_t row = 0; row < m_rows.size(); ++row) {
+      const std::string & text = m_rows[row];
+      std::regex_search(text, match, regex);
+      
+      for (std::size_t matchIndex = 0; matchIndex < match.size(); ++matchIndex) {
+        std::size_t origin = match.position(matchIndex);
+        std::size_t extent = origin + match[matchIndex].length() - 1;
+        
+        results.emplace_back(Location(origin, row), Location(extent, row));
+      }
+    }
+    
+    return SelectionSet(results);
   }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0350E5BE1C1756B900878E86 /* NavigationMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0350E5BC1C1756B900878E86 /* NavigationMode.cpp */; };
+		0372F4DB1C24FD250048AE31 /* SearchMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0372F4D91C24FD250048AE31 /* SearchMode.cpp */; };
 		038F08741C00FD520058EAF9 /* EditContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08721C00FD520058EAF9 /* EditContext.cpp */; };
 		038F08781C00FD940058EAF9 /* Selection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08761C00FD940058EAF9 /* Selection.cpp */; };
 		038F087B1C00FD9F0058EAF9 /* SelectionSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08791C00FD9F0058EAF9 /* SelectionSet.cpp */; };
@@ -26,6 +27,8 @@
 		030E08841C08D70800DC7CB0 /* Key.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Key.hpp; path = Source/Key.hpp; sourceTree = SOURCE_ROOT; };
 		0350E5BC1C1756B900878E86 /* NavigationMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NavigationMode.cpp; path = Source/NavigationMode.cpp; sourceTree = SOURCE_ROOT; };
 		0350E5BD1C1756B900878E86 /* NavigationMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NavigationMode.hpp; path = Source/NavigationMode.hpp; sourceTree = SOURCE_ROOT; };
+		0372F4D91C24FD250048AE31 /* SearchMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SearchMode.cpp; path = Source/SearchMode.cpp; sourceTree = SOURCE_ROOT; };
+		0372F4DA1C24FD250048AE31 /* SearchMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SearchMode.hpp; path = Source/SearchMode.hpp; sourceTree = SOURCE_ROOT; };
 		038F08721C00FD520058EAF9 /* EditContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EditContext.cpp; path = Source/EditContext.cpp; sourceTree = SOURCE_ROOT; };
 		038F08731C00FD520058EAF9 /* EditContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EditContext.hpp; path = Source/EditContext.hpp; sourceTree = SOURCE_ROOT; };
 		038F08761C00FD940058EAF9 /* Selection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Selection.cpp; path = Source/Selection.cpp; sourceTree = SOURCE_ROOT; };
@@ -70,6 +73,8 @@
 				03F716B41C226015008B3AB0 /* InsertMode.cpp */,
 				0350E5BD1C1756B900878E86 /* NavigationMode.hpp */,
 				0350E5BC1C1756B900878E86 /* NavigationMode.cpp */,
+				0372F4DA1C24FD250048AE31 /* SearchMode.hpp */,
+				0372F4D91C24FD250048AE31 /* SearchMode.cpp */,
 			);
 			name = Implementations;
 			sourceTree = "<group>";
@@ -241,6 +246,7 @@
 				0350E5BE1C1756B900878E86 /* NavigationMode.cpp in Sources */,
 				03F716B91C226A83008B3AB0 /* KeyStroke.cpp in Sources */,
 				03CCFB041BF1A5980033929E /* ApplicationDelegate.mm in Sources */,
+				0372F4DB1C24FD250048AE31 /* SearchMode.cpp in Sources */,
 				038F087B1C00FD9F0058EAF9 /* SelectionSet.cpp in Sources */,
 				038F08741C00FD520058EAF9 /* EditContext.cpp in Sources */,
 				038F08781C00FD940058EAF9 /* Selection.cpp in Sources */,

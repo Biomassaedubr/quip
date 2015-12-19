@@ -19,6 +19,8 @@ namespace quip {
     
     void insert (SelectionSet & selections, const std::string & text);
     
+    SelectionSet matches (const std::string & pattern) const;
+    
   private:
     std::vector<std::string> m_rows;
   };

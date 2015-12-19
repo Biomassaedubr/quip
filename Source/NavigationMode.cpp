@@ -11,6 +11,7 @@ namespace quip {
     addMapping(Key::K, &NavigationMode::selectAbovePrimaryOrigin);
     addMapping(Key::L, &NavigationMode::selectAfterPrimaryExtent);
     addMapping(Key::I, &NavigationMode::enterInsertMode);
+    addMapping(Key::S, &NavigationMode::enterSearchMode);
   }
   
   std::string NavigationMode::status () const {
@@ -51,5 +52,9 @@ namespace quip {
   
   void NavigationMode::enterInsertMode (EditContext & context) {
     context.enterMode("InsertMode");
+  }
+  
+  void NavigationMode::enterSearchMode (EditContext & context) {
+    context.enterMode("SearchMode");
   }
 }
