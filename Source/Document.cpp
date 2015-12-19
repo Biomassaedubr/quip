@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <regex>
+#include <sstream>
 #include <string>
 
 namespace {
@@ -17,6 +18,23 @@ namespace quip {
   
   Document::Document (const std::string & content)
   : m_rows(std::sregex_token_iterator(content.begin(), content.end(), gNewlinePattern, -1), std::sregex_token_iterator()) {
+  }
+  
+  std::string Document::contents () const {
+    std::ostringstream stream;
+    for (const std::string & text : m_rows) {
+      stream << text << "\n";
+    }
+    
+    return stream.str();
+  }
+  
+  const std::string & Document::path () const {
+    return m_path;
+  }
+  
+  void Document::setPath (const std::string & path) {
+    m_path = path;
   }
   
   const std::string & Document::row (std::size_t index) const {

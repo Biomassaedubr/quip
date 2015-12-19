@@ -60,6 +60,9 @@ static CGFloat gStatusLineLeftPadding = 2.0;
   }
 }
 
+- (quip::Document &)document {
+  return m_context->document();
+}
 - (void)setDocument:(std::shared_ptr<quip::Document>)document {
   m_context = std::make_shared<quip::EditContext>(document);
   [self setNeedsDisplay:YES];

@@ -8,6 +8,7 @@
 
 - (instancetype)initWithFrame:(NSRect)frame document:(std::shared_ptr<quip::Document>)document;
 
+- (quip::Document &)document;
 - (void)setDocument:(std::shared_ptr<quip::Document>)document;
 
 @end

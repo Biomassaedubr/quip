@@ -41,6 +41,19 @@
   }
 }
 
+- (void)saveDocumentTo:(NSURL *)url {
+  NSString * contents = [NSString stringWithUTF8String:[m_view document].contents().c_str()];
+  NSError * error;
+  [contents writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:&error];
+  
+  if (error != nil) {
+    NSLog(@"Error saving file (%@): %@", url, [error localizedFailureReason]);
+  } else {
+    [m_window setTitle:[url path]];
+    [m_view document].setPath([[url path] cStringUsingEncoding:NSUTF8StringEncoding]);
+  }
+}
+
 - (IBAction)openDocument:(id)sender {
   NSOpenPanel * panel = [NSOpenPanel openPanel];
   [panel setCanChooseFiles:YES];
@@ -48,6 +61,15 @@
   
   if([panel runModal] == NSFileHandlingPanelOKButton) {
     [self loadDocumentFrom:[panel URL]];
+  }
+}
+
+- (IBAction)saveDocument:(id)sender {
+  if ([m_view document].path() == "") {
+    NSSavePanel * panel = [NSSavePanel savePanel];
+    if ([panel runModal] == NSFileHandlingPanelOKButton) {
+      [self saveDocumentTo:[panel URL]];
+    }
   }
 }
 
