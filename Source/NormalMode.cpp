@@ -1,4 +1,4 @@
-#include "NavigationMode.hpp"
+#include "NormalMode.hpp"
 
 #include "Document.hpp"
 #include "EditContext.hpp"
@@ -6,23 +6,23 @@
 #include "SelectionSet.hpp"
 
 namespace quip {
-  NavigationMode::NavigationMode () {
-    addMapping(Key::H, &NavigationMode::selectBeforePrimaryOrigin);
-    addMapping(Key::J, &NavigationMode::selectBelowPrimaryExtent);
-    addMapping(Key::K, &NavigationMode::selectAbovePrimaryOrigin);
-    addMapping(Key::L, &NavigationMode::selectAfterPrimaryExtent);
+  NormalMode::NormalMode () {
+    addMapping(Key::H, &NormalMode::selectBeforePrimaryOrigin);
+    addMapping(Key::J, &NormalMode::selectBelowPrimaryExtent);
+    addMapping(Key::K, &NormalMode::selectAbovePrimaryOrigin);
+    addMapping(Key::L, &NormalMode::selectAfterPrimaryExtent);
     
-    addMapping(Key::I, &NavigationMode::enterInsertMode);
-    addMapping(Key::S, &NavigationMode::enterSearchMode);
+    addMapping(Key::I, &NormalMode::enterInsertMode);
+    addMapping(Key::S, &NormalMode::enterSearchMode);
 
-    addMapping(Key::X, &NavigationMode::deleteSelections);
+    addMapping(Key::X, &NormalMode::deleteSelections);
   }
   
-  std::string NavigationMode::status () const {
-    return "Navigate";
+  std::string NormalMode::status () const {
+    return "Normal";
   }
   
-  void NavigationMode::selectBeforePrimaryOrigin (EditContext & context) {
+  void NormalMode::selectBeforePrimaryOrigin (EditContext & context) {
     Location location = context.selections().primary().extent();
     Location target(location.column() - 1, location.row());
     Selection result(target, target);
@@ -30,7 +30,7 @@ namespace quip {
     context.selections().replace(result);
   }
   
-  void NavigationMode::selectBelowPrimaryExtent (EditContext & context) {
+  void NormalMode::selectBelowPrimaryExtent (EditContext & context) {
     Location location = context.selections().primary().extent();
     Location target(location.column(), location.row() + 1);
     Selection result(target, target);
@@ -38,7 +38,7 @@ namespace quip {
     context.selections().replace(result);
   }
 
-  void NavigationMode::selectAfterPrimaryExtent (EditContext & context) {
+  void NormalMode::selectAfterPrimaryExtent (EditContext & context) {
     Location location = context.selections().primary().extent();
     Location target(location.column() + 1, location.row());
     Selection result(target, target);
@@ -46,7 +46,7 @@ namespace quip {
     context.selections().replace(result);
   }
   
-  void NavigationMode::selectAbovePrimaryOrigin (EditContext & context) {
+  void NormalMode::selectAbovePrimaryOrigin (EditContext & context) {
     Location location = context.selections().primary().extent();
     Location target(location.column(), location.row() - 1);
     Selection result(target, target);
@@ -54,15 +54,15 @@ namespace quip {
     context.selections().replace(result);
   }
   
-  void NavigationMode::enterInsertMode (EditContext & context) {
+  void NormalMode::enterInsertMode (EditContext & context) {
     context.enterMode("InsertMode");
   }
   
-  void NavigationMode::enterSearchMode (EditContext & context) {
+  void NormalMode::enterSearchMode (EditContext & context) {
     context.enterMode("SearchMode");
   }
   
-  void NavigationMode::deleteSelections (EditContext & context) {
+  void NormalMode::deleteSelections (EditContext & context) {
     context.document().erase(context.selections());
   }
 }

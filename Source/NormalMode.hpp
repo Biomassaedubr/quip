@@ -5,8 +5,8 @@
 namespace quip {
   struct EditContext;
   
-  struct NavigationMode : Mode {
-    NavigationMode ();
+  struct NormalMode : Mode {
+    NormalMode ();
     
     std::string status () const override;
 
