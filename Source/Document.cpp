@@ -54,17 +54,21 @@ namespace quip {
   SelectionSet Document::matches (const std::string & pattern) const {
     std::vector<Selection> results;
     std::regex regex(pattern);
-    std::smatch match;
     
     for (std::size_t row = 0; row < m_rows.size(); ++row) {
       const std::string & text = m_rows[row];
-      std::regex_search(text, match, regex);
+      std::sregex_iterator cursor(text.begin(), text.end(), regex);
+      std::sregex_iterator end;
       
-      for (std::size_t matchIndex = 0; matchIndex < match.size(); ++matchIndex) {
-        std::size_t origin = match.position(matchIndex);
-        std::size_t extent = origin + match[matchIndex].length() - 1;
+      while (cursor != end) {
+        std::smatch match = *cursor;
+        for (std::size_t matchIndex = 0; matchIndex < match.size(); ++matchIndex) {
+          std::size_t origin = match.position(matchIndex);
+          std::size_t extent = origin + match[matchIndex].length() - 1;
+          results.emplace_back(Location(origin, row), Location(extent, row));
+        }
         
-        results.emplace_back(Location(origin, row), Location(extent, row));
+        ++cursor;
       }
     }
     
