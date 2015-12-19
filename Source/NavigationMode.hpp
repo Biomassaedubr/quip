@@ -18,5 +18,7 @@ namespace quip {
     
     void enterInsertMode (EditContext & context);
     void enterSearchMode (EditContext & context);
+    
+    void deleteSelections (EditContext & context);
   };
 }

@@ -1,5 +1,6 @@
 #include "NavigationMode.hpp"
 
+#include "Document.hpp"
 #include "EditContext.hpp"
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
@@ -10,8 +11,11 @@ namespace quip {
     addMapping(Key::J, &NavigationMode::selectBelowPrimaryExtent);
     addMapping(Key::K, &NavigationMode::selectAbovePrimaryOrigin);
     addMapping(Key::L, &NavigationMode::selectAfterPrimaryExtent);
+    
     addMapping(Key::I, &NavigationMode::enterInsertMode);
     addMapping(Key::S, &NavigationMode::enterSearchMode);
+
+    addMapping(Key::X, &NavigationMode::deleteSelections);
   }
   
   std::string NavigationMode::status () const {
@@ -56,5 +60,9 @@ namespace quip {
   
   void NavigationMode::enterSearchMode (EditContext & context) {
     context.enterMode("SearchMode");
+  }
+  
+  void NavigationMode::deleteSelections (EditContext & context) {
+    context.document().erase(context.selections());
   }
 }

@@ -46,8 +46,8 @@ namespace quip {
   }
   
   void Document::insert (SelectionSet & selections, const std::string & text) {
-    int rowDelta = 0;
-    int columnDelta = 0;
+    std::int64_t rowDelta = 0;
+    std::int64_t columnDelta = 0;
     std::size_t priorRow = rows();
     
     for (Selection & selection : selections) {
@@ -66,6 +66,41 @@ namespace quip {
       
       selection.setOrigin(selection.origin().adjustBy(columnDelta, 0));
       selection.setExtent(selection.origin());
+    }
+  }
+  
+  void Document::erase (SelectionSet & selections) {
+    std::int64_t rowDelta = 0;
+    std::int64_t columnDelta = 0;
+    std::size_t priorRow = rows();
+    
+    for (Selection & selection : selections) {
+      // Reset column delta when changing rows.
+      if (selection.lowerBound().row() != priorRow) {
+        priorRow = selection.lowerBound().row();
+        columnDelta = 0;
+      }
+      
+      Location lower = selection.lowerBound().adjustBy(columnDelta, rowDelta);
+      Location upper = selection.upperBound().adjustBy(columnDelta, rowDelta);
+      std::string prefix = m_rows[lower.row()].substr(0, lower.column());
+      std::string suffix = m_rows[upper.row()].substr(upper.column() + 1);
+      m_rows[lower.row()] = prefix + suffix;
+
+      std::uint64_t removed = selection.height() - 1;
+      selection.setOrigin(selection.origin().adjustBy(columnDelta, 0));
+      selection.setExtent(selection.origin());
+      
+      if (selection.height() == 1) {
+        columnDelta -= (upper.column() - lower.column() + 1);
+      } else {
+        columnDelta = upper.column();
+        while (removed > 0) {
+          m_rows.erase(m_rows.begin() + (lower.row() + 1));
+          --rowDelta;
+          --removed;
+        }
+      }
     }
   }
   

@@ -21,6 +21,7 @@ namespace quip {
     const std::string & row (std::size_t index) const;
     
     void insert (SelectionSet & selections, const std::string & text);
+    void erase (SelectionSet & selections);
     
     SelectionSet matches (const std::string & pattern) const;
     
