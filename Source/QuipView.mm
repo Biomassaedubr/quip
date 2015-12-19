@@ -38,7 +38,7 @@ static CGFloat gStatusLineLeftPadding = 2.0;
     const void ** opaqueValues = reinterpret_cast<const void **>(&values);
     m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     
-    m_context = std::make_shared<quip::EditContext>(document);
+    [self setDocument:document];
   }
   
   return self;
@@ -58,6 +58,11 @@ static CGFloat gStatusLineLeftPadding = 2.0;
   if (m_context->processKey(keyStroke)) {
     [self setNeedsDisplay:YES];
   }
+}
+
+- (void)setDocument:(std::shared_ptr<quip::Document>)document {
+  m_context = std::make_shared<quip::EditContext>(document);
+  [self setNeedsDisplay:YES];
 }
 
 - (void)drawStatusLine:(const std::string &)status context:(CGContextRef)context {
