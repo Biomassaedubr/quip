@@ -16,7 +16,9 @@ namespace quip {
     
     const Location & lowerBound () const;
     const Location & upperBound () const;
-        
+    
+    std::uint64_t height () const;
+    
   private:
     Location m_origin;
     Location m_extent;

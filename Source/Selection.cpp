@@ -31,4 +31,8 @@ namespace quip {
   const Location & Selection::upperBound () const {
     return std::max(origin(), extent());
   }
+  
+  std::uint64_t Selection::height () const {
+    return upperBound().row() - lowerBound().row() + 1;
+  }
 }
