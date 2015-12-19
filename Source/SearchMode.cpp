@@ -15,16 +15,24 @@ namespace quip {
   }
   
   bool SearchMode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
-    if (keyStroke.text().size() > 0) {
-      m_search += keyStroke.text();
-      
-      SelectionSet matches = context.document().matches(m_search);
-      context.selections().replace(matches);
-      
-      return true;
+    if (keyStroke.text().size() == 0 && keyStroke.key() != Key::Delete) {
+      return false;
     }
     
-    return false;
+    if (keyStroke.key() == Key::Delete) {
+      if (m_search.size() > 0) {
+        m_search.pop_back();
+      }
+    } else {
+      m_search += keyStroke.text();
+    }
+    
+    if (m_search.size() > 0) {
+      SelectionSet matches = context.document().matches(m_search);
+      context.selections().replace(matches);
+    }
+    
+    return true;
   }
   
   void SearchMode::commitSearch (EditContext & context) {
