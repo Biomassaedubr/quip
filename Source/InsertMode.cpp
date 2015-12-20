@@ -14,7 +14,10 @@ namespace quip {
   }
   
   bool InsertMode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
-    if (keyStroke.text().size() > 0) {
+    if (keyStroke.key() == Key::Delete) {
+      context.document().eraseBefore(context.selections());
+      return true;
+    } else if (keyStroke.text().size() > 0) {
       context.document().insert(context.selections(), keyStroke.text());
       return true;
     }

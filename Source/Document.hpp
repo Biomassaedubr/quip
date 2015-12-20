@@ -22,6 +22,7 @@ namespace quip {
     
     void insert (SelectionSet & selections, const std::string & text);
     void erase (SelectionSet & selections);
+    void eraseBefore (SelectionSet & selections);
     
     SelectionSet matches (const std::string & pattern) const;
     
