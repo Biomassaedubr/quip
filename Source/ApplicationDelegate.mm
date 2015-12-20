@@ -76,4 +76,11 @@
   }
 }
 
+- (IBAction)saveDocumentAs:(id)sender {
+  NSSavePanel * panel = [NSSavePanel savePanel];
+  if ([panel runModal] == NSFileHandlingPanelOKButton) {
+    [self saveDocumentTo:[panel URL]];
+  }
+}
+
 @end
