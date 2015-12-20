@@ -70,6 +70,9 @@
     if ([panel runModal] == NSFileHandlingPanelOKButton) {
       [self saveDocumentTo:[panel URL]];
     }
+  } else {
+    NSString * path = [NSString stringWithCString:[m_view document].path().c_str() encoding:NSUTF8StringEncoding];
+    [self saveDocumentTo:[NSURL fileURLWithPath:path]];
   }
 }
 
