@@ -6,8 +6,8 @@ namespace quip {
   struct EditContext;
   struct KeyStroke;
   
-  struct InsertMode : Mode {
-    InsertMode ();
+  struct EditMode : Mode {
+    EditMode ();
     
     std::string status () const override;
     

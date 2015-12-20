@@ -12,7 +12,7 @@ namespace quip {
     addMapping(Key::K, &NormalMode::selectAbovePrimaryOrigin);
     addMapping(Key::L, &NormalMode::selectAfterPrimaryExtent);
     
-    addMapping(Key::I, &NormalMode::enterInsertMode);
+    addMapping(Key::I, &NormalMode::enterEditMode);
     addMapping(Key::S, &NormalMode::enterSearchMode);
 
     addMapping(Key::X, &NormalMode::deleteSelections);
@@ -54,8 +54,8 @@ namespace quip {
     context.selections().replace(result);
   }
   
-  void NormalMode::enterInsertMode (EditContext & context) {
-    context.enterMode("InsertMode");
+  void NormalMode::enterEditMode (EditContext & context) {
+    context.enterMode("EditMode");
   }
   
   void NormalMode::enterSearchMode (EditContext & context) {

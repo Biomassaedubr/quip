@@ -1,19 +1,19 @@
-#include "InsertMode.hpp"
+#include "EditMode.hpp"
 
 #include "Document.hpp"
 #include "EditContext.hpp"
 #include "KeyStroke.hpp"
 
 namespace quip {
-  InsertMode::InsertMode () {
-    addMapping(Key::Escape, &InsertMode::commitInsert);
+  EditMode::EditMode () {
+    addMapping(Key::Escape, &EditMode::commitInsert);
   }
   
-  std::string InsertMode::status () const {
-    return "Insert";
+  std::string EditMode::status () const {
+    return "Edit";
   }
   
-  bool InsertMode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
+  bool EditMode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
     if (keyStroke.key() == Key::Delete) {
       context.document().eraseBefore(context.selections());
       return true;
@@ -25,7 +25,7 @@ namespace quip {
     return false;
   }
   
-  void InsertMode::commitInsert (EditContext & context) {
+  void EditMode::commitInsert (EditContext & context) {
     context.leaveMode();
   }
 }

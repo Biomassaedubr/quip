@@ -1,7 +1,7 @@
 #include "EditContext.hpp"
 
 #include "Document.hpp"
-#include "InsertMode.hpp"
+#include "EditMode.hpp"
 #include "Location.hpp"
 #include "Mode.hpp"
 #include "NormalMode.hpp"
@@ -20,7 +20,7 @@ namespace quip {
   , m_selections(Selection(Location(0, 0), Location(0, 0))) {
     
     // Populate with standard modes.
-    m_modes.insert(std::make_pair("InsertMode", std::make_shared<InsertMode>()));
+    m_modes.insert(std::make_pair("EditMode", std::make_shared<EditMode>()));
     m_modes.insert(std::make_pair("NormalMode", std::make_shared<NormalMode>()));
     m_modes.insert(std::make_pair("SearchMode", std::make_shared<SearchMode>()));
     

@@ -19,7 +19,7 @@
 		03CCFB071BF1A5980033929E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03CCFB031BF1A5980033929E /* MainMenu.xib */; };
 		03CCFB0D1BF1A6480033929E /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB0B1BF1A6480033929E /* Document.cpp */; };
 		03CCFB101BF1AB550033929E /* QuipView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB0F1BF1AB550033929E /* QuipView.mm */; };
-		03F716B61C226015008B3AB0 /* InsertMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03F716B41C226015008B3AB0 /* InsertMode.cpp */; };
+		03F716B61C226015008B3AB0 /* EditMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03F716B41C226015008B3AB0 /* EditMode.cpp */; };
 		03F716B91C226A83008B3AB0 /* KeyStroke.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03F716B71C226A83008B3AB0 /* KeyStroke.cpp */; };
 /* End PBXBuildFile section */
 
@@ -49,8 +49,8 @@
 		03CCFB0C1BF1A6480033929E /* Document.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Document.hpp; path = Source/Document.hpp; sourceTree = SOURCE_ROOT; };
 		03CCFB0E1BF1AB550033929E /* QuipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipView.h; path = Source/QuipView.h; sourceTree = SOURCE_ROOT; };
 		03CCFB0F1BF1AB550033929E /* QuipView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipView.mm; path = Source/QuipView.mm; sourceTree = SOURCE_ROOT; };
-		03F716B41C226015008B3AB0 /* InsertMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InsertMode.cpp; path = Source/InsertMode.cpp; sourceTree = SOURCE_ROOT; };
-		03F716B51C226015008B3AB0 /* InsertMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = InsertMode.hpp; path = Source/InsertMode.hpp; sourceTree = SOURCE_ROOT; };
+		03F716B41C226015008B3AB0 /* EditMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EditMode.cpp; path = Source/EditMode.cpp; sourceTree = SOURCE_ROOT; };
+		03F716B51C226015008B3AB0 /* EditMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EditMode.hpp; path = Source/EditMode.hpp; sourceTree = SOURCE_ROOT; };
 		03F716B71C226A83008B3AB0 /* KeyStroke.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KeyStroke.cpp; path = Source/KeyStroke.cpp; sourceTree = SOURCE_ROOT; };
 		03F716B81C226A83008B3AB0 /* KeyStroke.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = KeyStroke.hpp; path = Source/KeyStroke.hpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -69,8 +69,8 @@
 		0350E5BB1C17569000878E86 /* Implementations */ = {
 			isa = PBXGroup;
 			children = (
-				03F716B51C226015008B3AB0 /* InsertMode.hpp */,
-				03F716B41C226015008B3AB0 /* InsertMode.cpp */,
+				03F716B51C226015008B3AB0 /* EditMode.hpp */,
+				03F716B41C226015008B3AB0 /* EditMode.cpp */,
 				0350E5BD1C1756B900878E86 /* NormalMode.hpp */,
 				0350E5BC1C1756B900878E86 /* NormalMode.cpp */,
 				0372F4DA1C24FD250048AE31 /* SearchMode.hpp */,
@@ -253,7 +253,7 @@
 				03CCFB0D1BF1A6480033929E /* Document.cpp in Sources */,
 				038F08811C00FDB80058EAF9 /* Location.cpp in Sources */,
 				03B2C3BE1BF9196000AFE681 /* Mode.cpp in Sources */,
-				03F716B61C226015008B3AB0 /* InsertMode.cpp in Sources */,
+				03F716B61C226015008B3AB0 /* EditMode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
