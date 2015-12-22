@@ -24,6 +24,10 @@ namespace quip {
   
   void NormalMode::selectBeforePrimaryOrigin (EditContext & context) {
     Location location = context.selections().primary().extent();
+    if (location.column() == 0) {
+      return;
+    }
+    
     Location target(location.column() - 1, location.row());
     Selection result(target, target);
     
@@ -32,6 +36,10 @@ namespace quip {
   
   void NormalMode::selectBelowPrimaryExtent (EditContext & context) {
     Location location = context.selections().primary().extent();
+    if (location.row() + 1 == context.document().rows()) {
+      return;
+    }
+    
     Location target(location.column(), location.row() + 1);
     Selection result(target, target);
     
@@ -40,6 +48,10 @@ namespace quip {
 
   void NormalMode::selectAfterPrimaryExtent (EditContext & context) {
     Location location = context.selections().primary().extent();
+    if (location.column() + 1 == context.document().row(location.row()).size()) {
+      return;
+    }
+    
     Location target(location.column() + 1, location.row());
     Selection result(target, target);
     
@@ -48,6 +60,10 @@ namespace quip {
   
   void NormalMode::selectAbovePrimaryOrigin (EditContext & context) {
     Location location = context.selections().primary().extent();
+    if (location.row() == 0) {
+      return;
+    }
+    
     Location target(location.column(), location.row() - 1);
     Selection result(target, target);
     
