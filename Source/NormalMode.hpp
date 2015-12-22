@@ -19,6 +19,10 @@ namespace quip {
     void enterEditMode (EditContext & context);
     void enterSearchMode (EditContext & context);
     
+    void rotateSelectionForward (EditContext & context);
+    void rotateSelectionBackward (EditContext & context);
+    void collapseSelections (EditContext & context);
+    
     void deleteSelections (EditContext & context);
   };
 }

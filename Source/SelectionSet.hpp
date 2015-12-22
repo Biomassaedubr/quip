@@ -16,6 +16,9 @@ namespace quip {
     Selection * end ();
     const Selection * end () const;
     
+    void rotateForward ();
+    void rotateBackward ();
+    
     void replace (const Selection & primary);
     void replace (const SelectionSet & selections);
     

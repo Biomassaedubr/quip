@@ -33,6 +33,18 @@ namespace quip {
     return &m_selections.back() + 1;
   }
   
+  void SelectionSet::rotateForward () {
+    m_primary = (m_primary + 1) % m_selections.size();
+  }
+  
+  void SelectionSet::rotateBackward () {
+    if (m_primary == 0) {
+      m_primary = m_selections.size() - 1;
+    } else {
+      m_primary -= 1;
+    }
+  }
+  
   void SelectionSet::replace (const Selection & primary) {
     m_selections.clear();
     m_selections.emplace_back(primary);

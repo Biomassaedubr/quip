@@ -11,7 +11,11 @@ namespace quip {
     addMapping(Key::J, &NormalMode::selectBelowPrimaryExtent);
     addMapping(Key::K, &NormalMode::selectAbovePrimaryOrigin);
     addMapping(Key::L, &NormalMode::selectAfterPrimaryExtent);
-    
+
+    addMapping(Key::R, &NormalMode::rotateSelectionForward);
+    addMapping(Key::E, &NormalMode::rotateSelectionBackward);
+    addMapping(Key::Z, &NormalMode::collapseSelections);
+
     addMapping(Key::I, &NormalMode::enterEditMode);
     addMapping(Key::S, &NormalMode::enterSearchMode);
 
@@ -68,6 +72,18 @@ namespace quip {
     Selection result(target, target);
     
     context.selections().replace(result);
+  }
+  
+  void NormalMode::rotateSelectionForward (EditContext & context) {
+    context.selections().rotateForward();
+  }
+  
+  void NormalMode::rotateSelectionBackward (EditContext & context) {
+    context.selections().rotateBackward();
+  }
+  
+  void NormalMode::collapseSelections (EditContext & context) {
+    context.selections().replace(context.selections().primary());
   }
   
   void NormalMode::enterEditMode (EditContext & context) {
