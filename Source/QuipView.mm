@@ -22,6 +22,9 @@ static NSString * gSizeQueryString = @"m";
 static CGFloat gStatusLineBottomPadding = 4.0;
 static CGFloat gStatusLineLeftPadding = 2.0;
 
+static CGFloat gPrimarySelectionColor[] = { 1.0, 0.0, 0.0, 1.0 };
+static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
+
 @implementation QuipView
 
 - (instancetype)initWithFrame:(NSRect)frame document:(std::shared_ptr<quip::Document>)document {
@@ -81,7 +84,7 @@ static CGFloat gStatusLineLeftPadding = 2.0;
   CFRelease(text);
 }
 
-- (void)drawSelection:(quip::Selection &)selection context:(CGContextRef)context {
+- (void)drawSelection:(quip::Selection &)selection asPrimary:(BOOL)asPrimary context:(CGContextRef)context {
   quip::Document & document = m_context->document();
   const quip::Location & lower = selection.lowerBound();
   const quip::Location & upper = selection.upperBound();
@@ -94,7 +97,13 @@ static CGFloat gStatusLineLeftPadding = 2.0;
     CGFloat x = firstColumn * m_cellSize.width;
     CGFloat y = self.frame.size.height - m_cellSize.height - (row * m_cellSize.height);
 
-    CGContextFillRect(context, CGRectMake(x, y - 2.0, m_cellSize.width * (lastColumn + 1 - firstColumn), 1));
+    CGContextMoveToPoint(context, x, y - 2.0);
+    CGContextAddLineToPoint(context, x + (m_cellSize.width * (lastColumn + 1 - firstColumn)), y - 2.0);
+    
+    CGFloat * color = asPrimary ? gPrimarySelectionColor : gAuxilliarySelectionColor;
+    CGContextSetRGBStrokeColor(context, color[0], color[1], color[2], color[3]);
+    
+    CGContextStrokePath(context);
     
     ++row;
   } while (row <= upper.row());
@@ -118,8 +127,11 @@ static CGFloat gStatusLineLeftPadding = 2.0;
     y -= m_cellSize.height;
     
     for (quip::Selection & selection : m_context->selections()) {
-      [self drawSelection:selection context:context];
+      [self drawSelection:selection asPrimary:NO context:context];
     }
+    
+    // Re-draw the primary selection more visibly.
+    [self drawSelection:m_context->selections().primary() asPrimary:YES context:context];
     
     CFRelease(line);
     CFRelease(attributed);
