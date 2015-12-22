@@ -19,9 +19,20 @@
 		03CCFB071BF1A5980033929E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03CCFB031BF1A5980033929E /* MainMenu.xib */; };
 		03CCFB0D1BF1A6480033929E /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB0B1BF1A6480033929E /* Document.cpp */; };
 		03CCFB101BF1AB550033929E /* QuipView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB0F1BF1AB550033929E /* QuipView.mm */; };
+		03DE15CD1C29C59E0036A9B9 /* LocationTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03DE15CC1C29C59E0036A9B9 /* LocationTests.mm */; };
 		03F716B61C226015008B3AB0 /* EditMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03F716B41C226015008B3AB0 /* EditMode.cpp */; };
 		03F716B91C226A83008B3AB0 /* KeyStroke.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03F716B71C226A83008B3AB0 /* KeyStroke.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0377419F1C29C53C00EC5F86 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03CCFAE31BF1A1BE0033929E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03CCFAEA1BF1A1BE0033929E;
+			remoteInfo = Quip;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		030E08841C08D70800DC7CB0 /* Key.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Key.hpp; path = Source/Key.hpp; sourceTree = SOURCE_ROOT; };
@@ -29,6 +40,8 @@
 		0350E5BD1C1756B900878E86 /* NormalMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NormalMode.hpp; path = Source/NormalMode.hpp; sourceTree = SOURCE_ROOT; };
 		0372F4D91C24FD250048AE31 /* SearchMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SearchMode.cpp; path = Source/SearchMode.cpp; sourceTree = SOURCE_ROOT; };
 		0372F4DA1C24FD250048AE31 /* SearchMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SearchMode.hpp; path = Source/SearchMode.hpp; sourceTree = SOURCE_ROOT; };
+		0377419A1C29C53C00EC5F86 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0377419E1C29C53C00EC5F86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		038F08721C00FD520058EAF9 /* EditContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EditContext.cpp; path = Source/EditContext.cpp; sourceTree = SOURCE_ROOT; };
 		038F08731C00FD520058EAF9 /* EditContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EditContext.hpp; path = Source/EditContext.hpp; sourceTree = SOURCE_ROOT; };
 		038F08761C00FD940058EAF9 /* Selection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Selection.cpp; path = Source/Selection.cpp; sourceTree = SOURCE_ROOT; };
@@ -49,6 +62,7 @@
 		03CCFB0C1BF1A6480033929E /* Document.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Document.hpp; path = Source/Document.hpp; sourceTree = SOURCE_ROOT; };
 		03CCFB0E1BF1AB550033929E /* QuipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipView.h; path = Source/QuipView.h; sourceTree = SOURCE_ROOT; };
 		03CCFB0F1BF1AB550033929E /* QuipView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipView.mm; path = Source/QuipView.mm; sourceTree = SOURCE_ROOT; };
+		03DE15CC1C29C59E0036A9B9 /* LocationTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocationTests.mm; sourceTree = "<group>"; };
 		03F716B41C226015008B3AB0 /* EditMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EditMode.cpp; path = Source/EditMode.cpp; sourceTree = SOURCE_ROOT; };
 		03F716B51C226015008B3AB0 /* EditMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EditMode.hpp; path = Source/EditMode.hpp; sourceTree = SOURCE_ROOT; };
 		03F716B71C226A83008B3AB0 /* KeyStroke.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KeyStroke.cpp; path = Source/KeyStroke.cpp; sourceTree = SOURCE_ROOT; };
@@ -56,6 +70,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		037741971C29C53C00EC5F86 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03CCFAE81BF1A1BE0033929E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -77,6 +98,15 @@
 				0372F4D91C24FD250048AE31 /* SearchMode.cpp */,
 			);
 			name = Implementations;
+			sourceTree = "<group>";
+		};
+		0377419B1C29C53C00EC5F86 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0377419E1C29C53C00EC5F86 /* Info.plist */,
+				03DE15CC1C29C59E0036A9B9 /* LocationTests.mm */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		038F08711C00FD410058EAF9 /* Context */ = {
@@ -116,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				03CCFAED1BF1A1BE0033929E /* Quip */,
+				0377419B1C29C53C00EC5F86 /* Tests */,
 				03CCFAEC1BF1A1BE0033929E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -124,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				03CCFAEB1BF1A1BE0033929E /* Quip.app */,
+				0377419A1C29C53C00EC5F86 /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -176,6 +208,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		037741991C29C53C00EC5F86 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 037741A31C29C53C00EC5F86 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				037741961C29C53C00EC5F86 /* Sources */,
+				037741971C29C53C00EC5F86 /* Frameworks */,
+				037741981C29C53C00EC5F86 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				037741A01C29C53C00EC5F86 /* PBXTargetDependency */,
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = 0377419A1C29C53C00EC5F86 /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		03CCFAEA1BF1A1BE0033929E /* Quip */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 03CCFAFC1BF1A1BE0033929E /* Build configuration list for PBXNativeTarget "Quip" */;
@@ -202,6 +252,10 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Josh Petrie";
 				TargetAttributes = {
+					037741991C29C53C00EC5F86 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 03CCFAEA1BF1A1BE0033929E;
+					};
 					03CCFAEA1BF1A1BE0033929E = {
 						CreatedOnToolsVersion = 7.1;
 					};
@@ -221,11 +275,19 @@
 			projectRoot = "";
 			targets = (
 				03CCFAEA1BF1A1BE0033929E /* Quip */,
+				037741991C29C53C00EC5F86 /* Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		037741981C29C53C00EC5F86 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03CCFAE91BF1A1BE0033929E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -237,6 +299,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		037741961C29C53C00EC5F86 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03DE15CD1C29C59E0036A9B9 /* LocationTests.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03CCFAE71BF1A1BE0033929E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -259,7 +329,43 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		037741A01C29C53C00EC5F86 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 03CCFAEA1BF1A1BE0033929E /* Quip */;
+			targetProxy = 0377419F1C29C53C00EC5F86 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		037741A11C29C53C00EC5F86 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.joshpetrie.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Quip.app/Contents/MacOS/Quip";
+			};
+			name = Debug;
+		};
+		037741A21C29C53C00EC5F86 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.joshpetrie.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Quip.app/Contents/MacOS/Quip";
+			};
+			name = Release;
+		};
 		03CCFAFA1BF1A1BE0033929E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -364,6 +470,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		037741A31C29C53C00EC5F86 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				037741A11C29C53C00EC5F86 /* Debug */,
+				037741A21C29C53C00EC5F86 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		03CCFAE61BF1A1BE0033929E /* Build configuration list for PBXProject "Quip" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
