@@ -30,4 +30,18 @@
   XCTAssertEqual(result.row(), 22);
 }
 
+- (void)testEquality {
+  quip::Location a(1, 2);
+  quip::Location b(1, 2);
+  
+  XCTAssertTrue(a == b);
+}
+
+- (void)testInequality {
+  quip::Location a(1, 2);
+  quip::Location b(5, 6);
+  
+  XCTAssertTrue(a != b);
+}
+
 @end
