@@ -75,6 +75,7 @@ static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
   CGFloat frameWidth = m_minimumFrame.size.width;
   CGFloat frameHeight = std::max(m_minimumFrame.size.height, m_cellSize.height * document->rows());
   [self setFrameSize:CGSizeMake(frameWidth, frameHeight)];
+  [self setNeedsDisplay:YES];
 }
 
 - (void)drawStatusLine:(const std::string &)status context:(CGContextRef)context {
