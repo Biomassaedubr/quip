@@ -12,6 +12,7 @@
   CFDictionaryRef m_fontAttributes;
   
   CGSize m_cellSize;
+  CGRect m_minimumFrame;
   
   std::shared_ptr<quip::EditContext> m_context;
 }
@@ -34,6 +35,7 @@ static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
     
     NSDictionary * attributes = @{NSFontAttributeName: [NSFont fontWithName:@"Menlo" size:13.0f]};
     m_cellSize = [gSizeQueryString sizeWithAttributes:attributes];
+    m_minimumFrame = frame;
     
     CFStringRef keys[] = { kCTFontAttributeName };
     CFTypeRef values[] = { m_font };
@@ -66,9 +68,13 @@ static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
 - (quip::Document &)document {
   return m_context->document();
 }
+
 - (void)setDocument:(std::shared_ptr<quip::Document>)document {
   m_context = std::make_shared<quip::EditContext>(document);
-  [self setNeedsDisplay:YES];
+  
+  CGFloat frameWidth = m_minimumFrame.size.width;
+  CGFloat frameHeight = std::max(m_minimumFrame.size.height, m_cellSize.height * document->rows());
+  [self setFrameSize:CGSizeMake(frameWidth, frameHeight)];
 }
 
 - (void)drawStatusLine:(const std::string &)status context:(CGContextRef)context {

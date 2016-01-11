@@ -9,7 +9,9 @@
 @interface ApplicationDelegate () {
 @private
   NSWindow * m_window;
-  QuipView * m_view;
+  
+  NSScrollView * m_scrollView;
+  QuipView * m_documentView;
 }
 @end
 
@@ -19,12 +21,14 @@
   CGRect frame = CGRectMake(0.0f, 0.0f, 1024.0f, 768.0f);
   
   std::shared_ptr<quip::Document> document = std::make_shared<quip::Document>("Welcome to Quip!\nQuip is a modal text editor.");
-  m_view = [[QuipView alloc] initWithFrame:frame document:document];
+  m_documentView = [[QuipView alloc] initWithFrame:frame document:document];
+  m_scrollView = [[NSScrollView alloc] initWithFrame:frame];
+  [m_scrollView setDocumentView:m_documentView];
   
   m_window = [[NSWindow alloc] initWithContentRect:frame styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered defer:YES];
   [m_window setTitle:@"Untitled"];
   [m_window center];
-  [m_window setContentView:m_view];
+  [m_window setContentView:m_scrollView];
   
   [m_window makeKeyAndOrderFront:self];
 }
@@ -36,13 +40,13 @@
     NSLog(@"Error opening file (%@): %@", url, [error localizedFailureReason]);
   } else {
     std::shared_ptr<quip::Document> document = std::make_shared<quip::Document>([content cStringUsingEncoding:NSUTF8StringEncoding]);
-    [m_view setDocument:document];
+    [m_documentView setDocument:document];
     [m_window setTitle:[url path]];
   }
 }
 
 - (void)saveDocumentTo:(NSURL *)url {
-  NSString * contents = [NSString stringWithUTF8String:[m_view document].contents().c_str()];
+  NSString * contents = [NSString stringWithUTF8String:[m_documentView document].contents().c_str()];
   NSError * error;
   [contents writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:&error];
   
@@ -50,7 +54,7 @@
     NSLog(@"Error saving file (%@): %@", url, [error localizedFailureReason]);
   } else {
     [m_window setTitle:[url path]];
-    [m_view document].setPath([[url path] cStringUsingEncoding:NSUTF8StringEncoding]);
+    [m_documentView document].setPath([[url path] cStringUsingEncoding:NSUTF8StringEncoding]);
   }
 }
 
@@ -65,13 +69,13 @@
 }
 
 - (IBAction)saveDocument:(id)sender {
-  if ([m_view document].path() == "") {
+  if ([m_documentView document].path() == "") {
     NSSavePanel * panel = [NSSavePanel savePanel];
     if ([panel runModal] == NSFileHandlingPanelOKButton) {
       [self saveDocumentTo:[panel URL]];
     }
   } else {
-    NSString * path = [NSString stringWithCString:[m_view document].path().c_str() encoding:NSUTF8StringEncoding];
+    NSString * path = [NSString stringWithCString:[m_documentView document].path().c_str() encoding:NSUTF8StringEncoding];
     [self saveDocumentTo:[NSURL fileURLWithPath:path]];
   }
 }
