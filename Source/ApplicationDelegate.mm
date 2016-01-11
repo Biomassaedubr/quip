@@ -1,6 +1,7 @@
 #import "ApplicationDelegate.h"
 
 #import "QuipView.h"
+#import "StatusView.h"
 
 #include "Document.hpp"
 
@@ -10,25 +11,39 @@
 @private
   NSWindow * m_window;
   
+  NSView * m_rootView;
+  StatusView * m_statusView;
   NSScrollView * m_scrollView;
   QuipView * m_documentView;
 }
 @end
 
+namespace {
+  static CGFloat gStatusViewHeight = 20.0;
+}
+
 @implementation ApplicationDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
-  CGRect frame = CGRectMake(0.0f, 0.0f, 1024.0f, 768.0f);
+  CGRect rootFrame = CGRectMake(0.0, 0.0, 1024.0, 768.0);
+  m_rootView = [[NSView alloc] initWithFrame:rootFrame];
   
+  CGRect statusFrame = CGRectMake(0.0, 0.0, rootFrame.size.width, gStatusViewHeight);
+  m_statusView = [[StatusView alloc] initWithFrame:statusFrame];
+  
+  CGRect contentFrame = CGRectMake(0.0, gStatusViewHeight, rootFrame.size.width, rootFrame.size.height - gStatusViewHeight);
   std::shared_ptr<quip::Document> document = std::make_shared<quip::Document>("Welcome to Quip!\nQuip is a modal text editor.");
-  m_documentView = [[QuipView alloc] initWithFrame:frame document:document];
-  m_scrollView = [[NSScrollView alloc] initWithFrame:frame];
+  m_documentView = [[QuipView alloc] initWithFrame:contentFrame document:document status:m_statusView];
+  m_scrollView = [[NSScrollView alloc] initWithFrame:contentFrame];
   [m_scrollView setDocumentView:m_documentView];
   
-  m_window = [[NSWindow alloc] initWithContentRect:frame styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered defer:YES];
+  [m_rootView addSubview:m_scrollView];
+  [m_rootView addSubview:m_statusView];
+  
+  m_window = [[NSWindow alloc] initWithContentRect:rootFrame styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered defer:YES];
   [m_window setTitle:@"Untitled"];
   [m_window center];
-  [m_window setContentView:m_scrollView];
+  [m_window setContentView:m_rootView];
   
   [m_window makeKeyAndOrderFront:self];
 }

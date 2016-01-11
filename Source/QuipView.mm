@@ -1,5 +1,7 @@
 #import "QuipView.h"
 
+#import "StatusView.h"
+
 #include "EditContext.hpp"
 #include "Key.hpp"
 #include "KeyStroke.hpp"
@@ -15,20 +17,19 @@
   CGRect m_minimumFrame;
   
   std::shared_ptr<quip::EditContext> m_context;
+  
+  StatusView * m_statusView;
 }
 @end
 
 static NSString * gSizeQueryString = @"m";
-
-static CGFloat gStatusLineBottomPadding = 4.0;
-static CGFloat gStatusLineLeftPadding = 2.0;
 
 static CGFloat gPrimarySelectionColor[] = { 1.0, 0.0, 0.0, 1.0 };
 static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
 
 @implementation QuipView
 
-- (instancetype)initWithFrame:(NSRect)frame document:(std::shared_ptr<quip::Document>)document {
+- (instancetype)initWithFrame:(NSRect)frame document:(std::shared_ptr<quip::Document>)document status:(StatusView *)status {
   self = [super initWithFrame:frame];
   if (self != nil) {
     m_font = CTFontCreateWithName(CFSTR("Menlo"), 13.0, nil);
@@ -44,6 +45,7 @@ static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
     m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     
     [self setDocument:document];
+    m_statusView = status;
   }
   
   return self;
@@ -76,19 +78,6 @@ static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
   CGFloat frameHeight = std::max(m_minimumFrame.size.height, m_cellSize.height * document->rows());
   [self setFrameSize:CGSizeMake(frameWidth, frameHeight)];
   [self setNeedsDisplay:YES];
-}
-
-- (void)drawStatusLine:(const std::string &)status context:(CGContextRef)context {
-  CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, status.c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
-  CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, text, m_fontAttributes);
-  CTLineRef line = CTLineCreateWithAttributedString(attributed);
-  
-  CGContextSetTextPosition(context, gStatusLineLeftPadding, gStatusLineBottomPadding);
-  CTLineDraw(line, context);
-  
-  CFRelease(line);
-  CFRelease(attributed);
-  CFRelease(text);
 }
 
 - (void)drawSelection:(quip::Selection &)selection asPrimary:(BOOL)asPrimary context:(CGContextRef)context {
@@ -145,8 +134,7 @@ static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
     CFRelease(text);
   }
   
-  [self drawStatusLine:m_context->mode().status() context:context];
+  [m_statusView setStatus:m_context->mode().status().c_str()];
 }
-
 
 @end

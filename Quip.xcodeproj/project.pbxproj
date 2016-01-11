@@ -14,6 +14,7 @@
 		038F087B1C00FD9F0058EAF9 /* SelectionSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08791C00FD9F0058EAF9 /* SelectionSet.cpp */; };
 		038F08811C00FDB80058EAF9 /* Location.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F087F1C00FDB80058EAF9 /* Location.cpp */; };
 		03B2C3BE1BF9196000AFE681 /* Mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03B2C3BC1BF9196000AFE681 /* Mode.cpp */; };
+		03BBDB4B1C432E5D0027628B /* StatusView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03BBDB4A1C432E5D0027628B /* StatusView.mm */; };
 		03CCFB041BF1A5980033929E /* ApplicationDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB001BF1A5980033929E /* ApplicationDelegate.mm */; };
 		03CCFB061BF1A5980033929E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB021BF1A5980033929E /* main.m */; };
 		03CCFB071BF1A5980033929E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03CCFB031BF1A5980033929E /* MainMenu.xib */; };
@@ -52,6 +53,8 @@
 		038F08801C00FDB80058EAF9 /* Location.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Location.hpp; path = Source/Location.hpp; sourceTree = SOURCE_ROOT; };
 		03B2C3BC1BF9196000AFE681 /* Mode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mode.cpp; path = Source/Mode.cpp; sourceTree = SOURCE_ROOT; };
 		03B2C3BD1BF9196000AFE681 /* Mode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Mode.hpp; path = Source/Mode.hpp; sourceTree = SOURCE_ROOT; };
+		03BBDB491C432E5D0027628B /* StatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatusView.h; path = Source/StatusView.h; sourceTree = SOURCE_ROOT; };
+		03BBDB4A1C432E5D0027628B /* StatusView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = StatusView.mm; path = Source/StatusView.mm; sourceTree = SOURCE_ROOT; };
 		03CCFAEB1BF1A1BE0033929E /* Quip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03CCFAFF1BF1A5980033929E /* ApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplicationDelegate.h; path = Source/ApplicationDelegate.h; sourceTree = SOURCE_ROOT; };
 		03CCFB001BF1A5980033929E /* ApplicationDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ApplicationDelegate.mm; path = Source/ApplicationDelegate.mm; sourceTree = SOURCE_ROOT; };
@@ -177,6 +180,8 @@
 				03CCFB001BF1A5980033929E /* ApplicationDelegate.mm */,
 				03CCFB0E1BF1AB550033929E /* QuipView.h */,
 				03CCFB0F1BF1AB550033929E /* QuipView.mm */,
+				03BBDB491C432E5D0027628B /* StatusView.h */,
+				03BBDB4A1C432E5D0027628B /* StatusView.mm */,
 				03CCFB011BF1A5980033929E /* Info.plist */,
 				03CCFB031BF1A5980033929E /* MainMenu.xib */,
 			);
@@ -317,6 +322,7 @@
 				03F716B91C226A83008B3AB0 /* KeyStroke.cpp in Sources */,
 				03CCFB041BF1A5980033929E /* ApplicationDelegate.mm in Sources */,
 				0372F4DB1C24FD250048AE31 /* SearchMode.cpp in Sources */,
+				03BBDB4B1C432E5D0027628B /* StatusView.mm in Sources */,
 				038F087B1C00FD9F0058EAF9 /* SelectionSet.cpp in Sources */,
 				038F08741C00FD520058EAF9 /* EditContext.cpp in Sources */,
 				038F08781C00FD940058EAF9 /* Selection.cpp in Sources */,
