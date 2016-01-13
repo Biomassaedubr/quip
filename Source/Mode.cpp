@@ -6,6 +6,10 @@ namespace quip {
   Mode::~Mode () {
   }
   
+  CursorStyle Mode::cursorStyle () const {
+    return CursorStyle::Underline;
+  }
+  
   std::string Mode::status () const {
     return "";
   }

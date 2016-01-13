@@ -1,5 +1,6 @@
 #pragma once
 
+#include "CursorStyle.hpp"
 #include "Key.hpp"
 #include "KeyStroke.hpp"
 
@@ -14,6 +15,7 @@ namespace quip {
     
     virtual ~Mode ();
     
+    virtual CursorStyle cursorStyle () const;
     virtual std::string status () const;
     
     bool processKey (const KeyStroke & keyStroke, EditContext & context);

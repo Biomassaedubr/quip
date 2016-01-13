@@ -9,6 +9,10 @@ namespace quip {
     addMapping(Key::Escape, &EditMode::commitInsert);
   }
   
+  CursorStyle EditMode::cursorStyle () const {
+    return CursorStyle::VerticalBar;
+  }
+  
   std::string EditMode::status () const {
     return "Edit";
   }

@@ -51,6 +51,7 @@
 		038F087A1C00FD9F0058EAF9 /* SelectionSet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionSet.hpp; path = Source/SelectionSet.hpp; sourceTree = SOURCE_ROOT; };
 		038F087F1C00FDB80058EAF9 /* Location.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Location.cpp; path = Source/Location.cpp; sourceTree = SOURCE_ROOT; };
 		038F08801C00FDB80058EAF9 /* Location.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Location.hpp; path = Source/Location.hpp; sourceTree = SOURCE_ROOT; };
+		039A34A51C45E6760099F50D /* CursorStyle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CursorStyle.hpp; path = Source/CursorStyle.hpp; sourceTree = SOURCE_ROOT; };
 		03B2C3BC1BF9196000AFE681 /* Mode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mode.cpp; path = Source/Mode.cpp; sourceTree = SOURCE_ROOT; };
 		03B2C3BD1BF9196000AFE681 /* Mode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Mode.hpp; path = Source/Mode.hpp; sourceTree = SOURCE_ROOT; };
 		03BBDB491C432E5D0027628B /* StatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatusView.h; path = Source/StatusView.h; sourceTree = SOURCE_ROOT; };
@@ -135,6 +136,7 @@
 		03B2C3BB1BF9194B00AFE681 /* Mode */ = {
 			isa = PBXGroup;
 			children = (
+				039A34A51C45E6760099F50D /* CursorStyle.hpp */,
 				030E08841C08D70800DC7CB0 /* Key.hpp */,
 				03F716B81C226A83008B3AB0 /* KeyStroke.hpp */,
 				03F716B71C226A83008B3AB0 /* KeyStroke.cpp */,

@@ -92,14 +92,22 @@ static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
     
     CGFloat x = firstColumn * m_cellSize.width;
     CGFloat y = self.frame.size.height - m_cellSize.height - (row * m_cellSize.height);
-
-    CGContextMoveToPoint(context, x, y - 2.0);
-    CGContextAddLineToPoint(context, x + (m_cellSize.width * (lastColumn + 1 - firstColumn)), y - 2.0);
-    
     CGFloat * color = asPrimary ? gPrimarySelectionColor : gAuxilliarySelectionColor;
     CGContextSetRGBStrokeColor(context, color[0], color[1], color[2], color[3]);
-    
-    CGContextStrokePath(context);
+
+    switch (m_context->mode().cursorStyle()) {
+      case quip::CursorStyle::VerticalBar:
+        CGContextMoveToPoint(context, x, y - 2.0);
+        CGContextAddLineToPoint(context, x, y + m_cellSize.height - 6.0f);
+        CGContextStrokePath(context);
+        break;
+      case quip::CursorStyle::Underline:
+      default:
+        CGContextMoveToPoint(context, x, y - 2.0);
+        CGContextAddLineToPoint(context, x + (m_cellSize.width * (lastColumn + 1 - firstColumn)), y - 2.0);
+        CGContextStrokePath(context);
+        break;
+    }
     
     ++row;
   } while (row <= upper.row());

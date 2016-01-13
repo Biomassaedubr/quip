@@ -9,6 +9,7 @@ namespace quip {
   struct EditMode : Mode {
     EditMode ();
     
+    CursorStyle cursorStyle () const override;
     std::string status () const override;
     
   protected:
