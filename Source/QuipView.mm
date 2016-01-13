@@ -142,9 +142,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   } while (row <= upper.row());
 }
 
-- (void)drawRect:(NSRect)dirtyRect {
-  [super drawRect:dirtyRect];
-  
+- (void)drawRect:(NSRect)dirtyRect {  
   quip::Document & document = m_context->document();
   CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
   
