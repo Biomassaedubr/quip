@@ -35,6 +35,8 @@ namespace {
   std::shared_ptr<quip::Document> document = std::make_shared<quip::Document>("Welcome to Quip!\nQuip is a modal text editor.");
   m_documentView = [[QuipView alloc] initWithFrame:contentFrame document:document status:m_statusView];
   m_scrollView = [[NSScrollView alloc] initWithFrame:contentFrame];
+  [m_scrollView setHasHorizontalScroller:YES];
+  [m_scrollView setHasVerticalScroller:YES];
   [m_scrollView setDocumentView:m_documentView];
   
   [m_rootView addSubview:m_scrollView];
