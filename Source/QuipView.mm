@@ -16,6 +16,9 @@
   CGSize m_cellSize;
   CGRect m_minimumFrame;
   
+  CGFloat m_cursorTimer;
+  BOOL m_isCursorVisible;
+  
   std::shared_ptr<quip::EditContext> m_context;
   
   StatusView * m_statusView;
@@ -26,6 +29,9 @@ static NSString * gSizeQueryString = @"m";
 
 static CGFloat gPrimarySelectionColor[] = { 1.0, 0.0, 0.0, 1.0 };
 static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
+
+static CGFloat gTickInterval = 1.0 / 30.0;
+static CGFloat gCursorBlinkInterval = 0.57;
 
 @implementation QuipView
 
@@ -46,6 +52,13 @@ static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
     
     [self setDocument:document];
     m_statusView = status;
+    
+    m_cursorTimer = gCursorBlinkInterval;
+    m_isCursorVisible = YES;
+    
+    // Start a background timer for periodic update tasks (such as cursor blinking).
+    NSTimer * timer = [NSTimer timerWithTimeInterval:gTickInterval target:self selector:@selector(tick:) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
   }
   
   return self;
@@ -60,9 +73,23 @@ static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
   return YES;
 }
 
+- (void)tick:(NSTimer *)timer {
+  m_cursorTimer -= gTickInterval;
+  if (m_cursorTimer <= 0.0) {
+    m_cursorTimer = gCursorBlinkInterval;
+    m_isCursorVisible = !m_isCursorVisible;
+    
+    [self setNeedsDisplay:YES];
+  }
+}
+
 - (void)keyDown:(NSEvent *)event {
   quip::KeyStroke keyStroke(static_cast<quip::Key>(event.keyCode), std::string([[event characters] cStringUsingEncoding:NSUTF8StringEncoding]));
   if (m_context->processKey(keyStroke)) {
+    // Reset the blink interval on key events.
+    m_cursorTimer = gCursorBlinkInterval;
+    m_isCursorVisible = YES;
+    
     [self setNeedsDisplay:YES];
   }
 }
@@ -94,19 +121,21 @@ static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
     CGFloat y = self.frame.size.height - m_cellSize.height - (row * m_cellSize.height);
     CGFloat * color = asPrimary ? gPrimarySelectionColor : gAuxilliarySelectionColor;
     CGContextSetRGBStrokeColor(context, color[0], color[1], color[2], color[3]);
-
-    switch (m_context->mode().cursorStyle()) {
-      case quip::CursorStyle::VerticalBar:
-        CGContextMoveToPoint(context, x, y - 2.0);
-        CGContextAddLineToPoint(context, x, y + m_cellSize.height - 6.0f);
-        CGContextStrokePath(context);
-        break;
-      case quip::CursorStyle::Underline:
-      default:
-        CGContextMoveToPoint(context, x, y - 2.0);
-        CGContextAddLineToPoint(context, x + (m_cellSize.width * (lastColumn + 1 - firstColumn)), y - 2.0);
-        CGContextStrokePath(context);
-        break;
+    
+    if (m_isCursorVisible) {
+      switch (m_context->mode().cursorStyle()) {
+        case quip::CursorStyle::VerticalBar:
+          CGContextMoveToPoint(context, x, y - 2.0);
+          CGContextAddLineToPoint(context, x, y + m_cellSize.height - 6.0f);
+          CGContextStrokePath(context);
+          break;
+        case quip::CursorStyle::Underline:
+        default:
+          CGContextMoveToPoint(context, x, y - 2.0);
+          CGContextAddLineToPoint(context, x + (m_cellSize.width * (lastColumn + 1 - firstColumn)), y - 2.0);
+          CGContextStrokePath(context);
+          break;
+      }
     }
     
     ++row;
@@ -115,10 +144,10 @@ static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
 
 - (void)drawRect:(NSRect)dirtyRect {
   [super drawRect:dirtyRect];
-
+  
   quip::Document & document = m_context->document();
   CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
-
+  
   CGFloat y = self.frame.size.height - m_cellSize.height;
   for (std::size_t row = 0; row < document.rows(); ++row) {
     CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, document.row(row).c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
