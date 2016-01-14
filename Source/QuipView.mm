@@ -83,14 +83,27 @@ static CGFloat gCursorBlinkInterval = 0.57;
   }
 }
 
+- (void)resetCursorBlink {
+  m_cursorTimer = gCursorBlinkInterval;
+  m_isCursorVisible = YES;
+  
+  [self setNeedsDisplay:YES];
+}
+
+- (void)mouseDown:(NSEvent *)event {
+  NSPoint location = [self convertPoint:event.locationInWindow fromView:nil];
+  std::size_t column = static_cast<std::size_t>(location.x / m_cellSize.width);
+  std::size_t row = static_cast<std::size_t>((self.frame.size.height - location.y) / m_cellSize.height);
+  quip::Location target(column, row);
+  
+  m_context->selections().replace(quip::Selection(target, target));
+  [self resetCursorBlink];
+}
+
 - (void)keyDown:(NSEvent *)event {
   quip::KeyStroke keyStroke(static_cast<quip::Key>(event.keyCode), std::string([[event characters] cStringUsingEncoding:NSUTF8StringEncoding]));
   if (m_context->processKey(keyStroke)) {
-    // Reset the blink interval on key events.
-    m_cursorTimer = gCursorBlinkInterval;
-    m_isCursorVisible = YES;
-    
-    [self setNeedsDisplay:YES];
+    [self resetCursorBlink];
   }
 }
 
