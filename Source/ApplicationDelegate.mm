@@ -58,6 +58,10 @@ namespace {
   } else {
     std::shared_ptr<quip::Document> document = std::make_shared<quip::Document>([content cStringUsingEncoding:NSUTF8StringEncoding]);
     [m_documentView setDocument:document];
+    
+    // Ensure the clip view is scrolled to the top of the document.
+    [m_scrollView.contentView scrollToPoint:CGPointMake(0.0, NSMaxY(m_documentView.frame) - NSHeight(m_scrollView.contentView.bounds))];
+    
     [m_window setTitle:[url path]];
   }
 }
