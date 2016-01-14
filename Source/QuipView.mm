@@ -100,6 +100,17 @@ static CGFloat gCursorBlinkInterval = 0.57;
   [self resetCursorBlink];
 }
 
+- (void)mouseDragged:(NSEvent *)event {
+  NSPoint location = [self convertPoint:event.locationInWindow fromView:nil];
+  std::size_t column = static_cast<std::size_t>(location.x / m_cellSize.width);
+  std::size_t row = static_cast<std::size_t>((self.frame.size.height - location.y) / m_cellSize.height);
+  quip::Location target(column, row);
+  quip::Location origin = m_context->selections().primary().origin();
+  
+  m_context->selections().replace(quip::Selection(origin, target));
+  [self resetCursorBlink];
+}
+
 - (void)keyDown:(NSEvent *)event {
   quip::KeyStroke keyStroke(static_cast<quip::Key>(event.keyCode), std::string([[event characters] cStringUsingEncoding:NSUTF8StringEncoding]));
   if (m_context->processKey(keyStroke)) {
