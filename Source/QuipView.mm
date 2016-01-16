@@ -8,10 +8,15 @@
 #include "Mode.hpp"
 #include "Selection.hpp"
 
+#include <cmath>
+#include <vector>
+
 @interface QuipView () {
 @private
   CTFontRef m_font;
   CFDictionaryRef m_fontAttributes;
+  CTParagraphStyleRef m_paragraphAttributes;
+  std::vector<CTTextTabRef> m_tabStops;
   
   CGSize m_cellSize;
   CGRect m_minimumFrame;
@@ -26,6 +31,8 @@
 @end
 
 static NSString * gSizeQueryString = @"m";
+
+static std::size_t gTabSize = 2;
 
 static CGFloat gPrimarySelectionColor[] = { 1.0, 0.0, 0.0, 1.0 };
 static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
@@ -44,11 +51,24 @@ static CGFloat gCursorBlinkInterval = 0.57;
     m_cellSize = [gSizeQueryString sizeWithAttributes:attributes];
     m_minimumFrame = frame;
     
-    CFStringRef keys[] = { kCTFontAttributeName };
-    CFTypeRef values[] = { m_font };
+    std::size_t tabStopCount = static_cast<std::size_t>(std::ceil(frame.size.width / m_cellSize.width));
+    m_tabStops.reserve(tabStopCount);
+    for (std::size_t index = 0; index < tabStopCount; ++index) {
+      m_tabStops.emplace_back(CTTextTabCreate(kCTTextAlignmentNatural, (index + 1) * m_cellSize.width * gTabSize, nullptr));
+    };
+    
+    CFArrayRef tabStopArray = CFArrayCreate(kCFAllocatorDefault, reinterpret_cast<const void **>(m_tabStops.data()), tabStopCount, &kCFTypeArrayCallBacks);
+    CTParagraphStyleSetting paragraphSettings[] = {
+      { kCTParagraphStyleSpecifierTabStops, sizeof(CFArrayRef), &tabStopArray },
+    };
+    
+    m_paragraphAttributes = CTParagraphStyleCreate(paragraphSettings, 1);
+    
+    CFStringRef keys[] = { kCTFontAttributeName, kCTParagraphStyleAttributeName };
+    CFTypeRef values[] = { m_font, m_paragraphAttributes };
     const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
     const void ** opaqueValues = reinterpret_cast<const void **>(&values);
-    m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 2, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     
     [self setDocument:document];
     m_statusView = status;
@@ -65,6 +85,11 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)dealloc {
+  CFRelease(m_paragraphAttributes);
+  for (CTTextTabRef & tab : m_tabStops) {
+    CFRelease(tab);
+  }
+  
   CFRelease(m_fontAttributes);
   CFRelease(m_font);
 }
