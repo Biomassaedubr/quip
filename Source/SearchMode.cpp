@@ -3,6 +3,7 @@
 #include "Document.hpp"
 #include "EditContext.hpp"
 #include "KeyStroke.hpp"
+#include "SearchExpression.hpp"
 
 namespace quip {
   SearchMode::SearchMode () {
@@ -28,8 +29,11 @@ namespace quip {
     }
     
     if (m_search.size() > 0) {
-      SelectionSet matches = context.document().matches(m_search);
-      context.selections().replace(matches);
+      SearchExpression expression(m_search);
+      if (expression.valid()) {
+        SelectionSet matches = context.document().matches(expression);
+        context.selections().replace(matches);
+      }
     }
     
     return true;

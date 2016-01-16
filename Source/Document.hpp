@@ -6,6 +6,7 @@
 #include <vector>
 
 namespace quip {
+  struct SearchExpression;
   struct SelectionSet;
   
   struct Document {
@@ -24,7 +25,7 @@ namespace quip {
     void erase (SelectionSet & selections);
     void eraseBefore (SelectionSet & selections);
     
-    SelectionSet matches (const std::string & pattern) const;
+    SelectionSet matches (const SearchExpression & expression) const;
     
   private:
     std::string m_path;

@@ -1,5 +1,6 @@
 #include "Document.hpp"
 
+#include "SearchExpression.hpp"
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
 
@@ -89,7 +90,7 @@ namespace quip {
       std::string prefix = m_rows[lower.row()].substr(0, lower.column());
       std::string suffix = m_rows[upper.row()].substr(upper.column() + 1);
       m_rows[lower.row()] = prefix + suffix;
-
+      
       std::uint64_t removed = selection.height() - 1;
       selection.setOrigin(selection.origin().adjustBy(columnDelta, 0));
       selection.setExtent(selection.origin());
@@ -124,7 +125,7 @@ namespace quip {
       std::string prefix = m_rows[lower.row()].substr(0, lower.column() - 1);
       std::string suffix = m_rows[upper.row()].substr(upper.column());
       m_rows[lower.row()] = prefix + suffix;
-
+      
       std::uint64_t removed = selection.height() - 1;
       selection.setOrigin(selection.origin().adjustBy(-1, 0));
       selection.setExtent(selection.origin());
@@ -142,24 +143,24 @@ namespace quip {
     }
   }
   
-  SelectionSet Document::matches (const std::string & pattern) const {
+  SelectionSet Document::matches (const SearchExpression & expression) const {
     std::vector<Selection> results;
-    std::regex regex(pattern);
-    
-    for (std::size_t row = 0; row < m_rows.size(); ++row) {
-      const std::string & text = m_rows[row];
-      std::sregex_iterator cursor(text.begin(), text.end(), regex);
-      std::sregex_iterator end;
-      
-      while (cursor != end) {
-        std::smatch match = *cursor;
-        for (std::size_t matchIndex = 0; matchIndex < match.size(); ++matchIndex) {
-          std::size_t origin = match.position(matchIndex);
-          std::size_t extent = origin + match[matchIndex].length() - 1;
-          results.emplace_back(Location(origin, row), Location(extent, row));
-        }
+    if (expression.valid()) {
+      for (std::size_t row = 0; row < m_rows.size(); ++row) {
+        const std::string & text = m_rows[row];
+        std::sregex_iterator cursor(text.begin(), text.end(), expression.pattern());
+        std::sregex_iterator end;
         
-        ++cursor;
+        while (cursor != end) {
+          std::smatch match = *cursor;
+          for (std::size_t matchIndex = 0; matchIndex < match.size(); ++matchIndex) {
+            std::size_t origin = match.position(matchIndex);
+            std::size_t extent = origin + match[matchIndex].length() - 1;
+            results.emplace_back(Location(origin, row), Location(extent, row));
+          }
+          
+          ++cursor;
+        }
       }
     }
     
