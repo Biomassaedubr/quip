@@ -197,26 +197,29 @@ static CGFloat gCursorBlinkInterval = 0.57;
   
   CGFloat y = self.frame.size.height - m_cellSize.height;
   for (std::size_t row = 0; row < document.rows(); ++row) {
-    CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, document.row(row).c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
-    CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, text, m_fontAttributes);
-    CTLineRef line = CTLineCreateWithAttributedString(attributed);
-    
-    CGContextSetTextPosition(context, 0.0f, y);
-    CTLineDraw(line, context);
-    
-    y -= m_cellSize.height;
-    
-    for (quip::Selection & selection : m_context->selections()) {
-      [self drawSelection:selection asPrimary:NO context:context];
+    // Only draw the row if it clips into the dirty rectangle.
+    if (CGRectIntersectsRect(dirtyRect, CGRectMake(0.0, y, self.frame.size.width, m_cellSize.height))) {
+      CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, document.row(row).c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
+      CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, text, m_fontAttributes);
+      CTLineRef line = CTLineCreateWithAttributedString(attributed);
+      
+      CGContextSetTextPosition(context, 0.0f, y);
+      CTLineDraw(line, context);
+      
+      CFRelease(line);
+      CFRelease(attributed);
+      CFRelease(text);
     }
     
-    // Re-draw the primary selection more visibly.
-    [self drawSelection:m_context->selections().primary() asPrimary:YES context:context];
-    
-    CFRelease(line);
-    CFRelease(attributed);
-    CFRelease(text);
+    y -= m_cellSize.height;
   }
+  
+  for (quip::Selection & selection : m_context->selections()) {
+    [self drawSelection:selection asPrimary:NO context:context];
+  }
+  
+  // Re-draw the primary selection more visibly.
+  [self drawSelection:m_context->selections().primary() asPrimary:YES context:context];
   
   [m_statusView setStatus:m_context->mode().status().c_str()];
 }
