@@ -8,22 +8,25 @@
 #include <sstream>
 #include <string>
 
-namespace {
-  static std::regex gNewlinePattern("\\n");
-}
-
 namespace quip {
   Document::Document () {
   }
   
-  Document::Document (const std::string & content)
-  : m_rows(std::sregex_token_iterator(content.begin(), content.end(), gNewlinePattern, -1), std::sregex_token_iterator()) {
+  Document::Document (const std::string & content) {
+    for (std::size_t index = 0; index < content.size(); ++index) {
+      std::size_t start = index;
+      while (content[index] != '\n' && index < content.size()) {
+        ++index;
+      }
+      
+      m_rows.emplace_back(content.substr(start, index - start + 1));
+    }
   }
   
   std::string Document::contents () const {
     std::ostringstream stream;
     for (const std::string & text : m_rows) {
-      stream << text << "\n";
+      stream << text;
     }
     
     return stream.str();
