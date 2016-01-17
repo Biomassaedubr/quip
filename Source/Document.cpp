@@ -148,11 +148,20 @@ namespace quip {
     if (expression.valid()) {
       for (std::size_t row = 0; row < m_rows.size(); ++row) {
         const std::string & text = m_rows[row];
-        std::sregex_iterator cursor(text.begin(), text.end(), expression.pattern());
+        std::sregex_iterator cursor(text.begin(), text.end(), expression.pattern(), std::regex_constants::match_not_null);
         std::sregex_iterator end;
         
         while (cursor != end) {
           std::smatch match = *cursor;
+          if (match.length() == 0) {
+            // https://llvm.org/bugs/show_bug.cgi?id=21597 notes that libc++ doesn't currently
+            // respect the "ignore empty matches" flag passed above. This can cause partially-entered
+            // expressions containing \b assertions to generate an infinite loop, since incrementing
+            // the iterator will never actually advance it. As a workaround, matches for a row are
+            // aborted if any are empty, since that should only occur in the context of the libc++ bug.
+            break;
+          }
+          
           for (std::size_t matchIndex = 0; matchIndex < match.size(); ++matchIndex) {
             std::size_t origin = match.position(matchIndex);
             std::size_t extent = origin + match[matchIndex].length() - 1;
