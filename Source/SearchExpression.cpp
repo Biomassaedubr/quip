@@ -4,9 +4,11 @@ namespace quip {
   SearchExpression::SearchExpression (const std::string & expression)
   : m_valid(true)
   , m_expression(expression) {
-    // libc++ doesn't throw on trailing slashes like it should.
-    // See: https://llvm.org/bugs/show_bug.cgi?id=26175
-    if (expression[expression.length() - 1] == '\\') {
+    if (expression.length() == 0) {
+      m_valid = false;
+    } else if (expression[expression.length() - 1] == '\\') {
+      // libc++ doesn't throw on trailing slashes like it should.
+      // See: https://llvm.org/bugs/show_bug.cgi?id=26175
       m_valid = false;
     } else {
       try {

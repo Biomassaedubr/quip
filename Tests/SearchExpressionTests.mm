@@ -8,6 +8,12 @@
 
 @implementation SearchExpressionTests
 
+- (void)testConstructFromEmptyExpression {
+  quip::SearchExpression expression("");
+  
+  XCTAssertFalse(expression.valid());
+}
+
 - (void)testConstructFromSimpleExpression {
   quip::SearchExpression expression("foo");
   
