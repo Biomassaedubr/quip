@@ -15,6 +15,8 @@
 		038F08781C00FD940058EAF9 /* Selection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08761C00FD940058EAF9 /* Selection.cpp */; };
 		038F087B1C00FD9F0058EAF9 /* SelectionSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08791C00FD9F0058EAF9 /* SelectionSet.cpp */; };
 		038F08811C00FDB80058EAF9 /* Location.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F087F1C00FDB80058EAF9 /* Location.cpp */; };
+		03A00A7D1C4DB82200378EBB /* DocumentIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03A00A7B1C4DB82200378EBB /* DocumentIterator.cpp */; };
+		03A00A7F1C4DBD8400378EBB /* DocumentIteratorTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03A00A7E1C4DBD8400378EBB /* DocumentIteratorTests.mm */; };
 		03B2C3BE1BF9196000AFE681 /* Mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03B2C3BC1BF9196000AFE681 /* Mode.cpp */; };
 		03BBDB4B1C432E5D0027628B /* StatusView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03BBDB4A1C432E5D0027628B /* StatusView.mm */; };
 		03CCFB041BF1A5980033929E /* ApplicationDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB001BF1A5980033929E /* ApplicationDelegate.mm */; };
@@ -57,6 +59,9 @@
 		038F087F1C00FDB80058EAF9 /* Location.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Location.cpp; path = Source/Location.cpp; sourceTree = SOURCE_ROOT; };
 		038F08801C00FDB80058EAF9 /* Location.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Location.hpp; path = Source/Location.hpp; sourceTree = SOURCE_ROOT; };
 		039A34A51C45E6760099F50D /* CursorStyle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CursorStyle.hpp; path = Source/CursorStyle.hpp; sourceTree = SOURCE_ROOT; };
+		03A00A7B1C4DB82200378EBB /* DocumentIterator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DocumentIterator.cpp; path = Source/DocumentIterator.cpp; sourceTree = SOURCE_ROOT; };
+		03A00A7C1C4DB82200378EBB /* DocumentIterator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DocumentIterator.hpp; path = Source/DocumentIterator.hpp; sourceTree = SOURCE_ROOT; };
+		03A00A7E1C4DBD8400378EBB /* DocumentIteratorTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DocumentIteratorTests.mm; sourceTree = "<group>"; };
 		03B2C3BC1BF9196000AFE681 /* Mode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mode.cpp; path = Source/Mode.cpp; sourceTree = SOURCE_ROOT; };
 		03B2C3BD1BF9196000AFE681 /* Mode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Mode.hpp; path = Source/Mode.hpp; sourceTree = SOURCE_ROOT; };
 		03BBDB491C432E5D0027628B /* StatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatusView.h; path = Source/StatusView.h; sourceTree = SOURCE_ROOT; };
@@ -122,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				0377419E1C29C53C00EC5F86 /* Info.plist */,
+				03A00A7E1C4DBD8400378EBB /* DocumentIteratorTests.mm */,
 				03DE15CC1C29C59E0036A9B9 /* LocationTests.mm */,
 				0305E9D41C4AC91200DD965A /* SearchExpressionTests.mm */,
 			);
@@ -222,6 +228,8 @@
 			children = (
 				03CCFB0C1BF1A6480033929E /* Document.hpp */,
 				03CCFB0B1BF1A6480033929E /* Document.cpp */,
+				03A00A7C1C4DB82200378EBB /* DocumentIterator.hpp */,
+				03A00A7B1C4DB82200378EBB /* DocumentIterator.cpp */,
 				038F08801C00FDB80058EAF9 /* Location.hpp */,
 				038F087F1C00FDB80058EAF9 /* Location.cpp */,
 			);
@@ -328,6 +336,7 @@
 			files = (
 				03DE15CD1C29C59E0036A9B9 /* LocationTests.mm in Sources */,
 				0305E9D51C4AC91200DD965A /* SearchExpressionTests.mm in Sources */,
+				03A00A7F1C4DBD8400378EBB /* DocumentIteratorTests.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,6 +358,7 @@
 				03CCFB0D1BF1A6480033929E /* Document.cpp in Sources */,
 				038F08811C00FDB80058EAF9 /* Location.cpp in Sources */,
 				03B2C3BE1BF9196000AFE681 /* Mode.cpp in Sources */,
+				03A00A7D1C4DB82200378EBB /* DocumentIterator.cpp in Sources */,
 				03F716B61C226015008B3AB0 /* EditMode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -368,7 +378,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
@@ -382,7 +392,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";

@@ -1,5 +1,6 @@
 #include "Document.hpp"
 
+#include "DocumentIterator.hpp"
 #include "SearchExpression.hpp"
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
@@ -31,6 +32,14 @@ namespace quip {
     }
     
     return stream.str();
+  }
+  
+  DocumentIterator Document::begin () {
+    return DocumentIterator(*this, Location(0, 0));
+  }
+  
+  DocumentIterator Document::end () {
+    return DocumentIterator(*this, Location(0, m_rows.size()));
   }
   
   const std::string & Document::path () const {

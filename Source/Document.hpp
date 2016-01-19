@@ -6,6 +6,7 @@
 #include <vector>
 
 namespace quip {
+  struct DocumentIterator;
   struct SearchExpression;
   struct SelectionSet;
   
@@ -14,6 +15,9 @@ namespace quip {
     Document (const std::string & contents);
     
     std::string contents () const;
+    
+    DocumentIterator begin ();
+    DocumentIterator end ();
     
     const std::string & path () const;
     void setPath (const std::string & path);
