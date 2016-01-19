@@ -7,9 +7,13 @@ namespace quip {
   : m_document(nullptr) {
   }
   
-  DocumentIterator::DocumentIterator (Document & document, Location location)
+  DocumentIterator::DocumentIterator (const Document & document, Location location)
   : m_document(&document)
   , m_location(location) {
+  }
+  
+  Location DocumentIterator::location () const {
+    return m_location;
   }
   
   char DocumentIterator::operator* () const {

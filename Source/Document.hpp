@@ -16,8 +16,8 @@ namespace quip {
     
     std::string contents () const;
     
-    DocumentIterator begin ();
-    DocumentIterator end ();
+    DocumentIterator begin () const;
+    DocumentIterator end () const;
     
     const std::string & path () const;
     void setPath (const std::string & path);

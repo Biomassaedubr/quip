@@ -15,6 +15,7 @@
   quip::DocumentIterator cursor = document.begin();
   
   XCTAssertEqual(*cursor, 'Q');
+  XCTAssertEqual(cursor.location(), quip::Location(0, 0));
 }
 
 - (void)testIncrement {
@@ -23,6 +24,7 @@
   ++cursor;
   
   XCTAssertEqual(*cursor, 'u');
+  XCTAssertEqual(cursor.location(), quip::Location(1, 0));
 }
 
 - (void)testIncrementAcrossRow {
@@ -32,6 +34,7 @@
   ++cursor;
   
   XCTAssertEqual(*cursor, 'B');
+  XCTAssertEqual(cursor.location(), quip::Location(0, 1));
 }
 
 - (void)testDecrement {
