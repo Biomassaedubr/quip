@@ -172,7 +172,9 @@ namespace quip {
         }
         
         for (std::size_t matchIndex = 0; matchIndex < match.size(); ++matchIndex) {
-          results.emplace_back(match[matchIndex].first.location(), match[matchIndex].second.location().adjustBy(-1, 0));
+          Location origin = match[matchIndex].first.location();
+          Location extent = std::prev(match[matchIndex].second).location();
+          results.emplace_back(origin, extent);
         }
         
         ++cursor;
