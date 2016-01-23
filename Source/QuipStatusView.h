@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 
-@interface StatusView : NSView
+@interface QuipStatusView : NSView
 
 - (void)setStatus:(const char *)status;
 

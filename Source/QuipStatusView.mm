@@ -1,6 +1,6 @@
-#import "StatusView.h"
+#import "QuipStatusView.h"
 
-@interface StatusView () {
+@interface QuipStatusView () {
 @private
   CTFontRef m_font;
   CFDictionaryRef m_fontAttributes;
@@ -15,7 +15,7 @@ static NSString * gSizeQueryString = @"m";
 static CGFloat gStatusLineBottomPadding = 4.0;
 static CGFloat gStatusLineLeftPadding = 2.0;
 
-@implementation StatusView
+@implementation QuipStatusView
 
 - (instancetype)initWithFrame:(NSRect)frame {
   self = [super initWithFrame:frame];

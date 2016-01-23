@@ -1,6 +1,6 @@
 #import "QuipTextView.h"
 
-#import "StatusView.h"
+#import "QuipStatusView.h"
 
 #include "EditContext.hpp"
 #include "Key.hpp"
@@ -26,7 +26,7 @@
   
   std::shared_ptr<quip::EditContext> m_context;
   
-  StatusView * m_statusView;
+  QuipStatusView * m_QuipStatusView;
 }
 @end
 
@@ -42,7 +42,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
 
 @implementation QuipTextView
 
-- (instancetype)initWithFrame:(NSRect)frame document:(std::shared_ptr<quip::Document>)document status:(StatusView *)status {
+- (instancetype)initWithFrame:(NSRect)frame document:(std::shared_ptr<quip::Document>)document status:(QuipStatusView *)status {
   self = [super initWithFrame:frame];
   if (self != nil) {
     m_font = CTFontCreateWithName(CFSTR("Menlo"), 13.0, nil);
@@ -71,7 +71,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
     m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 2, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     
     [self setDocument:document];
-    m_statusView = status;
+    m_QuipStatusView = status;
     
     m_cursorTimer = gCursorBlinkInterval;
     m_isCursorVisible = YES;
@@ -221,7 +221,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   // Re-draw the primary selection more visibly.
   [self drawSelection:m_context->selections().primary() asPrimary:YES context:context];
   
-  [m_statusView setStatus:m_context->mode().status().c_str()];
+  [m_QuipStatusView setStatus:m_context->mode().status().c_str()];
 }
 
 @end

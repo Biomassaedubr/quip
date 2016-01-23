@@ -4,11 +4,11 @@
 
 #include <memory>
 
-@class StatusView;
+@class QuipStatusView;
 
 @interface QuipTextView : NSView
 
-- (instancetype)initWithFrame:(NSRect)frame document:(std::shared_ptr<quip::Document>)document status:(StatusView *)status;
+- (instancetype)initWithFrame:(NSRect)frame document:(std::shared_ptr<quip::Document>)document status:(QuipStatusView *)status;
 
 - (quip::Document &)document;
 - (void)setDocument:(std::shared_ptr<quip::Document>)document;
