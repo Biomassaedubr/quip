@@ -24,6 +24,9 @@
 		03CCFB071BF1A5980033929E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03CCFB031BF1A5980033929E /* MainMenu.xib */; };
 		03CCFB0D1BF1A6480033929E /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB0B1BF1A6480033929E /* Document.cpp */; };
 		03CCFB101BF1AB550033929E /* QuipView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB0F1BF1AB550033929E /* QuipView.mm */; };
+		03D517291C53E3D50079D22D /* QuipDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D517271C53E3D50079D22D /* QuipDocument.mm */; };
+		03D5172E1C53E8BA0079D22D /* QuipWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D5172C1C53E8BA0079D22D /* QuipWindowController.mm */; };
+		03D5172F1C53E8BA0079D22D /* QuipWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D5172D1C53E8BA0079D22D /* QuipWindowController.xib */; };
 		03DE15CD1C29C59E0036A9B9 /* LocationTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03DE15CC1C29C59E0036A9B9 /* LocationTests.mm */; };
 		03F716B61C226015008B3AB0 /* EditMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03F716B41C226015008B3AB0 /* EditMode.cpp */; };
 		03F716B91C226A83008B3AB0 /* KeyStroke.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03F716B71C226A83008B3AB0 /* KeyStroke.cpp */; };
@@ -76,6 +79,11 @@
 		03CCFB0C1BF1A6480033929E /* Document.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Document.hpp; path = Source/Document.hpp; sourceTree = SOURCE_ROOT; };
 		03CCFB0E1BF1AB550033929E /* QuipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipView.h; path = Source/QuipView.h; sourceTree = SOURCE_ROOT; };
 		03CCFB0F1BF1AB550033929E /* QuipView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipView.mm; path = Source/QuipView.mm; sourceTree = SOURCE_ROOT; };
+		03D517261C53E3D50079D22D /* QuipDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipDocument.h; path = Source/QuipDocument.h; sourceTree = SOURCE_ROOT; };
+		03D517271C53E3D50079D22D /* QuipDocument.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipDocument.mm; path = Source/QuipDocument.mm; sourceTree = SOURCE_ROOT; };
+		03D5172B1C53E8BA0079D22D /* QuipWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipWindowController.h; path = Source/QuipWindowController.h; sourceTree = SOURCE_ROOT; };
+		03D5172C1C53E8BA0079D22D /* QuipWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipWindowController.mm; path = Source/QuipWindowController.mm; sourceTree = SOURCE_ROOT; };
+		03D5172D1C53E8BA0079D22D /* QuipWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QuipWindowController.xib; path = Source/QuipWindowController.xib; sourceTree = SOURCE_ROOT; };
 		03DE15CC1C29C59E0036A9B9 /* LocationTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocationTests.mm; sourceTree = "<group>"; };
 		03F716B41C226015008B3AB0 /* EditMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EditMode.cpp; path = Source/EditMode.cpp; sourceTree = SOURCE_ROOT; };
 		03F716B51C226015008B3AB0 /* EditMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EditMode.hpp; path = Source/EditMode.hpp; sourceTree = SOURCE_ROOT; };
@@ -203,10 +211,15 @@
 				03CCFB001BF1A5980033929E /* ApplicationDelegate.mm */,
 				03CCFB0E1BF1AB550033929E /* QuipView.h */,
 				03CCFB0F1BF1AB550033929E /* QuipView.mm */,
+				03D517261C53E3D50079D22D /* QuipDocument.h */,
+				03D517271C53E3D50079D22D /* QuipDocument.mm */,
+				03D5172B1C53E8BA0079D22D /* QuipWindowController.h */,
+				03D5172C1C53E8BA0079D22D /* QuipWindowController.mm */,
 				03BBDB491C432E5D0027628B /* StatusView.h */,
 				03BBDB4A1C432E5D0027628B /* StatusView.mm */,
 				03CCFB011BF1A5980033929E /* Info.plist */,
 				03CCFB031BF1A5980033929E /* MainMenu.xib */,
+				03D5172D1C53E8BA0079D22D /* QuipWindowController.xib */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -324,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03CCFB071BF1A5980033929E /* MainMenu.xib in Resources */,
+				03D5172F1C53E8BA0079D22D /* QuipWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,7 +358,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03D5172E1C53E8BA0079D22D /* QuipWindowController.mm in Sources */,
 				03CCFB101BF1AB550033929E /* QuipView.mm in Sources */,
+				03D517291C53E3D50079D22D /* QuipDocument.mm in Sources */,
 				03CCFB061BF1A5980033929E /* main.m in Sources */,
 				0350E5BE1C1756B900878E86 /* NormalMode.cpp in Sources */,
 				03F716B91C226A83008B3AB0 /* KeyStroke.cpp in Sources */,
