@@ -23,7 +23,7 @@
 		03CCFB061BF1A5980033929E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB021BF1A5980033929E /* main.m */; };
 		03CCFB071BF1A5980033929E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03CCFB031BF1A5980033929E /* MainMenu.xib */; };
 		03CCFB0D1BF1A6480033929E /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB0B1BF1A6480033929E /* Document.cpp */; };
-		03CCFB101BF1AB550033929E /* QuipView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB0F1BF1AB550033929E /* QuipView.mm */; };
+		03CCFB101BF1AB550033929E /* QuipTextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB0F1BF1AB550033929E /* QuipTextView.mm */; };
 		03D517291C53E3D50079D22D /* QuipDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D517271C53E3D50079D22D /* QuipDocument.mm */; };
 		03D5172E1C53E8BA0079D22D /* QuipWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D5172C1C53E8BA0079D22D /* QuipWindowController.mm */; };
 		03D5172F1C53E8BA0079D22D /* QuipWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D5172D1C53E8BA0079D22D /* QuipWindowController.xib */; };
@@ -77,8 +77,8 @@
 		03CCFB031BF1A5980033929E /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenu.xib; path = Source/MainMenu.xib; sourceTree = SOURCE_ROOT; };
 		03CCFB0B1BF1A6480033929E /* Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Document.cpp; path = Source/Document.cpp; sourceTree = SOURCE_ROOT; };
 		03CCFB0C1BF1A6480033929E /* Document.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Document.hpp; path = Source/Document.hpp; sourceTree = SOURCE_ROOT; };
-		03CCFB0E1BF1AB550033929E /* QuipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipView.h; path = Source/QuipView.h; sourceTree = SOURCE_ROOT; };
-		03CCFB0F1BF1AB550033929E /* QuipView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipView.mm; path = Source/QuipView.mm; sourceTree = SOURCE_ROOT; };
+		03CCFB0E1BF1AB550033929E /* QuipTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipTextView.h; path = Source/QuipTextView.h; sourceTree = SOURCE_ROOT; };
+		03CCFB0F1BF1AB550033929E /* QuipTextView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipTextView.mm; path = Source/QuipTextView.mm; sourceTree = SOURCE_ROOT; };
 		03D517261C53E3D50079D22D /* QuipDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipDocument.h; path = Source/QuipDocument.h; sourceTree = SOURCE_ROOT; };
 		03D517271C53E3D50079D22D /* QuipDocument.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipDocument.mm; path = Source/QuipDocument.mm; sourceTree = SOURCE_ROOT; };
 		03D5172B1C53E8BA0079D22D /* QuipWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipWindowController.h; path = Source/QuipWindowController.h; sourceTree = SOURCE_ROOT; };
@@ -209,8 +209,8 @@
 				03CCFB021BF1A5980033929E /* main.m */,
 				03CCFAFF1BF1A5980033929E /* ApplicationDelegate.h */,
 				03CCFB001BF1A5980033929E /* ApplicationDelegate.mm */,
-				03CCFB0E1BF1AB550033929E /* QuipView.h */,
-				03CCFB0F1BF1AB550033929E /* QuipView.mm */,
+				03CCFB0E1BF1AB550033929E /* QuipTextView.h */,
+				03CCFB0F1BF1AB550033929E /* QuipTextView.mm */,
 				03D517261C53E3D50079D22D /* QuipDocument.h */,
 				03D517271C53E3D50079D22D /* QuipDocument.mm */,
 				03D5172B1C53E8BA0079D22D /* QuipWindowController.h */,
@@ -359,7 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03D5172E1C53E8BA0079D22D /* QuipWindowController.mm in Sources */,
-				03CCFB101BF1AB550033929E /* QuipView.mm in Sources */,
+				03CCFB101BF1AB550033929E /* QuipTextView.mm in Sources */,
 				03D517291C53E3D50079D22D /* QuipDocument.mm in Sources */,
 				03CCFB061BF1A5980033929E /* main.m in Sources */,
 				0350E5BE1C1756B900878E86 /* NormalMode.cpp in Sources */,

@@ -1,4 +1,4 @@
-#import "QuipView.h"
+#import "QuipTextView.h"
 
 #import "StatusView.h"
 
@@ -11,7 +11,7 @@
 #include <cmath>
 #include <vector>
 
-@interface QuipView () {
+@interface QuipTextView () {
 @private
   CTFontRef m_font;
   CFDictionaryRef m_fontAttributes;
@@ -40,7 +40,7 @@ static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
 static CGFloat gTickInterval = 1.0 / 30.0;
 static CGFloat gCursorBlinkInterval = 0.57;
 
-@implementation QuipView
+@implementation QuipTextView
 
 - (instancetype)initWithFrame:(NSRect)frame document:(std::shared_ptr<quip::Document>)document status:(StatusView *)status {
   self = [super initWithFrame:frame];

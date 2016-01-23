@@ -1,7 +1,7 @@
 #import "QuipWindowController.h"
 
 #import "QuipDocument.h"
-#import "QuipView.h"
+#import "QuipTextView.h"
 #import "StatusView.h"
 
 @interface QuipWindowController () {
@@ -9,7 +9,7 @@
   NSView * m_rootView;
   StatusView * m_statusView;
   NSScrollView * m_scrollView;
-  QuipView * m_documentView;
+  QuipTextView * m_documentView;
 }
 
 @end
@@ -32,7 +32,7 @@ namespace {
   CGRect contentFrame = CGRectMake(0.0, gStatusViewHeight, rootFrame.size.width, rootFrame.size.height - gStatusViewHeight);
   
   QuipDocument * document = [self document];
-  m_documentView = [[QuipView alloc] initWithFrame:contentFrame document:[document document] status:m_statusView];
+  m_documentView = [[QuipTextView alloc] initWithFrame:contentFrame document:[document document] status:m_statusView];
   m_scrollView = [[NSScrollView alloc] initWithFrame:contentFrame];
   [m_scrollView setHasHorizontalScroller:YES];
   [m_scrollView setHasVerticalScroller:YES];

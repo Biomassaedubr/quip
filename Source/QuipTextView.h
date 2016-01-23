@@ -6,7 +6,7 @@
 
 @class StatusView;
 
-@interface QuipView : NSView
+@interface QuipTextView : NSView
 
 - (instancetype)initWithFrame:(NSRect)frame document:(std::shared_ptr<quip::Document>)document status:(StatusView *)status;
 
