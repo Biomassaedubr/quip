@@ -96,24 +96,34 @@ namespace quip {
       
       Location lower = selection.lowerBound().adjustBy(columnDelta, rowDelta);
       Location upper = selection.upperBound().adjustBy(columnDelta, rowDelta);
+      std::uint64_t modified = selection.height();
+
       std::string prefix = m_rows[lower.row()].substr(0, lower.column());
-      std::string suffix = m_rows[upper.row()].substr(upper.column() + 1);
-      m_rows[lower.row()] = prefix + suffix;
+      std::string suffix;
+      if (upper.column() == m_rows[upper.row()].length() - 1) {
+        suffix = m_rows[upper.row() + 1];
+        ++modified;
+      } else {
+        suffix = m_rows[upper.row()].substr(upper.column() + 1);
+      }
       
-      std::uint64_t removed = selection.height() - 1;
+      std::string final = prefix + suffix;
       selection.setOrigin(selection.origin().adjustBy(columnDelta, 0));
       selection.setExtent(selection.origin());
-      
-      if (selection.height() == 1) {
+
+      if (modified == 1) {
         columnDelta -= (upper.column() - lower.column() + 1);
       } else {
         columnDelta = upper.column();
-        while (removed > 0) {
-          m_rows.erase(m_rows.begin() + (lower.row() + 1));
+        
+        while (modified > 1) {
+          m_rows.erase(m_rows.begin() + lower.row() + 1);
           --rowDelta;
-          --removed;
+          --modified;
         }
       }
+      
+      m_rows[lower.row()] = final;
     }
   }
   
