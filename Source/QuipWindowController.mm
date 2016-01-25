@@ -47,6 +47,7 @@ namespace {
   NSWindow * window = [self window];
   [window setContentView:m_rootView];
   [window makeKeyAndOrderFront:self];
+  [window makeFirstResponder:m_documentView];
 }
 
 @end
