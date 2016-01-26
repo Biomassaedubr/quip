@@ -215,11 +215,9 @@ static CGFloat gCursorBlinkInterval = 0.57;
   }
   
   for (quip::Selection & selection : m_context->selections()) {
-    [self drawSelection:selection asPrimary:NO context:context];
+    BOOL primary = selection == m_context->selections().primary();
+    [self drawSelection:selection asPrimary:primary context:context];
   }
-  
-  // Re-draw the primary selection more visibly.
-  [self drawSelection:m_context->selections().primary() asPrimary:YES context:context];
   
   [m_QuipStatusView setStatus:m_context->mode().status().c_str()];
 }
