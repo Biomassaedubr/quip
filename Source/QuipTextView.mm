@@ -121,6 +121,10 @@ static CGFloat gCursorBlinkInterval = 0.57;
   std::size_t row = static_cast<std::size_t>((self.frame.size.height - location.y) / m_cellSize.height);
   quip::Location target(column, row);
   
+  if (target.row() >= m_context->document().rows() || target.column() >= m_context->document().row(target.row()).length()) {
+    return;
+  }
+  
   m_context->selections().replace(quip::Selection(target, target));
   [self resetCursorBlink];
 }
@@ -130,8 +134,12 @@ static CGFloat gCursorBlinkInterval = 0.57;
   std::size_t column = static_cast<std::size_t>(location.x / m_cellSize.width);
   std::size_t row = static_cast<std::size_t>((self.frame.size.height - location.y) / m_cellSize.height);
   quip::Location target(column, row);
-  quip::Location origin = m_context->selections().primary().origin();
   
+  if (target.row() >= m_context->document().rows() || target.column() >= m_context->document().row(target.row()).length()) {
+    return;
+  }
+  
+  quip::Location origin = m_context->selections().primary().origin();
   m_context->selections().replace(quip::Selection(origin, target));
   [self resetCursorBlink];
 }
