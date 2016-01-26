@@ -35,4 +35,12 @@ namespace quip {
   std::uint64_t Selection::height () const {
     return upperBound().row() - lowerBound().row() + 1;
   }
+  
+  bool operator== (const Selection & left, const Selection & right) {
+    return left.origin() == right.origin() && left.extent() == right.extent();
+  }
+  
+  bool operator!= (const Selection & left, const Selection & right) {
+    return !(left == right);
+  }
 }

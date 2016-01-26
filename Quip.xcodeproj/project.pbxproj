@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0305E9D21C4AC7DF00DD965A /* SearchExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0305E9D01C4AC7DF00DD965A /* SearchExpression.cpp */; };
 		0305E9D51C4AC91200DD965A /* SearchExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0305E9D41C4AC91200DD965A /* SearchExpressionTests.mm */; };
+		03352E691C56F12C004B52CB /* SelectionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03352E681C56F12C004B52CB /* SelectionTests.mm */; };
 		0350E5BE1C1756B900878E86 /* NormalMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0350E5BC1C1756B900878E86 /* NormalMode.cpp */; };
 		0372F4DB1C24FD250048AE31 /* SearchMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0372F4D91C24FD250048AE31 /* SearchMode.cpp */; };
 		038F08741C00FD520058EAF9 /* EditContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08721C00FD520058EAF9 /* EditContext.cpp */; };
@@ -47,6 +48,7 @@
 		0305E9D11C4AC7DF00DD965A /* SearchExpression.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SearchExpression.hpp; path = Source/SearchExpression.hpp; sourceTree = SOURCE_ROOT; };
 		0305E9D41C4AC91200DD965A /* SearchExpressionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchExpressionTests.mm; sourceTree = "<group>"; };
 		030E08841C08D70800DC7CB0 /* Key.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Key.hpp; path = Source/Key.hpp; sourceTree = SOURCE_ROOT; };
+		03352E681C56F12C004B52CB /* SelectionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SelectionTests.mm; sourceTree = "<group>"; };
 		0350E5BC1C1756B900878E86 /* NormalMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NormalMode.cpp; path = Source/NormalMode.cpp; sourceTree = SOURCE_ROOT; };
 		0350E5BD1C1756B900878E86 /* NormalMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NormalMode.hpp; path = Source/NormalMode.hpp; sourceTree = SOURCE_ROOT; };
 		0372F4D91C24FD250048AE31 /* SearchMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SearchMode.cpp; path = Source/SearchMode.cpp; sourceTree = SOURCE_ROOT; };
@@ -138,6 +140,7 @@
 				03A00A7E1C4DBD8400378EBB /* DocumentIteratorTests.mm */,
 				03DE15CC1C29C59E0036A9B9 /* LocationTests.mm */,
 				0305E9D41C4AC91200DD965A /* SearchExpressionTests.mm */,
+				03352E681C56F12C004B52CB /* SelectionTests.mm */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03352E691C56F12C004B52CB /* SelectionTests.mm in Sources */,
 				03DE15CD1C29C59E0036A9B9 /* LocationTests.mm in Sources */,
 				0305E9D51C4AC91200DD965A /* SearchExpressionTests.mm in Sources */,
 				03A00A7F1C4DBD8400378EBB /* DocumentIteratorTests.mm in Sources */,

@@ -23,4 +23,7 @@ namespace quip {
     Location m_origin;
     Location m_extent;
   };
+  
+  bool operator== (const Selection & left, const Selection & right);
+  bool operator!= (const Selection & left, const Selection & right);
 }
