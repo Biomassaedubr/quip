@@ -191,7 +191,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   } while (row <= upper.row());
 }
 
-- (void)drawRect:(NSRect)dirtyRect {  
+- (void)drawRect:(NSRect)dirtyRect {
   quip::Document & document = m_context->document();
   CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
   
@@ -214,9 +214,11 @@ static CGFloat gCursorBlinkInterval = 0.57;
     y -= m_cellSize.height;
   }
   
-  for (quip::Selection & selection : m_context->selections()) {
-    BOOL primary = selection == m_context->selections().primary();
-    [self drawSelection:selection asPrimary:primary context:context];
+  if ([[self window] isKeyWindow]) {
+    for (quip::Selection & selection : m_context->selections()) {
+      BOOL primary = selection == m_context->selections().primary();
+      [self drawSelection:selection asPrimary:primary context:context];
+    }
   }
   
   [m_QuipStatusView setStatus:m_context->mode().status().c_str()];
