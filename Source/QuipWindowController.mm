@@ -28,7 +28,8 @@ namespace {
   
   CGRect statusFrame = CGRectMake(0.0, 0.0, rootFrame.size.width, gStatusViewHeight);
   m_statusView = [[QuipStatusView alloc] initWithFrame:statusFrame];
-  
+  [m_statusView setAutoresizingMask:NSViewWidthSizable];
+
   CGRect contentFrame = CGRectMake(0.0, gStatusViewHeight, rootFrame.size.width, rootFrame.size.height - gStatusViewHeight);
   
   QuipDocument * document = [self document];
