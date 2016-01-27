@@ -33,7 +33,11 @@ namespace {
   
   QuipDocument * document = [self document];
   m_documentView = [[QuipTextView alloc] initWithFrame:contentFrame document:[document document] status:m_statusView];
+  [m_documentView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+  
   m_scrollView = [[NSScrollView alloc] initWithFrame:contentFrame];
+  [m_scrollView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+  [m_scrollView setAutoresizesSubviews:YES];
   [m_scrollView setHasHorizontalScroller:YES];
   [m_scrollView setHasVerticalScroller:YES];
   [m_scrollView setDocumentView:m_documentView];
