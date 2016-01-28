@@ -59,6 +59,22 @@ namespace quip {
   }
   
   void Document::insert (SelectionSet & selections, const std::string & text) {
+    // Split the text.
+    std::vector<std::string> lines;
+    for (std::size_t index = 0; index < text.size(); ++index) {
+      std::size_t start = index;
+      while (text[index] != '\n' && index < text.size()) {
+        ++index;
+      }
+      
+      lines.emplace_back(text.substr(start, index - start + 1));
+    }
+    
+    // Account for potential trailing newline.
+    if (lines.back().back() == '\n') {
+      lines.emplace_back("");
+    }
+    
     std::int64_t rowDelta = 0;
     std::int64_t columnDelta = 0;
     std::size_t priorRow = rows();
@@ -73,11 +89,25 @@ namespace quip {
       Location lower = selection.lowerBound().adjustBy(columnDelta, rowDelta);
       std::string prefix = m_rows[lower.row()].substr(0, lower.column());
       std::string suffix = m_rows[lower.row()].substr(lower.column());
-      m_rows[lower.row()] = prefix + text + suffix;
+      std::size_t insertRow = lower.row();
+      m_rows[insertRow] = prefix + lines[0];
+      columnDelta += lines[0].size();
       
-      columnDelta += text.size();
+      for (std::size_t lineIndex = 1; lineIndex < lines.size(); ++lineIndex) {
+        m_rows.insert(m_rows.begin() + insertRow + 1, lines[lineIndex]);
+        ++insertRow;
+        ++rowDelta;
+        columnDelta = 0;
+      }
       
-      selection.setOrigin(selection.origin().adjustBy(columnDelta, 0));
+      m_rows[insertRow] += suffix;
+      
+      Location origin = selection.origin().adjustBy(columnDelta, rowDelta);
+      if (lines.size() > 1) {
+        origin = Location(0, origin.row());
+      }
+      
+      selection.setOrigin(origin);
       selection.setExtent(selection.origin());
     }
   }
