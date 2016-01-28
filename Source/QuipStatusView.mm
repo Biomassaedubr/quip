@@ -50,6 +50,10 @@ static CGFloat gStatusLineLeftPadding = 2.0;
 - (void)drawRect:(NSRect)dirtyRect {
   [super drawRect:dirtyRect];
   
+  if (m_text.length == 0) {
+    return;
+  }
+  
   CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
   CFStringRef text = (__bridge CFStringRef)m_text;
   CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, text, m_fontAttributes);
