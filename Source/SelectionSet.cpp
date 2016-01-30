@@ -18,6 +18,33 @@ namespace quip {
   : m_selections(selections)
   , m_primary(0) {
     std::sort(m_selections.begin(), m_selections.end(), compareSelectionsByLowestLocation);
+    
+    if (m_selections.size() >= 2) {
+      std::vector<Selection> collapsed;
+      collapsed.reserve(selections.size());
+      
+      std::size_t basis = 0;
+      std::size_t candidate = 1;
+      while (basis < m_selections.size() && candidate < m_selections.size()) {
+        if (m_selections[basis].upperBound() >= m_selections[candidate].lowerBound()) {
+          m_selections[basis] = Selection(m_selections[basis].lowerBound(), m_selections[candidate].upperBound());
+          ++candidate;
+          if (candidate >= m_selections.size()) {
+            // Ensure a collapse of the last candidate selection gets recorded.
+            collapsed.emplace_back(m_selections[basis]);
+          }
+        } else {
+          collapsed.emplace_back(m_selections[basis]);
+          basis = candidate++;
+        }
+      }
+      
+      m_selections = collapsed;
+    }
+  }
+  
+  std::size_t SelectionSet::count () const {
+    return m_selections.size();
   }
   
   Selection & SelectionSet::primary () {
@@ -61,7 +88,7 @@ namespace quip {
   void SelectionSet::replace (const SelectionSet & selections) {
     m_selections.clear();
     
-    // The source selection set will already be sorted.
+    // The source selection set will already be sorted and collapsed.
     m_selections.insert(m_selections.begin(), selections.begin(), selections.end());
     m_primary = selections.m_primary;
   }

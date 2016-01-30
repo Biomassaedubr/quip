@@ -9,6 +9,8 @@ namespace quip {
     SelectionSet (const Selection & selection);
     SelectionSet (const std::vector<Selection> & selections);
 
+    std::size_t count () const;
+    
     Selection & primary ();
     
     Selection * begin ();
