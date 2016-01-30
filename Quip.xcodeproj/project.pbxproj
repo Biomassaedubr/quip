@@ -16,6 +16,7 @@
 		038F08781C00FD940058EAF9 /* Selection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08761C00FD940058EAF9 /* Selection.cpp */; };
 		038F087B1C00FD9F0058EAF9 /* SelectionSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08791C00FD9F0058EAF9 /* SelectionSet.cpp */; };
 		038F08811C00FDB80058EAF9 /* Location.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F087F1C00FDB80058EAF9 /* Location.cpp */; };
+		0398AE671C59DD2F00D0EE46 /* SelectionSetTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0398AE661C59DD2F00D0EE46 /* SelectionSetTests.mm */; };
 		03A00A7D1C4DB82200378EBB /* DocumentIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03A00A7B1C4DB82200378EBB /* DocumentIterator.cpp */; };
 		03A00A7F1C4DBD8400378EBB /* DocumentIteratorTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03A00A7E1C4DBD8400378EBB /* DocumentIteratorTests.mm */; };
 		03B2C3BE1BF9196000AFE681 /* Mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03B2C3BC1BF9196000AFE681 /* Mode.cpp */; };
@@ -63,6 +64,7 @@
 		038F087A1C00FD9F0058EAF9 /* SelectionSet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionSet.hpp; path = Source/SelectionSet.hpp; sourceTree = SOURCE_ROOT; };
 		038F087F1C00FDB80058EAF9 /* Location.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Location.cpp; path = Source/Location.cpp; sourceTree = SOURCE_ROOT; };
 		038F08801C00FDB80058EAF9 /* Location.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Location.hpp; path = Source/Location.hpp; sourceTree = SOURCE_ROOT; };
+		0398AE661C59DD2F00D0EE46 /* SelectionSetTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SelectionSetTests.mm; sourceTree = "<group>"; };
 		039A34A51C45E6760099F50D /* CursorStyle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CursorStyle.hpp; path = Source/CursorStyle.hpp; sourceTree = SOURCE_ROOT; };
 		03A00A7B1C4DB82200378EBB /* DocumentIterator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DocumentIterator.cpp; path = Source/DocumentIterator.cpp; sourceTree = SOURCE_ROOT; };
 		03A00A7C1C4DB82200378EBB /* DocumentIterator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DocumentIterator.hpp; path = Source/DocumentIterator.hpp; sourceTree = SOURCE_ROOT; };
@@ -141,6 +143,7 @@
 				03DE15CC1C29C59E0036A9B9 /* LocationTests.mm */,
 				0305E9D41C4AC91200DD965A /* SearchExpressionTests.mm */,
 				03352E681C56F12C004B52CB /* SelectionTests.mm */,
+				0398AE661C59DD2F00D0EE46 /* SelectionSetTests.mm */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 			files = (
 				03352E691C56F12C004B52CB /* SelectionTests.mm in Sources */,
 				03DE15CD1C29C59E0036A9B9 /* LocationTests.mm in Sources */,
+				0398AE671C59DD2F00D0EE46 /* SelectionSetTests.mm in Sources */,
 				0305E9D51C4AC91200DD965A /* SearchExpressionTests.mm in Sources */,
 				03A00A7F1C4DBD8400378EBB /* DocumentIteratorTests.mm in Sources */,
 			);

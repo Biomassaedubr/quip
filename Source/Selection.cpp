@@ -43,4 +43,10 @@ namespace quip {
   bool operator!= (const Selection & left, const Selection & right) {
     return !(left == right);
   }
+  
+  void swap (Selection & left, Selection & right) {
+    using std::swap;
+    swap(left.m_origin, right.m_origin);
+    swap(left.m_extent, right.m_extent);
+  }
 }

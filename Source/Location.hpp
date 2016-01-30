@@ -12,6 +12,8 @@ namespace quip {
     
     Location adjustBy (std::int64_t columnDelta, std::int64_t rowDelta) const;
     
+    friend void swap (Location & left, Location & right);
+
   private:
     std::uint64_t m_column;
     std::uint64_t m_row;

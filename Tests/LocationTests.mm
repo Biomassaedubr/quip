@@ -2,6 +2,8 @@
 
 #include "Location.hpp"
 
+#include <utility>
+
 @interface LocationTests : XCTestCase
 
 @end
@@ -42,6 +44,19 @@
   quip::Location b(5, 6);
   
   XCTAssertTrue(a != b);
+}
+
+- (void)testSwap {
+  quip::Location a(1, 2);
+  quip::Location b(3, 4);
+  
+  using std::swap;
+  swap(a, b);
+  
+  XCTAssertEqual(a.column(), 3);
+  XCTAssertEqual(b.column(), 1);
+  XCTAssertEqual(a.row(), 4);
+  XCTAssertEqual(b.row(), 2);
 }
 
 @end

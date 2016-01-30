@@ -18,6 +18,8 @@ namespace quip {
     const Location & upperBound () const;
     
     std::uint64_t height () const;
+
+    friend void swap (Selection & left, Selection & right);
     
   private:
     Location m_origin;

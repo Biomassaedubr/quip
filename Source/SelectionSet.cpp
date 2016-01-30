@@ -2,6 +2,12 @@
 
 #include "Selection.hpp"
 
+namespace {
+  static bool compareSelectionsByLowestLocation (const quip::Selection & left, const quip::Selection & right) {
+    return left.lowerBound() < right.lowerBound();
+  }
+}
+
 namespace quip {
   SelectionSet::SelectionSet (const Selection & selection)
   : m_selections({selection})
@@ -11,6 +17,7 @@ namespace quip {
   SelectionSet::SelectionSet (const std::vector<Selection> & selections)
   : m_selections(selections)
   , m_primary(0) {
+    std::sort(m_selections.begin(), m_selections.end(), compareSelectionsByLowestLocation);
   }
   
   Selection & SelectionSet::primary () {
@@ -53,6 +60,8 @@ namespace quip {
   
   void SelectionSet::replace (const SelectionSet & selections) {
     m_selections.clear();
+    
+    // The source selection set will already be sorted.
     m_selections.insert(m_selections.begin(), selections.begin(), selections.end());
     m_primary = selections.m_primary;
   }

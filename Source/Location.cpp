@@ -1,5 +1,7 @@
 #include "Location.hpp"
 
+#include <utility>
+
 namespace quip {
   Location::Location ()
   : Location(0, 0) {
@@ -52,5 +54,11 @@ namespace quip {
   
   bool operator>= (const Location & left, const Location & right) {
     return (left == right) || (left > right);
+  }
+  
+  void swap (Location & left, Location & right) {
+    using std::swap;
+    swap(left.m_column, right.m_column);
+    swap(left.m_row, right.m_row);
   }
 }
