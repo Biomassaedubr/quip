@@ -11,6 +11,7 @@
 		0305E9D51C4AC91200DD965A /* SearchExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0305E9D41C4AC91200DD965A /* SearchExpressionTests.mm */; };
 		03352E691C56F12C004B52CB /* SelectionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03352E681C56F12C004B52CB /* SelectionTests.mm */; };
 		0350E5BE1C1756B900878E86 /* NormalMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0350E5BC1C1756B900878E86 /* NormalMode.cpp */; };
+		03531ED51C5D8C8400B2EE00 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03531ED41C5D8C8400B2EE00 /* Images.xcassets */; };
 		0372F4DB1C24FD250048AE31 /* SearchMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0372F4D91C24FD250048AE31 /* SearchMode.cpp */; };
 		038F08741C00FD520058EAF9 /* EditContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08721C00FD520058EAF9 /* EditContext.cpp */; };
 		038F08781C00FD940058EAF9 /* Selection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08761C00FD940058EAF9 /* Selection.cpp */; };
@@ -52,6 +53,7 @@
 		03352E681C56F12C004B52CB /* SelectionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SelectionTests.mm; sourceTree = "<group>"; };
 		0350E5BC1C1756B900878E86 /* NormalMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NormalMode.cpp; path = Source/NormalMode.cpp; sourceTree = SOURCE_ROOT; };
 		0350E5BD1C1756B900878E86 /* NormalMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NormalMode.hpp; path = Source/NormalMode.hpp; sourceTree = SOURCE_ROOT; };
+		03531ED41C5D8C8400B2EE00 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		0372F4D91C24FD250048AE31 /* SearchMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SearchMode.cpp; path = Source/SearchMode.cpp; sourceTree = SOURCE_ROOT; };
 		0372F4DA1C24FD250048AE31 /* SearchMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SearchMode.hpp; path = Source/SearchMode.hpp; sourceTree = SOURCE_ROOT; };
 		0377419A1C29C53C00EC5F86 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,6 +207,7 @@
 			children = (
 				03CCFB091BF1A62A0033929E /* Core */,
 				03CCFB081BF1A6210033929E /* Application */,
+				03531ED41C5D8C8400B2EE00 /* Images.xcassets */,
 			);
 			path = Quip;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03531ED51C5D8C8400B2EE00 /* Images.xcassets in Resources */,
 				03CCFB071BF1A5980033929E /* MainMenu.xib in Resources */,
 				03D5172F1C53E8BA0079D22D /* QuipWindowController.xib in Resources */,
 			);
@@ -508,6 +512,7 @@
 		03CCFAFD1BF1A1BE0033929E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -519,6 +524,7 @@
 		03CCFAFE1BF1A1BE0033929E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
