@@ -18,12 +18,20 @@ namespace quip {
   }
   
   bool EditMode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
-    if (keyStroke.key() == Key::Delete) {
-      context.document().eraseBefore(context.selections());
-      return true;
-    } else if (keyStroke.text().size() > 0) {
-      context.document().insert(context.selections(), keyStroke.text());
-      return true;
+    switch (keyStroke.key()) {
+      case Key::Delete:
+        context.document().eraseBefore(context.selections());
+        return true;
+      case Key::ArrowUp:
+      case Key::ArrowDown:
+      case Key::ArrowLeft:
+      case Key::ArrowRight:
+        break;
+      default:
+        if (keyStroke.text().size() > 0) {
+          context.document().insert(context.selections(), keyStroke.text());
+          return true;
+        }
     }
     
     return false;
