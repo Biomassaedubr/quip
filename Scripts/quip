@@ -1,7 +1,11 @@
 #!/bin/sh
-if [ ! -d "/Applications/Quip.app" ]; then
-  echo "Could not find Quip."
+
+if [ ! -d "$QUIP_LOCATION" ]; then
+  QUIP_LOCATION="/Applications/Quip.app"
+fi
+
+if [ ! -d "$QUIP_LOCATION" ]; then
   exit 1
 fi
 
-open -a /Applications/Quip.app $1
+open -a "$QUIP_LOCATION" $1
