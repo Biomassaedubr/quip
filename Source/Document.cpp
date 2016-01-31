@@ -169,24 +169,41 @@ namespace quip {
         columnDelta = 0;
       }
       
+      // Don't delete before the first character.
+      if (selection.lowerBound() == Location(0, 0)) {
+        continue;
+      }
+      
       Location lower = selection.lowerBound().adjustBy(columnDelta, rowDelta);
       Location upper = selection.upperBound().adjustBy(columnDelta, rowDelta);
-      std::string prefix = m_rows[lower.row()].substr(0, lower.column() - 1);
-      std::string suffix = m_rows[upper.row()].substr(upper.column());
-      m_rows[lower.row()] = prefix + suffix;
+      std::uint64_t modified = selection.height();
+      std::size_t destinationRow = lower.row();
+      std::string prefix;
+      if (lower.column() == 0) {
+        const std::string & priorText = m_rows[lower.row() - 1];
+        prefix = priorText.substr(0, priorText.length() - 1);
+        --destinationRow;
+        ++modified;
+      } else {
+        prefix = m_rows[lower.row()].substr(0, lower.column() - 1);
+      }
       
-      std::uint64_t removed = selection.height() - 1;
-      selection.setOrigin(selection.origin().adjustBy(-1, 0));
+      std::string suffix = m_rows[upper.row()].substr(upper.column());
+      m_rows[destinationRow] = prefix + suffix;
+      
+      std::size_t destinationColumn = selection.origin().column() == 0 ? prefix.length() : selection.origin().column() - 1;
+      selection.setOrigin(Location(destinationColumn, destinationRow));
       selection.setExtent(selection.origin());
       
-      if (selection.height() == 1) {
+      if (modified == 1) {
         columnDelta -= (upper.column() - lower.column() + 1);
       } else {
         columnDelta = upper.column();
-        while (removed > 0) {
-          m_rows.erase(m_rows.begin() + (lower.row() + 1));
+        
+        while (modified > 1) {
+          m_rows.erase(m_rows.begin() + destinationRow + 1);
           --rowDelta;
-          --removed;
+          --modified;
         }
       }
     }
