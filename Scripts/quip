@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ ! -d "/Applications/Quip.app" ]; then
+  echo "Could not find Quip."
+  exit 1
+fi
+
+open -a /Applications/Quip.app $1
