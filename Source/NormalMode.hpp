@@ -24,5 +24,7 @@ namespace quip {
     void collapseSelections (EditContext & context);
     
     void deleteSelections (EditContext & context);
+    
+    std::uint64_t m_virtualColumn;
   };
 }

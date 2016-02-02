@@ -20,6 +20,8 @@ namespace quip {
     addMapping(Key::S, &NormalMode::enterSearchMode);
 
     addMapping(Key::X, &NormalMode::deleteSelections);
+    
+    m_virtualColumn = 0;
   }
   
   std::string NormalMode::status () const {
@@ -33,8 +35,9 @@ namespace quip {
     }
     
     Location target(location.column() - 1, location.row());
-    Selection result(target, target);
+    m_virtualColumn = target.column();
     
+    Selection result(target, target);
     context.selections().replace(result);
   }
   
@@ -43,8 +46,17 @@ namespace quip {
     if (location.row() + 1 == context.document().rows()) {
       return;
     }
+
+    std::uint64_t column = location.column();
+    m_virtualColumn = std::max(column, m_virtualColumn);
+    column = std::max(column, m_virtualColumn);
     
-    Location target(location.column(), location.row() + 1);
+    std::uint64_t row = location.row() + 1;
+    if (column >= context.document().row(row).length()) {
+      column = context.document().row(row).length() - 1;
+    }
+
+    Location target(column, row);
     Selection result(target, target);
     
     context.selections().replace(result);
@@ -57,8 +69,9 @@ namespace quip {
     }
     
     Location target(location.column() + 1, location.row());
+    m_virtualColumn = target.column();
+
     Selection result(target, target);
-    
     context.selections().replace(result);
   }
   
@@ -68,7 +81,16 @@ namespace quip {
       return;
     }
     
-    Location target(location.column(), location.row() - 1);
+    std::uint64_t column = location.column();
+    m_virtualColumn = std::max(column, m_virtualColumn);
+    column = std::max(column, m_virtualColumn);
+
+    std::uint64_t row = location.row() - 1;
+    if (column >= context.document().row(row).length()) {
+      column = context.document().row(row).length() - 1;
+    }
+    
+    Location target(column, row);
     Selection result(target, target);
     
     context.selections().replace(result);
