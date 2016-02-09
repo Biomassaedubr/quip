@@ -51,6 +51,14 @@ namespace quip {
     return m_selections[m_primary];
   }
   
+  Selection & SelectionSet::operator[] (std::size_t index) {
+    return m_selections[index];
+  }
+  
+  const Selection & SelectionSet::operator[] (std::size_t index) const {
+    return m_selections[index];
+  }
+  
   Selection * SelectionSet::begin () {
     return &m_selections.front();
   }

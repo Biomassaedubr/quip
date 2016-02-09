@@ -13,6 +13,9 @@ namespace quip {
     
     Selection & primary ();
     
+    Selection & operator[] (std::size_t index);
+    const Selection & operator[] (std::size_t index) const;
+    
     Selection * begin ();
     const Selection * begin () const;
     Selection * end ();

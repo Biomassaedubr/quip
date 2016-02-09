@@ -154,10 +154,10 @@
 			children = (
 				038ECDAC1C698FDA002E571D /* SearchExpression.hpp */,
 				038ECDAB1C698FDA002E571D /* SearchExpression.cpp */,
-				038ECDAF1C698FDA002E571D /* Selection.cpp */,
 				038ECDB01C698FDA002E571D /* Selection.hpp */,
-				038ECDB11C698FDA002E571D /* SelectionSet.cpp */,
+				038ECDAF1C698FDA002E571D /* Selection.cpp */,
 				038ECDB21C698FDA002E571D /* SelectionSet.hpp */,
+				038ECDB11C698FDA002E571D /* SelectionSet.cpp */,
 			);
 			name = Selections;
 			sourceTree = "<group>";

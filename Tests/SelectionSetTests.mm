@@ -8,6 +8,16 @@
 
 @implementation SelectionSetTests
 
+- (void)testIndexing {
+  quip::Selection a(quip::Location(0, 0), quip::Location(1, 0));
+  quip::Selection b(quip::Location(0, 1), quip::Location(1, 1));
+  std::vector<quip::Selection> selections { a, b };
+  quip::SelectionSet set(selections);
+  
+  XCTAssertEqual(set[0], a);
+  XCTAssertEqual(set[1], b);
+}
+
 - (void)testSelectionsAreSorted {
   quip::Selection a(quip::Location(0, 0), quip::Location(0, 5));
   quip::Selection b(quip::Location(5, 10), quip::Location(0, 8));
