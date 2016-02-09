@@ -7,32 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0305E9D21C4AC7DF00DD965A /* SearchExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0305E9D01C4AC7DF00DD965A /* SearchExpression.cpp */; };
 		0305E9D51C4AC91200DD965A /* SearchExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0305E9D41C4AC91200DD965A /* SearchExpressionTests.mm */; };
 		03352E691C56F12C004B52CB /* SelectionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03352E681C56F12C004B52CB /* SelectionTests.mm */; };
-		0350E5BE1C1756B900878E86 /* NormalMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0350E5BC1C1756B900878E86 /* NormalMode.cpp */; };
-		03531ED51C5D8C8400B2EE00 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03531ED41C5D8C8400B2EE00 /* Images.xcassets */; };
-		0372F4DB1C24FD250048AE31 /* SearchMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0372F4D91C24FD250048AE31 /* SearchMode.cpp */; };
-		038F08741C00FD520058EAF9 /* EditContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08721C00FD520058EAF9 /* EditContext.cpp */; };
-		038F08781C00FD940058EAF9 /* Selection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08761C00FD940058EAF9 /* Selection.cpp */; };
-		038F087B1C00FD9F0058EAF9 /* SelectionSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F08791C00FD9F0058EAF9 /* SelectionSet.cpp */; };
-		038F08811C00FDB80058EAF9 /* Location.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038F087F1C00FDB80058EAF9 /* Location.cpp */; };
+		038ECDDB1C698FE2002E571D /* ApplicationDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDCE1C698FE2002E571D /* ApplicationDelegate.mm */; };
+		038ECDDD1C698FE2002E571D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDD01C698FE2002E571D /* main.m */; };
+		038ECDDE1C698FE2002E571D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDD11C698FE2002E571D /* MainMenu.xib */; };
+		038ECDDF1C698FE2002E571D /* QuipDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDD31C698FE2002E571D /* QuipDocument.mm */; };
+		038ECDE01C698FE2002E571D /* QuipStatusView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDD51C698FE2002E571D /* QuipStatusView.mm */; };
+		038ECDE11C698FE2002E571D /* QuipTextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDD71C698FE2002E571D /* QuipTextView.mm */; };
+		038ECDE21C698FE2002E571D /* QuipWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDD91C698FE2002E571D /* QuipWindowController.mm */; };
+		038ECDE31C698FE2002E571D /* QuipWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDDA1C698FE2002E571D /* QuipWindowController.xib */; };
+		038ECDE71C699039002E571D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDE61C699039002E571D /* Images.xcassets */; };
+		038ECDEA1C699097002E571D /* libQuip.Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 038ECD981C698FC1002E571D /* libQuip.Core.a */; };
 		0398AE671C59DD2F00D0EE46 /* SelectionSetTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0398AE661C59DD2F00D0EE46 /* SelectionSetTests.mm */; };
-		03A00A7D1C4DB82200378EBB /* DocumentIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03A00A7B1C4DB82200378EBB /* DocumentIterator.cpp */; };
 		03A00A7F1C4DBD8400378EBB /* DocumentIteratorTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03A00A7E1C4DBD8400378EBB /* DocumentIteratorTests.mm */; };
-		03B2C3BE1BF9196000AFE681 /* Mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03B2C3BC1BF9196000AFE681 /* Mode.cpp */; };
-		03BBDB4B1C432E5D0027628B /* QuipStatusView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03BBDB4A1C432E5D0027628B /* QuipStatusView.mm */; };
-		03CCFB041BF1A5980033929E /* ApplicationDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB001BF1A5980033929E /* ApplicationDelegate.mm */; };
-		03CCFB061BF1A5980033929E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB021BF1A5980033929E /* main.m */; };
-		03CCFB071BF1A5980033929E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03CCFB031BF1A5980033929E /* MainMenu.xib */; };
-		03CCFB0D1BF1A6480033929E /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB0B1BF1A6480033929E /* Document.cpp */; };
-		03CCFB101BF1AB550033929E /* QuipTextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03CCFB0F1BF1AB550033929E /* QuipTextView.mm */; };
-		03D517291C53E3D50079D22D /* QuipDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D517271C53E3D50079D22D /* QuipDocument.mm */; };
-		03D5172E1C53E8BA0079D22D /* QuipWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D5172C1C53E8BA0079D22D /* QuipWindowController.mm */; };
-		03D5172F1C53E8BA0079D22D /* QuipWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D5172D1C53E8BA0079D22D /* QuipWindowController.xib */; };
 		03DE15CD1C29C59E0036A9B9 /* LocationTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03DE15CC1C29C59E0036A9B9 /* LocationTests.mm */; };
-		03F716B61C226015008B3AB0 /* EditMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03F716B41C226015008B3AB0 /* EditMode.cpp */; };
-		03F716B91C226A83008B3AB0 /* KeyStroke.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03F716B71C226A83008B3AB0 /* KeyStroke.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,58 +32,47 @@
 			remoteGlobalIDString = 03CCFAEA1BF1A1BE0033929E;
 			remoteInfo = Quip;
 		};
+		038ECD971C698FC1002E571D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 038ECD931C698FC1002E571D /* Quip.Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 038ECD511C698EFA002E571D;
+			remoteInfo = Quip.Core;
+		};
+		038ECDE81C699082002E571D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 038ECD931C698FC1002E571D /* Quip.Core.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 038ECD501C698EFA002E571D;
+			remoteInfo = Quip.Core;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0305E9D01C4AC7DF00DD965A /* SearchExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SearchExpression.cpp; path = Source/SearchExpression.cpp; sourceTree = SOURCE_ROOT; };
-		0305E9D11C4AC7DF00DD965A /* SearchExpression.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SearchExpression.hpp; path = Source/SearchExpression.hpp; sourceTree = SOURCE_ROOT; };
 		0305E9D41C4AC91200DD965A /* SearchExpressionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchExpressionTests.mm; sourceTree = "<group>"; };
-		030E08841C08D70800DC7CB0 /* Key.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Key.hpp; path = Source/Key.hpp; sourceTree = SOURCE_ROOT; };
 		03352E681C56F12C004B52CB /* SelectionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SelectionTests.mm; sourceTree = "<group>"; };
-		0350E5BC1C1756B900878E86 /* NormalMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NormalMode.cpp; path = Source/NormalMode.cpp; sourceTree = SOURCE_ROOT; };
-		0350E5BD1C1756B900878E86 /* NormalMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NormalMode.hpp; path = Source/NormalMode.hpp; sourceTree = SOURCE_ROOT; };
-		03531ED41C5D8C8400B2EE00 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = SOURCE_ROOT; };
-		0372F4D91C24FD250048AE31 /* SearchMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SearchMode.cpp; path = Source/SearchMode.cpp; sourceTree = SOURCE_ROOT; };
-		0372F4DA1C24FD250048AE31 /* SearchMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SearchMode.hpp; path = Source/SearchMode.hpp; sourceTree = SOURCE_ROOT; };
 		0377419A1C29C53C00EC5F86 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0377419E1C29C53C00EC5F86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		038F08721C00FD520058EAF9 /* EditContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EditContext.cpp; path = Source/EditContext.cpp; sourceTree = SOURCE_ROOT; };
-		038F08731C00FD520058EAF9 /* EditContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EditContext.hpp; path = Source/EditContext.hpp; sourceTree = SOURCE_ROOT; };
-		038F08761C00FD940058EAF9 /* Selection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Selection.cpp; path = Source/Selection.cpp; sourceTree = SOURCE_ROOT; };
-		038F08771C00FD940058EAF9 /* Selection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Selection.hpp; path = Source/Selection.hpp; sourceTree = SOURCE_ROOT; };
-		038F08791C00FD9F0058EAF9 /* SelectionSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionSet.cpp; path = Source/SelectionSet.cpp; sourceTree = SOURCE_ROOT; };
-		038F087A1C00FD9F0058EAF9 /* SelectionSet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionSet.hpp; path = Source/SelectionSet.hpp; sourceTree = SOURCE_ROOT; };
-		038F087F1C00FDB80058EAF9 /* Location.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Location.cpp; path = Source/Location.cpp; sourceTree = SOURCE_ROOT; };
-		038F08801C00FDB80058EAF9 /* Location.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Location.hpp; path = Source/Location.hpp; sourceTree = SOURCE_ROOT; };
+		038ECD931C698FC1002E571D /* Quip.Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Quip.Core.xcodeproj; sourceTree = "<group>"; };
+		038ECDCD1C698FE2002E571D /* ApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplicationDelegate.h; path = Source/Mac/ApplicationDelegate.h; sourceTree = "<group>"; };
+		038ECDCE1C698FE2002E571D /* ApplicationDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ApplicationDelegate.mm; path = Source/Mac/ApplicationDelegate.mm; sourceTree = "<group>"; };
+		038ECDCF1C698FE2002E571D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Mac/Info.plist; sourceTree = "<group>"; };
+		038ECDD01C698FE2002E571D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Source/Mac/main.m; sourceTree = "<group>"; };
+		038ECDD11C698FE2002E571D /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenu.xib; path = Source/Mac/MainMenu.xib; sourceTree = "<group>"; };
+		038ECDD21C698FE2002E571D /* QuipDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipDocument.h; path = Source/Mac/QuipDocument.h; sourceTree = "<group>"; };
+		038ECDD31C698FE2002E571D /* QuipDocument.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipDocument.mm; path = Source/Mac/QuipDocument.mm; sourceTree = "<group>"; };
+		038ECDD41C698FE2002E571D /* QuipStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipStatusView.h; path = Source/Mac/QuipStatusView.h; sourceTree = "<group>"; };
+		038ECDD51C698FE2002E571D /* QuipStatusView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipStatusView.mm; path = Source/Mac/QuipStatusView.mm; sourceTree = "<group>"; };
+		038ECDD61C698FE2002E571D /* QuipTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipTextView.h; path = Source/Mac/QuipTextView.h; sourceTree = "<group>"; };
+		038ECDD71C698FE2002E571D /* QuipTextView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipTextView.mm; path = Source/Mac/QuipTextView.mm; sourceTree = "<group>"; };
+		038ECDD81C698FE2002E571D /* QuipWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipWindowController.h; path = Source/Mac/QuipWindowController.h; sourceTree = "<group>"; };
+		038ECDD91C698FE2002E571D /* QuipWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipWindowController.mm; path = Source/Mac/QuipWindowController.mm; sourceTree = "<group>"; };
+		038ECDDA1C698FE2002E571D /* QuipWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QuipWindowController.xib; path = Source/Mac/QuipWindowController.xib; sourceTree = "<group>"; };
+		038ECDE61C699039002E571D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
 		0398AE661C59DD2F00D0EE46 /* SelectionSetTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SelectionSetTests.mm; sourceTree = "<group>"; };
-		039A34A51C45E6760099F50D /* CursorStyle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CursorStyle.hpp; path = Source/CursorStyle.hpp; sourceTree = SOURCE_ROOT; };
-		03A00A7B1C4DB82200378EBB /* DocumentIterator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DocumentIterator.cpp; path = Source/DocumentIterator.cpp; sourceTree = SOURCE_ROOT; };
-		03A00A7C1C4DB82200378EBB /* DocumentIterator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DocumentIterator.hpp; path = Source/DocumentIterator.hpp; sourceTree = SOURCE_ROOT; };
 		03A00A7E1C4DBD8400378EBB /* DocumentIteratorTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DocumentIteratorTests.mm; sourceTree = "<group>"; };
-		03B2C3BC1BF9196000AFE681 /* Mode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mode.cpp; path = Source/Mode.cpp; sourceTree = SOURCE_ROOT; };
-		03B2C3BD1BF9196000AFE681 /* Mode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Mode.hpp; path = Source/Mode.hpp; sourceTree = SOURCE_ROOT; };
-		03BBDB491C432E5D0027628B /* QuipStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipStatusView.h; path = Source/QuipStatusView.h; sourceTree = SOURCE_ROOT; };
-		03BBDB4A1C432E5D0027628B /* QuipStatusView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipStatusView.mm; path = Source/QuipStatusView.mm; sourceTree = SOURCE_ROOT; };
 		03CCFAEB1BF1A1BE0033929E /* Quip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quip.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		03CCFAFF1BF1A5980033929E /* ApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplicationDelegate.h; path = Source/ApplicationDelegate.h; sourceTree = SOURCE_ROOT; };
-		03CCFB001BF1A5980033929E /* ApplicationDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ApplicationDelegate.mm; path = Source/ApplicationDelegate.mm; sourceTree = SOURCE_ROOT; };
-		03CCFB011BF1A5980033929E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Info.plist; sourceTree = SOURCE_ROOT; };
-		03CCFB021BF1A5980033929E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Source/main.m; sourceTree = SOURCE_ROOT; };
-		03CCFB031BF1A5980033929E /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenu.xib; path = Source/MainMenu.xib; sourceTree = SOURCE_ROOT; };
-		03CCFB0B1BF1A6480033929E /* Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Document.cpp; path = Source/Document.cpp; sourceTree = SOURCE_ROOT; };
-		03CCFB0C1BF1A6480033929E /* Document.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Document.hpp; path = Source/Document.hpp; sourceTree = SOURCE_ROOT; };
-		03CCFB0E1BF1AB550033929E /* QuipTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipTextView.h; path = Source/QuipTextView.h; sourceTree = SOURCE_ROOT; };
-		03CCFB0F1BF1AB550033929E /* QuipTextView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipTextView.mm; path = Source/QuipTextView.mm; sourceTree = SOURCE_ROOT; };
-		03D517261C53E3D50079D22D /* QuipDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipDocument.h; path = Source/QuipDocument.h; sourceTree = SOURCE_ROOT; };
-		03D517271C53E3D50079D22D /* QuipDocument.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipDocument.mm; path = Source/QuipDocument.mm; sourceTree = SOURCE_ROOT; };
-		03D5172B1C53E8BA0079D22D /* QuipWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipWindowController.h; path = Source/QuipWindowController.h; sourceTree = SOURCE_ROOT; };
-		03D5172C1C53E8BA0079D22D /* QuipWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipWindowController.mm; path = Source/QuipWindowController.mm; sourceTree = SOURCE_ROOT; };
-		03D5172D1C53E8BA0079D22D /* QuipWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QuipWindowController.xib; path = Source/QuipWindowController.xib; sourceTree = SOURCE_ROOT; };
 		03DE15CC1C29C59E0036A9B9 /* LocationTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocationTests.mm; sourceTree = "<group>"; };
-		03F716B41C226015008B3AB0 /* EditMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EditMode.cpp; path = Source/EditMode.cpp; sourceTree = SOURCE_ROOT; };
-		03F716B51C226015008B3AB0 /* EditMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EditMode.hpp; path = Source/EditMode.hpp; sourceTree = SOURCE_ROOT; };
-		03F716B71C226A83008B3AB0 /* KeyStroke.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KeyStroke.cpp; path = Source/KeyStroke.cpp; sourceTree = SOURCE_ROOT; };
-		03F716B81C226A83008B3AB0 /* KeyStroke.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = KeyStroke.hpp; path = Source/KeyStroke.hpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,34 +87,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				038ECDEA1C699097002E571D /* libQuip.Core.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0305E9CF1C4AC7D000DD965A /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				0305E9D11C4AC7DF00DD965A /* SearchExpression.hpp */,
-				0305E9D01C4AC7DF00DD965A /* SearchExpression.cpp */,
-			);
-			name = Search;
-			sourceTree = "<group>";
-		};
-		0350E5BB1C17569000878E86 /* Implementations */ = {
-			isa = PBXGroup;
-			children = (
-				03F716B51C226015008B3AB0 /* EditMode.hpp */,
-				03F716B41C226015008B3AB0 /* EditMode.cpp */,
-				0350E5BD1C1756B900878E86 /* NormalMode.hpp */,
-				0350E5BC1C1756B900878E86 /* NormalMode.cpp */,
-				0372F4DA1C24FD250048AE31 /* SearchMode.hpp */,
-				0372F4D91C24FD250048AE31 /* SearchMode.cpp */,
-			);
-			name = Implementations;
-			sourceTree = "<group>";
-		};
 		0377419B1C29C53C00EC5F86 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,44 +107,49 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		038F08711C00FD410058EAF9 /* Context */ = {
+		038ECD941C698FC1002E571D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				038F08731C00FD520058EAF9 /* EditContext.hpp */,
-				038F08721C00FD520058EAF9 /* EditContext.cpp */,
+				038ECD981C698FC1002E571D /* libQuip.Core.a */,
 			);
-			name = Context;
+			name = Products;
 			sourceTree = "<group>";
 		};
-		038F08751C00FD820058EAF9 /* Selections */ = {
+		038ECDE41C698FE7002E571D /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				038F08771C00FD940058EAF9 /* Selection.hpp */,
-				038F08761C00FD940058EAF9 /* Selection.cpp */,
-				038F087A1C00FD9F0058EAF9 /* SelectionSet.hpp */,
-				038F08791C00FD9F0058EAF9 /* SelectionSet.cpp */,
+				038ECDD41C698FE2002E571D /* QuipStatusView.h */,
+				038ECDD51C698FE2002E571D /* QuipStatusView.mm */,
+				038ECDD61C698FE2002E571D /* QuipTextView.h */,
+				038ECDD71C698FE2002E571D /* QuipTextView.mm */,
+				038ECDD81C698FE2002E571D /* QuipWindowController.h */,
+				038ECDD91C698FE2002E571D /* QuipWindowController.mm */,
+				038ECDDA1C698FE2002E571D /* QuipWindowController.xib */,
 			);
-			name = Selections;
+			name = UI;
 			sourceTree = "<group>";
 		};
-		03B2C3BB1BF9194B00AFE681 /* Mode */ = {
+		038ECDE51C698FF0002E571D /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				039A34A51C45E6760099F50D /* CursorStyle.hpp */,
-				030E08841C08D70800DC7CB0 /* Key.hpp */,
-				03F716B81C226A83008B3AB0 /* KeyStroke.hpp */,
-				03F716B71C226A83008B3AB0 /* KeyStroke.cpp */,
-				03B2C3BD1BF9196000AFE681 /* Mode.hpp */,
-				03B2C3BC1BF9196000AFE681 /* Mode.cpp */,
-				0350E5BB1C17569000878E86 /* Implementations */,
+				038ECDD01C698FE2002E571D /* main.m */,
+				038ECDCD1C698FE2002E571D /* ApplicationDelegate.h */,
+				038ECDCE1C698FE2002E571D /* ApplicationDelegate.mm */,
+				038ECDD21C698FE2002E571D /* QuipDocument.h */,
+				038ECDD31C698FE2002E571D /* QuipDocument.mm */,
+				038ECDD11C698FE2002E571D /* MainMenu.xib */,
+				038ECDCF1C698FE2002E571D /* Info.plist */,
 			);
-			name = Mode;
+			name = Application;
 			sourceTree = "<group>";
 		};
 		03CCFAE21BF1A1BE0033929E = {
 			isa = PBXGroup;
 			children = (
-				03CCFAED1BF1A1BE0033929E /* Quip */,
+				038ECDE51C698FF0002E571D /* Application */,
+				038ECDE41C698FE7002E571D /* UI */,
+				038ECDE61C699039002E571D /* Images.xcassets */,
+				038ECD931C698FC1002E571D /* Quip.Core.xcodeproj */,
 				0377419B1C29C53C00EC5F86 /* Tests */,
 				03CCFAEC1BF1A1BE0033929E /* Products */,
 			);
@@ -200,62 +162,6 @@
 				0377419A1C29C53C00EC5F86 /* Tests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		03CCFAED1BF1A1BE0033929E /* Quip */ = {
-			isa = PBXGroup;
-			children = (
-				03CCFB091BF1A62A0033929E /* Core */,
-				03CCFB081BF1A6210033929E /* Application */,
-				03531ED41C5D8C8400B2EE00 /* Images.xcassets */,
-			);
-			path = Quip;
-			sourceTree = "<group>";
-		};
-		03CCFB081BF1A6210033929E /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				03CCFB021BF1A5980033929E /* main.m */,
-				03CCFAFF1BF1A5980033929E /* ApplicationDelegate.h */,
-				03CCFB001BF1A5980033929E /* ApplicationDelegate.mm */,
-				03D517261C53E3D50079D22D /* QuipDocument.h */,
-				03D517271C53E3D50079D22D /* QuipDocument.mm */,
-				03BBDB491C432E5D0027628B /* QuipStatusView.h */,
-				03BBDB4A1C432E5D0027628B /* QuipStatusView.mm */,
-				03CCFB0E1BF1AB550033929E /* QuipTextView.h */,
-				03CCFB0F1BF1AB550033929E /* QuipTextView.mm */,
-				03D5172B1C53E8BA0079D22D /* QuipWindowController.h */,
-				03D5172C1C53E8BA0079D22D /* QuipWindowController.mm */,
-				03CCFB011BF1A5980033929E /* Info.plist */,
-				03CCFB031BF1A5980033929E /* MainMenu.xib */,
-				03D5172D1C53E8BA0079D22D /* QuipWindowController.xib */,
-			);
-			name = Application;
-			sourceTree = "<group>";
-		};
-		03CCFB091BF1A62A0033929E /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				0305E9CF1C4AC7D000DD965A /* Search */,
-				038F08751C00FD820058EAF9 /* Selections */,
-				038F08711C00FD410058EAF9 /* Context */,
-				03CCFB0A1BF1A6380033929E /* Documents */,
-				03B2C3BB1BF9194B00AFE681 /* Mode */,
-			);
-			name = Core;
-			sourceTree = "<group>";
-		};
-		03CCFB0A1BF1A6380033929E /* Documents */ = {
-			isa = PBXGroup;
-			children = (
-				03CCFB0C1BF1A6480033929E /* Document.hpp */,
-				03CCFB0B1BF1A6480033929E /* Document.cpp */,
-				03A00A7C1C4DB82200378EBB /* DocumentIterator.hpp */,
-				03A00A7B1C4DB82200378EBB /* DocumentIterator.cpp */,
-				038F08801C00FDB80058EAF9 /* Location.hpp */,
-				038F087F1C00FDB80058EAF9 /* Location.cpp */,
-			);
-			name = Documents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,6 +196,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				038ECDE91C699082002E571D /* PBXTargetDependency */,
 			);
 			name = Quip;
 			productName = Quip;
@@ -325,6 +232,12 @@
 			mainGroup = 03CCFAE21BF1A1BE0033929E;
 			productRefGroup = 03CCFAEC1BF1A1BE0033929E /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 038ECD941C698FC1002E571D /* Products */;
+					ProjectRef = 038ECD931C698FC1002E571D /* Quip.Core.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				03CCFAEA1BF1A1BE0033929E /* Quip */,
@@ -332,6 +245,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		038ECD981C698FC1002E571D /* libQuip.Core.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libQuip.Core.a;
+			remoteRef = 038ECD971C698FC1002E571D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		037741981C29C53C00EC5F86 /* Resources */ = {
@@ -345,9 +268,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03531ED51C5D8C8400B2EE00 /* Images.xcassets in Resources */,
-				03CCFB071BF1A5980033929E /* MainMenu.xib in Resources */,
-				03D5172F1C53E8BA0079D22D /* QuipWindowController.xib in Resources */,
+				038ECDE71C699039002E571D /* Images.xcassets in Resources */,
+				038ECDE31C698FE2002E571D /* QuipWindowController.xib in Resources */,
+				038ECDDE1C698FE2002E571D /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,24 +293,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03D5172E1C53E8BA0079D22D /* QuipWindowController.mm in Sources */,
-				03CCFB101BF1AB550033929E /* QuipTextView.mm in Sources */,
-				03D517291C53E3D50079D22D /* QuipDocument.mm in Sources */,
-				03CCFB061BF1A5980033929E /* main.m in Sources */,
-				0350E5BE1C1756B900878E86 /* NormalMode.cpp in Sources */,
-				03F716B91C226A83008B3AB0 /* KeyStroke.cpp in Sources */,
-				03CCFB041BF1A5980033929E /* ApplicationDelegate.mm in Sources */,
-				0372F4DB1C24FD250048AE31 /* SearchMode.cpp in Sources */,
-				03BBDB4B1C432E5D0027628B /* QuipStatusView.mm in Sources */,
-				038F087B1C00FD9F0058EAF9 /* SelectionSet.cpp in Sources */,
-				038F08741C00FD520058EAF9 /* EditContext.cpp in Sources */,
-				038F08781C00FD940058EAF9 /* Selection.cpp in Sources */,
-				0305E9D21C4AC7DF00DD965A /* SearchExpression.cpp in Sources */,
-				03CCFB0D1BF1A6480033929E /* Document.cpp in Sources */,
-				038F08811C00FDB80058EAF9 /* Location.cpp in Sources */,
-				03B2C3BE1BF9196000AFE681 /* Mode.cpp in Sources */,
-				03A00A7D1C4DB82200378EBB /* DocumentIterator.cpp in Sources */,
-				03F716B61C226015008B3AB0 /* EditMode.cpp in Sources */,
+				038ECDE21C698FE2002E571D /* QuipWindowController.mm in Sources */,
+				038ECDDD1C698FE2002E571D /* main.m in Sources */,
+				038ECDDF1C698FE2002E571D /* QuipDocument.mm in Sources */,
+				038ECDE11C698FE2002E571D /* QuipTextView.mm in Sources */,
+				038ECDDB1C698FE2002E571D /* ApplicationDelegate.mm in Sources */,
+				038ECDE01C698FE2002E571D /* QuipStatusView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +309,11 @@
 			isa = PBXTargetDependency;
 			target = 03CCFAEA1BF1A1BE0033929E /* Quip */;
 			targetProxy = 0377419F1C29C53C00EC5F86 /* PBXContainerItemProxy */;
+		};
+		038ECDE91C699082002E571D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Quip.Core;
+			targetProxy = 038ECDE81C699082002E571D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -466,6 +382,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = Source/Core;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -503,6 +420,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = Source/Core;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
@@ -514,7 +432,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.joshpetrie.Quip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -526,7 +444,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.joshpetrie.Quip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
