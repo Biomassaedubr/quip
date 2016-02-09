@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0305E9D51C4AC91200DD965A /* SearchExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0305E9D41C4AC91200DD965A /* SearchExpressionTests.mm */; };
-		03352E691C56F12C004B52CB /* SelectionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03352E681C56F12C004B52CB /* SelectionTests.mm */; };
 		038ECDDB1C698FE2002E571D /* ApplicationDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDCE1C698FE2002E571D /* ApplicationDelegate.mm */; };
 		038ECDDD1C698FE2002E571D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDD01C698FE2002E571D /* main.m */; };
 		038ECDDE1C698FE2002E571D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDD11C698FE2002E571D /* MainMenu.xib */; };
@@ -19,19 +17,9 @@
 		038ECDE31C698FE2002E571D /* QuipWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDDA1C698FE2002E571D /* QuipWindowController.xib */; };
 		038ECDE71C699039002E571D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDE61C699039002E571D /* Images.xcassets */; };
 		038ECDEA1C699097002E571D /* libQuip.Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 038ECD981C698FC1002E571D /* libQuip.Core.a */; };
-		0398AE671C59DD2F00D0EE46 /* SelectionSetTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0398AE661C59DD2F00D0EE46 /* SelectionSetTests.mm */; };
-		03A00A7F1C4DBD8400378EBB /* DocumentIteratorTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03A00A7E1C4DBD8400378EBB /* DocumentIteratorTests.mm */; };
-		03DE15CD1C29C59E0036A9B9 /* LocationTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03DE15CC1C29C59E0036A9B9 /* LocationTests.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0377419F1C29C53C00EC5F86 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 03CCFAE31BF1A1BE0033929E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 03CCFAEA1BF1A1BE0033929E;
-			remoteInfo = Quip;
-		};
 		038ECD971C698FC1002E571D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 038ECD931C698FC1002E571D /* Quip.Core.xcodeproj */;
@@ -49,10 +37,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0305E9D41C4AC91200DD965A /* SearchExpressionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchExpressionTests.mm; sourceTree = "<group>"; };
-		03352E681C56F12C004B52CB /* SelectionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SelectionTests.mm; sourceTree = "<group>"; };
-		0377419A1C29C53C00EC5F86 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0377419E1C29C53C00EC5F86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		038ECD931C698FC1002E571D /* Quip.Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Quip.Core.xcodeproj; sourceTree = "<group>"; };
 		038ECDCD1C698FE2002E571D /* ApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplicationDelegate.h; path = Source/Mac/ApplicationDelegate.h; sourceTree = "<group>"; };
 		038ECDCE1C698FE2002E571D /* ApplicationDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ApplicationDelegate.mm; path = Source/Mac/ApplicationDelegate.mm; sourceTree = "<group>"; };
@@ -69,20 +53,10 @@
 		038ECDD91C698FE2002E571D /* QuipWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipWindowController.mm; path = Source/Mac/QuipWindowController.mm; sourceTree = "<group>"; };
 		038ECDDA1C698FE2002E571D /* QuipWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QuipWindowController.xib; path = Source/Mac/QuipWindowController.xib; sourceTree = "<group>"; };
 		038ECDE61C699039002E571D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
-		0398AE661C59DD2F00D0EE46 /* SelectionSetTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SelectionSetTests.mm; sourceTree = "<group>"; };
-		03A00A7E1C4DBD8400378EBB /* DocumentIteratorTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DocumentIteratorTests.mm; sourceTree = "<group>"; };
 		03CCFAEB1BF1A1BE0033929E /* Quip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quip.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		03DE15CC1C29C59E0036A9B9 /* LocationTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocationTests.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		037741971C29C53C00EC5F86 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		03CCFAE81BF1A1BE0033929E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -94,19 +68,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0377419B1C29C53C00EC5F86 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				0377419E1C29C53C00EC5F86 /* Info.plist */,
-				03A00A7E1C4DBD8400378EBB /* DocumentIteratorTests.mm */,
-				03DE15CC1C29C59E0036A9B9 /* LocationTests.mm */,
-				0305E9D41C4AC91200DD965A /* SearchExpressionTests.mm */,
-				03352E681C56F12C004B52CB /* SelectionTests.mm */,
-				0398AE661C59DD2F00D0EE46 /* SelectionSetTests.mm */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
 		038ECD941C698FC1002E571D /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,7 +111,6 @@
 				038ECDE41C698FE7002E571D /* UI */,
 				038ECDE61C699039002E571D /* Images.xcassets */,
 				038ECD931C698FC1002E571D /* Quip.Core.xcodeproj */,
-				0377419B1C29C53C00EC5F86 /* Tests */,
 				03CCFAEC1BF1A1BE0033929E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -159,7 +119,6 @@
 			isa = PBXGroup;
 			children = (
 				03CCFAEB1BF1A1BE0033929E /* Quip.app */,
-				0377419A1C29C53C00EC5F86 /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -167,24 +126,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		037741991C29C53C00EC5F86 /* Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 037741A31C29C53C00EC5F86 /* Build configuration list for PBXNativeTarget "Tests" */;
-			buildPhases = (
-				037741961C29C53C00EC5F86 /* Sources */,
-				037741971C29C53C00EC5F86 /* Frameworks */,
-				037741981C29C53C00EC5F86 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				037741A01C29C53C00EC5F86 /* PBXTargetDependency */,
-			);
-			name = Tests;
-			productName = Tests;
-			productReference = 0377419A1C29C53C00EC5F86 /* Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		03CCFAEA1BF1A1BE0033929E /* Quip */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 03CCFAFC1BF1A1BE0033929E /* Build configuration list for PBXNativeTarget "Quip" */;
@@ -212,10 +153,6 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Josh Petrie";
 				TargetAttributes = {
-					037741991C29C53C00EC5F86 = {
-						CreatedOnToolsVersion = 7.2;
-						TestTargetID = 03CCFAEA1BF1A1BE0033929E;
-					};
 					03CCFAEA1BF1A1BE0033929E = {
 						CreatedOnToolsVersion = 7.1;
 					};
@@ -241,7 +178,6 @@
 			projectRoot = "";
 			targets = (
 				03CCFAEA1BF1A1BE0033929E /* Quip */,
-				037741991C29C53C00EC5F86 /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -257,13 +193,6 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
-		037741981C29C53C00EC5F86 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		03CCFAE91BF1A1BE0033929E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -277,18 +206,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		037741961C29C53C00EC5F86 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				03352E691C56F12C004B52CB /* SelectionTests.mm in Sources */,
-				03DE15CD1C29C59E0036A9B9 /* LocationTests.mm in Sources */,
-				0398AE671C59DD2F00D0EE46 /* SelectionSetTests.mm in Sources */,
-				0305E9D51C4AC91200DD965A /* SearchExpressionTests.mm in Sources */,
-				03A00A7F1C4DBD8400378EBB /* DocumentIteratorTests.mm in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		03CCFAE71BF1A1BE0033929E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -305,11 +222,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		037741A01C29C53C00EC5F86 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 03CCFAEA1BF1A1BE0033929E /* Quip */;
-			targetProxy = 0377419F1C29C53C00EC5F86 /* PBXContainerItemProxy */;
-		};
 		038ECDE91C699082002E571D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Quip.Core;
@@ -318,34 +230,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		037741A11C29C53C00EC5F86 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.joshpetrie.Tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Quip.app/Contents/MacOS/Quip";
-			};
-			name = Debug;
-		};
-		037741A21C29C53C00EC5F86 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.joshpetrie.Tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Quip.app/Contents/MacOS/Quip";
-			};
-			name = Release;
-		};
 		03CCFAFA1BF1A1BE0033929E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -454,15 +338,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		037741A31C29C53C00EC5F86 /* Build configuration list for PBXNativeTarget "Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				037741A11C29C53C00EC5F86 /* Debug */,
-				037741A21C29C53C00EC5F86 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		03CCFAE61BF1A1BE0033929E /* Build configuration list for PBXProject "Quip" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

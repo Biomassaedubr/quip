@@ -32,10 +32,10 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "037741991C29C53C00EC5F86"
-               BuildableName = "Tests.xctest"
-               BlueprintName = "Tests"
-               ReferencedContainer = "container:Quip.xcodeproj">
+               BlueprintIdentifier = "035DA2251C6993E300EC950A"
+               BuildableName = "Quip.Core.Tests.xctest"
+               BlueprintName = "Quip.Core.Tests"
+               ReferencedContainer = "container:Quip.Core.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
