@@ -20,6 +20,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		035DA2391C69965900EC950A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 038ECD931C698FC1002E571D /* Quip.Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 035DA2261C6993E300EC950A;
+			remoteInfo = Quip.Core.Tests;
+		};
 		038ECD971C698FC1002E571D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 038ECD931C698FC1002E571D /* Quip.Core.xcodeproj */;
@@ -72,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				038ECD981C698FC1002E571D /* libQuip.Core.a */,
+				035DA23A1C69965900EC950A /* Quip.Core.Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -86,6 +94,7 @@
 				038ECDD81C698FE2002E571D /* QuipWindowController.h */,
 				038ECDD91C698FE2002E571D /* QuipWindowController.mm */,
 				038ECDDA1C698FE2002E571D /* QuipWindowController.xib */,
+				038ECDE61C699039002E571D /* Images.xcassets */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -109,7 +118,6 @@
 			children = (
 				038ECDE51C698FF0002E571D /* Application */,
 				038ECDE41C698FE7002E571D /* UI */,
-				038ECDE61C699039002E571D /* Images.xcassets */,
 				038ECD931C698FC1002E571D /* Quip.Core.xcodeproj */,
 				03CCFAEC1BF1A1BE0033929E /* Products */,
 			);
@@ -183,6 +191,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		035DA23A1C69965900EC950A /* Quip.Core.Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Quip.Core.Tests.xctest;
+			remoteRef = 035DA2391C69965900EC950A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		038ECD981C698FC1002E571D /* libQuip.Core.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
