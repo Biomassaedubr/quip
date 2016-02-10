@@ -112,21 +112,12 @@ namespace quip {
   }
   
   void Document::erase (SelectionSet & selections) {
-    std::int64_t rowDelta = 0;
-    std::int64_t columnDelta = 0;
-    std::size_t priorRow = rows();
-    
-    for (Selection & selection : selections) {
-      // Reset column delta when changing rows.
-      if (selection.lowerBound().row() != priorRow) {
-        priorRow = selection.lowerBound().row();
-        columnDelta = 0;
-      }
+    ReverseSelectionSetIterator cursor = selections.rbegin();
+    while(cursor != selections.rend()) {
+      Location lower = cursor->lowerBound();
+      Location upper = cursor->upperBound();
+      std::uint64_t modified = cursor->height();
       
-      Location lower = selection.lowerBound().adjustBy(columnDelta, rowDelta);
-      Location upper = selection.upperBound().adjustBy(columnDelta, rowDelta);
-      std::uint64_t modified = selection.height();
-
       std::string prefix = m_rows[lower.row()].substr(0, lower.column());
       std::string suffix;
       if (upper.column() == m_rows[upper.row()].length() - 1) {
@@ -136,23 +127,17 @@ namespace quip {
         suffix = m_rows[upper.row()].substr(upper.column() + 1);
       }
       
-      std::string final = prefix + suffix;
-      selection.setOrigin(selection.origin().adjustBy(columnDelta, 0));
-      selection.setExtent(selection.origin());
-
-      if (modified == 1) {
-        columnDelta -= (upper.column() - lower.column() + 1);
-      } else {
-        columnDelta = upper.column();
-        
-        while (modified > 1) {
-          m_rows.erase(m_rows.begin() + lower.row() + 1);
-          --rowDelta;
-          --modified;
-        }
+      std::string result = prefix + suffix;
+      while (modified > 1) {
+        m_rows.erase(m_rows.begin() + lower.row() + 1);
+        --modified;
       }
+
+      // Collapse the selection.
+      cursor->setExtent(cursor->origin());
+      ++cursor;
       
-      m_rows[lower.row()] = final;
+      m_rows[lower.row()] = result;
     }
   }
     
