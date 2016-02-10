@@ -5,6 +5,37 @@
 #include "KeyStroke.hpp"
 
 namespace quip {
+  namespace {
+    void backspace (EditContext & context) {
+      // Functionally, this is equivalent to erasing a selection that starts just before each
+      // actual selection in the set.
+      std::vector<Selection> adjusted;
+      adjusted.reserve(context.selections().count());
+      
+      for (const Selection & selection : context.selections()) {
+        Location origin = selection.origin();
+        if (origin.column() == 0) {
+          if (origin.row() == 0) {
+            continue;
+          }
+          
+          origin = Location(context.document().row(origin.row() - 1).length() - 1, origin.row() - 1);
+        }
+        else {
+          origin = origin.adjustBy(-1, 0);
+        }
+        
+        adjusted.emplace_back(Selection(origin, origin));
+      }
+      
+      SelectionSet set(adjusted);
+      if (set.count() > 0) {
+        context.document().erase(set);
+        context.selections().replace(set);
+      }
+    }
+  }
+  
   EditMode::EditMode () {
     addMapping(Key::Escape, &EditMode::commitInsert);
   }
@@ -20,7 +51,7 @@ namespace quip {
   bool EditMode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
     switch (keyStroke.key()) {
       case Key::Delete:
-        context.document().eraseBefore(context.selections());
+        backspace(context);
         return true;
       case Key::ArrowUp:
       case Key::ArrowDown:
