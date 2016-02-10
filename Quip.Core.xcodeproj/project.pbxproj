@@ -13,6 +13,8 @@
 		035DA2331C6995CF00EC950A /* SearchExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 035DA21E1C6993C800EC950A /* SearchExpressionTests.mm */; };
 		035DA2341C6995CF00EC950A /* SelectionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 035DA21F1C6993C800EC950A /* SelectionTests.mm */; };
 		035DA2351C6995CF00EC950A /* SelectionSetTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 035DA2201C6993C800EC950A /* SelectionSetTests.mm */; };
+		035DA2441C69A83000EC950A /* SelectionSetIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 035DA2421C69A83000EC950A /* SelectionSetIterator.cpp */; };
+		035DA2451C69A83000EC950A /* SelectionSetIterator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 035DA2431C69A83000EC950A /* SelectionSetIterator.hpp */; };
 		038ECDB31C698FDA002E571D /* CursorStyle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 038ECD991C698FDA002E571D /* CursorStyle.hpp */; };
 		038ECDB41C698FDA002E571D /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038ECD9A1C698FDA002E571D /* Document.cpp */; };
 		038ECDB51C698FDA002E571D /* Document.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 038ECD9B1C698FDA002E571D /* Document.hpp */; };
@@ -59,6 +61,8 @@
 		035DA21F1C6993C800EC950A /* SelectionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SelectionTests.mm; sourceTree = "<group>"; };
 		035DA2201C6993C800EC950A /* SelectionSetTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SelectionSetTests.mm; sourceTree = "<group>"; };
 		035DA2261C6993E300EC950A /* Quip.Core.Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Quip.Core.Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		035DA2421C69A83000EC950A /* SelectionSetIterator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionSetIterator.cpp; path = Source/Core/SelectionSetIterator.cpp; sourceTree = "<group>"; };
+		035DA2431C69A83000EC950A /* SelectionSetIterator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionSetIterator.hpp; path = Source/Core/SelectionSetIterator.hpp; sourceTree = "<group>"; };
 		038ECD511C698EFA002E571D /* libQuip.Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQuip.Core.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		038ECD991C698FDA002E571D /* CursorStyle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CursorStyle.hpp; path = Source/Core/CursorStyle.hpp; sourceTree = "<group>"; };
 		038ECD9A1C698FDA002E571D /* Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Document.cpp; path = Source/Core/Document.cpp; sourceTree = "<group>"; };
@@ -158,6 +162,8 @@
 				038ECDAF1C698FDA002E571D /* Selection.cpp */,
 				038ECDB21C698FDA002E571D /* SelectionSet.hpp */,
 				038ECDB11C698FDA002E571D /* SelectionSet.cpp */,
+				035DA2431C69A83000EC950A /* SelectionSetIterator.hpp */,
+				035DA2421C69A83000EC950A /* SelectionSetIterator.cpp */,
 			);
 			name = Selections;
 			sourceTree = "<group>";
@@ -219,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				038ECDBC1C698FDA002E571D /* Key.hpp in Headers */,
+				035DA2451C69A83000EC950A /* SelectionSetIterator.hpp in Headers */,
 				038ECDBE1C698FDA002E571D /* KeyStroke.hpp in Headers */,
 				038ECDB91C698FDA002E571D /* EditContext.hpp in Headers */,
 				038ECDC01C698FDA002E571D /* Location.hpp in Headers */,
@@ -344,6 +351,7 @@
 				038ECDB41C698FDA002E571D /* Document.cpp in Sources */,
 				038ECDBF1C698FDA002E571D /* Location.cpp in Sources */,
 				038ECDC31C698FDA002E571D /* NormalMode.cpp in Sources */,
+				035DA2441C69A83000EC950A /* SelectionSetIterator.cpp in Sources */,
 				038ECDC11C698FDA002E571D /* Mode.cpp in Sources */,
 				038ECDBD1C698FDA002E571D /* KeyStroke.cpp in Sources */,
 				038ECDCB1C698FDA002E571D /* SelectionSet.cpp in Sources */,

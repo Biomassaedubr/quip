@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Selection.hpp"
+#include "SelectionSetIterator.hpp"
 
 #include <vector>
 
@@ -16,11 +17,16 @@ namespace quip {
     Selection & operator[] (std::size_t index);
     const Selection & operator[] (std::size_t index) const;
     
-    Selection * begin ();
-    const Selection * begin () const;
-    Selection * end ();
-    const Selection * end () const;
+    SelectionSetIterator begin ();
+    ConstSelectionSetIterator begin () const;
+    SelectionSetIterator end ();
+    ConstSelectionSetIterator end () const;
     
+    ReverseSelectionSetIterator rbegin ();
+    ReverseConstSelectionSetIterator rbegin () const;
+    ReverseSelectionSetIterator rend ();
+    ReverseConstSelectionSetIterator rend () const;
+
     void rotateForward ();
     void rotateBackward ();
     

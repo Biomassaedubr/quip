@@ -18,6 +18,21 @@
   XCTAssertEqual(set[1], b);
 }
 
+- (void)testForwardIteration {
+  quip::Selection a(quip::Location(0, 0), quip::Location(1, 0));
+  quip::Selection b(quip::Location(5, 5), quip::Location(6, 5));
+  std::vector<quip::Selection> selections { a, b };
+  quip::SelectionSet set(selections);
+  
+  std::size_t index = 0;
+  quip::SelectionSetIterator cursor = set.begin();
+  while (cursor != set.end()) {
+    XCTAssertEqual(*cursor, selections[index]);
+    ++cursor;
+    ++index;
+  }
+}
+
 - (void)testSelectionsAreSorted {
   quip::Selection a(quip::Location(0, 0), quip::Location(0, 5));
   quip::Selection b(quip::Location(5, 10), quip::Location(0, 8));
@@ -25,7 +40,7 @@
   std::vector<quip::Selection> selections { c, b, a };
   
   quip::SelectionSet set(selections);
-  quip::Selection * cursor = set.begin();
+  quip::SelectionSetIterator cursor = set.begin();
   XCTAssertEqual(*cursor, a);
   
   ++cursor;
@@ -44,7 +59,7 @@
   quip::SelectionSet set(selections);
   XCTAssertEqual(set.count(), 1);
   
-  quip::Selection * cursor = set.begin();
+  quip::SelectionSetIterator cursor = set.begin();
   XCTAssertEqual(cursor->origin(), quip::Location(1, 0));
   XCTAssertEqual(cursor->extent(), quip::Location(0, 7));
 }
@@ -59,7 +74,7 @@
   quip::SelectionSet set(selections);
   XCTAssertEqual(set.count(), 2);
   
-  quip::Selection * cursor = set.begin();
+  quip::SelectionSetIterator cursor = set.begin();
   XCTAssertEqual(cursor->origin(), quip::Location(1, 0));
   XCTAssertEqual(cursor->extent(), quip::Location(15, 0));
   
