@@ -14,6 +14,7 @@
   std::vector<quip::Selection> selections { a, b };
   quip::SelectionSet set(selections);
   
+  XCTAssertEqual(set.count(), 2);
   XCTAssertEqual(set[0], a);
   XCTAssertEqual(set[1], b);
 }

@@ -27,15 +27,18 @@ namespace quip {
       std::size_t candidate = 1;
       while (basis < m_selections.size() && candidate < m_selections.size()) {
         if (m_selections[basis].upperBound() >= m_selections[candidate].lowerBound()) {
+          // The two selections overlap and should be collapsed. Subsequent selections may also overlap the new combined
+          // selection, so only the candidate index is advanced.
           m_selections[basis] = Selection(m_selections[basis].lowerBound(), m_selections[candidate].upperBound());
           ++candidate;
-          if (candidate >= m_selections.size()) {
-            // Ensure a collapse of the last candidate selection gets recorded.
-            collapsed.emplace_back(m_selections[basis]);
-          }
         } else {
+          // The selections don't overlap, so finalize the first selection and move both indices along.
           collapsed.emplace_back(m_selections[basis]);
           basis = candidate++;
+        }
+        
+        if (candidate >= m_selections.size()) {
+          collapsed.emplace_back(m_selections[basis]);
         }
       }
 
