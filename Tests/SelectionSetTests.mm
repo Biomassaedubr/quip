@@ -8,13 +8,30 @@
 
 @implementation SelectionSetTests
 
-- (void)testIndexing {
+- (void)testSingleSelectionConstruction {
+  quip::Selection selection(quip::Location(0, 0), quip::Location(1, 0));
+  quip::SelectionSet set(selection);
+  
+  XCTAssertEqual(set.count(), 1);
+  XCTAssertEqual(set.primary(), selection);
+}
+
+- (void)testMultipleSelectionConstruction {
   quip::Selection a(quip::Location(0, 0), quip::Location(1, 0));
   quip::Selection b(quip::Location(0, 1), quip::Location(1, 1));
   std::vector<quip::Selection> selections { a, b };
   quip::SelectionSet set(selections);
   
   XCTAssertEqual(set.count(), 2);
+  XCTAssertEqual(set.primary(), a);
+}
+
+- (void)testIndexing {
+  quip::Selection a(quip::Location(0, 0), quip::Location(1, 0));
+  quip::Selection b(quip::Location(0, 1), quip::Location(1, 1));
+  std::vector<quip::Selection> selections { a, b };
+  quip::SelectionSet set(selections);
+  
   XCTAssertEqual(set[0], a);
   XCTAssertEqual(set[1], b);
 }
@@ -31,6 +48,21 @@
     XCTAssertEqual(*cursor, selections[index]);
     ++cursor;
     ++index;
+  }
+}
+
+- (void)testReverseIteration {
+  quip::Selection a(quip::Location(0, 0), quip::Location(1, 0));
+  quip::Selection b(quip::Location(5, 5), quip::Location(6, 5));
+  std::vector<quip::Selection> selections { a, b };
+  quip::SelectionSet set(selections);
+  
+  std::size_t index = 1;
+  quip::ReverseSelectionSetIterator cursor = set.rbegin();
+  while (cursor != set.rend()) {
+    XCTAssertEqual(*cursor, selections[index]);
+    ++cursor;
+    --index;
   }
 }
 
