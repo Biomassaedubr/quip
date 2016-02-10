@@ -15,6 +15,7 @@
 		035DA2351C6995CF00EC950A /* SelectionSetTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 035DA2201C6993C800EC950A /* SelectionSetTests.mm */; };
 		035DA2441C69A83000EC950A /* SelectionSetIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 035DA2421C69A83000EC950A /* SelectionSetIterator.cpp */; };
 		035DA2451C69A83000EC950A /* SelectionSetIterator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 035DA2431C69A83000EC950A /* SelectionSetIterator.hpp */; };
+		035DA2491C6AEFA200EC950A /* DocumentTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 035DA2481C6AEFA200EC950A /* DocumentTests.mm */; };
 		038ECDB31C698FDA002E571D /* CursorStyle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 038ECD991C698FDA002E571D /* CursorStyle.hpp */; };
 		038ECDB41C698FDA002E571D /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038ECD9A1C698FDA002E571D /* Document.cpp */; };
 		038ECDB51C698FDA002E571D /* Document.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 038ECD9B1C698FDA002E571D /* Document.hpp */; };
@@ -63,6 +64,7 @@
 		035DA2261C6993E300EC950A /* Quip.Core.Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Quip.Core.Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		035DA2421C69A83000EC950A /* SelectionSetIterator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionSetIterator.cpp; path = Source/Core/SelectionSetIterator.cpp; sourceTree = "<group>"; };
 		035DA2431C69A83000EC950A /* SelectionSetIterator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionSetIterator.hpp; path = Source/Core/SelectionSetIterator.hpp; sourceTree = "<group>"; };
+		035DA2481C6AEFA200EC950A /* DocumentTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DocumentTests.mm; sourceTree = "<group>"; };
 		038ECD511C698EFA002E571D /* libQuip.Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQuip.Core.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		038ECD991C698FDA002E571D /* CursorStyle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CursorStyle.hpp; path = Source/Core/CursorStyle.hpp; sourceTree = "<group>"; };
 		038ECD9A1C698FDA002E571D /* Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Document.cpp; path = Source/Core/Document.cpp; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				035DA21B1C6993C800EC950A /* Info.plist */,
+				035DA2481C6AEFA200EC950A /* DocumentTests.mm */,
 				035DA21C1C6993C800EC950A /* DocumentIteratorTests.mm */,
 				035DA21D1C6993C800EC950A /* LocationTests.mm */,
 				035DA21E1C6993C800EC950A /* SearchExpressionTests.mm */,
@@ -334,6 +337,7 @@
 				035DA2311C6995CF00EC950A /* DocumentIteratorTests.mm in Sources */,
 				035DA2341C6995CF00EC950A /* SelectionTests.mm in Sources */,
 				035DA2351C6995CF00EC950A /* SelectionSetTests.mm in Sources */,
+				035DA2491C6AEFA200EC950A /* DocumentTests.mm in Sources */,
 				035DA2331C6995CF00EC950A /* SearchExpressionTests.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

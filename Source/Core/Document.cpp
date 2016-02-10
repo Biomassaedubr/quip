@@ -11,18 +11,32 @@
 #include <string>
 
 namespace quip {
+  namespace {
+    std::vector<std::string> splitText (const std::string & source) {
+      std::vector<std::string> results;
+      for (std::size_t index = 0; index < source.size(); ++index) {
+        std::size_t start = index;
+        while (source[index] != '\n' && index < source.size()) {
+          ++index;
+        }
+        
+        results.emplace_back(source.substr(start, index - start + 1));
+      }
+      
+      // Account for potential trailing newline.
+      if (results.back().back() == '\n') {
+        results.emplace_back("");
+      }
+
+      return results;
+    }
+  }
+  
   Document::Document () {
   }
   
-  Document::Document (const std::string & content) {
-    for (std::size_t index = 0; index < content.size(); ++index) {
-      std::size_t start = index;
-      while (content[index] != '\n' && index < content.size()) {
-        ++index;
-      }
-      
-      m_rows.emplace_back(content.substr(start, index - start + 1));
-    }
+  Document::Document (const std::string & content)
+  : m_rows(splitText(content)) {
   }
   
   std::string Document::contents () const {
@@ -59,22 +73,7 @@ namespace quip {
   }
   
   void Document::insert (SelectionSet & selections, const std::string & text) {
-    // Split the text.
-    std::vector<std::string> lines;
-    for (std::size_t index = 0; index < text.size(); ++index) {
-      std::size_t start = index;
-      while (text[index] != '\n' && index < text.size()) {
-        ++index;
-      }
-      
-      lines.emplace_back(text.substr(start, index - start + 1));
-    }
-    
-    // Account for potential trailing newline.
-    if (lines.back().back() == '\n') {
-      lines.emplace_back("");
-    }
-    
+    std::vector<std::string> lines = splitText(text);
     std::int64_t rowDelta = 0;
     std::int64_t columnDelta = 0;
     std::size_t priorRow = rows();
