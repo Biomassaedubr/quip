@@ -74,40 +74,27 @@ namespace quip {
   
   void Document::insert (SelectionSet & selections, const std::string & text) {
     std::vector<std::string> lines = splitText(text);
-    std::int64_t rowDelta = 0;
-    std::int64_t columnDelta = 0;
-    std::size_t priorRow = rows();
-    
-    for (Selection & selection : selections) {
-      // Reset column delta when changing rows.
-      if (selection.lowerBound().row() != priorRow) {
-        priorRow = selection.lowerBound().row();
-        columnDelta = 0;
-      }
-      
-      Location lower = selection.lowerBound().adjustBy(columnDelta, rowDelta);
+    ReverseSelectionSetIterator cursor = selections.rbegin();
+    while(cursor != selections.rend()) {
+      Location lower = cursor->lowerBound();
       std::string prefix = m_rows[lower.row()].substr(0, lower.column());
       std::string suffix = m_rows[lower.row()].substr(lower.column());
       std::size_t insertRow = lower.row();
       m_rows[insertRow] = prefix + lines[0];
-      columnDelta += lines[0].size();
       
       for (std::size_t lineIndex = 1; lineIndex < lines.size(); ++lineIndex) {
         m_rows.insert(m_rows.begin() + insertRow + 1, lines[lineIndex]);
         ++insertRow;
-        ++rowDelta;
-        columnDelta = 0;
       }
       
+      std::size_t column = m_rows[insertRow].length();
       m_rows[insertRow] += suffix;
       
-      Location origin = selection.origin().adjustBy(columnDelta, rowDelta);
-      if (lines.size() > 1) {
-        origin = Location(0, origin.row());
-      }
+      Location origin(column, insertRow);
+      cursor->setOrigin(origin);
+      cursor->setExtent(origin);
       
-      selection.setOrigin(origin);
-      selection.setExtent(selection.origin());
+      ++cursor;
     }
   }
   
@@ -133,11 +120,10 @@ namespace quip {
         --modified;
       }
 
-      // Collapse the selection.
+      m_rows[lower.row()] = result;
+
       cursor->setExtent(cursor->origin());
       ++cursor;
-      
-      m_rows[lower.row()] = result;
     }
   }
     
