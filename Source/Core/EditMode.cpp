@@ -60,7 +60,7 @@ namespace quip {
         break;
       default:
         if (keyStroke.text().size() > 0) {
-          context.document().insert(context.selections(), keyStroke.text());
+          context.selections().replace(context.document().insert(context.selections(), keyStroke.text()));
           return true;
         }
     }

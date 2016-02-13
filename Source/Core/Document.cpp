@@ -72,30 +72,71 @@ namespace quip {
     return m_rows.size();
   }
   
-  void Document::insert (SelectionSet & selections, const std::string & text) {
+  SelectionSet Document::insert (const SelectionSet & selections, const std::string & text) {
+    if (selections.count() == 0 || text.size() == 0) {
+      return selections;
+    }
+    
+    // The updated selection set cannot be larger than the initial selection set, so storage
+    // can be reserved up front.
+    std::vector<Selection> updated;
+    updated.reserve(selections.count());
+    
+    // Similarly, the upper bound on the amount of document rows required is the product of the
+    // selection count and number of new lines to be inserted; attempting to reserve the appropriate
+    // storage in the document up front will amortize the cost of reallocating (and moving) the
+    // entire row array.
     std::vector<std::string> lines = splitText(text);
-    ReverseSelectionSetIterator cursor = selections.rbegin();
-    while(cursor != selections.rend()) {
-      Location lower = cursor->lowerBound();
-      std::string prefix = m_rows[lower.row()].substr(0, lower.column());
-      std::string suffix = m_rows[lower.row()].substr(lower.column());
-      std::size_t insertRow = lower.row();
-      m_rows[insertRow] = prefix + lines[0];
+    std::size_t rowsInserted = lines.size() - 1;
+    m_rows.reserve(m_rows.size() + (selections.count() * rowsInserted));
+
+    // As text is inserted, it may cause the document to shift underneath subsequent selections.
+    // Those shifts must be tracked in order to ensure the inserted text is placed correctly.
+    std::int64_t columnShift = 0;
+    std::int64_t rowShift = 0;
+    std::size_t priorUnmodifiedRow = 0;
+    for (const Selection & selection : selections) {
+      Location lowerBound = selection.lowerBound();
       
-      for (std::size_t lineIndex = 1; lineIndex < lines.size(); ++lineIndex) {
-        m_rows.insert(m_rows.begin() + insertRow + 1, lines[lineIndex]);
-        ++insertRow;
+      // Column shift only applies to selections that occupy the same (unmodified) row.
+      // It gets reset when moving to a new unmodified row.
+      std::uint64_t unmodifiedRow = lowerBound.row();
+      if (priorUnmodifiedRow != unmodifiedRow) {
+        columnShift = 0;
+        priorUnmodifiedRow = unmodifiedRow;
       }
       
-      std::size_t column = m_rows[insertRow].length();
-      m_rows[insertRow] += suffix;
+      Location insertionPoint = lowerBound.adjustBy(columnShift, rowShift);
+      std::uint64_t insertionColumn = insertionPoint.column();
+      std::uint64_t insertionRow = insertionPoint.row();
+      std::string prefix = m_rows[insertionRow].substr(0, insertionColumn);
+      std::string suffix = m_rows[insertionRow].substr(insertionColumn);
+      m_rows[insertionRow] = prefix + lines.front();
       
-      Location origin(column, insertRow);
-      cursor->setOrigin(origin);
-      cursor->setExtent(origin);
+      if (rowsInserted > 0) {
+        // Make room for additional lines in the document storage.
+        m_rows.insert(m_rows.begin() + insertionRow + 1, rowsInserted, "");
+        for (std::size_t line = 1; line < lines.size(); ++line) {
+          ++insertionRow;
+          m_rows[insertionRow] = lines[line];
+        }
+        
+        columnShift -= prefix.length();
+      } else {
+        columnShift += lines.front().size();
+      }
       
-      ++cursor;
+      // Complete the insert.
+      m_rows[insertionRow] += suffix;
+      
+      Location location(m_rows[insertionRow].size() - suffix.size(), insertionRow);
+      updated.emplace_back(location, location);
+      
+      // Row shift is applied for every selection.
+      rowShift += rowsInserted;
     }
+    
+    return SelectionSet(updated);
   }
   
   void Document::erase (SelectionSet & selections) {
