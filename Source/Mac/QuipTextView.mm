@@ -182,12 +182,17 @@ static CGFloat gCursorBlinkInterval = 0.57;
     CGFloat y = self.frame.size.height - m_cellSize.height - (row * m_cellSize.height);
     CGFloat * color = asPrimary ? gPrimarySelectionColor : gAuxilliarySelectionColor;
     CGContextSetRGBStrokeColor(context, color[0], color[1], color[2], color[3]);
+    CGContextSetRGBFillColor(context, color[0], color[1], color[2], color[3]);
     
     if (m_isCursorVisible) {
       switch (m_context->mode().cursorStyle()) {
+        case quip::CursorStyle::VerticalBlockHalf:
+          CGContextSetBlendMode(context, kCGBlendModeDestinationAtop);
+          CGContextFillRect(context, CGRectMake(x, y - 2.0, m_cellSize.width * (lastColumn + 1 - firstColumn), 0.25 * m_cellSize.height));
+          break;
         case quip::CursorStyle::VerticalBar:
           CGContextMoveToPoint(context, x, y - 2.0);
-          CGContextAddLineToPoint(context, x, y + m_cellSize.height - 6.0f);
+          CGContextAddLineToPoint(context, x, y + m_cellSize.height - 6.0);
           CGContextStrokePath(context);
           break;
         case quip::CursorStyle::Underline:

@@ -11,6 +11,10 @@ namespace quip {
     addMapping(Key::Return, &SearchMode::commitSearch);
   }
   
+  CursorStyle SearchMode::cursorStyle () const {
+    return CursorStyle::VerticalBlockHalf;
+  }
+  
   std::string SearchMode::status () const {
     return "s/" + m_search;
   }
