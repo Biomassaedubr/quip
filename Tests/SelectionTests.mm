@@ -10,35 +10,43 @@
 
 @implementation SelectionTests
 
+using namespace quip;
+
+- (void)testConstructFromSingleLocation {
+  Selection selection(Location(1, 2));
+  
+  XCTAssertEqual(selection.origin(), selection.extent());
+}
+
 - (void)testEquality {
-  quip::Selection a(quip::Location(0, 0), quip::Location(10, 5));
-  quip::Selection b(quip::Location(0, 0), quip::Location(10, 5));
-  quip::Selection c(quip::Location(1, 0), quip::Location(1, 5));
+  Selection a(Location(0, 0), Location(10, 5));
+  Selection b(Location(0, 0), Location(10, 5));
+  Selection c(Location(1, 0), Location(1, 5));
 
   XCTAssertTrue(a == b);
   XCTAssertFalse(b == c);
 }
 
 - (void)testInequality {
-  quip::Selection a(quip::Location(0, 0), quip::Location(10, 5));
-  quip::Selection b(quip::Location(0, 0), quip::Location(10, 5));
-  quip::Selection c(quip::Location(1, 0), quip::Location(1, 5));
+  Selection a(Location(0, 0), Location(10, 5));
+  Selection b(Location(0, 0), Location(10, 5));
+  Selection c(Location(1, 0), Location(1, 5));
   
   XCTAssertFalse(a != b);
   XCTAssertTrue(b != c);
 }
 
 - (void)testSwap {
-  quip::Selection a(quip::Location(0, 0), quip::Location(1, 1));
-  quip::Selection b(quip::Location(2, 2), quip::Location(3, 3));
+  Selection a(Location(0, 0), Location(1, 1));
+  Selection b(Location(2, 2), Location(3, 3));
   
   using std::swap;
   swap(a, b);
   
-  XCTAssertEqual(a.origin(), quip::Location(2, 2));
-  XCTAssertEqual(b.origin(), quip::Location(0, 0));
-  XCTAssertEqual(a.extent(), quip::Location(3, 3));
-  XCTAssertEqual(b.extent(), quip::Location(1, 1));
+  XCTAssertEqual(a.origin(), Location(2, 2));
+  XCTAssertEqual(b.origin(), Location(0, 0));
+  XCTAssertEqual(a.extent(), Location(3, 3));
+  XCTAssertEqual(b.extent(), Location(1, 1));
 }
 
 @end

@@ -3,6 +3,10 @@
 #include <algorithm>
 
 namespace quip {
+  Selection::Selection (const Location & location)
+  : Selection(location, location) {
+  }
+  
   Selection::Selection (const Location & origin, const Location & extent)
   : m_origin(origin)
   , m_extent(extent) {

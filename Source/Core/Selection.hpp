@@ -6,6 +6,7 @@
 
 namespace quip {
   struct Selection {
+    Selection (const Location & location);
     Selection (const Location & origin, const Location & extent);
     
     const Location & origin () const;
