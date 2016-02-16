@@ -94,19 +94,9 @@ namespace quip {
     // Those shifts must be tracked in order to ensure the inserted text is placed correctly.
     std::int64_t columnShift = 0;
     std::int64_t rowShift = 0;
-    std::size_t priorUnmodifiedRow = 0;
-    for (const Selection & selection : selections) {
-      Location lowerBound = selection.lowerBound();
-      
-      // Column shift only applies to selections that occupy the same (unmodified) row.
-      // It gets reset when moving to a new unmodified row.
-      std::uint64_t unmodifiedRow = lowerBound.row();
-      if (priorUnmodifiedRow != unmodifiedRow) {
-        columnShift = 0;
-        priorUnmodifiedRow = unmodifiedRow;
-      }
-      
-      Location insertionPoint = lowerBound.adjustBy(columnShift, rowShift);
+    for (std::size_t index = 0; index < selections.count(); ++index) {
+      const Selection & selection = selections[index];
+      Location insertionPoint = selection.lowerBound().adjustBy(columnShift, rowShift);
       std::uint64_t insertionColumn = insertionPoint.column();
       std::uint64_t insertionRow = insertionPoint.row();
       std::string prefix = m_rows[insertionRow].substr(0, insertionColumn);
@@ -129,11 +119,19 @@ namespace quip {
       // Complete the insert.
       m_rows[insertionRow] += suffix;
       
+      // Row shift is applied continually, but the column shift gets reset
+      // when moving to selections that originated on a different row.
+      rowShift += rowsInserted;
+      if (index + 1 < selections.count()) {
+        const Selection & next = selections[index + 1];
+        if (selection.lowerBound().row() != next.lowerBound().row()) {
+          columnShift = 0;
+        }
+      }
+      
+      // Record where the selection should move post-insert.
       Location location(m_rows[insertionRow].size() - suffix.size(), insertionRow);
       updated.emplace_back(location, location);
-      
-      // Row shift is applied for every selection.
-      rowShift += rowsInserted;
     }
     
     return SelectionSet(updated);
