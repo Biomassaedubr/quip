@@ -67,6 +67,28 @@
   XCTAssertEqual(results[0].origin(), quip::Location(4, 1));
 }
 
+- (void)testInsertViaEmptySelections {
+  quip::Document document("Hello, world!");
+  quip::SelectionSet empty;
+  document.insert(empty, "!");
+  
+  XCTAssertEqual(document.rows(), 1);
+  XCTAssertEqual(document.row(0), "Hello, world!");
+}
+
+- (void)testInsertEmptyText {
+  quip::Document document("Hello, world!");
+  std::vector<quip::Selection> selections({
+    quip::Selection(quip::Location(1, 0), quip::Location(1, 0)),
+    quip::Selection(quip::Location(4, 0), quip::Location(4, 0))
+  });
+  quip::SelectionSet set(selections);
+  document.insert(set, "");
+
+  XCTAssertEqual(document.rows(), 1);
+  XCTAssertEqual(document.row(0), "Hello, world!");
+}
+
 - (void)testInsertSingleLineViaMultipleSelections {
   quip::Document document("AC XZ");
   std::vector<quip::Selection> selections({

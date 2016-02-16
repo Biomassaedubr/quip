@@ -8,6 +8,12 @@
 
 @implementation SelectionSetTests
 
+- (void)testDefaultConstruction {
+  quip::SelectionSet empty;
+  
+  XCTAssertEqual(empty.count(), 0);
+}
+
 - (void)testSingleSelectionConstruction {
   quip::Selection selection(quip::Location(0, 0), quip::Location(1, 0));
   quip::SelectionSet set(selection);

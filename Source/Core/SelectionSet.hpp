@@ -7,6 +7,7 @@
 
 namespace quip {
   struct SelectionSet {
+    SelectionSet ();
     SelectionSet (const Selection & selection);
     SelectionSet (const std::vector<Selection> & selections);
 

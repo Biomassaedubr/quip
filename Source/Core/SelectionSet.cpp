@@ -9,6 +9,10 @@ namespace {
 }
 
 namespace quip {
+  SelectionSet::SelectionSet()
+  : m_primary(0) {
+  }
+  
   SelectionSet::SelectionSet (const Selection & selection)
   : m_selections({selection})
   , m_primary(0) {
