@@ -8,46 +8,48 @@
 
 @end
 
+using namespace quip;
+
 @implementation DocumentIteratorTests
 
 - (void)testDereference {
-  quip::Document document("Q");
-  quip::DocumentIterator cursor = document.begin();
+  Document document("Q");
+  DocumentIterator cursor = document.begin();
   
   XCTAssertEqual(*cursor, 'Q');
-  XCTAssertEqual(cursor.location(), quip::Location(0, 0));
+  XCTAssertEqual(cursor.location(), Location(0, 0));
 }
 
 - (void)testIncrement {
-  quip::Document document("Quip!");
-  quip::DocumentIterator cursor = document.begin();
+  Document document("Quip!");
+  DocumentIterator cursor = document.begin();
   ++cursor;
   
   XCTAssertEqual(*cursor, 'u');
-  XCTAssertEqual(cursor.location(), quip::Location(1, 0));
+  XCTAssertEqual(cursor.location(), Location(1, 0));
 }
 
 - (void)testIncrementAcrossRow {
-  quip::Document document("A\nB");
-  quip::DocumentIterator cursor = document.begin();
+  Document document("A\nB");
+  DocumentIterator cursor = document.begin();
   ++cursor;
   ++cursor;
   
   XCTAssertEqual(*cursor, 'B');
-  XCTAssertEqual(cursor.location(), quip::Location(0, 1));
+  XCTAssertEqual(cursor.location(), Location(0, 1));
 }
 
 - (void)testDecrement {
-  quip::Document document("Quip!");
-  quip::DocumentIterator cursor = document.end();
+  Document document("Quip!");
+  DocumentIterator cursor = document.end();
   --cursor;
   
   XCTAssertEqual(*cursor, '!');
 }
 
 - (void)testDecrementAcrossRow {
-  quip::Document document("A\nB");
-  quip::DocumentIterator cursor = document.end();
+  Document document("A\nB");
+  DocumentIterator cursor = document.end();
   --cursor;
   --cursor;
   
@@ -55,17 +57,17 @@
 }
 
 - (void)testEquality {
-  quip::Document document("Quip!");
-  quip::DocumentIterator a = document.begin();
-  quip::DocumentIterator b = document.begin();
+  Document document("Quip!");
+  DocumentIterator a = document.begin();
+  DocumentIterator b = document.begin();
 
   XCTAssertTrue(a == b);
 }
 
 - (void)testInequality {
-  quip::Document document("Quip!");
-  quip::DocumentIterator a = document.begin();
-  quip::DocumentIterator b = document.begin();
+  Document document("Quip!");
+  DocumentIterator a = document.begin();
+  DocumentIterator b = document.begin();
   ++b;
   
   XCTAssertTrue(a != b);

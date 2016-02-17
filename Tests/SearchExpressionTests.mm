@@ -6,29 +6,31 @@
 
 @end
 
+using namespace quip;
+
 @implementation SearchExpressionTests
 
 - (void)testConstructFromEmptyExpression {
-  quip::SearchExpression expression("");
+  SearchExpression expression("");
   
   XCTAssertFalse(expression.valid());
 }
 
 - (void)testConstructFromSimpleExpression {
-  quip::SearchExpression expression("foo");
+  SearchExpression expression("foo");
   
   XCTAssertTrue(expression.valid());
   XCTAssertEqual(expression.expression(), "foo");
 }
 
 - (void)testConstructExpressionWithTrailingClass {
-  quip::SearchExpression expression("[a-z");
+  SearchExpression expression("[a-z");
   
   XCTAssertFalse(expression.valid());
 }
 
 - (void)testConstructExpressionWithTrailingSlash {
-  quip::SearchExpression expression("\\");
+  SearchExpression expression("\\");
   
   XCTAssertFalse(expression.valid());
 }
