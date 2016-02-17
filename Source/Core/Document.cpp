@@ -5,6 +5,7 @@
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
 
+#include <algorithm>
 #include <iostream>
 #include <regex>
 #include <sstream>
@@ -72,6 +73,13 @@ namespace quip {
     return m_rows.size();
   }
   
+  Location Document::clip (const Location & location) const {
+    std::size_t row = std::min(location.row(), static_cast<std::uint64_t>(m_rows.size()) - 1);
+    std::size_t column = std::min(location.column(), static_cast<std::uint64_t>(m_rows[row].size()) - 1);
+    
+    return Location(column, row);
+  }
+  
   SelectionSet Document::insert (const SelectionSet & selections, const std::string & text) {
     if (selections.count() == 0 || text.size() == 0) {
       return selections;
@@ -121,8 +129,9 @@ namespace quip {
       
       // Row shift is applied continually, but the column shift gets reset
       // when moving to selections that originated on a different row.
-      rowShift += rowsInserted;
       if (index + 1 < selections.count()) {
+        rowShift += rowsInserted;
+
         const Selection & next = selections[index + 1];
         if (selection.lowerBound().row() != next.lowerBound().row()) {
           columnShift = 0;
@@ -137,35 +146,72 @@ namespace quip {
     return SelectionSet(updated);
   }
   
-  void Document::erase (SelectionSet & selections) {
-    ReverseSelectionSetIterator cursor = selections.rbegin();
-    while(cursor != selections.rend()) {
-      Location lower = cursor->lowerBound();
-      Location upper = cursor->upperBound();
-      std::uint64_t modified = cursor->height();
-      
-      std::string prefix = m_rows[lower.row()].substr(0, lower.column());
-      std::string suffix;
-      if (upper.column() == m_rows[upper.row()].length() - 1) {
-        suffix = m_rows[upper.row() + 1];
-        ++modified;
-      } else {
-        suffix = m_rows[upper.row()].substr(upper.column() + 1);
-      }
-      
-      std::string result = prefix + suffix;
-      while (modified > 1) {
-        m_rows.erase(m_rows.begin() + lower.row() + 1);
-        --modified;
-      }
-
-      m_rows[lower.row()] = result;
-
-      cursor->setExtent(cursor->origin());
-      ++cursor;
+  SelectionSet Document::erase (const SelectionSet & selections) {
+    if (selections.count() == 0) {
+      return selections;
     }
-  }
     
+    // The updated selection set cannot be larger than the initial selection set, so storage
+    // can be reserved up front.
+    std::vector<Selection> updated;
+    updated.reserve(selections.count());
+    
+    // As text is removed, it may cause the document to shift underneath subsequent selections.
+    // Those shifts must be tracked in order to ensure all the correct text is erased.
+    std::int64_t columnShift = 0;
+    std::int64_t rowShift = 0;
+    for (std::size_t index = 0; index < selections.count(); ++index) {
+      const Selection & selection = selections[index];
+      Location lowerBound = selection.lowerBound().adjustBy(columnShift, rowShift);
+      Location upperBound = selection.upperBound().adjustBy(columnShift, rowShift);
+      std::size_t rowsRemoved = selection.height() - 1;
+      
+      // The prefix is easy to compute, but the suffix must be special-cased when a line
+      // terminator or the very last character in the document is removed.
+      std::string prefix = m_rows[lowerBound.row()].substr(0, lowerBound.column());
+      std::string suffix;
+      
+      const std::string & upperLine = m_rows[upperBound.row()];
+      if (upperBound.column() == upperLine.length() - 1) {
+        if (upperLine.back() == '\n') {
+          suffix = m_rows[upperBound.row() + 1];
+          ++rowsRemoved;
+        } else {
+          // Only the last character in the document can (legally) terminate a row without
+          // being a newline.
+          suffix = "";
+          --columnShift;
+        }
+      } else {
+        suffix = m_rows[upperBound.row()].substr(upperBound.column() + 1);
+      }
+      
+      std::size_t lowerLineLength = m_rows[lowerBound.row()].size();
+      m_rows.erase(m_rows.begin() + lowerBound.row() + 1, m_rows.begin() + lowerBound.row() + rowsRemoved + 1);
+      m_rows[lowerBound.row()] = prefix + suffix;
+
+      // Clip the selection to the document bounds.      
+      updated.push_back(clip(selection.origin().adjustBy(columnShift, rowShift)));
+      columnShift -= lowerLineLength - m_rows[lowerBound.row()].size();
+      
+
+      if (index + 1 < selections.count()) {
+        const Selection & next = selections[index + 1];
+        
+        if(selection.lowerBound().row() == next.lowerBound().row() - 1) {
+          columnShift = -(lowerLineLength - m_rows[lowerBound.row()].size());
+          rowShift -= rowsRemoved;
+
+        } else if (selection.lowerBound().row() != next.lowerBound().row()) {
+          columnShift = 0;
+          rowShift -= rowsRemoved;
+        }
+      }
+    }
+    
+    return SelectionSet(updated);
+  }
+  
   SelectionSet Document::matches (const SearchExpression & expression) const {
     typedef std::regex_iterator<DocumentIterator, char> RegexIterator;
     
