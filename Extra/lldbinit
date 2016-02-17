@@ -1,0 +1,3 @@
+# Recommended type summary settings for Quip types.
+type summary add --summary-string "<${var.m_column}:${var.m_row}>" quip::Location
+type summary add --summary-string "${var.m_origin}..${var.m_extent}" quip::Selection
