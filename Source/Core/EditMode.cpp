@@ -25,7 +25,7 @@ namespace quip {
           origin = origin.adjustBy(-1, 0);
         }
         
-        adjusted.emplace_back(Selection(origin, origin));
+        adjusted.emplace_back(Selection(origin));
       }
       
       SelectionSet set(adjusted);

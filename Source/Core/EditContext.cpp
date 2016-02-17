@@ -17,7 +17,7 @@ namespace quip {
   
   EditContext::EditContext (std::shared_ptr<Document> document)
   : m_document(document)
-  , m_selections(Selection(Location(0, 0), Location(0, 0))) {
+  , m_selections(Selection(Location(0, 0))) {
     
     // Populate with standard modes.
     m_modes.insert(std::make_pair("EditMode", std::make_shared<EditMode>()));

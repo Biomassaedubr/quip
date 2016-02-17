@@ -125,7 +125,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
     return;
   }
   
-  m_context->selections().replace(quip::Selection(target, target));
+  m_context->selections().replace(quip::Selection(target));
   [self resetCursorBlink];
 }
 
