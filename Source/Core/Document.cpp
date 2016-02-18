@@ -28,7 +28,7 @@ namespace quip {
       if (results.back().back() == '\n') {
         results.emplace_back("");
       }
-
+      
       return results;
     }
   }
@@ -65,7 +65,7 @@ namespace quip {
       return result;
     }
   }
-
+  
   DocumentIterator Document::begin () const {
     return DocumentIterator(*this, Location(0, 0));
   }
@@ -118,7 +118,7 @@ namespace quip {
     std::vector<std::string> lines = splitText(text);
     std::size_t rowsInserted = lines.size() - 1;
     m_rows.reserve(m_rows.size() + (selections.count() * rowsInserted));
-
+    
     // As text is inserted, it may cause the document to shift underneath subsequent selections.
     // Those shifts must be tracked in order to ensure the inserted text is placed correctly.
     std::int64_t columnShift = 0;
@@ -152,7 +152,7 @@ namespace quip {
       // when moving to selections that originated on a different row.
       if (index + 1 < selections.count()) {
         rowShift += rowsInserted;
-
+        
         const Selection & next = selections[index + 1];
         if (selection.lowerBound().row() != next.lowerBound().row()) {
           columnShift = 0;
@@ -210,19 +210,19 @@ namespace quip {
       std::size_t lowerLineLength = m_rows[lowerBound.row()].size();
       m_rows.erase(m_rows.begin() + lowerBound.row() + 1, m_rows.begin() + lowerBound.row() + rowsRemoved + 1);
       m_rows[lowerBound.row()] = prefix + suffix;
-
-      // Clip the selection to the document bounds.      
+      
+      // Clip the selection to the document bounds.
       updated.push_back(clip(selection.origin().adjustBy(columnShift, rowShift)));
       columnShift -= lowerLineLength - m_rows[lowerBound.row()].size();
       
-
+      
       if (index + 1 < selections.count()) {
         const Selection & next = selections[index + 1];
         
         if(selection.lowerBound().row() == next.lowerBound().row() - 1) {
           columnShift = -(lowerLineLength - m_rows[lowerBound.row()].size());
           rowShift -= rowsRemoved;
-
+          
         } else if (selection.lowerBound().row() != next.lowerBound().row()) {
           columnShift = 0;
           rowShift -= rowsRemoved;
@@ -234,12 +234,12 @@ namespace quip {
   }
   
   SelectionSet Document::matches (const SearchExpression & expression) const {
-    typedef std::regex_iterator<DocumentIterator, char> RegexIterator;
-    
     std::vector<Selection> results;
     if (expression.valid()) {
-      RegexIterator cursor(begin(), end(), expression.pattern(), std::regex_constants::match_not_null);
-      RegexIterator end;
+      std::string content;
+      std::vector<std::size_t> table = buildSpanTable(&content);
+      std::sregex_iterator cursor(content.begin(), content.end(), expression.pattern(), std::regex_constants::match_not_null);
+      std::sregex_iterator end;
       
       while (cursor != end) {
         auto match = *cursor;
@@ -253,8 +253,8 @@ namespace quip {
         }
         
         for (std::size_t matchIndex = 0; matchIndex < match.size(); ++matchIndex) {
-          Location origin = match[matchIndex].first.location();
-          Location extent = std::prev(match[matchIndex].second).location();
+          Location origin = linearPositionToLocation(table, cursor->position());
+          Location extent = linearPositionToLocation(table, cursor->position() + cursor->length() - 1);
           results.emplace_back(origin, extent);
         }
         
@@ -263,5 +263,43 @@ namespace quip {
     }
     
     return SelectionSet(results);
+  }
+  
+  std::vector<std::size_t> Document::buildSpanTable (std::string * contents) const {
+    // A "span table" accelerates the process of finding a column/row location
+    // from a linear index into the document.
+    std::vector<std::size_t> table;
+    table.reserve(m_rows.size());
+    
+    std::ostringstream stream;
+    std::size_t length = 0;
+    for (const std::string & text : m_rows) {
+      if (contents != nullptr) {
+        stream << text;
+      }
+      
+      length += text.size();
+      table.emplace_back(length);
+    }
+    
+    if (contents != nullptr) {
+      *contents = stream.str();
+    }
+    
+    return table;
+  }
+  
+  Location Document::linearPositionToLocation(const std::vector<std::size_t> & spanTable, std::size_t position) const {
+    std::vector<std::size_t>::const_iterator span = std::lower_bound(spanTable.begin(), spanTable.end(), position);
+    auto row = span - spanTable.begin();
+    if (position == *span) {
+      // If the position precisely matches a span entry, it's actually the next
+      // row that's interesting.
+      ++row;
+      ++span;
+    }
+    
+    std::size_t column = m_rows[row].size() - (*span - position);
+    return Location(column, row);
   }
 }
