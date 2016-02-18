@@ -74,6 +74,10 @@ namespace quip {
     return DocumentIterator(*this, Location(0, m_rows.size()));
   }
   
+  DocumentIterator Document::at (const Location & location) const {
+    return DocumentIterator(*this, location);
+  }
+  
   const std::string & Document::path () const {
     return m_path;
   }

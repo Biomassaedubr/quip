@@ -1,6 +1,7 @@
 #include "NormalMode.hpp"
 
 #include "Document.hpp"
+#include "DocumentIterator.hpp"
 #include "EditContext.hpp"
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
@@ -11,6 +12,9 @@ namespace quip {
     addMapping(Key::J, &NormalMode::selectBelowPrimaryExtent);
     addMapping(Key::K, &NormalMode::selectAbovePrimaryOrigin);
     addMapping(Key::L, &NormalMode::selectAfterPrimaryExtent);
+
+    addMapping(Key::W, &NormalMode::selectNextWord);
+    addMapping(Key::B, &NormalMode::selectPriorWord);
 
     addMapping(Key::R, &NormalMode::rotateSelectionForward);
     addMapping(Key::E, &NormalMode::rotateSelectionBackward);
@@ -94,6 +98,46 @@ namespace quip {
     Selection result(target, target);
     
     context.selections().replace(result);
+  }
+  
+  void NormalMode::selectNextWord (EditContext & context) {
+    DocumentIterator cursor = context.document().at(context.selections().primary().extent());
+    DocumentIterator end = context.document().end();
+    
+    while(cursor != end && !std::isspace(*cursor)) {
+      ++cursor;
+    }
+    
+    while(cursor != end && std::isspace(*cursor)) {
+      ++cursor;
+    }
+    
+    Location origin = cursor.location();
+    while(cursor != end && !std::isspace(*cursor)) {
+      ++cursor;
+    }
+    
+    context.selections().replace(Selection(origin, cursor.location()));
+  }
+  
+  void NormalMode::selectPriorWord (EditContext & context) {
+    DocumentIterator cursor = context.document().at(context.selections().primary().origin());
+    DocumentIterator begin = context.document().begin();
+    
+    while(cursor != begin && !std::isspace(*cursor)) {
+      --cursor;
+    }
+    
+    while(cursor != begin && std::isspace(*cursor)) {
+      --cursor;
+    }
+    
+    Location origin = cursor.location();
+    while(cursor != begin && !std::isspace(*cursor)) {
+      --cursor;
+    }
+    
+    context.selections().replace(Selection(cursor.location(), origin));
   }
   
   void NormalMode::rotateSelectionForward (EditContext & context) {

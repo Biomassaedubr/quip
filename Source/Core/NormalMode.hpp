@@ -16,6 +16,9 @@ namespace quip {
     void selectAfterPrimaryExtent (EditContext & context);
     void selectAbovePrimaryOrigin (EditContext & context);
     
+    void selectNextWord (EditContext & context);
+    void selectPriorWord (EditContext & context);
+    
     void enterEditMode (EditContext & context);
     void enterSearchMode (EditContext & context);
     
