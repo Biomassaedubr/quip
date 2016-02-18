@@ -49,6 +49,23 @@ namespace quip {
     return stream.str();
   }
   
+  std::string Document::contents (const Selection & selection) const {
+    Location lowerBound = selection.lowerBound();
+    Location upperBound = selection.upperBound();
+    
+    if (selection.height() == 1) {
+      return m_rows[lowerBound.row()].substr(lowerBound.column(), upperBound.column() - lowerBound.column() + 1);
+    } else {
+      std::string result = m_rows[lowerBound.row()].substr(lowerBound.column());
+      for (std::size_t index = 1; index < selection.height() - 1; ++index) {
+        result += m_rows[lowerBound.row() + index];
+      }
+      
+      result += m_rows[upperBound.row()].substr(0, upperBound.column() + 1);
+      return result;
+    }
+  }
+
   DocumentIterator Document::begin () const {
     return DocumentIterator(*this, Location(0, 0));
   }

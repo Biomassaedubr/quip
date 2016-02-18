@@ -40,6 +40,27 @@ using namespace quip;
   XCTAssertEqual(document.contents(), "Hello, world.\n");
 }
 
+- (void)testGetContentsOfSingleLineSelection {
+  Document document("Hello, world!");
+  std::string result = document.contents(Selection(Location(0, 0), Location(4, 0)));
+  
+  XCTAssertEqual(result, "Hello");
+}
+
+- (void)testGetContentsOfTwoLineSelection {
+  Document document("Why hello\nworld!");
+  std::string result = document.contents(Selection(Location(4, 0), Location(4, 1)));
+  
+  XCTAssertEqual(result, "hello\nworld");
+}
+
+- (void)testGetContentsOfFourLineSelection {
+  Document document("!!A\nB\nC\nD!!");
+  std::string result = document.contents(Selection(Location(2, 0), Location(0, 3)));
+  
+  XCTAssertEqual(result, "A\nB\nC\nD");
+}
+
 - (void)testSetPath {
   Document document;
   XCTAssertEqual(document.path(), "");

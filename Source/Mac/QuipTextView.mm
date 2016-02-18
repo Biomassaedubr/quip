@@ -151,6 +151,52 @@ static CGFloat gCursorBlinkInterval = 0.57;
   }
 }
 
+- (void)cut:(id)sender {
+  NSPasteboard * pasteboard = [NSPasteboard generalPasteboard];
+  [pasteboard clearContents];
+  
+  NSMutableArray * items = [[NSMutableArray alloc] initWithCapacity:m_context->selections().count()];
+  for (const quip::Selection & selection : m_context->selections()) {
+    std::string text = m_context->document().contents(selection);
+    [items addObject:[NSString stringWithUTF8String:text.c_str()]];
+  }
+  
+  m_context->selections().replace(m_context->document().erase(m_context->selections()));
+  [pasteboard writeObjects:items];
+}
+
+- (void)copy:(id)sender {
+  NSPasteboard * pasteboard = [NSPasteboard generalPasteboard];
+  [pasteboard clearContents];
+  
+  NSMutableArray * items = [[NSMutableArray alloc] initWithCapacity:m_context->selections().count()];
+  for (const quip::Selection & selection : m_context->selections()) {
+    std::string text = m_context->document().contents(selection);
+    [items addObject:[NSString stringWithUTF8String:text.c_str()]];
+  }
+  
+  [pasteboard writeObjects:items];
+}
+
+- (void)paste:(id)sender {
+  NSPasteboard * pasteboard = [NSPasteboard generalPasteboard];
+  NSArray * items = [pasteboard readObjectsForClasses:@[[NSString class]] options:@{}];
+  if (items != nil) {
+    NSString * item = [items firstObject];
+    std::string text = [item cStringUsingEncoding:NSUTF8StringEncoding];
+    m_context->selections().replace(m_context->document().insert(m_context->selections(), text));
+  }
+}
+
+- (void)selectAll:(id)sender {
+  const quip::Document & document = m_context->document();
+  std::uint64_t row = document.rows() - 1;
+  std::uint64_t column = document.row(row).size() - 1;
+  
+  quip::Selection selection(quip::Location(0, 0), quip::Location(column, row));
+  m_context->selections().replace(selection);
+}
+
 - (quip::Document &)document {
   return m_context->document();
 }

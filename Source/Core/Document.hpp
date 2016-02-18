@@ -8,6 +8,7 @@
 namespace quip {
   struct DocumentIterator;
   struct SearchExpression;
+  struct Selection;
   struct SelectionSet;
   
   struct Document {
@@ -15,6 +16,7 @@ namespace quip {
     Document (const std::string & contents);
     
     std::string contents () const;
+    std::string contents (const Selection & selection) const;
     
     DocumentIterator begin () const;
     DocumentIterator end () const;
