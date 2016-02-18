@@ -22,11 +22,6 @@ namespace quip {
     ConstSelectionSetIterator begin () const;
     SelectionSetIterator end ();
     ConstSelectionSetIterator end () const;
-    
-    ReverseSelectionSetIterator rbegin ();
-    ReverseConstSelectionSetIterator rbegin () const;
-    ReverseSelectionSetIterator rend ();
-    ReverseConstSelectionSetIterator rend () const;
 
     void rotateForward ();
     void rotateBackward ();

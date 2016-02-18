@@ -81,22 +81,6 @@ namespace quip {
   ConstSelectionSetIterator SelectionSet::end () const {
     return ConstSelectionSetIterator(*this, m_selections.size());
   }
-  
-  ReverseSelectionSetIterator SelectionSet::rbegin () {
-    return ReverseSelectionSetIterator(*this, m_selections.size() - 1);
-  }
-  
-  ReverseConstSelectionSetIterator SelectionSet::rbegin () const {
-    return ReverseConstSelectionSetIterator(*this, m_selections.size() - 1);
-  }
-  
-  ReverseSelectionSetIterator SelectionSet::rend () {
-    return ReverseSelectionSetIterator(*this, -1);
-  }
-  
-  ReverseConstSelectionSetIterator SelectionSet::rend () const {
-    return ReverseConstSelectionSetIterator(*this, -1);
-  }
 
   void SelectionSet::rotateForward () {
     m_primary = (m_primary + 1) % m_selections.size();

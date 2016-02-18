@@ -44,7 +44,7 @@ using namespace quip;
   XCTAssertEqual(set[1], b);
 }
 
-- (void)testForwardIteration {
+- (void)testIteration {
   Selection a(Location(0, 0), Location(1, 0));
   Selection b(Location(5, 5), Location(6, 5));
   std::vector<Selection> selections { a, b };
@@ -56,21 +56,6 @@ using namespace quip;
     XCTAssertEqual(*cursor, selections[index]);
     ++cursor;
     ++index;
-  }
-}
-
-- (void)testReverseIteration {
-  Selection a(Location(0, 0), Location(1, 0));
-  Selection b(Location(5, 5), Location(6, 5));
-  std::vector<Selection> selections { a, b };
-  SelectionSet set(selections);
-  
-  std::size_t index = 1;
-  ReverseSelectionSetIterator cursor = set.rbegin();
-  while (cursor != set.rend()) {
-    XCTAssertEqual(*cursor, selections[index]);
-    ++cursor;
-    --index;
   }
 }
 
