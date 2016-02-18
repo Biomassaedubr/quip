@@ -3,6 +3,7 @@
 #include "Key.hpp"
 #include "KeyStroke.hpp"
 #include "SelectionSet.hpp"
+#include "ViewController.hpp"
 
 #include <map>
 #include <memory>
@@ -26,6 +27,8 @@ namespace quip {
     
     bool processKey (const KeyStroke & keyStroke);
     
+    ViewController & controller ();
+    
   private:
     std::shared_ptr<Document> m_document;
     SelectionSet m_selections;
@@ -33,5 +36,6 @@ namespace quip {
     std::map<std::string, std::shared_ptr<Mode>> m_modes;
     std::stack<std::shared_ptr<Mode>> m_modeHistory;
     
+    ViewController m_controller;
   };
 }

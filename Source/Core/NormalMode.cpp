@@ -98,10 +98,12 @@ namespace quip {
   
   void NormalMode::rotateSelectionForward (EditContext & context) {
     context.selections().rotateForward();
+    context.controller().scrollToLocation.transmit(context.selections().primary().origin());
   }
   
   void NormalMode::rotateSelectionBackward (EditContext & context) {
     context.selections().rotateBackward();
+    context.controller().scrollToLocation.transmit(context.selections().primary().origin());
   }
   
   void NormalMode::collapseSelections (EditContext & context) {

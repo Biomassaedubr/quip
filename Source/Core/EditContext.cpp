@@ -55,4 +55,8 @@ namespace quip {
   bool EditContext::processKey (const KeyStroke & keyStroke) {
     return mode().processKey(keyStroke, *this);
   }
+  
+  ViewController & EditContext::controller () {
+    return m_controller;
+  }
 }

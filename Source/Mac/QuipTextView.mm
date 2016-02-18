@@ -203,15 +203,30 @@ static CGFloat gCursorBlinkInterval = 0.57;
 
 - (void)setDocument:(std::shared_ptr<quip::Document>)document {
   m_context = std::make_shared<quip::EditContext>(document);
-  
+
   CGFloat frameWidth = m_minimumFrame.size.width;
   CGFloat frameHeight = std::max(m_minimumFrame.size.height, m_cellSize.height * document->rows());
   [self setFrameSize:CGSizeMake(frameWidth, frameHeight)];
   [self setNeedsDisplay:YES];
+  
+  // Bind controller signals.
+  m_context->controller().scrollToLocation.connect([=] (quip::Location location) {
+    [self scrollToLocation:location];
+  });
 }
 
 - (void)setStatus:(QuipStatusView *)status {
   m_statusView = status;
+}
+
+- (void)scrollToLocation:(quip::Location)location {
+  CGFloat y = self.frame.size.height - (m_cellSize.height * (location.row() + 1));
+  
+  // The parent of this view is the NSClipView, which will have the height of the
+  // visible portion of the document, which can be used to bias the target point
+  // to the center of the view.
+  CGFloat bias = self.superview.frame.size.height * 0.5;
+  [self scrollPoint:CGPointMake(0.0, y - bias)];
 }
 
 - (void)drawSelection:(quip::Selection &)selection asPrimary:(BOOL)asPrimary context:(CGContextRef)context {

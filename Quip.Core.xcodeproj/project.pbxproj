@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		034AAD3A1C756B8F0030A69A /* ViewController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 034AAD381C756B8F0030A69A /* ViewController.hpp */; };
 		035DA22B1C6993E300EC950A /* libQuip.Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 038ECD511C698EFA002E571D /* libQuip.Core.a */; };
 		035DA2311C6995CF00EC950A /* DocumentIteratorTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 035DA21C1C6993C800EC950A /* DocumentIteratorTests.mm */; };
 		035DA2321C6995CF00EC950A /* LocationTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 035DA21D1C6993C800EC950A /* LocationTests.mm */; };
@@ -55,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		034AAD381C756B8F0030A69A /* ViewController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ViewController.hpp; path = Source/Core/ViewController.hpp; sourceTree = "<group>"; };
+		034AAD3C1C756C070030A69A /* Signal.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Signal.hpp; path = Source/Core/Signal.hpp; sourceTree = "<group>"; };
 		035DA21B1C6993C800EC950A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		035DA21C1C6993C800EC950A /* DocumentIteratorTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DocumentIteratorTests.mm; sourceTree = "<group>"; };
 		035DA21D1C6993C800EC950A /* LocationTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocationTests.mm; sourceTree = "<group>"; };
@@ -113,6 +116,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		034AAD321C756B570030A69A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				034AAD381C756B8F0030A69A /* ViewController.hpp */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		034AAD3B1C756BF90030A69A /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				034AAD3C1C756C070030A69A /* Signal.hpp */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
 		035DA21A1C6993BC00EC950A /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +139,8 @@
 				038ECDEC1C6990B2002E571D /* Documents */,
 				038ECDED1C6990B9002E571D /* Modes */,
 				038ECDEB1C6990A7002E571D /* Selections */,
+				034AAD321C756B570030A69A /* UI */,
+				034AAD3B1C756BF90030A69A /* Utility */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -234,6 +255,7 @@
 				038ECDC01C698FDA002E571D /* Location.hpp in Headers */,
 				038ECDCC1C698FDA002E571D /* SelectionSet.hpp in Headers */,
 				038ECDC41C698FDA002E571D /* NormalMode.hpp in Headers */,
+				034AAD3A1C756B8F0030A69A /* ViewController.hpp in Headers */,
 				038ECDC61C698FDA002E571D /* SearchExpression.hpp in Headers */,
 				038ECDC21C698FDA002E571D /* Mode.hpp in Headers */,
 				038ECDC81C698FDA002E571D /* SearchMode.hpp in Headers */,
