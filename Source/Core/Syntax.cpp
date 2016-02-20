@@ -70,7 +70,7 @@ namespace quip {
     
     std::string pattern;
     for (std::size_t index = 0; index < m_keywords.size(); ++index) {
-      pattern += m_keywords[index];
+      pattern += "\\b" + m_keywords[index] + "\\b";
       if (index + 1 < m_keywords.size()) {
         pattern += "|";
       }
