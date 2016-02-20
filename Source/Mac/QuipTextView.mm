@@ -2,14 +2,40 @@
 
 #import "QuipStatusView.h"
 
+#include "AttributeRange.hpp"
+#include "Color.hpp"
 #include "EditContext.hpp"
 #include "Key.hpp"
 #include "KeyStroke.hpp"
 #include "Mode.hpp"
 #include "Selection.hpp"
+#include "Syntax.hpp"
 
 #include <cmath>
+#include <map>
 #include <vector>
+
+namespace {
+  struct Highlight {
+    CFDictionaryRef attributes;
+    CGColorRef foregroundColor;
+  };
+
+  static void initializeHighlight (Highlight * highlight, quip::Color foreground) {
+      highlight->foregroundColor = CGColorCreateGenericRGB(foreground.r, foreground.g, foreground.b, foreground.a);
+      
+      CFStringRef keys[] = { kCTForegroundColorAttributeName };
+      CFTypeRef values[] = { highlight->foregroundColor };
+      const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
+      const void ** opaqueValues = reinterpret_cast<const void **>(&values);
+      highlight->attributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  }
+
+  static void releaseHighlight (Highlight * highlight) {
+    CFRelease(highlight->attributes);
+    CFRelease(highlight->foregroundColor);
+  }
+}
 
 @interface QuipTextView () {
 @private
@@ -17,6 +43,8 @@
   CFDictionaryRef m_fontAttributes;
   CTParagraphStyleRef m_paragraphAttributes;
   std::vector<CTTextTabRef> m_tabStops;
+  
+  Highlight m_highlightAttributes[quip::AttributeCount];
   
   CGSize m_cellSize;
   CGRect m_minimumFrame;
@@ -70,6 +98,8 @@ static CGFloat gCursorBlinkInterval = 0.57;
     const void ** opaqueValues = reinterpret_cast<const void **>(&values);
     m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 2, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     
+    initializeHighlight(m_highlightAttributes + quip::Keyword, quip::Color(0.0f, 0.0f, 1.0f));
+    
     m_context = nullptr;
     m_statusView = nullptr;
     
@@ -85,6 +115,10 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)dealloc {
+  for (std::size_t index = 0; index < quip::AttributeCount; ++index) {
+    releaseHighlight(m_highlightAttributes + index);
+  }
+  
   CFRelease(m_paragraphAttributes);
   for (CTTextTabRef & tab : m_tabStops) {
     CFRelease(tab);
@@ -277,10 +311,21 @@ static CGFloat gCursorBlinkInterval = 0.57;
   for (std::size_t row = 0; row < document.rows(); ++row) {
     // Only draw the row if it clips into the dirty rectangle.
     if (CGRectIntersectsRect(dirtyRect, CGRectMake(0.0, y, self.frame.size.width, m_cellSize.height))) {
+      std::vector<quip::AttributeRange> syntaxAttributes = m_context->document().syntax()->highlight(document.row(row));
       CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, document.row(row).c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
-      CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, text, m_fontAttributes);
-      CTLineRef line = CTLineCreateWithAttributedString(attributed);
+      CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(text));
+
+      CFAttributedStringBeginEditing(attributed);
+      CFAttributedStringReplaceString(attributed, CFRangeMake(0, 0), text);
+      CFAttributedStringSetAttributes(attributed, CFRangeMake(0, CFStringGetLength(text)), m_fontAttributes, YES);
       
+      for (const quip::AttributeRange & range : syntaxAttributes) {
+        CFAttributedStringSetAttributes(attributed, CFRangeMake(range.start, range.length), m_highlightAttributes[range.name].attributes, NO);
+      }
+      
+      CFAttributedStringEndEditing(attributed);
+      
+      CTLineRef line = CTLineCreateWithAttributedString(attributed);
       CGContextSetTextPosition(context, 0.0f, y);
       CTLineDraw(line, context);
       

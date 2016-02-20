@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Location.hpp"
+#include "Syntax.hpp"
 
 #include <string>
 #include <vector>
@@ -25,6 +26,8 @@ namespace quip {
     const std::string & path () const;
     void setPath (const std::string & path);
     
+    const Syntax * syntax () const;
+    
     std::size_t rows () const;
     const std::string & row (std::size_t index) const;
     
@@ -37,6 +40,8 @@ namespace quip {
     
   private:
     std::string m_path;
+    std::unique_ptr<Syntax> m_syntax;
+    
     std::vector<std::string> m_rows;
     
     std::vector<std::size_t> buildSpanTable (std::string * contents) const;

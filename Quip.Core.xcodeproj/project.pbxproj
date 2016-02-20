@@ -43,6 +43,11 @@
 		038ECDCA1C698FDA002E571D /* Selection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 038ECDB01C698FDA002E571D /* Selection.hpp */; };
 		038ECDCB1C698FDA002E571D /* SelectionSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDB11C698FDA002E571D /* SelectionSet.cpp */; };
 		038ECDCC1C698FDA002E571D /* SelectionSet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 038ECDB21C698FDA002E571D /* SelectionSet.hpp */; };
+		03CE1DAA1C76D06C0068DB96 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03CE1DA91C76D06C0068DB96 /* Color.cpp */; };
+		03CE1DAE1C76D3030068DB96 /* AttributeRange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03CE1DAC1C76D3030068DB96 /* AttributeRange.cpp */; };
+		03CE1DAF1C76D3030068DB96 /* AttributeRange.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03CE1DAD1C76D3030068DB96 /* AttributeRange.hpp */; };
+		03CE1DB21C77FFE00068DB96 /* Syntax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03CE1DB01C77FFE00068DB96 /* Syntax.cpp */; };
+		03CE1DB31C77FFE00068DB96 /* Syntax.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03CE1DB11C77FFE00068DB96 /* Syntax.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +100,12 @@
 		038ECDB01C698FDA002E571D /* Selection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Selection.hpp; path = Source/Core/Selection.hpp; sourceTree = "<group>"; };
 		038ECDB11C698FDA002E571D /* SelectionSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionSet.cpp; path = Source/Core/SelectionSet.cpp; sourceTree = "<group>"; };
 		038ECDB21C698FDA002E571D /* SelectionSet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionSet.hpp; path = Source/Core/SelectionSet.hpp; sourceTree = "<group>"; };
+		03CE1DA81C76D04E0068DB96 /* Color.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Color.hpp; path = Source/Core/Color.hpp; sourceTree = "<group>"; };
+		03CE1DA91C76D06C0068DB96 /* Color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Color.cpp; path = Source/Core/Color.cpp; sourceTree = "<group>"; };
+		03CE1DAC1C76D3030068DB96 /* AttributeRange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AttributeRange.cpp; path = Source/Core/AttributeRange.cpp; sourceTree = "<group>"; };
+		03CE1DAD1C76D3030068DB96 /* AttributeRange.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AttributeRange.hpp; path = Source/Core/AttributeRange.hpp; sourceTree = "<group>"; };
+		03CE1DB01C77FFE00068DB96 /* Syntax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Syntax.cpp; path = Source/Core/Syntax.cpp; sourceTree = "<group>"; };
+		03CE1DB11C77FFE00068DB96 /* Syntax.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Syntax.hpp; path = Source/Core/Syntax.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +139,8 @@
 			isa = PBXGroup;
 			children = (
 				034AAD3C1C756C070030A69A /* Signal.hpp */,
+				03CE1DA81C76D04E0068DB96 /* Color.hpp */,
+				03CE1DA91C76D06C0068DB96 /* Color.cpp */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -137,6 +150,7 @@
 			children = (
 				038ECDEF1C6990D4002E571D /* Contexts */,
 				038ECDEC1C6990B2002E571D /* Documents */,
+				03CE1DAB1C76D2D90068DB96 /* Highlighting */,
 				038ECDED1C6990B9002E571D /* Modes */,
 				038ECDEB1C6990A7002E571D /* Selections */,
 				034AAD321C756B570030A69A /* UI */,
@@ -241,6 +255,17 @@
 			name = Contexts;
 			sourceTree = "<group>";
 		};
+		03CE1DAB1C76D2D90068DB96 /* Highlighting */ = {
+			isa = PBXGroup;
+			children = (
+				03CE1DAD1C76D3030068DB96 /* AttributeRange.hpp */,
+				03CE1DAC1C76D3030068DB96 /* AttributeRange.cpp */,
+				03CE1DB11C77FFE00068DB96 /* Syntax.hpp */,
+				03CE1DB01C77FFE00068DB96 /* Syntax.cpp */,
+			);
+			name = Highlighting;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -248,6 +273,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03CE1DAF1C76D3030068DB96 /* AttributeRange.hpp in Headers */,
 				038ECDBC1C698FDA002E571D /* Key.hpp in Headers */,
 				035DA2451C69A83000EC950A /* SelectionSetIterator.hpp in Headers */,
 				038ECDBE1C698FDA002E571D /* KeyStroke.hpp in Headers */,
@@ -260,6 +286,7 @@
 				038ECDC21C698FDA002E571D /* Mode.hpp in Headers */,
 				038ECDC81C698FDA002E571D /* SearchMode.hpp in Headers */,
 				038ECDB31C698FDA002E571D /* CursorStyle.hpp in Headers */,
+				03CE1DB31C77FFE00068DB96 /* Syntax.hpp in Headers */,
 				038ECDCA1C698FDA002E571D /* Selection.hpp in Headers */,
 				038ECDB71C698FDA002E571D /* DocumentIterator.hpp in Headers */,
 				038ECDBB1C698FDA002E571D /* EditMode.hpp in Headers */,
@@ -370,11 +397,14 @@
 			files = (
 				038ECDC71C698FDA002E571D /* SearchMode.cpp in Sources */,
 				038ECDBA1C698FDA002E571D /* EditMode.cpp in Sources */,
+				03CE1DB21C77FFE00068DB96 /* Syntax.cpp in Sources */,
 				038ECDC91C698FDA002E571D /* Selection.cpp in Sources */,
 				038ECDC51C698FDA002E571D /* SearchExpression.cpp in Sources */,
 				038ECDB81C698FDA002E571D /* EditContext.cpp in Sources */,
 				038ECDB61C698FDA002E571D /* DocumentIterator.cpp in Sources */,
 				038ECDB41C698FDA002E571D /* Document.cpp in Sources */,
+				03CE1DAA1C76D06C0068DB96 /* Color.cpp in Sources */,
+				03CE1DAE1C76D3030068DB96 /* AttributeRange.cpp in Sources */,
 				038ECDBF1C698FDA002E571D /* Location.cpp in Sources */,
 				038ECDC31C698FDA002E571D /* NormalMode.cpp in Sources */,
 				035DA2441C69A83000EC950A /* SelectionSetIterator.cpp in Sources */,
@@ -421,7 +451,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -464,7 +494,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;

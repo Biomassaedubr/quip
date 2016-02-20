@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <memory>
 #include <regex>
 #include <sstream>
 #include <string>
@@ -33,11 +34,13 @@ namespace quip {
     }
   }
   
-  Document::Document () {
+  Document::Document ()
+  : m_syntax(std::make_unique<Syntax>()) {
   }
   
   Document::Document (const std::string & content)
-  : m_rows(splitText(content)) {
+  : m_syntax(std::make_unique<Syntax>())
+  , m_rows(splitText(content)) {
   }
   
   std::string Document::contents () const {
@@ -84,6 +87,10 @@ namespace quip {
   
   void Document::setPath (const std::string & path) {
     m_path = path;
+  }
+  
+  const Syntax * Document::syntax () const {
+    return m_syntax.get();
   }
   
   const std::string & Document::row (std::size_t index) const {
