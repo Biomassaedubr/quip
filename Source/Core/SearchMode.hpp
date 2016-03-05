@@ -9,13 +9,13 @@ namespace quip {
   struct SearchMode : Mode {
     SearchMode ();
     
-    CursorStyle cursorStyle () const override;
     std::string status () const override;
     
   protected:
     bool onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) override;
     
   private:
+    void abortSearch (EditContext & context);
     void commitSearch (EditContext & context);
     
     std::string m_search;

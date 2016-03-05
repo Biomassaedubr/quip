@@ -39,6 +39,21 @@ namespace quip {
     return *m_modeHistory.top();
   }
   
+  const std::map<std::string, SelectionDrawInfo> & EditContext::overlays () const {
+    return m_overlays;
+  }
+  
+  void EditContext::setOverlay (const std::string & name, const SelectionDrawInfo & overlay) {
+    m_overlays[name] = overlay;
+  }
+  
+  void EditContext::clearOverlay (const std::string & name) {
+    auto cursor = m_overlays.find(name);
+    if (cursor != std::end(m_overlays)) {
+      m_overlays.erase(cursor);
+    }
+  }
+  
   void EditContext::enterMode (const std::string & name) {
     std::map<std::string, std::shared_ptr<Mode>>::iterator cursor = m_modes.find(name);
     if (cursor != m_modes.end()) {

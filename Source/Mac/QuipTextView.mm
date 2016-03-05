@@ -263,44 +263,46 @@ static CGFloat gCursorBlinkInterval = 0.57;
   [self scrollPoint:CGPointMake(0.0, y - bias)];
 }
 
-- (void)drawSelection:(quip::Selection &)selection asPrimary:(BOOL)asPrimary context:(CGContextRef)context {
+- (void)drawSelections:(const quip::SelectionDrawInfo &)drawInfo context:(CGContextRef)context {
   quip::Document & document = m_context->document();
-  const quip::Location & lower = selection.lowerBound();
-  const quip::Location & upper = selection.upperBound();
-  std::size_t row = lower.row();
-  
-  do {
-    std::size_t firstColumn = row == lower.row() ? lower.column() : 0;
-    std::size_t lastColumn = row == upper.row() ? upper.column() : document.row(row).size() - 1;
+  for (const quip::Selection & selection : drawInfo.selections) {
+    const quip::Location & lower = selection.lowerBound();
+    const quip::Location & upper = selection.upperBound();
+    std::size_t row = lower.row();
     
-    CGFloat x = firstColumn * m_cellSize.width;
-    CGFloat y = self.frame.size.height - m_cellSize.height - (row * m_cellSize.height);
-    CGFloat * color = asPrimary ? gPrimarySelectionColor : gAuxilliarySelectionColor;
-    CGContextSetRGBStrokeColor(context, color[0], color[1], color[2], color[3]);
-    CGContextSetRGBFillColor(context, color[0], color[1], color[2], color[3]);
-    
-    if (m_isCursorVisible) {
-      switch (m_context->mode().cursorStyle()) {
-        case quip::CursorStyle::VerticalBlockHalf:
-          CGContextSetBlendMode(context, kCGBlendModeDestinationAtop);
-          CGContextFillRect(context, CGRectMake(x, y - 2.0, m_cellSize.width * (lastColumn + 1 - firstColumn), 0.25 * m_cellSize.height));
-          break;
-        case quip::CursorStyle::VerticalBar:
-          CGContextMoveToPoint(context, x, y - 2.0);
-          CGContextAddLineToPoint(context, x, y + m_cellSize.height - 6.0);
-          CGContextStrokePath(context);
-          break;
-        case quip::CursorStyle::Underline:
-        default:
-          CGContextMoveToPoint(context, x, y - 2.0);
-          CGContextAddLineToPoint(context, x + (m_cellSize.width * (lastColumn + 1 - firstColumn)), y - 2.0);
-          CGContextStrokePath(context);
-          break;
+    do {
+      std::size_t firstColumn = row == lower.row() ? lower.column() : 0;
+      std::size_t lastColumn = row == upper.row() ? upper.column() : document.row(row).size() - 1;
+      
+      CGFloat x = firstColumn * m_cellSize.width;
+      CGFloat y = self.frame.size.height - m_cellSize.height - (row * m_cellSize.height);
+      const quip::Color & color = selection == drawInfo.selections.primary() ? drawInfo.primaryColor : drawInfo.secondaryColor;
+      CGContextSetRGBStrokeColor(context, color.r, color.g, color.b, color.a);
+      CGContextSetRGBFillColor(context, color.r, color.g, color.b, color.a);
+      
+      if (m_isCursorVisible) {
+        switch (drawInfo.style) {
+          case quip::CursorStyle::VerticalBlockHalf:
+            CGContextSetBlendMode(context, kCGBlendModeDestinationAtop);
+            CGContextFillRect(context, CGRectMake(x, y - 2.0, m_cellSize.width * (lastColumn + 1 - firstColumn), 0.25 * m_cellSize.height));
+            break;
+          case quip::CursorStyle::VerticalBar:
+            CGContextMoveToPoint(context, x, y - 2.0);
+            CGContextAddLineToPoint(context, x, y + m_cellSize.height - 6.0);
+            CGContextStrokePath(context);
+            break;
+          case quip::CursorStyle::Underline:
+          default:
+            CGContextMoveToPoint(context, x, y - 2.0);
+            CGContextAddLineToPoint(context, x + (m_cellSize.width * (lastColumn + 1 - firstColumn)), y - 2.0);
+            CGContextStrokePath(context);
+            break;
+        }
       }
-    }
-    
-    ++row;
-  } while (row <= upper.row());
+      
+      ++row;
+    } while (row <= upper.row());
+  }
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
@@ -338,10 +340,16 @@ static CGFloat gCursorBlinkInterval = 0.57;
   }
   
   if ([[self window] isKeyWindow]) {
-    for (quip::Selection & selection : m_context->selections()) {
-      BOOL primary = selection == m_context->selections().primary();
-      [self drawSelection:selection asPrimary:primary context:context];
-    }
+    quip::SelectionDrawInfo drawInfo;
+    drawInfo.primaryColor = quip::Color(gPrimarySelectionColor[0], gPrimarySelectionColor[1], gPrimarySelectionColor[2]);
+    drawInfo.secondaryColor = quip::Color(gAuxilliarySelectionColor[0], gAuxilliarySelectionColor[1], gAuxilliarySelectionColor[2]);
+    drawInfo.style = m_context->mode().cursorStyle();
+    drawInfo.selections = m_context->selections();
+    [self drawSelections:drawInfo context:context];
+  }
+  
+  for (auto && overlay : m_context->overlays()) {
+    [self drawSelections:overlay.second context:context];
   }
   
   [m_statusView setStatus:m_context->mode().status().c_str()];

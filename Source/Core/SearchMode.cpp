@@ -1,18 +1,16 @@
 #include "SearchMode.hpp"
 
+#include "Color.hpp"
 #include "Document.hpp"
 #include "EditContext.hpp"
 #include "KeyStroke.hpp"
 #include "SearchExpression.hpp"
+#include "SelectionDrawInfo.hpp"
 
 namespace quip {
   SearchMode::SearchMode () {
-    addMapping(Key::Escape, &SearchMode::commitSearch);
+    addMapping(Key::Escape, &SearchMode::abortSearch);
     addMapping(Key::Return, &SearchMode::commitSearch);
-  }
-  
-  CursorStyle SearchMode::cursorStyle () const {
-    return CursorStyle::VerticalBlockHalf;
   }
   
   std::string SearchMode::status () const {
@@ -35,17 +33,30 @@ namespace quip {
     if (m_search.size() > 0) {
       SearchExpression expression(m_search);
       if (expression.valid()) {
-        SelectionSet matches = context.document().matches(expression);
-        context.selections().replace(matches);
+        SelectionDrawInfo overlay;
+        overlay.selections = context.document().matches(expression);
+        overlay.style = CursorStyle::VerticalBlockHalf;
+        overlay.primaryColor = Color(1.0f, 1.0f, 0.2f);
+        overlay.secondaryColor = Color(1.0f, 1.0f, 0.8f);
+        context.setOverlay("Search", overlay);
       }
     }
     
     return true;
   }
   
-  void SearchMode::commitSearch (EditContext & context) {
+  void SearchMode::abortSearch (EditContext & context) {
     m_search = "";
     
+    context.clearOverlay("Search");
+    context.leaveMode();
+  }
+  
+  void SearchMode::commitSearch (EditContext & context) {
+    context.selections().replace(context.document().matches(SearchExpression(m_search)));
+    m_search = "";
+
+    context.clearOverlay("Search");
     context.leaveMode();
   }
 }

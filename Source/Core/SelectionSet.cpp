@@ -50,11 +50,35 @@ namespace quip {
     }
   }
   
+  SelectionSet::SelectionSet (const SelectionSet & other)
+  : m_selections(other.m_selections)
+  , m_primary(other.m_primary) {
+  }
+  
+  SelectionSet::SelectionSet (SelectionSet && other)
+  : m_selections(std::move(other.m_selections))
+  , m_primary(other.m_primary) {
+    other.m_primary = 0;
+  }
+  
+  SelectionSet & SelectionSet::operator= (const SelectionSet & other) {
+    m_selections = other.m_selections;
+    m_primary = other.m_primary;
+    return *this;
+  }
+  
+  SelectionSet & SelectionSet::operator= (SelectionSet && other) {
+    m_selections = std::move(other.m_selections);
+    m_primary = other.m_primary;
+    other.m_primary = 0;
+    return *this;
+  }
+  
   std::size_t SelectionSet::count () const {
     return m_selections.size();
   }
   
-  Selection & SelectionSet::primary () {
+  const Selection & SelectionSet::primary () const {
     return m_selections[m_primary];
   }
   

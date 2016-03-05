@@ -12,6 +12,28 @@ namespace quip {
   , m_extent(extent) {
   }
   
+  Selection::Selection (const Selection & other)
+  : m_origin(other.m_origin)
+  , m_extent(other.m_extent) {
+  }
+  
+  Selection::Selection (Selection && other)
+  : m_origin(other.m_origin)
+  , m_extent(other.m_extent) {
+  }
+  
+  Selection & Selection::operator= (const Selection & other) {
+    m_origin = other.m_origin;
+    m_extent = other.m_extent;
+    return *this;
+  }
+  
+  Selection & Selection::operator= (Selection && other) {
+    m_origin = other.m_origin;
+    m_extent = other.m_extent;
+    return *this;
+  }
+
   const Location & Selection::origin () const {
     return m_origin;
   }

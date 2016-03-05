@@ -8,6 +8,11 @@ namespace quip {
   struct Selection {
     Selection (const Location & location);
     Selection (const Location & origin, const Location & extent);
+    Selection (const Selection & other);
+    Selection (Selection && other);
+    
+    Selection & operator= (const Selection & other);
+    Selection & operator= (Selection && other);
     
     const Location & origin () const;
     const Location & extent () const;

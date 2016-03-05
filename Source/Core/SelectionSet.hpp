@@ -10,10 +10,15 @@ namespace quip {
     SelectionSet ();
     SelectionSet (const Selection & selection);
     SelectionSet (const std::vector<Selection> & selections);
+    SelectionSet (const SelectionSet & other);
+    SelectionSet (SelectionSet && other);
+    
+    SelectionSet & operator= (const SelectionSet & other);
+    SelectionSet & operator= (SelectionSet && other);
 
     std::size_t count () const;
     
-    Selection & primary ();
+    const Selection & primary () const;
     
     Selection & operator[] (std::size_t index);
     const Selection & operator[] (std::size_t index) const;

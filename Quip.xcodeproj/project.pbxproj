@@ -14,6 +14,8 @@
 		030AC7121C781B9F00219938 /* SelectionSetTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C88A1C781AFB00AF5475 /* SelectionSetTests.mm */; };
 		030AC7131C781B9F00219938 /* SelectionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C88B1C781AFB00AF5475 /* SelectionTests.mm */; };
 		030AC7161C781BD300219938 /* libQuip.Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D1C8241C78196400AF5475 /* libQuip.Core.a */; };
+		037DCDEB1C8B6F7100643D44 /* SelectionDrawInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */; };
+		037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 037DCDEA1C8B6F7100643D44 /* SelectionDrawInfo.hpp */; };
 		038ECDDB1C698FE2002E571D /* ApplicationDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDCE1C698FE2002E571D /* ApplicationDelegate.mm */; };
 		038ECDDD1C698FE2002E571D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDD01C698FE2002E571D /* main.m */; };
 		038ECDDE1C698FE2002E571D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDD11C698FE2002E571D /* MainMenu.xib */; };
@@ -60,6 +62,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionDrawInfo.cpp; path = Source/Core/SelectionDrawInfo.cpp; sourceTree = "<group>"; };
+		037DCDEA1C8B6F7100643D44 /* SelectionDrawInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionDrawInfo.hpp; path = Source/Core/SelectionDrawInfo.hpp; sourceTree = "<group>"; };
 		038ECDCD1C698FE2002E571D /* ApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplicationDelegate.h; path = Source/Mac/ApplicationDelegate.h; sourceTree = "<group>"; };
 		038ECDCE1C698FE2002E571D /* ApplicationDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ApplicationDelegate.mm; path = Source/Mac/ApplicationDelegate.mm; sourceTree = "<group>"; };
 		038ECDCF1C698FE2002E571D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Mac/Info.plist; sourceTree = "<group>"; };
@@ -259,6 +263,8 @@
 				03D1C8471C78197200AF5475 /* SearchExpression.cpp */,
 				03D1C8481C78197200AF5475 /* Selection.hpp */,
 				03D1C8491C78197200AF5475 /* Selection.cpp */,
+				037DCDEA1C8B6F7100643D44 /* SelectionDrawInfo.hpp */,
+				037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */,
 				03D1C84A1C78197200AF5475 /* SelectionSet.hpp */,
 				03D1C84B1C78197200AF5475 /* SelectionSet.cpp */,
 				03D1C84C1C78197200AF5475 /* SelectionSetIterator.hpp */,
@@ -321,6 +327,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +474,7 @@
 				03D1C8741C781A0900AF5475 /* SelectionSetIterator.cpp in Sources */,
 				03D1C86A1C7819F400AF5475 /* AttributeRange.cpp in Sources */,
 				03D1C8731C781A0900AF5475 /* SelectionSet.cpp in Sources */,
+				037DCDEB1C8B6F7100643D44 /* SelectionDrawInfo.cpp in Sources */,
 				03D1C8751C781A1000AF5475 /* Color.cpp in Sources */,
 				03D1C86D1C7819FB00AF5475 /* Mode.cpp in Sources */,
 				03D1C8711C781A0900AF5475 /* SearchExpression.cpp in Sources */,
