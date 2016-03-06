@@ -36,7 +36,7 @@ namespace quip {
         SelectionDrawInfo overlay;
         overlay.selections = context.document().matches(expression);
         overlay.flags = CursorFlags::None;
-        overlay.style = CursorStyle::VerticalBlockHalf;
+        overlay.style = CursorStyle::VerticalBlock;
         overlay.primaryColor = Color(1.0f, 1.0f, 0.2f);
         overlay.secondaryColor = Color(1.0f, 1.0f, 0.8f);
         context.setOverlay("Search", overlay);

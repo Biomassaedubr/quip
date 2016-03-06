@@ -282,6 +282,10 @@ static CGFloat gCursorBlinkInterval = 0.57;
       
       if (m_isCursorVisible || (drawInfo.flags & quip::CursorFlags::Blink) == 0) {
         switch (drawInfo.style) {
+          case quip::CursorStyle::VerticalBlock:
+            CGContextSetBlendMode(context, kCGBlendModeDestinationAtop);
+            CGContextFillRect(context, CGRectMake(x, y - 2.0, m_cellSize.width * (lastColumn + 1 - firstColumn), 0.75 * m_cellSize.height));
+            break;
           case quip::CursorStyle::VerticalBlockHalf:
             CGContextSetBlendMode(context, kCGBlendModeDestinationAtop);
             CGContextFillRect(context, CGRectMake(x, y - 2.0, m_cellSize.width * (lastColumn + 1 - firstColumn), 0.25 * m_cellSize.height));
