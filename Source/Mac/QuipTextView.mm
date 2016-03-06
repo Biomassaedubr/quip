@@ -280,7 +280,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
       CGContextSetRGBStrokeColor(context, color.r, color.g, color.b, color.a);
       CGContextSetRGBFillColor(context, color.r, color.g, color.b, color.a);
       
-      if (m_isCursorVisible) {
+      if (m_isCursorVisible || (drawInfo.flags & quip::CursorFlags::Blink) == 0) {
         switch (drawInfo.style) {
           case quip::CursorStyle::VerticalBlockHalf:
             CGContextSetBlendMode(context, kCGBlendModeDestinationAtop);
@@ -343,6 +343,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
     quip::SelectionDrawInfo drawInfo;
     drawInfo.primaryColor = quip::Color(gPrimarySelectionColor[0], gPrimarySelectionColor[1], gPrimarySelectionColor[2]);
     drawInfo.secondaryColor = quip::Color(gAuxilliarySelectionColor[0], gAuxilliarySelectionColor[1], gAuxilliarySelectionColor[2]);
+    drawInfo.flags = static_cast<quip::CursorFlags>(quip::CursorFlags::Blink);
     drawInfo.style = m_context->mode().cursorStyle();
     drawInfo.selections = m_context->selections();
     [self drawSelections:drawInfo context:context];

@@ -64,6 +64,7 @@
 /* Begin PBXFileReference section */
 		037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionDrawInfo.cpp; path = Source/Core/SelectionDrawInfo.cpp; sourceTree = "<group>"; };
 		037DCDEA1C8B6F7100643D44 /* SelectionDrawInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionDrawInfo.hpp; path = Source/Core/SelectionDrawInfo.hpp; sourceTree = "<group>"; };
+		037DCDED1C8BA78B00643D44 /* CursorFlags.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CursorFlags.hpp; path = Source/Core/CursorFlags.hpp; sourceTree = "<group>"; };
 		038ECDCD1C698FE2002E571D /* ApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplicationDelegate.h; path = Source/Mac/ApplicationDelegate.h; sourceTree = "<group>"; };
 		038ECDCE1C698FE2002E571D /* ApplicationDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ApplicationDelegate.mm; path = Source/Mac/ApplicationDelegate.mm; sourceTree = "<group>"; };
 		038ECDCF1C698FE2002E571D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Mac/Info.plist; sourceTree = "<group>"; };
@@ -245,6 +246,7 @@
 		03D1C8451C78197200AF5475 /* Modes */ = {
 			isa = PBXGroup;
 			children = (
+				037DCDED1C8BA78B00643D44 /* CursorFlags.hpp */,
 				03D1C8381C78197200AF5475 /* CursorStyle.hpp */,
 				03D1C8391C78197200AF5475 /* Key.hpp */,
 				03D1C83A1C78197200AF5475 /* KeyStroke.hpp */,
