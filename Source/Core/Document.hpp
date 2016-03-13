@@ -40,7 +40,7 @@ namespace quip {
     
   private:
     std::string m_path;
-    std::unique_ptr<Syntax> m_syntax;
+    Syntax * m_syntax;
     
     std::vector<std::string> m_rows;
     

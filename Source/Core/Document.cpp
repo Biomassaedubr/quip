@@ -35,11 +35,11 @@ namespace quip {
   }
   
   Document::Document ()
-  : m_syntax(std::make_unique<Syntax>()) {
+  : m_syntax(Syntax::forFileExtension("cpp")) {
   }
   
   Document::Document (const std::string & content)
-  : m_syntax(std::make_unique<Syntax>())
+  : m_syntax(Syntax::forFileExtension("cpp"))
   , m_rows(splitText(content)) {
   }
   
@@ -90,7 +90,7 @@ namespace quip {
   }
   
   const Syntax * Document::syntax () const {
-    return m_syntax.get();
+    return m_syntax;
   }
   
   const std::string & Document::row (std::size_t index) const {

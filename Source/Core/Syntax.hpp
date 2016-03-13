@@ -7,13 +7,19 @@
 #include <vector>
 
 namespace quip {
+  struct SyntaxPattern {
+    AttributeName attribute;
+    std::string pattern;
+  };
+  
   struct Syntax {
-    Syntax ();
+    Syntax (std::initializer_list<SyntaxPattern> patterns);
     
     std::vector<AttributeRange> highlight (const std::string & text) const;
     
+    static Syntax * forFileExtension (const std::string & extension);
+    
   private:
-    std::vector<std::string> m_keywords;
-    std::regex m_keywordPattern;
+    std::vector<SyntaxPattern> m_patterns;
   };
 }

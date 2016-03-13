@@ -4,7 +4,9 @@
 
 namespace quip {
   enum AttributeName {
-    Keyword = 0,
+    Keyword,
+    Preprocessor,
+    Comment,
     AttributeCount
   };
   

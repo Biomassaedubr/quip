@@ -99,6 +99,8 @@ static CGFloat gCursorBlinkInterval = 0.57;
     m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 2, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     
     initializeHighlight(m_highlightAttributes + quip::Keyword, quip::Color(0.0f, 0.0f, 1.0f));
+    initializeHighlight(m_highlightAttributes + quip::Preprocessor, quip::Color(0.5f, 0.25f, 0.1f));
+    initializeHighlight(m_highlightAttributes + quip::Comment, quip::Color(0.0f, 0.5f, 0.0f));
     
     m_context = nullptr;
     m_statusView = nullptr;
