@@ -7,6 +7,7 @@
   
   CGSize m_cellSize;
   NSString * m_text;
+  std::size_t m_lineCount;
 }
 @end
 
@@ -47,6 +48,11 @@ static CGFloat gStatusLineLeftPadding = 2.0;
   [self setNeedsDisplay:YES];
 }
 
+- (void)setLineCount:(std::size_t)lineCount {
+  m_lineCount = lineCount;
+  [self setNeedsDisplay:YES];
+}
+
 - (void)drawRect:(NSRect)dirtyRect {
   [super drawRect:dirtyRect];
   
@@ -55,15 +61,30 @@ static CGFloat gStatusLineLeftPadding = 2.0;
   }
   
   CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
-  CFStringRef text = (__bridge CFStringRef)m_text;
-  CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, text, m_fontAttributes);
-  CTLineRef line = CTLineCreateWithAttributedString(attributed);
+  NSString * lineCountLabel = [NSString stringWithFormat:@"%lu line%@", m_lineCount, m_lineCount == 1 ? @"" : @"s"];
+
+  {
+    CFStringRef text = (__bridge CFStringRef)m_text;
+    CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, text, m_fontAttributes);
+    CTLineRef line = CTLineCreateWithAttributedString(attributed);
   
-  CGContextSetTextPosition(context, gStatusLineLeftPadding, gStatusLineBottomPadding);
-  CTLineDraw(line, context);
+    CGContextSetTextPosition(context, gStatusLineLeftPadding, gStatusLineBottomPadding);
+    CTLineDraw(line, context);
+    CFRelease(line);
+    CFRelease(attributed);
+  }
   
-  CFRelease(line);
-  CFRelease(attributed);
+  {
+    CFStringRef text = (__bridge CFStringRef)lineCountLabel;
+    CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, text, m_fontAttributes);
+    CTLineRef line = CTLineCreateWithAttributedString(attributed);
+    
+    CGRect bounds = CTLineGetBoundsWithOptions(line, 0);
+    CGContextSetTextPosition(context, [self frame].size.width - gStatusLineLeftPadding - bounds.size.width, gStatusLineBottomPadding);
+    CTLineDraw(line, context);
+    CFRelease(line);
+    CFRelease(attributed);
+  }
 }
 
 @end

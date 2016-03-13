@@ -1,7 +1,10 @@
 #import <Cocoa/Cocoa.h>
 
+#include <cstddef>
+
 @interface QuipStatusView : NSView
 
 - (void)setStatus:(const char *)status;
+- (void)setLineCount:(std::size_t)lineCount;
 
 @end

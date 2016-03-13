@@ -358,6 +358,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   }
   
   [m_statusView setStatus:m_context->mode().status().c_str()];
+  [m_statusView setLineCount:m_context->document().rows()];
 }
 
 @end
