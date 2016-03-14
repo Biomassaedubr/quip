@@ -42,6 +42,7 @@
 		03D1C8741C781A0900AF5475 /* SelectionSetIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C84D1C78197200AF5475 /* SelectionSetIterator.cpp */; };
 		03D1C8751C781A1000AF5475 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8531C78197200AF5475 /* Color.cpp */; };
 		03D1C87F1C781A4A00AF5475 /* libQuip.Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D1C8241C78196400AF5475 /* libQuip.Core.a */; };
+		03DC0F0F1C96674A0082EC8C /* QuipDocumentController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03DC0F0E1C96674A0082EC8C /* QuipDocumentController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +127,8 @@
 		03D1C8891C781AFB00AF5475 /* SearchExpressionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SearchExpressionTests.mm; path = Source/Tests/SearchExpressionTests.mm; sourceTree = SOURCE_ROOT; };
 		03D1C88A1C781AFB00AF5475 /* SelectionSetTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectionSetTests.mm; path = Source/Tests/SelectionSetTests.mm; sourceTree = SOURCE_ROOT; };
 		03D1C88B1C781AFB00AF5475 /* SelectionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectionTests.mm; path = Source/Tests/SelectionTests.mm; sourceTree = SOURCE_ROOT; };
+		03DC0F0D1C96674A0082EC8C /* QuipDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipDocumentController.h; path = Source/Mac/QuipDocumentController.h; sourceTree = "<group>"; };
+		03DC0F0E1C96674A0082EC8C /* QuipDocumentController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipDocumentController.mm; path = Source/Mac/QuipDocumentController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +172,8 @@
 				038ECDCE1C698FE2002E571D /* ApplicationDelegate.mm */,
 				038ECDD21C698FE2002E571D /* QuipDocument.h */,
 				038ECDD31C698FE2002E571D /* QuipDocument.mm */,
+				03DC0F0D1C96674A0082EC8C /* QuipDocumentController.h */,
+				03DC0F0E1C96674A0082EC8C /* QuipDocumentController.mm */,
 				038ECDD11C698FE2002E571D /* MainMenu.xib */,
 				038ECDDA1C698FE2002E571D /* QuipWindowController.xib */,
 				038ECDE61C699039002E571D /* Images.xcassets */,
@@ -459,6 +464,7 @@
 				038ECDDF1C698FE2002E571D /* QuipDocument.mm in Sources */,
 				038ECDE11C698FE2002E571D /* QuipTextView.mm in Sources */,
 				038ECDDB1C698FE2002E571D /* ApplicationDelegate.mm in Sources */,
+				03DC0F0F1C96674A0082EC8C /* QuipDocumentController.mm in Sources */,
 				038ECDE01C698FE2002E571D /* QuipStatusView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
