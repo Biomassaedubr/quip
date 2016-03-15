@@ -163,6 +163,6 @@ namespace quip {
   }
   
   void NormalMode::deleteSelections (EditContext & context) {
-    context.document().erase(context.selections());
+    context.selections().replace(context.document().erase(context.selections()));
   }
 }
