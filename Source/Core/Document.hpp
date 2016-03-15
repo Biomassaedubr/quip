@@ -25,7 +25,7 @@ namespace quip {
     
     const std::string & path () const;
     void setPath (const std::string & path);
-    
+        
     const Syntax * syntax () const;
     
     std::size_t rows () const;

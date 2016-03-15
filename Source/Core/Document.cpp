@@ -35,11 +35,11 @@ namespace quip {
   }
   
   Document::Document ()
-  : m_syntax(Syntax::forFileExtension("cpp")) {
+  : m_syntax(Syntax::getSyntaxForUnknown()) {
   }
   
   Document::Document (const std::string & content)
-  : m_syntax(Syntax::forFileExtension("cpp"))
+  : m_syntax(Syntax::getSyntaxForUnknown())
   , m_rows(splitText(content)) {
   }
   
@@ -87,6 +87,12 @@ namespace quip {
   
   void Document::setPath (const std::string & path) {
     m_path = path;
+    
+    // Find the extension.
+    std::size_t index = m_path.find_last_of('.');
+    if (index != std::string::npos) {
+      m_syntax = Syntax::getSyntaxForExtention(m_path.substr(index + 1));
+    }
   }
   
   const Syntax * Document::syntax () const {

@@ -42,6 +42,9 @@
   std::string content(start, end);
   
   m_document = std::make_shared<quip::Document>(content);
+  NSString * path = [[self fileURL] path];
+  m_document->setPath([path cStringUsingEncoding:NSUTF8StringEncoding]);
+  
   return YES;
 }
 

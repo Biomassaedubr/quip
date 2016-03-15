@@ -8,6 +8,7 @@
   CGSize m_cellSize;
   NSString * m_text;
   std::size_t m_lineCount;
+  NSString * m_fileType;
 }
 @end
 
@@ -53,6 +54,11 @@ static CGFloat gStatusLineLeftPadding = 2.0;
   [self setNeedsDisplay:YES];
 }
 
+- (void)setFileType:(const char *)fileType {
+  m_fileType = [NSString stringWithCString:fileType encoding:NSUTF8StringEncoding];
+  [self setNeedsDisplay:YES];
+}
+
 - (void)drawRect:(NSRect)dirtyRect {
   [super drawRect:dirtyRect];
   
@@ -61,7 +67,7 @@ static CGFloat gStatusLineLeftPadding = 2.0;
   }
   
   CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
-  NSString * lineCountLabel = [NSString stringWithFormat:@"%lu line%@", m_lineCount, m_lineCount == 1 ? @"" : @"s"];
+  NSString * lineCountLabel = [NSString stringWithFormat:@"%lu line%@ (%@)", m_lineCount, m_lineCount == 1 ? @"" : @"s", m_fileType];
 
   {
     CFStringRef text = (__bridge CFStringRef)m_text;

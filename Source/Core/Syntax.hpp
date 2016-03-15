@@ -13,13 +13,17 @@ namespace quip {
   };
   
   struct Syntax {
-    Syntax (std::initializer_list<SyntaxPattern> patterns);
+    Syntax (const std::string & name, std::initializer_list<SyntaxPattern> patterns);
+    
+    const std::string & name () const;
     
     std::vector<AttributeRange> highlight (const std::string & text) const;
     
-    static Syntax * forFileExtension (const std::string & extension);
+    static Syntax * getSyntaxForExtention (const std::string & extension);
+    static Syntax * getSyntaxForUnknown ();
     
   private:
+    std::string m_name;
     std::vector<SyntaxPattern> m_patterns;
   };
 }

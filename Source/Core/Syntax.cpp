@@ -4,7 +4,12 @@
 
 namespace quip {
   namespace {
-    Syntax gCppSyntax({
+    Syntax gFallbackSyntax("?", {
+      { Keyword, "\\bQuip\\b" },
+      { Preprocessor, "\\bWelcome\\b" },
+    });
+                           
+    Syntax gCppSyntax("C++", {
       { Keyword, "\\bauto\\b" },
       { Keyword, "\\bbool\\b" },
       { Keyword, "\\bbreak\\b" },
@@ -71,10 +76,19 @@ namespace quip {
       { Preprocessor, "#.*" },
       { Comment, "//.*" },
     });
+    
+    Syntax gMarkdownSyntax("Markdown", {
+      { Keyword, "#+" },
+    });
   }
   
-  Syntax::Syntax (std::initializer_list<SyntaxPattern> patterns)
-  : m_patterns(patterns) {
+  Syntax::Syntax (const std::string & name, std::initializer_list<SyntaxPattern> patterns)
+  : m_name(name)
+  , m_patterns(patterns) {
+  }
+  
+  const std::string & Syntax::name () const {
+    return m_name;
   }
   
   std::vector<AttributeRange> Syntax::highlight (const std::string & text) const {
@@ -94,7 +108,17 @@ namespace quip {
     return result;
   }
   
-  Syntax * Syntax::forFileExtension (const std::string & extension) {
-    return &gCppSyntax;
+  Syntax * Syntax::getSyntaxForExtention (const std::string & extension) {
+    if (extension == "cpp" || extension == "cxx") {
+      return &gCppSyntax;
+    } else if (extension == "md" || extension == "markdown") {
+      return &gMarkdownSyntax;
+    }
+    
+    return getSyntaxForUnknown();
+  }
+  
+  Syntax * Syntax::getSyntaxForUnknown() {
+    return &gFallbackSyntax;
   }
 }
