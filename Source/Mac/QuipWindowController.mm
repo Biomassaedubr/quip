@@ -11,9 +11,11 @@
   
   QuipDocument * document = [self document];
   
-  [[self textView] setAutoresizingMask:NSViewWidthSizable];
+  [[self textView] setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
   [[self textView] setDocument:[document document]];
   [[self textView] setStatus:[self statusView]];
+
+  [[self statusView] setAutoresizingMask:NSViewWidthSizable];
 
   [[self scrollView] setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
   
