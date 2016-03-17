@@ -1,5 +1,6 @@
 #include "NormalMode.hpp"
 
+#include "Classification.hpp"
 #include "Document.hpp"
 #include "DocumentIterator.hpp"
 #include "EditContext.hpp"
@@ -13,8 +14,11 @@ namespace quip {
     addMapping(Key::K, &NormalMode::selectAbovePrimaryOrigin);
     addMapping(Key::L, &NormalMode::selectAfterPrimaryExtent);
 
+    addMapping(Key::T, &NormalMode::selectThisWord);
     addMapping(Key::W, &NormalMode::selectNextWord);
     addMapping(Key::B, &NormalMode::selectPriorWord);
+
+    addMapping(Key::A, &NormalMode::selectThisLine);
 
     addMapping(Key::R, &NormalMode::rotateSelectionForward);
     addMapping(Key::E, &NormalMode::rotateSelectionBackward);
@@ -100,44 +104,28 @@ namespace quip {
     context.selections().replace(result);
   }
   
+  void NormalMode::selectThisWord (EditContext & context) {
+    context.selections().replace(classifyWord(context.document(), context.selections().primary().origin(), ClassificationFlags::This));
+  }
+  
   void NormalMode::selectNextWord (EditContext & context) {
-    DocumentIterator cursor = context.document().at(context.selections().primary().extent());
-    DocumentIterator end = context.document().end();
-    
-    while(cursor != end && !std::isspace(*cursor)) {
-      ++cursor;
-    }
-    
-    while(cursor != end && std::isspace(*cursor)) {
-      ++cursor;
-    }
-    
-    Location origin = cursor.location();
-    while(cursor != end && !std::isspace(*cursor)) {
-      ++cursor;
-    }
-    
-    context.selections().replace(Selection(origin, cursor.location()));
+    context.selections().replace(classifyWord(context.document(), context.selections().primary().extent(), ClassificationFlags::Next));
   }
   
   void NormalMode::selectPriorWord (EditContext & context) {
-    DocumentIterator cursor = context.document().at(context.selections().primary().origin());
-    DocumentIterator begin = context.document().begin();
-    
-    while(cursor != begin && !std::isspace(*cursor)) {
-      --cursor;
-    }
-    
-    while(cursor != begin && std::isspace(*cursor)) {
-      --cursor;
-    }
-    
-    Location origin = cursor.location();
-    while(cursor != begin && !std::isspace(*cursor)) {
-      --cursor;
-    }
-    
-    context.selections().replace(Selection(cursor.location(), origin));
+    context.selections().replace(classifyWord(context.document(), context.selections().primary().origin(), ClassificationFlags::Prior));
+  }
+  
+  void NormalMode::selectThisLine (EditContext & context) {
+    context.selections().replace(classifyLine(context.document(), context.selections().primary().origin(), ClassificationFlags::This));
+  }
+  
+  void NormalMode::selectNextLine (EditContext & context) {
+    context.selections().replace(classifyLine(context.document(), context.selections().primary().extent(), ClassificationFlags::Next));
+  }
+  
+  void NormalMode::selectPriorLine (EditContext & context) {
+    context.selections().replace(classifyLine(context.document(), context.selections().primary().origin(), ClassificationFlags::Prior));
   }
   
   void NormalMode::rotateSelectionForward (EditContext & context) {

@@ -43,6 +43,8 @@
 		03D1C8751C781A1000AF5475 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8531C78197200AF5475 /* Color.cpp */; };
 		03D1C87F1C781A4A00AF5475 /* libQuip.Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D1C8241C78196400AF5475 /* libQuip.Core.a */; };
 		03DC0F0F1C96674A0082EC8C /* QuipDocumentController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03DC0F0E1C96674A0082EC8C /* QuipDocumentController.mm */; };
+		03E7B5001C9A596700BA1F82 /* Classification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03E7B4FE1C9A596700BA1F82 /* Classification.cpp */; };
+		03E7B5011C9A596700BA1F82 /* Classification.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03E7B4FF1C9A596700BA1F82 /* Classification.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +131,8 @@
 		03D1C88B1C781AFB00AF5475 /* SelectionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectionTests.mm; path = Source/Tests/SelectionTests.mm; sourceTree = SOURCE_ROOT; };
 		03DC0F0D1C96674A0082EC8C /* QuipDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipDocumentController.h; path = Source/Mac/QuipDocumentController.h; sourceTree = "<group>"; };
 		03DC0F0E1C96674A0082EC8C /* QuipDocumentController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipDocumentController.mm; path = Source/Mac/QuipDocumentController.mm; sourceTree = "<group>"; };
+		03E7B4FE1C9A596700BA1F82 /* Classification.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Classification.cpp; path = Source/Core/Classification.cpp; sourceTree = "<group>"; };
+		03E7B4FF1C9A596700BA1F82 /* Classification.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Classification.hpp; path = Source/Core/Classification.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +270,8 @@
 		03D1C84E1C78197200AF5475 /* Selections */ = {
 			isa = PBXGroup;
 			children = (
+				03E7B4FF1C9A596700BA1F82 /* Classification.hpp */,
+				03E7B4FE1C9A596700BA1F82 /* Classification.cpp */,
 				03D1C8461C78197200AF5475 /* SearchExpression.hpp */,
 				03D1C8471C78197200AF5475 /* SearchExpression.cpp */,
 				03D1C8481C78197200AF5475 /* Selection.hpp */,
@@ -334,6 +340,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03E7B5011C9A596700BA1F82 /* Classification.hpp in Headers */,
 				037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -482,6 +489,7 @@
 				03D1C8741C781A0900AF5475 /* SelectionSetIterator.cpp in Sources */,
 				03D1C86A1C7819F400AF5475 /* AttributeRange.cpp in Sources */,
 				03D1C8731C781A0900AF5475 /* SelectionSet.cpp in Sources */,
+				03E7B5001C9A596700BA1F82 /* Classification.cpp in Sources */,
 				037DCDEB1C8B6F7100643D44 /* SelectionDrawInfo.cpp in Sources */,
 				03D1C8751C781A1000AF5475 /* Color.cpp in Sources */,
 				03D1C86D1C7819FB00AF5475 /* Mode.cpp in Sources */,
