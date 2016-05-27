@@ -21,6 +21,15 @@ namespace quip {
   }
   
   Location Location::adjustBy (std::int64_t columnDelta, std::int64_t rowDelta) const {
+    // Clamp to zero (preventing wraparound).
+    if (columnDelta < 0 && -columnDelta > m_column) {
+      columnDelta = -m_column;
+    }
+    
+    if (rowDelta < 0 && -rowDelta > m_row) {
+      rowDelta = -m_row;
+    }
+    
     return Location(m_column + columnDelta, m_row + rowDelta);
   }
   

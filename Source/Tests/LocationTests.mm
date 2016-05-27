@@ -34,6 +34,14 @@ using namespace quip;
   XCTAssertEqual(result.row(), 22);
 }
 
+- (void)testAdjustByNegativeClampsToZero {
+  Location location(1, 2);
+  Location result = location.adjustBy(-100, -200);
+  
+  XCTAssertEqual(result.column(), 0);
+  XCTAssertEqual(result.row(), 0);
+}
+
 - (void)testEquality {
   Location a(1, 2);
   Location b(1, 2);
