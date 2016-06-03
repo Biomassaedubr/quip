@@ -302,11 +302,9 @@ static CGFloat gCursorBlinkInterval = 0.57;
       if (m_isCursorVisible || (drawInfo.flags & quip::CursorFlags::Blink) == 0) {
         switch (drawInfo.style) {
           case quip::CursorStyle::VerticalBlock:
-            CGContextSetBlendMode(context, kCGBlendModeDestinationAtop);
             CGContextFillRect(context, CGRectMake(x, y - 2.0, m_cellSize.width * (lastColumn + 1 - firstColumn), 0.75 * m_cellSize.height));
             break;
           case quip::CursorStyle::VerticalBlockHalf:
-            CGContextSetBlendMode(context, kCGBlendModeDestinationAtop);
             CGContextFillRect(context, CGRectMake(x, y - 2.0, m_cellSize.width * (lastColumn + 1 - firstColumn), 0.25 * m_cellSize.height));
             break;
           case quip::CursorStyle::VerticalBar:
@@ -332,6 +330,30 @@ static CGFloat gCursorBlinkInterval = 0.57;
   quip::Document & document = m_context->document();
   CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
   
+  // Clear the background.
+  CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 1.0f);
+  CGContextFillRect(context, dirtyRect);
+  
+  // Draw selections and overlays first (text is drawn over them).
+  if ([[self window] isKeyWindow]) {
+    NSColor * systemHighlightColor = [[NSColor selectedTextBackgroundColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+    quip::Color primaryColor([systemHighlightColor redComponent], [systemHighlightColor greenComponent], [systemHighlightColor blueComponent]);
+    quip::Color secondaryColor(primaryColor.r * 0.5f, primaryColor.g * 0.5f, primaryColor.b * 0.5f);
+    
+    quip::SelectionDrawInfo drawInfo;
+    drawInfo.primaryColor = primaryColor;
+    drawInfo.secondaryColor = secondaryColor;
+    drawInfo.flags = m_context->mode().cursorFlags();
+    drawInfo.style = m_context->mode().cursorStyle();
+    drawInfo.selections = m_context->selections();
+    [self drawSelections:drawInfo context:context];
+  }
+  
+  for (auto && overlay : m_context->overlays()) {
+    [self drawSelections:overlay.second context:context];
+  }
+  
+  // Draw text.
   CGFloat y = self.frame.size.height - m_cellSize.height;
   for (std::size_t row = 0; row < document.rows(); ++row) {
     // Only draw the row if it clips into the dirty rectangle.
@@ -360,24 +382,6 @@ static CGFloat gCursorBlinkInterval = 0.57;
     }
     
     y -= m_cellSize.height;
-  }
-  
-  if ([[self window] isKeyWindow]) {
-    NSColor * systemHighlightColor = [[NSColor selectedTextBackgroundColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-    quip::Color primaryColor([systemHighlightColor redComponent], [systemHighlightColor greenComponent], [systemHighlightColor blueComponent]);
-    quip::Color secondaryColor(primaryColor.r * 0.5f, primaryColor.g * 0.5f, primaryColor.b * 0.5f);
-    
-    quip::SelectionDrawInfo drawInfo;
-    drawInfo.primaryColor = primaryColor;
-    drawInfo.secondaryColor = secondaryColor;
-    drawInfo.flags = m_context->mode().cursorFlags();
-    drawInfo.style = m_context->mode().cursorStyle();
-    drawInfo.selections = m_context->selections();
-    [self drawSelections:drawInfo context:context];
-  }
-  
-  for (auto && overlay : m_context->overlays()) {
-    [self drawSelections:overlay.second context:context];
   }
   
   [m_statusView setStatus:m_context->mode().status().c_str()];
