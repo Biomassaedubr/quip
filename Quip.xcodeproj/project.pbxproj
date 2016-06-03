@@ -14,6 +14,9 @@
 		030AC7121C781B9F00219938 /* SelectionSetTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C88A1C781AFB00AF5475 /* SelectionSetTests.mm */; };
 		030AC7131C781B9F00219938 /* SelectionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C88B1C781AFB00AF5475 /* SelectionTests.mm */; };
 		030AC7161C781BD300219938 /* libQuip.Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D1C8241C78196400AF5475 /* libQuip.Core.a */; };
+		033CA9721D011ED200ABD567 /* Transaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9701D011ED200ABD567 /* Transaction.cpp */; };
+		033CA9751D011FDA00ABD567 /* InsertTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9731D011FDA00ABD567 /* InsertTransaction.cpp */; };
+		033CA9791D01273400ABD567 /* EraseTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9771D01273400ABD567 /* EraseTransaction.cpp */; };
 		037DCDEB1C8B6F7100643D44 /* SelectionDrawInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */; };
 		037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 037DCDEA1C8B6F7100643D44 /* SelectionDrawInfo.hpp */; };
 		038ECDDB1C698FE2002E571D /* ApplicationDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDCE1C698FE2002E571D /* ApplicationDelegate.mm */; };
@@ -65,6 +68,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		033CA9701D011ED200ABD567 /* Transaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Transaction.cpp; path = Source/Core/Transaction.cpp; sourceTree = "<group>"; };
+		033CA9711D011ED200ABD567 /* Transaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Transaction.hpp; path = Source/Core/Transaction.hpp; sourceTree = "<group>"; };
+		033CA9731D011FDA00ABD567 /* InsertTransaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InsertTransaction.cpp; path = Source/Core/InsertTransaction.cpp; sourceTree = "<group>"; };
+		033CA9741D011FDA00ABD567 /* InsertTransaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = InsertTransaction.hpp; path = Source/Core/InsertTransaction.hpp; sourceTree = "<group>"; };
+		033CA9771D01273400ABD567 /* EraseTransaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EraseTransaction.cpp; path = Source/Core/EraseTransaction.cpp; sourceTree = "<group>"; };
+		033CA9781D01273400ABD567 /* EraseTransaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EraseTransaction.hpp; path = Source/Core/EraseTransaction.hpp; sourceTree = "<group>"; };
 		037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionDrawInfo.cpp; path = Source/Core/SelectionDrawInfo.cpp; sourceTree = "<group>"; };
 		037DCDEA1C8B6F7100643D44 /* SelectionDrawInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionDrawInfo.hpp; path = Source/Core/SelectionDrawInfo.hpp; sourceTree = "<group>"; };
 		037DCDED1C8BA78B00643D44 /* CursorFlags.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CursorFlags.hpp; path = Source/Core/CursorFlags.hpp; sourceTree = "<group>"; };
@@ -162,6 +171,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		033CA96F1D011EB500ABD567 /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				033CA9711D011ED200ABD567 /* Transaction.hpp */,
+				033CA9701D011ED200ABD567 /* Transaction.cpp */,
+				033CA9761D0122B600ABD567 /* Implementations */,
+			);
+			name = Transaction;
+			sourceTree = "<group>";
+		};
+		033CA9761D0122B600ABD567 /* Implementations */ = {
+			isa = PBXGroup;
+			children = (
+				033CA9741D011FDA00ABD567 /* InsertTransaction.hpp */,
+				033CA9731D011FDA00ABD567 /* InsertTransaction.cpp */,
+				033CA9781D01273400ABD567 /* EraseTransaction.hpp */,
+				033CA9771D01273400ABD567 /* EraseTransaction.cpp */,
+			);
+			name = Implementations;
+			sourceTree = "<group>";
+		};
 		038ECDE51C698FF0002E571D /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,7 +282,7 @@
 			name = Implementations;
 			sourceTree = "<group>";
 		};
-		03D1C8451C78197200AF5475 /* Modes */ = {
+		03D1C8451C78197200AF5475 /* Mode */ = {
 			isa = PBXGroup;
 			children = (
 				037DCDED1C8BA78B00643D44 /* CursorFlags.hpp */,
@@ -264,7 +294,7 @@
 				03D1C83D1C78197200AF5475 /* Mode.cpp */,
 				03D1C8441C78197200AF5475 /* Implementations */,
 			);
-			name = Modes;
+			name = Mode;
 			sourceTree = "<group>";
 		};
 		03D1C84E1C78197200AF5475 /* Selections */ = {
@@ -310,8 +340,9 @@
 				03D1C82B1C78197200AF5475 /* Contexts */,
 				03D1C8321C78197200AF5475 /* Documents */,
 				03D1C8371C78197200AF5475 /* Highlighting */,
-				03D1C8451C78197200AF5475 /* Modes */,
+				03D1C8451C78197200AF5475 /* Mode */,
 				03D1C84E1C78197200AF5475 /* Selections */,
+				033CA96F1D011EB500ABD567 /* Transaction */,
 				03D1C8501C78197200AF5475 /* UI */,
 				03D1C8541C78197200AF5475 /* Utility */,
 			);
@@ -469,10 +500,13 @@
 				038ECDE21C698FE2002E571D /* QuipWindowController.mm in Sources */,
 				038ECDDD1C698FE2002E571D /* main.m in Sources */,
 				038ECDDF1C698FE2002E571D /* QuipDocument.mm in Sources */,
+				033CA9791D01273400ABD567 /* EraseTransaction.cpp in Sources */,
 				038ECDE11C698FE2002E571D /* QuipTextView.mm in Sources */,
 				038ECDDB1C698FE2002E571D /* ApplicationDelegate.mm in Sources */,
 				03DC0F0F1C96674A0082EC8C /* QuipDocumentController.mm in Sources */,
+				033CA9721D011ED200ABD567 /* Transaction.cpp in Sources */,
 				038ECDE01C698FE2002E571D /* QuipStatusView.mm in Sources */,
+				033CA9751D011FDA00ABD567 /* InsertTransaction.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,6 +18,7 @@ namespace quip {
     
     std::string contents () const;
     std::string contents (const Selection & selection) const;
+    std::vector<std::string> contents (const SelectionSet & selection) const;
     
     DocumentIterator begin () const;
     DocumentIterator end () const;
@@ -34,6 +35,7 @@ namespace quip {
     Location clip (const Location & location) const;
     
     SelectionSet insert (const SelectionSet & selections, const std::string & text);
+    SelectionSet insert (const SelectionSet & selections, const std::vector<std::string> & text);
     SelectionSet erase (const SelectionSet & selections);
     
     SelectionSet matches (const SearchExpression & expression) const;

@@ -16,6 +16,11 @@ namespace quip {
   namespace {
     std::vector<std::string> splitText (const std::string & source) {
       std::vector<std::string> results;
+      if (source.size() == 0) {
+        results.emplace_back("");
+        return results;
+      }
+      
       for (std::size_t index = 0; index < source.size(); ++index) {
         std::size_t start = index;
         while (source[index] != '\n' && index < source.size()) {
@@ -69,6 +74,17 @@ namespace quip {
     }
   }
   
+  std::vector<std::string> Document::contents (const SelectionSet & selections) const {
+    std::vector<std::string> results;
+    results.reserve(selections.count());
+    
+    for (const Selection & selection : selections) {
+      results.emplace_back(contents(selection));
+    }
+    
+    return results;
+  }
+  
   DocumentIterator Document::begin () const {
     return DocumentIterator(*this, Location(0, 0));
   }
@@ -115,6 +131,12 @@ namespace quip {
   }
   
   SelectionSet Document::insert (const SelectionSet & selections, const std::string & text) {
+    std::vector<std::string> replicated(selections.count(), text);
+    return insert(selections, replicated);
+  }
+
+  
+  SelectionSet Document::insert (const SelectionSet & selections, const std::vector<std::string> & text) {
     if (selections.count() == 0 || text.size() == 0) {
       return selections;
     }
@@ -124,19 +146,14 @@ namespace quip {
     std::vector<Selection> updated;
     updated.reserve(selections.count());
     
-    // Similarly, the upper bound on the amount of document rows required is the product of the
-    // selection count and number of new lines to be inserted; attempting to reserve the appropriate
-    // storage in the document up front will amortize the cost of reallocating (and moving) the
-    // entire row array.
-    std::vector<std::string> lines = splitText(text);
-    std::size_t rowsInserted = lines.size() - 1;
-    m_rows.reserve(m_rows.size() + (selections.count() * rowsInserted));
-    
     // As text is inserted, it may cause the document to shift underneath subsequent selections.
     // Those shifts must be tracked in order to ensure the inserted text is placed correctly.
     std::int64_t columnShift = 0;
     std::int64_t rowShift = 0;
     for (std::size_t index = 0; index < selections.count(); ++index) {
+      std::vector<std::string> lines = splitText(text[index]);
+      std::size_t rowsInserted = lines.size() - 1;
+      
       const Selection & selection = selections[index];
       Location insertionPoint = selection.lowerBound().adjustBy(columnShift, rowShift);
       std::uint64_t insertionColumn = insertionPoint.column();

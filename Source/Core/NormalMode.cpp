@@ -4,6 +4,7 @@
 #include "Document.hpp"
 #include "DocumentIterator.hpp"
 #include "EditContext.hpp"
+#include "EraseTransaction.hpp"
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
 
@@ -28,7 +29,10 @@ namespace quip {
     addMapping(Key::S, &NormalMode::enterSearchMode);
 
     addMapping(Key::X, &NormalMode::deleteSelections);
-    
+
+    addMapping(Key::U, &NormalMode::undo);
+    addMapping(Key::Y, &NormalMode::redo);
+
     m_virtualColumn = 0;
   }
   
@@ -151,6 +155,14 @@ namespace quip {
   }
   
   void NormalMode::deleteSelections (EditContext & context) {
-    context.selections().replace(context.document().erase(context.selections()));
+    context.performTransaction(EraseTransaction::create(context.selections()));
+  }
+  
+  void NormalMode::undo (EditContext & context) {
+    context.undo();
+  }
+  
+  void NormalMode::redo (EditContext & context) {
+    context.redo();
   }
 }

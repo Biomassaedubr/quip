@@ -33,6 +33,9 @@ namespace quip {
     
     void deleteSelections (EditContext & context);
     
+    void undo (EditContext & context);
+    void redo (EditContext & context);
+    
     std::uint64_t m_virtualColumn;
   };
 }

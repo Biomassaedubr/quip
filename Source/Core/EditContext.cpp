@@ -7,6 +7,7 @@
 #include "NormalMode.hpp"
 #include "SearchMode.hpp"
 #include "Selection.hpp"
+#include "Transaction.hpp"
 
 #include <memory>
 
@@ -64,6 +65,29 @@ namespace quip {
   void EditContext::leaveMode () {
     if (m_modeHistory.size() > 1) {
       m_modeHistory.pop();
+    }
+  }
+  
+  void EditContext::performTransaction(std::shared_ptr<Transaction> transaction) {
+    transaction->perform(*this);
+    m_undoStack.push(transaction);
+  }
+  
+  void EditContext::undo () {
+    if (m_undoStack.size() > 0) {
+      m_undoStack.top()->rollback(*this);
+      m_redoStack.push(m_undoStack.top());
+      
+      m_undoStack.pop();
+    }
+  }
+  
+  void EditContext::redo () {
+    if (m_redoStack.size() > 0) {
+      m_redoStack.top()->perform(*this);
+      m_undoStack.push(m_redoStack.top());
+
+      m_redoStack.pop();
     }
   }
   

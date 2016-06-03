@@ -2,6 +2,8 @@
 
 #include "Document.hpp"
 #include "EditContext.hpp"
+#include "EraseTransaction.hpp"
+#include "InsertTransaction.hpp"
 #include "KeyStroke.hpp"
 
 namespace quip {
@@ -64,7 +66,7 @@ namespace quip {
         break;
       default:
         if (keyStroke.text().size() > 0) {
-          context.selections().replace(context.document().insert(context.selections(), keyStroke.text()));
+          context.performTransaction(InsertTransaction::create(context.selections(), keyStroke.text()));
           return true;
         }
     }

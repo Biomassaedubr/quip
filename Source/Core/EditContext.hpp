@@ -14,6 +14,7 @@
 namespace quip {
   struct Document;
   struct Mode;
+  struct Transaction;
   
   struct EditContext {
     EditContext ();
@@ -30,6 +31,10 @@ namespace quip {
     void enterMode (const std::string & name);
     void leaveMode ();
     
+    void performTransaction (std::shared_ptr<Transaction> transaction);
+    void undo ();
+    void redo ();
+    
     bool processKey (const KeyStroke & keyStroke);
     
     ViewController & controller ();
@@ -42,6 +47,9 @@ namespace quip {
     
     std::map<std::string, std::shared_ptr<Mode>> m_modes;
     std::stack<std::shared_ptr<Mode>> m_modeHistory;
+    
+    std::stack<std::shared_ptr<Transaction>> m_undoStack;
+    std::stack<std::shared_ptr<Transaction>> m_redoStack;
     
     ViewController m_controller;
   };
