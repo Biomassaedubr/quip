@@ -7,7 +7,11 @@ namespace quip {
   }
   
   CursorStyle Mode::cursorStyle () const {
-    return CursorStyle::Underline;
+    return CursorStyle::VerticalBlock;
+  }
+  
+  CursorFlags Mode::cursorFlags () const {
+    return CursorFlags::None;
   }
   
   std::string Mode::status () const {

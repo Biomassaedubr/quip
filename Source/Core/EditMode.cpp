@@ -44,6 +44,10 @@ namespace quip {
     return CursorStyle::VerticalBar;
   }
   
+  CursorFlags EditMode::cursorFlags () const {
+    return CursorFlags::Blink;
+  }
+  
   std::string EditMode::status () const {
     return "Edit";
   }

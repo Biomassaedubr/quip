@@ -62,9 +62,6 @@ static NSString * gSizeQueryString = @"m";
 
 static std::size_t gTabSize = 2;
 
-static CGFloat gPrimarySelectionColor[] = { 1.0, 0.0, 0.0, 1.0 };
-static CGFloat gAuxilliarySelectionColor[] = { 0.7, 0.2, 0.2, 1.0 };
-
 static CGFloat gTickInterval = 1.0 / 30.0;
 static CGFloat gCursorBlinkInterval = 0.57;
 
@@ -346,10 +343,14 @@ static CGFloat gCursorBlinkInterval = 0.57;
   }
   
   if ([[self window] isKeyWindow]) {
+    NSColor * systemHighlightColor = [[NSColor selectedTextBackgroundColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+    quip::Color primaryColor([systemHighlightColor redComponent], [systemHighlightColor greenComponent], [systemHighlightColor blueComponent]);
+    quip::Color secondaryColor(primaryColor.r * 0.5f, primaryColor.g * 0.5f, primaryColor.b * 0.5f);
+    
     quip::SelectionDrawInfo drawInfo;
-    drawInfo.primaryColor = quip::Color(gPrimarySelectionColor[0], gPrimarySelectionColor[1], gPrimarySelectionColor[2]);
-    drawInfo.secondaryColor = quip::Color(gAuxilliarySelectionColor[0], gAuxilliarySelectionColor[1], gAuxilliarySelectionColor[2]);
-    drawInfo.flags = static_cast<quip::CursorFlags>(quip::CursorFlags::Blink);
+    drawInfo.primaryColor = primaryColor;
+    drawInfo.secondaryColor = secondaryColor;
+    drawInfo.flags = m_context->mode().cursorFlags();
     drawInfo.style = m_context->mode().cursorStyle();
     drawInfo.selections = m_context->selections();
     [self drawSelections:drawInfo context:context];

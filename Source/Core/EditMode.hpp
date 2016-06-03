@@ -10,6 +10,8 @@ namespace quip {
     EditMode ();
     
     CursorStyle cursorStyle () const override;
+    CursorFlags cursorFlags () const override;
+
     std::string status () const override;
     
   protected:
