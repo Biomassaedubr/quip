@@ -30,9 +30,6 @@ namespace quip {
 
     addMapping(Key::X, &NormalMode::deleteSelections);
 
-    addMapping(Key::U, &NormalMode::undo);
-    addMapping(Key::Y, &NormalMode::redo);
-
     m_virtualColumn = 0;
   }
   
@@ -156,13 +153,5 @@ namespace quip {
   
   void NormalMode::deleteSelections (EditContext & context) {
     context.performTransaction(EraseTransaction::create(context.selections()));
-  }
-  
-  void NormalMode::undo (EditContext & context) {
-    context.undo();
-  }
-  
-  void NormalMode::redo (EditContext & context) {
-    context.redo();
   }
 }

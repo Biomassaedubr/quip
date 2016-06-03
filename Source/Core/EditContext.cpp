@@ -73,8 +73,12 @@ namespace quip {
     m_undoStack.push(transaction);
   }
   
+  bool EditContext::canUndo() const noexcept {
+    return m_undoStack.size() > 0;
+  }
+  
   void EditContext::undo () {
-    if (m_undoStack.size() > 0) {
+    if (canUndo()) {
       m_undoStack.top()->rollback(*this);
       m_redoStack.push(m_undoStack.top());
       
@@ -82,8 +86,12 @@ namespace quip {
     }
   }
   
+  bool EditContext::canRedo() const noexcept {
+    return m_redoStack.size() > 0;
+  }
+  
   void EditContext::redo () {
-    if (m_redoStack.size() > 0) {
+    if (canRedo()) {
       m_redoStack.top()->perform(*this);
       m_undoStack.push(m_redoStack.top());
 

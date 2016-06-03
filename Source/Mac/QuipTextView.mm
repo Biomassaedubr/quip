@@ -131,6 +131,26 @@ static CGFloat gCursorBlinkInterval = 0.57;
   return YES;
 }
 
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+  if([menuItem action] == @selector(performUndo:)) {
+    return m_context->canUndo();
+  }
+  
+  if([menuItem action] == @selector(performRedo:)) {
+    return m_context->canRedo();
+  }
+  
+  return YES;
+}
+
+- (void)performUndo:(id)sender {
+  m_context->undo();
+}
+
+- (void)performRedo:(id)sender {
+  m_context->redo();
+}
+
 - (void)tick:(NSTimer *)timer {
   m_cursorTimer -= gTickInterval;
   if (m_cursorTimer <= 0.0) {

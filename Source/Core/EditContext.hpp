@@ -32,7 +32,10 @@ namespace quip {
     void leaveMode ();
     
     void performTransaction (std::shared_ptr<Transaction> transaction);
+    
+    bool canUndo () const noexcept;
     void undo ();
+    bool canRedo () const noexcept;
     void redo ();
     
     bool processKey (const KeyStroke & keyStroke);
