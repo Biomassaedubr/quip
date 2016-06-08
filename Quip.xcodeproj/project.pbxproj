@@ -42,7 +42,6 @@
 		03D1C8711C781A0900AF5475 /* SearchExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8471C78197200AF5475 /* SearchExpression.cpp */; };
 		03D1C8721C781A0900AF5475 /* Selection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8491C78197200AF5475 /* Selection.cpp */; };
 		03D1C8731C781A0900AF5475 /* SelectionSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C84B1C78197200AF5475 /* SelectionSet.cpp */; };
-		03D1C8741C781A0900AF5475 /* SelectionSetIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C84D1C78197200AF5475 /* SelectionSetIterator.cpp */; };
 		03D1C8751C781A1000AF5475 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8531C78197200AF5475 /* Color.cpp */; };
 		03D1C87F1C781A4A00AF5475 /* libQuip.Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D1C8241C78196400AF5475 /* libQuip.Core.a */; };
 		03DC0F0F1C96674A0082EC8C /* QuipDocumentController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03DC0F0E1C96674A0082EC8C /* QuipDocumentController.mm */; };
@@ -125,7 +124,6 @@
 		03D1C84A1C78197200AF5475 /* SelectionSet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionSet.hpp; path = Source/Core/SelectionSet.hpp; sourceTree = "<group>"; };
 		03D1C84B1C78197200AF5475 /* SelectionSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionSet.cpp; path = Source/Core/SelectionSet.cpp; sourceTree = "<group>"; };
 		03D1C84C1C78197200AF5475 /* SelectionSetIterator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionSetIterator.hpp; path = Source/Core/SelectionSetIterator.hpp; sourceTree = "<group>"; };
-		03D1C84D1C78197200AF5475 /* SelectionSetIterator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionSetIterator.cpp; path = Source/Core/SelectionSetIterator.cpp; sourceTree = "<group>"; };
 		03D1C84F1C78197200AF5475 /* ViewController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ViewController.hpp; path = Source/Core/ViewController.hpp; sourceTree = "<group>"; };
 		03D1C8511C78197200AF5475 /* Signal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Signal.hpp; path = Source/Core/Signal.hpp; sourceTree = "<group>"; };
 		03D1C8521C78197200AF5475 /* Color.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Color.hpp; path = Source/Core/Color.hpp; sourceTree = "<group>"; };
@@ -140,6 +138,7 @@
 		03D1C88B1C781AFB00AF5475 /* SelectionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectionTests.mm; path = Source/Tests/SelectionTests.mm; sourceTree = SOURCE_ROOT; };
 		03DC0F0D1C96674A0082EC8C /* QuipDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipDocumentController.h; path = Source/Mac/QuipDocumentController.h; sourceTree = "<group>"; };
 		03DC0F0E1C96674A0082EC8C /* QuipDocumentController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipDocumentController.mm; path = Source/Mac/QuipDocumentController.mm; sourceTree = "<group>"; };
+		03DFA5101D07C5DD004CBE46 /* SelectionSetIterator.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = SelectionSetIterator.inl; path = Source/Core/SelectionSetIterator.inl; sourceTree = "<group>"; };
 		03E7B4FE1C9A596700BA1F82 /* Classification.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Classification.cpp; path = Source/Core/Classification.cpp; sourceTree = "<group>"; };
 		03E7B4FF1C9A596700BA1F82 /* Classification.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Classification.hpp; path = Source/Core/Classification.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -311,7 +310,7 @@
 				03D1C84A1C78197200AF5475 /* SelectionSet.hpp */,
 				03D1C84B1C78197200AF5475 /* SelectionSet.cpp */,
 				03D1C84C1C78197200AF5475 /* SelectionSetIterator.hpp */,
-				03D1C84D1C78197200AF5475 /* SelectionSetIterator.cpp */,
+				03DFA5101D07C5DD004CBE46 /* SelectionSetIterator.inl */,
 			);
 			name = Selections;
 			sourceTree = "<group>";
@@ -520,7 +519,6 @@
 				03D1C8691C7819ED00AF5475 /* Location.cpp in Sources */,
 				03D1C8721C781A0900AF5475 /* Selection.cpp in Sources */,
 				03D1C86C1C7819FB00AF5475 /* KeyStroke.cpp in Sources */,
-				03D1C8741C781A0900AF5475 /* SelectionSetIterator.cpp in Sources */,
 				03D1C86A1C7819F400AF5475 /* AttributeRange.cpp in Sources */,
 				03D1C8731C781A0900AF5475 /* SelectionSet.cpp in Sources */,
 				03E7B5001C9A596700BA1F82 /* Classification.cpp in Sources */,

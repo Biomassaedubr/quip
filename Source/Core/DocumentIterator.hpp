@@ -9,7 +9,6 @@ namespace quip {
   struct Document;
   
   struct DocumentIterator {
-    DocumentIterator ();
     DocumentIterator (const Document & document, Location location);
     
     Location location () const;

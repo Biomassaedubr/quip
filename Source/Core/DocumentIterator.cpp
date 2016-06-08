@@ -3,10 +3,6 @@
 #include "Document.hpp"
 
 namespace quip {
-  DocumentIterator::DocumentIterator ()
-  : m_document(nullptr) {
-  }
-  
   DocumentIterator::DocumentIterator (const Document & document, Location location)
   : m_document(&document)
   , m_location(location) {
