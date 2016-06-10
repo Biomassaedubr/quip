@@ -16,6 +16,8 @@ namespace quip {
     Document ();
     Document (const std::string & contents);
     
+    bool isEmpty () const noexcept;
+    
     std::string contents () const;
     std::string contents (const Selection & selection) const;
     std::vector<std::string> contents (const SelectionSet & selection) const;

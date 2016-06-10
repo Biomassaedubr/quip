@@ -57,6 +57,10 @@ namespace quip {
     return stream.str();
   }
   
+  bool Document::isEmpty () const noexcept {
+    return m_rows.size() == 0;
+  }
+  
   std::string Document::contents (const Selection & selection) const {
     Location lowerBound = selection.lowerBound();
     Location upperBound = selection.upperBound();
@@ -154,9 +158,13 @@ namespace quip {
       Location insertionPoint = selection.lowerBound().adjustBy(columnShift, rowShift);
       std::uint64_t insertionColumn = insertionPoint.column();
       std::uint64_t insertionRow = insertionPoint.row();
-      std::string prefix = m_rows[insertionRow].substr(0, insertionColumn);
-      std::string suffix = m_rows[insertionRow].substr(insertionColumn);
-      m_rows[insertionRow] = prefix + lines.front();
+      std::string prefix = isEmpty() ? "" : m_rows[insertionRow].substr(0, insertionColumn);
+      std::string suffix = isEmpty() ? "" : m_rows[insertionRow].substr(insertionColumn);
+      if (!isEmpty()) {
+        m_rows[insertionRow] = prefix + lines.front();
+      } else {
+        m_rows.push_back(lines.front());
+      }
       
       if (rowsInserted > 0) {
         // Make room for additional lines in the document storage.

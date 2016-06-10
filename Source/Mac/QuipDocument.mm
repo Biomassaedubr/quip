@@ -14,7 +14,7 @@
 - (instancetype)init {
   self = [super init];
   if (self != nil) {
-    m_document = std::make_shared<quip::Document>("Welcome to Quip!\nQuip is a modal text editor.");
+    m_document = std::make_shared<quip::Document>();
   }
   
   return self;

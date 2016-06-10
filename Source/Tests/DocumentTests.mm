@@ -40,6 +40,14 @@ using namespace quip;
   XCTAssertEqual(document.contents(), "Hello, world.\n");
 }
 
+- (void)testIsEmpty {
+  Document empty;
+  XCTAssertTrue(empty.isEmpty());
+  
+  Document filled("Hello, world!");
+  XCTAssertFalse(filled.isEmpty());
+}
+
 - (void)testGetContentsOfSingleLineSelection {
   Document document("Hello, world!");
   std::string result = document.contents(Selection(Location(0, 0), Location(4, 0)));
@@ -67,6 +75,25 @@ using namespace quip;
   
   document.setPath("~/test.txt");
   XCTAssertEqual(document.path(), "~/test.txt");
+}
+
+- (void)testInsertSingleLineIntoEmptyDocument {
+  Document document;
+  SelectionSet selections(Selection(Location(0, 0), Location(0, 0)));
+  document.insert(selections, "Hello, world!");
+  
+  XCTAssertEqual(document.rows(), 1);
+  XCTAssertEqual(document.row(0), "Hello, world!");
+}
+
+- (void)testInsertMultipleLinesIntoEmptyDocument {
+  Document document;
+  SelectionSet selections(Selection(Location(0, 0), Location(0, 0)));
+  document.insert(selections, "Hello, world!\nThis is a test.");
+  
+  XCTAssertEqual(document.rows(), 2);
+  XCTAssertEqual(document.row(0), "Hello, world!\n");
+  XCTAssertEqual(document.row(1), "This is a test.");
 }
 
 - (void)testInsertWithEmptyText {
