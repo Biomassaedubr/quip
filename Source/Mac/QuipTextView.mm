@@ -47,7 +47,6 @@ namespace {
   Highlight m_highlightAttributes[quip::AttributeCount];
   
   CGSize m_cellSize;
-  CGRect m_minimumFrame;
   
   CGFloat m_cursorTimer;
   BOOL m_isCursorVisible;
@@ -74,7 +73,6 @@ static CGFloat gCursorBlinkInterval = 0.57;
     
     NSDictionary * attributes = @{NSFontAttributeName: [NSFont fontWithName:@"Menlo" size:13.0f]};
     m_cellSize = [gSizeQueryString sizeWithAttributes:attributes];
-    m_minimumFrame = frame;
     
     std::size_t tabStopCount = static_cast<std::size_t>(std::ceil(frame.size.width / m_cellSize.width));
     m_tabStops.reserve(tabStopCount);
@@ -125,6 +123,10 @@ static CGFloat gCursorBlinkInterval = 0.57;
   
   CFRelease(m_fontAttributes);
   CFRelease(m_font);
+}
+
+- (void)setFrame:(NSRect)frame {
+  [super setFrame:frame];
 }
 
 - (BOOL)acceptsFirstResponder {
@@ -259,15 +261,12 @@ static CGFloat gCursorBlinkInterval = 0.57;
 - (void)setDocument:(std::shared_ptr<quip::Document>)document {
   m_context = std::make_shared<quip::EditContext>(document);
 
-  CGFloat frameWidth = m_minimumFrame.size.width;
-  CGFloat frameHeight = std::max(m_minimumFrame.size.height, m_cellSize.height * document->rows());
-  [self setFrameSize:CGSizeMake(frameWidth, frameHeight)];
-  [self setNeedsDisplay:YES];
-  
   // Bind controller signals.
   m_context->controller().scrollToLocation.connect([=] (quip::Location location) {
     [self scrollToLocation:location];
   });
+  
+  [self setNeedsDisplay:YES];
 }
 
 - (void)setStatus:(QuipStatusView *)status {
