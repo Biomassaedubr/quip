@@ -26,9 +26,7 @@ namespace quip {
     
     const std::string & path () const;
     void setPath (const std::string & path);
-        
-    const Syntax * syntax () const;
-    
+
     std::size_t rows () const;
     const std::string & row (std::size_t index) const;
     
@@ -40,9 +38,11 @@ namespace quip {
     
     SelectionSet matches (const SearchExpression & expression) const;
     
+    std::vector<AttributeRange> highlight (std::uint64_t row) const;
+    
   private:
     std::string m_path;
-    Syntax * m_syntax;
+    SyntaxParseFunction m_syntaxParseFunction;
     
     std::vector<std::string> m_rows;
     

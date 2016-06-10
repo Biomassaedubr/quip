@@ -28,6 +28,10 @@
 		038ECDE21C698FE2002E571D /* QuipWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDD91C698FE2002E571D /* QuipWindowController.mm */; };
 		038ECDE31C698FE2002E571D /* QuipWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDDA1C698FE2002E571D /* QuipWindowController.xib */; };
 		038ECDE71C699039002E571D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDE61C699039002E571D /* Images.xcassets */; };
+		039037171D09065500CC932C /* UnknownGrammar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039037151D09065500CC932C /* UnknownGrammar.cpp */; };
+		039037181D09065500CC932C /* UnknownGrammar.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 039037161D09065500CC932C /* UnknownGrammar.hpp */; };
+		0390371B1D090D9400CC932C /* MarkdownGrammar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039037191D090D9400CC932C /* MarkdownGrammar.cpp */; };
+		0390371C1D090D9400CC932C /* MarkdownGrammar.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0390371A1D090D9400CC932C /* MarkdownGrammar.hpp */; };
 		03D1C8661C7819E600AF5475 /* EditContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C82A1C78197200AF5475 /* EditContext.cpp */; };
 		03D1C8671C7819ED00AF5475 /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C82D1C78197200AF5475 /* Document.cpp */; };
 		03D1C8681C7819ED00AF5475 /* DocumentIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C82F1C78197200AF5475 /* DocumentIterator.cpp */; };
@@ -91,6 +95,10 @@
 		038ECDD91C698FE2002E571D /* QuipWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipWindowController.mm; path = Source/Mac/QuipWindowController.mm; sourceTree = "<group>"; };
 		038ECDDA1C698FE2002E571D /* QuipWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QuipWindowController.xib; path = Source/Mac/QuipWindowController.xib; sourceTree = "<group>"; };
 		038ECDE61C699039002E571D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
+		039037151D09065500CC932C /* UnknownGrammar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UnknownGrammar.cpp; path = Source/Core/UnknownGrammar.cpp; sourceTree = "<group>"; };
+		039037161D09065500CC932C /* UnknownGrammar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UnknownGrammar.hpp; path = Source/Core/UnknownGrammar.hpp; sourceTree = "<group>"; };
+		039037191D090D9400CC932C /* MarkdownGrammar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MarkdownGrammar.cpp; path = Source/Core/MarkdownGrammar.cpp; sourceTree = "<group>"; };
+		0390371A1D090D9400CC932C /* MarkdownGrammar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MarkdownGrammar.hpp; path = Source/Core/MarkdownGrammar.hpp; sourceTree = "<group>"; };
 		03CCFAEB1BF1A1BE0033929E /* Quip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D1C8241C78196400AF5475 /* libQuip.Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQuip.Core.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D1C8291C78197200AF5475 /* EditContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EditContext.hpp; path = Source/Core/EditContext.hpp; sourceTree = "<group>"; };
@@ -191,6 +199,17 @@
 			name = Implementations;
 			sourceTree = "<group>";
 		};
+		035B12A81D07D5B500C7ADF3 /* Grammar */ = {
+			isa = PBXGroup;
+			children = (
+				039037161D09065500CC932C /* UnknownGrammar.hpp */,
+				039037151D09065500CC932C /* UnknownGrammar.cpp */,
+				0390371A1D090D9400CC932C /* MarkdownGrammar.hpp */,
+				039037191D090D9400CC932C /* MarkdownGrammar.cpp */,
+			);
+			name = Grammar;
+			sourceTree = "<group>";
+		};
 		038ECDE51C698FF0002E571D /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +279,7 @@
 		03D1C8371C78197200AF5475 /* Highlighting */ = {
 			isa = PBXGroup;
 			children = (
+				035B12A81D07D5B500C7ADF3 /* Grammar */,
 				03D1C8331C78197200AF5475 /* AttributeRange.hpp */,
 				03D1C8341C78197200AF5475 /* AttributeRange.cpp */,
 				03D1C8351C78197200AF5475 /* Syntax.hpp */,
@@ -372,6 +392,8 @@
 			files = (
 				03E7B5011C9A596700BA1F82 /* Classification.hpp in Headers */,
 				037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */,
+				039037181D09065500CC932C /* UnknownGrammar.hpp in Headers */,
+				0390371C1D090D9400CC932C /* MarkdownGrammar.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +538,7 @@
 				03D1C86B1C7819F400AF5475 /* Syntax.cpp in Sources */,
 				03D1C8681C7819ED00AF5475 /* DocumentIterator.cpp in Sources */,
 				03D1C8671C7819ED00AF5475 /* Document.cpp in Sources */,
+				0390371B1D090D9400CC932C /* MarkdownGrammar.cpp in Sources */,
 				03D1C8691C7819ED00AF5475 /* Location.cpp in Sources */,
 				03D1C8721C781A0900AF5475 /* Selection.cpp in Sources */,
 				03D1C86C1C7819FB00AF5475 /* KeyStroke.cpp in Sources */,
@@ -529,6 +552,7 @@
 				03D1C86E1C781A0100AF5475 /* EditMode.cpp in Sources */,
 				03D1C8661C7819E600AF5475 /* EditContext.cpp in Sources */,
 				03D1C8701C781A0100AF5475 /* SearchMode.cpp in Sources */,
+				039037171D09065500CC932C /* UnknownGrammar.cpp in Sources */,
 				03D1C86F1C781A0100AF5475 /* NormalMode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -674,6 +698,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Dependencies/PEGTL";
 			};
 			name = Debug;
 		};
@@ -684,6 +709,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Dependencies/PEGTL";
 			};
 			name = Release;
 		};

@@ -40,11 +40,11 @@ namespace quip {
   }
   
   Document::Document ()
-  : m_syntax(Syntax::getSyntaxForUnknown()) {
+  : m_syntaxParseFunction(Syntax::getSyntaxForUnknown()) {
   }
   
   Document::Document (const std::string & content)
-  : m_syntax(Syntax::getSyntaxForUnknown())
+  : m_syntaxParseFunction(Syntax::getSyntaxForUnknown())
   , m_rows(splitText(content)) {
   }
   
@@ -107,12 +107,8 @@ namespace quip {
     // Find the extension.
     std::size_t index = m_path.find_last_of('.');
     if (index != std::string::npos) {
-      m_syntax = Syntax::getSyntaxForExtention(m_path.substr(index + 1));
+      m_syntaxParseFunction = Syntax::getSyntaxForExtention(m_path.substr(index + 1));
     }
-  }
-  
-  const Syntax * Document::syntax () const {
-    return m_syntax;
   }
   
   const std::string & Document::row (std::size_t index) const {
@@ -293,6 +289,10 @@ namespace quip {
     }
     
     return SelectionSet(results);
+  }
+  
+  std::vector<AttributeRange> Document::highlight (std::uint64_t row) const {
+    return m_syntaxParseFunction(m_rows[row], m_path);
   }
   
   std::vector<std::size_t> Document::buildSpanTable (std::string * contents) const {

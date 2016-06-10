@@ -358,7 +358,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   for (std::size_t row = 0; row < document.rows(); ++row) {
     // Only draw the row if it clips into the dirty rectangle.
     if (CGRectIntersectsRect(dirtyRect, CGRectMake(0.0, y, self.frame.size.width, m_cellSize.height))) {
-      std::vector<quip::AttributeRange> syntaxAttributes = m_context->document().syntax()->highlight(document.row(row));
+      std::vector<quip::AttributeRange> syntaxAttributes = m_context->document().highlight(row);
       CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, document.row(row).c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
       CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(text));
 
@@ -386,7 +386,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   
   [m_statusView setStatus:m_context->mode().status().c_str()];
   [m_statusView setLineCount:m_context->document().rows()];
-  [m_statusView setFileType:m_context->document().syntax()->name().c_str()];
+  [m_statusView setFileType:"?"];
 }
 
 @end
