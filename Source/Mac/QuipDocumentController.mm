@@ -15,6 +15,20 @@
 
 static const char * kOpenPanelKey = "AssociatedOpenPanel";
 
+static BOOL canDocumentBeTransient (NSDocument * document) {
+  QuipDocument * container = (QuipDocument *)document;
+  if (container == nil) {
+    return YES;
+  }
+  
+  std::shared_ptr<quip::Document> contained = [container document];
+  if (contained == nullptr) {
+    return YES;
+  }
+  
+  return contained->isEmpty() && contained->path().size() == 0;
+}
+
 - (instancetype)init {
   self = [super init];
   if (self != nil) {
@@ -33,11 +47,9 @@ static const char * kOpenPanelKey = "AssociatedOpenPanel";
 
 - (void)addDocument:(NSDocument *)document {
   if ([[self documents] count] == 0) {
-    QuipDocument * container = (QuipDocument *)document;
-    std::shared_ptr<quip::Document> contained = [container document];
-    if (contained->isEmpty() && contained->path().size() == 0) {
+    if (canDocumentBeTransient(document)) {
       // This is the first document, and it is new, so it becomes the transient document.
-      m_transientDocument = container;
+      m_transientDocument = (QuipDocument *)document;
     }
   }
   
@@ -59,7 +71,9 @@ static const char * kOpenPanelKey = "AssociatedOpenPanel";
 }
 
 - (void)openDocumentWithContentsOfURL:(NSURL *)url display:(BOOL)displayDocument completionHandler:(void (^)(NSDocument * _Nullable, BOOL, NSError * _Nullable))completionHandler {
-  if (m_transientDocument != nil) {
+  // Verify that the transient document can still be considered transient before replacing
+  // it (it may have been edited since it was recorded).
+  if (m_transientDocument != nil && canDocumentBeTransient(m_transientDocument)) {
     void (^replacementHandler)(NSDocument *, BOOL, NSError *) = ^(NSDocument * document, BOOL, NSError *) {
       [self replaceDocument:m_transientDocument withDocument:(QuipDocument *)document];
       m_transientDocument = nil;
