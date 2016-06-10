@@ -145,10 +145,12 @@ static CGFloat gCursorBlinkInterval = 0.57;
 
 - (void)performUndo:(id)sender {
   m_context->undo();
+  [self setNeedsDisplay:YES];
 }
 
 - (void)performRedo:(id)sender {
   m_context->redo();
+  [self setNeedsDisplay:YES];
 }
 
 - (void)tick:(NSTimer *)timer {
