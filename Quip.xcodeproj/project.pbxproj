@@ -49,6 +49,8 @@
 		03D1C8751C781A1000AF5475 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8531C78197200AF5475 /* Color.cpp */; };
 		03D1C87F1C781A4A00AF5475 /* libQuip.Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D1C8241C78196400AF5475 /* libQuip.Core.a */; };
 		03DC0F0F1C96674A0082EC8C /* QuipDocumentController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03DC0F0E1C96674A0082EC8C /* QuipDocumentController.mm */; };
+		03E10D961D0C7CF200DFC8D0 /* JumpMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03E10D941D0C7CF200DFC8D0 /* JumpMode.cpp */; };
+		03E10D971D0C7CF200DFC8D0 /* JumpMode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03E10D951D0C7CF200DFC8D0 /* JumpMode.hpp */; };
 		03E7B5001C9A596700BA1F82 /* Classification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03E7B4FE1C9A596700BA1F82 /* Classification.cpp */; };
 		03E7B5011C9A596700BA1F82 /* Classification.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03E7B4FF1C9A596700BA1F82 /* Classification.hpp */; };
 /* End PBXBuildFile section */
@@ -147,6 +149,8 @@
 		03DC0F0D1C96674A0082EC8C /* QuipDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipDocumentController.h; path = Source/Mac/QuipDocumentController.h; sourceTree = "<group>"; };
 		03DC0F0E1C96674A0082EC8C /* QuipDocumentController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipDocumentController.mm; path = Source/Mac/QuipDocumentController.mm; sourceTree = "<group>"; };
 		03DFA5101D07C5DD004CBE46 /* SelectionSetIterator.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = SelectionSetIterator.inl; path = Source/Core/SelectionSetIterator.inl; sourceTree = "<group>"; };
+		03E10D941D0C7CF200DFC8D0 /* JumpMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JumpMode.cpp; path = Source/Core/JumpMode.cpp; sourceTree = "<group>"; };
+		03E10D951D0C7CF200DFC8D0 /* JumpMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = JumpMode.hpp; path = Source/Core/JumpMode.hpp; sourceTree = "<group>"; };
 		03E7B4FE1C9A596700BA1F82 /* Classification.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Classification.cpp; path = Source/Core/Classification.cpp; sourceTree = "<group>"; };
 		03E7B4FF1C9A596700BA1F82 /* Classification.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Classification.hpp; path = Source/Core/Classification.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -288,17 +292,19 @@
 			name = Highlighting;
 			sourceTree = "<group>";
 		};
-		03D1C8441C78197200AF5475 /* Implementations */ = {
+		03D1C8441C78197200AF5475 /* Implementation */ = {
 			isa = PBXGroup;
 			children = (
 				03D1C83E1C78197200AF5475 /* EditMode.hpp */,
 				03D1C83F1C78197200AF5475 /* EditMode.cpp */,
+				03E10D951D0C7CF200DFC8D0 /* JumpMode.hpp */,
+				03E10D941D0C7CF200DFC8D0 /* JumpMode.cpp */,
 				03D1C8401C78197200AF5475 /* NormalMode.hpp */,
 				03D1C8411C78197200AF5475 /* NormalMode.cpp */,
 				03D1C8421C78197200AF5475 /* SearchMode.hpp */,
 				03D1C8431C78197200AF5475 /* SearchMode.cpp */,
 			);
-			name = Implementations;
+			name = Implementation;
 			sourceTree = "<group>";
 		};
 		03D1C8451C78197200AF5475 /* Mode */ = {
@@ -311,7 +317,7 @@
 				03D1C83B1C78197200AF5475 /* KeyStroke.cpp */,
 				03D1C83C1C78197200AF5475 /* Mode.hpp */,
 				03D1C83D1C78197200AF5475 /* Mode.cpp */,
-				03D1C8441C78197200AF5475 /* Implementations */,
+				03D1C8441C78197200AF5475 /* Implementation */,
 			);
 			name = Mode;
 			sourceTree = "<group>";
@@ -394,6 +400,7 @@
 				037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */,
 				039037181D09065500CC932C /* UnknownGrammar.hpp in Headers */,
 				0390371C1D090D9400CC932C /* MarkdownGrammar.hpp in Headers */,
+				03E10D971D0C7CF200DFC8D0 /* JumpMode.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +556,7 @@
 				03D1C8751C781A1000AF5475 /* Color.cpp in Sources */,
 				03D1C86D1C7819FB00AF5475 /* Mode.cpp in Sources */,
 				03D1C8711C781A0900AF5475 /* SearchExpression.cpp in Sources */,
+				03E10D961D0C7CF200DFC8D0 /* JumpMode.cpp in Sources */,
 				03D1C86E1C781A0100AF5475 /* EditMode.cpp in Sources */,
 				03D1C8661C7819E600AF5475 /* EditContext.cpp in Sources */,
 				03D1C8701C781A0100AF5475 /* SearchMode.cpp in Sources */,

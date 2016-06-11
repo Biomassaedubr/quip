@@ -23,12 +23,18 @@ namespace quip {
     
     bool processKey (const KeyStroke & keyStroke, EditContext & context);
     
+    void enter (EditContext & context);
+    void exit (EditContext & context);
+    
   protected:
     template<typename ModeType>
     void addMapping (Key key, void (ModeType::* callback)(EditContext &)) {
       MapCallback bound = std::bind(callback, static_cast<ModeType *>(this), std::placeholders::_1);
       m_mappings.insert(std::make_pair(key, bound));
     }
+    
+    virtual void onEnter (EditContext & context);
+    virtual void onExit (EditContext & context);
     
     virtual bool onUnmappedKey (const KeyStroke & keyStroke, EditContext & context);
     

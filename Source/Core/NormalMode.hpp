@@ -24,6 +24,7 @@ namespace quip {
     void selectNextLine (EditContext & context);
     void selectPriorLine (EditContext & context);
     
+    void enterJumpMode (EditContext & context);
     void enterEditMode (EditContext & context);
     void enterSearchMode (EditContext & context);
     

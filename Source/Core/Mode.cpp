@@ -28,6 +28,20 @@ namespace quip {
     return onUnmappedKey(keyStroke, context);
   }
   
+  void Mode::enter (EditContext & context) {
+    onEnter(context);
+  }
+  
+  void Mode::exit (EditContext & context) {
+    onExit(context);
+  }
+  
+  void Mode::onEnter (EditContext & context) {
+  }
+  
+  void Mode::onExit (EditContext & context) {
+  }
+  
   bool Mode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
     return false;
   }

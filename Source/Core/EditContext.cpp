@@ -2,6 +2,7 @@
 
 #include "Document.hpp"
 #include "EditMode.hpp"
+#include "JumpMode.hpp"
 #include "Location.hpp"
 #include "Mode.hpp"
 #include "NormalMode.hpp"
@@ -22,6 +23,7 @@ namespace quip {
     
     // Populate with standard modes.
     m_modes.insert(std::make_pair("EditMode", std::make_shared<EditMode>()));
+    m_modes.insert(std::make_pair("JumpMode", std::make_shared<JumpMode>()));
     m_modes.insert(std::make_pair("NormalMode", std::make_shared<NormalMode>()));
     m_modes.insert(std::make_pair("SearchMode", std::make_shared<SearchMode>()));
     
@@ -59,11 +61,13 @@ namespace quip {
     std::map<std::string, std::shared_ptr<Mode>>::iterator cursor = m_modes.find(name);
     if (cursor != m_modes.end()) {
       m_modeHistory.push(cursor->second);
+      mode().enter(*this);
     }
   }
   
   void EditContext::leaveMode () {
     if (m_modeHistory.size() > 1) {
+      mode().exit(*this);
       m_modeHistory.pop();
     }
   }
