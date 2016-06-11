@@ -18,6 +18,9 @@ namespace quip {
   
   void JumpMode::onEnter (EditContext & context) {
     m_jumps.clear();
+    if (context.document().isEmpty()) {
+      return;
+    }
 
     const Selection & selection = context.selections().primary();
     Location start = selection.extent();
