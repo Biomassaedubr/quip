@@ -30,6 +30,7 @@ namespace quip {
     addMapping(Key::S, &NormalMode::enterSearchMode);
 
     addMapping(Key::X, &NormalMode::deleteSelections);
+    addMapping(Key::C, &NormalMode::changeSelections);
 
     m_virtualColumn = 0;
   }
@@ -174,5 +175,10 @@ namespace quip {
   
   void NormalMode::deleteSelections (EditContext & context) {
     context.performTransaction(EraseTransaction::create(context.selections()));
+  }
+  
+  void NormalMode::changeSelections (EditContext & context) {
+    context.performTransaction(EraseTransaction::create(context.selections()));
+    context.enterMode("EditMode");
   }
 }

@@ -33,6 +33,7 @@ namespace quip {
     void collapseSelections (EditContext & context);
     
     void deleteSelections (EditContext & context);
+    void changeSelections (EditContext & context);
     
     std::uint64_t m_virtualColumn;
   };
