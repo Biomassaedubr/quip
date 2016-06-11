@@ -25,5 +25,6 @@ On the other hand, these are some commonly-asked-about *non*-goals for Quip:
 
  - Quip is not a command-line text editor.
  - Quip is not an IDE, file browser, e-mail client, or calculator.
+ - Quip is not designed to win "vimgolf" challenges or to favor terseness over comfort.
  - Quip is not vim or emacs. They are both excellent tools, but Quip is not about creating "another" vim or even
    about maintaining keybinding compability.
