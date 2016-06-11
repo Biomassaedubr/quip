@@ -12,6 +12,7 @@
   [[self textView] setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
   [[self statusView] setAutoresizingMask:NSViewWidthSizable];
   [[self scrollView] setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+  [[self scrollView] setBackgroundColor:[NSColor colorWithWhite:1.0 alpha:1.0]];
   
   QuipDocument * document = [self document];
   [[self textView] setDocument:[document document]];
