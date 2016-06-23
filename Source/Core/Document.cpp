@@ -61,6 +61,16 @@ namespace quip {
     return m_rows.size() == 0;
   }
   
+  bool Document::isMissingTrailingNewline () const noexcept {
+    if (m_rows.empty()) {
+      // By definition.
+      return true;
+    }
+    
+    const std::string & text = m_rows.back();
+    return !text.empty() && text.back() != '\n';
+  }
+  
   std::string Document::contents (const Selection & selection) const {
     Location lowerBound = selection.lowerBound();
     Location upperBound = selection.upperBound();

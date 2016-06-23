@@ -15,6 +15,7 @@ using namespace quip;
   Document document;
   
   XCTAssertEqual(document.rows(), 0);
+  XCTAssertTrue(document.isMissingTrailingNewline());
 }
 
 - (void)testConstructFromSingleLineText {
@@ -22,6 +23,7 @@ using namespace quip;
   
   XCTAssertEqual(document.rows(), 1);
   XCTAssertEqual(document.contents(), "Hello, world.");
+  XCTAssertTrue(document.isMissingTrailingNewline());
 }
 
 - (void)testConstructFromMultipleLineText {
@@ -38,6 +40,7 @@ using namespace quip;
   
   XCTAssertEqual(document.rows(), 2);
   XCTAssertEqual(document.contents(), "Hello, world.\n");
+  XCTAssertFalse(document.isMissingTrailingNewline());
 }
 
 - (void)testIsEmpty {

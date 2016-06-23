@@ -17,6 +17,7 @@ namespace quip {
     Document (const std::string & contents);
     
     bool isEmpty () const noexcept;
+    bool isMissingTrailingNewline () const noexcept;
     
     std::string contents () const;
     std::string contents (const Selection & selection) const;
