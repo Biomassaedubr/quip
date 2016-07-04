@@ -8,8 +8,8 @@
 namespace quip {
   struct SelectionSet {
     SelectionSet ();
-    SelectionSet (const Selection & selection);
-    SelectionSet (const std::vector<Selection> & selections);
+    explicit SelectionSet (const Selection & selection);
+    explicit SelectionSet (const std::vector<Selection> & selections);
     SelectionSet (const SelectionSet & other);
     SelectionSet (SelectionSet && other);
     

@@ -19,27 +19,27 @@ using namespace quip;
 }
 
 - (void)testConstructFromSingleLineText {
-  Document document("Hello, world.");
+  Document document("ABCD");
   
   XCTAssertEqual(document.rows(), 1);
-  XCTAssertEqual(document.contents(), "Hello, world.");
+  XCTAssertEqual(document.contents(), "ABCD");
   XCTAssertTrue(document.isMissingTrailingNewline());
 }
 
 - (void)testConstructFromMultipleLineText {
-  Document document("Hello, world.\nThis is a test.\nThis file has three lines.");
+  Document document("ABCD\nEFGH\nIJKL");
   
   XCTAssertEqual(document.rows(), 3);
-  XCTAssertEqual(document.row(0), "Hello, world.\n");
-  XCTAssertEqual(document.row(1), "This is a test.\n");
-  XCTAssertEqual(document.row(2), "This file has three lines.");
+  XCTAssertEqual(document.row(0), "ABCD\n");
+  XCTAssertEqual(document.row(1), "EFGH\n");
+  XCTAssertEqual(document.row(2), "IJKL");
 }
 
 - (void)testConstructWithTrailingNewline {
-  Document document("Hello, world.\n");
+  Document document("ABCD\n");
   
   XCTAssertEqual(document.rows(), 2);
-  XCTAssertEqual(document.contents(), "Hello, world.\n");
+  XCTAssertEqual(document.contents(), "ABCD\n");
   XCTAssertFalse(document.isMissingTrailingNewline());
 }
 
@@ -47,37 +47,78 @@ using namespace quip;
   Document empty;
   XCTAssertTrue(empty.isEmpty());
   
-  Document filled("Hello, world!");
+  Document filled("ABCD");
   XCTAssertFalse(filled.isEmpty());
 }
 
-- (void)testGetContentsOfSingleLineSelection {
-  Document document("Hello, world!");
-  std::string result = document.contents(Selection(Location(0, 0), Location(4, 0)));
+- (void)testDistanceBetweenSameLocation {
+  Document document("ABCD");
+  std::int64_t result = document.distance(Location(0, 0), Location(0, 0));
   
-  XCTAssertEqual(result, "Hello");
+  XCTAssertEqual(result, 0);
 }
 
-- (void)testGetContentsOfTwoLineSelection {
-  Document document("Why hello\nworld!");
-  std::string result = document.contents(Selection(Location(4, 0), Location(4, 1)));
+- (void)testDistanceBetweenIncreasingLocationsOnSameRow {
+  Document document("ABCD");
+  std::int64_t result = document.distance(Location(1, 0), Location(3, 0));
   
-  XCTAssertEqual(result, "hello\nworld");
+  XCTAssertEqual(result, 2);
 }
 
-- (void)testGetContentsOfFourLineSelection {
-  Document document("!!A\nB\nC\nD!!");
-  std::string result = document.contents(Selection(Location(2, 0), Location(0, 3)));
+- (void)testDistanceBetweenDecreasingLocationsOnSameRow {
+  Document document("ABCD");
+  std::int64_t result = document.distance(Location(3, 0), Location(1, 0));
   
-  XCTAssertEqual(result, "A\nB\nC\nD");
+  XCTAssertEqual(result, -2);
+}
+
+- (void)testDistanceBetweenIncreasingLocationsOnDifferentRows {
+  Document document("ABCD\nEFGH\nIJKL\n");
+  std::int64_t result = document.distance(Location(1, 0), Location(2, 2));
+  
+  XCTAssertEqual(result, 11);
+}
+
+- (void)testDistanceBetweenDecreasingLocationsOnDifferentRows {
+  Document document("ABCD\nEFGH\nIJKL\n");
+  std::int64_t result = document.distance(Location(2, 2), Location(1, 0));
+  
+  XCTAssertEqual(result, -11);
+}
+
+- (void)testGetContentsOfEntireDocument {
+  Document document("ABCD\nEFGH\n");
+  std::string result = document.contents();
+  
+  XCTAssertEqual(result, "ABCD\nEFGH\n");
+}
+
+- (void)testGetContentsOfSelection {
+  Document document("ABCD\nEFGH\n");
+  std::string result = document.contents(Selection(Location(2, 0), Location(1, 1)));
+  
+  XCTAssertEqual(result, "CD\nEF");
+}
+
+- (void)testGetContentsOfSelectionSet {
+  Document document("ABCD\nEFGH\nIJKL\n");
+  SelectionSet selections({
+    Selection(Location(3, 0), Location(0, 1)),
+    Selection(Location(3, 1), Location(0, 2))
+  });
+  std::vector<std::string> result = document.contents(selections);
+  
+  XCTAssertEqual(result.size(), 2);
+  XCTAssertEqual(result[0], "D\nE");
+  XCTAssertEqual(result[1], "H\nI");
 }
 
 - (void)testSetPath {
   Document document;
   XCTAssertEqual(document.path(), "");
   
-  document.setPath("~/test.txt");
-  XCTAssertEqual(document.path(), "~/test.txt");
+  document.setPath("~/path.txt");
+  XCTAssertEqual(document.path(), "~/path.txt");
 }
 
 - (void)testInsertSingleLineIntoEmptyDocument {
@@ -232,76 +273,129 @@ using namespace quip;
   XCTAssertEqual(results[3].origin(), Location(0, 4));
 }
 
-- (void)testEraseWithEmptySelections {
-  Document document("Hello, world!");
+#pragma mark Erase Tests
+
+- (void)testEraseEmptySelections {
+  Document document("ABCD\n");
   SelectionSet empty;
   document.erase(empty);
-  
-  XCTAssertEqual(document.rows(), 1);
-  XCTAssertEqual(document.row(0), "Hello, world!");
+
+  XCTAssertEqual(document.rows(), 2);
+  XCTAssertEqual(document.row(0), "ABCD\n");
 }
 
-- (void)testEraseSingleCharacter {
-  Document document("AxBC");
-  SelectionSet set(Selection(Location(1, 0), Location(1, 0)));
-  SelectionSet results = document.erase(set);
+- (void)testEraseSingleCharacterViaSingleSelection {
+  Document document("ABCD\n");
+  SelectionSet result = document.erase(Selection(Location(1, 0)));
   
-  XCTAssertEqual(document.rows(), 1);
-  XCTAssertEqual(document.row(0), "ABC");
-  XCTAssertEqual(results[0].origin(), Location(1, 0));
+  XCTAssertEqual(document.row(0), "ACD\n");
+  XCTAssertEqual(result.count(), 1);
+  XCTAssertEqual(result.primary().origin(), Location(1, 0));
 }
 
-- (void)testEraseMultipleCharacters {
-  Document document("AxBCDExF");
-  std::vector<Selection> selections({
-    Selection(Location(1, 0)),
-    Selection(Location(6, 0))
+- (void)testEraseMultipleCharactersViaSingleSelection {
+  Document document("ABCD\n");
+  SelectionSet result = document.erase(Selection(Location(1, 0), Location(2, 0)));
+  
+  XCTAssertEqual(document.row(0), "AD\n");
+  XCTAssertEqual(result.count(), 1);
+  XCTAssertEqual(result.primary().origin(), Location(1, 0));
+}
+
+- (void)testEraseSingleLineViaSingleSelection {
+  Document document("ABCD\nEFGH\n");
+  SelectionSet result = document.erase(Selection(Location(0, 0), Location(4, 0)));
+  
+  XCTAssertEqual(document.row(0), "EFGH\n");
+  XCTAssertEqual(result.count(), 1);
+  XCTAssertEqual(result.primary().origin(), Location(0, 0));
+}
+
+- (void)testEraseMultipleLinesViaSingleSelection {
+  Document document("ABCD\nEFGH\nHIJK\n");
+  SelectionSet result = document.erase(Selection(Location(0, 0), Location(4, 1)));
+  
+  XCTAssertEqual(document.row(0), "HIJK\n");
+  XCTAssertEqual(result.count(), 1);
+  XCTAssertEqual(result.primary().origin(), Location(0, 0));
+}
+
+- (void)testEraseMultipleCharactersViaMultipleSelections {
+  Document document("ABCDEFGH\n");
+  SelectionSet selections({
+    Selection(Location(2, 0)),
+    Selection(Location(4, 0), Location(5, 0)),
+    Selection(Location(7, 0))
   });
-  SelectionSet set(selections);
-  SelectionSet results = document.erase(set);
+  SelectionSet result = document.erase(selections);
   
-  XCTAssertEqual(document.rows(), 1);
-  XCTAssertEqual(document.row(0), "ABCDEF");
-  XCTAssertEqual(results[0].origin(), Location(1, 0));
-  XCTAssertEqual(results[1].origin(), Location(5, 0));
+  XCTAssertEqual(document.rows(), 2);
+  XCTAssertEqual(document.row(0), "ABDG\n");
+  XCTAssertEqual(result.count(), 3);
+  XCTAssertEqual(result[0].origin(), Location(2, 0));
+  XCTAssertEqual(result[1].origin(), Location(3, 0));
+  XCTAssertEqual(result[2].origin(), Location(4, 0));
 }
 
-- (void)testEraseSingleLine {
-  Document document("AA\nBB");
-  SelectionSet set(Selection(Location(2, 0), Location(2, 0)));
-  SelectionSet results = document.erase(set);
+- (void)testEraseMultipleCharactersAcrossMultipleLinesViaMultipleSelections {
+  Document document("ABCDEFGH\nIJKLMNOP\n");
+  SelectionSet selections({
+    Selection(Location(1, 0), Location(2, 0)),
+    Selection(Location(6, 0), Location(1, 1)),
+    Selection(Location(5, 1), Location(6, 1))
+  });
+  SelectionSet result = document.erase(selections);
+  
+  XCTAssertEqual(document.rows(), 2);
+  XCTAssertEqual(document.row(0), "ADEFKLMP\n");
+  XCTAssertEqual(result.count(), 3);
+  XCTAssertEqual(result[0].origin(), Location(1, 0));
+  XCTAssertEqual(result[1].origin(), Location(4, 0));
+  XCTAssertEqual(result[2].origin(), Location(7, 0));
+}
 
-  XCTAssertEqual(document.rows(), 1);
-  XCTAssertEqual(document.row(0), "AABB");
-  XCTAssertEqual(results[0].origin(), Location(2, 0));
+- (void)testEraseSingleNewline {
+  Document document("ABCD\nEFGH\n");
+  SelectionSet result = document.erase(Selection(Location(4, 0)));
+  
+  XCTAssertEqual(document.row(0), "ABCDEFGH\n");
+  XCTAssertEqual(result.count(), 1);
+  XCTAssertEqual(result.primary().origin(), Location(4, 0));
+}
+
+- (void)testEraseMultipleNewlines {
+  Document document("AB\nCD\nEF\nGH\n");
+  SelectionSet selections({
+    Selection(Location(2, 0)),
+    Selection(Location(2, 2)),
+    Selection(Location(2, 3))
+  });
+  SelectionSet result = document.erase(selections);
+  
+  XCTAssertEqual(document.rows(), 2);
+  XCTAssertEqual(document.row(0), "ABCD\n");
+  XCTAssertEqual(document.row(1), "EFGH");
+  XCTAssertEqual(result.count(), 3);
+  XCTAssertEqual(result[0].origin(), Location(2, 0));
+  XCTAssertEqual(result[1].origin(), Location(2, 1));
+  XCTAssertEqual(result[2].origin(), Location(3, 1));
 }
 
 - (void)testEraseLastCharacterInDocument {
-  Document document("Hello!");
-  SelectionSet set(Selection(Location(5, 0), Location(5, 0)));
-  SelectionSet results = document.erase(set);
+  Document document("ABCD");
+  SelectionSet result = document.erase(Selection(Location(3, 0)));
 
   XCTAssertEqual(document.rows(), 1);
-  XCTAssertEqual(document.row(0), "Hello");
-  XCTAssertEqual(results[0].origin(), Location(4, 0));
+  XCTAssertEqual(document.row(0), "ABC");
+  XCTAssertEqual(result.primary().origin(), Location(2, 0));
 }
 
-- (void)testEraseMultipleLines {
-  Document document("AA\nBB\nCC\nDD\n");
-  std::vector<Selection> selections({
-    Selection(Location(2, 0)),
-    Selection(Location(2, 2)),
-    Selection(Location(2, 3)),
-  });
-  SelectionSet set(selections);
-  SelectionSet results = document.erase(set);
+- (void)testEraseLastCharacterOfDocument {
+  Document document("A");
+  SelectionSet result = document.erase(Selection(Location(0, 0)));
   
-  XCTAssertEqual(document.rows(), 2);
-  XCTAssertEqual(document.row(0), "AABB\n");
-  XCTAssertEqual(document.row(1), "CCDD");
-  XCTAssertEqual(results[0].origin(), Location(2, 0));
-  XCTAssertEqual(results[1].origin(), Location(2, 1));
-  XCTAssertEqual(results[2].origin(), Location(3, 1));
+  XCTAssertEqual(document.rows(), 0);
+  XCTAssertEqual(result.primary().origin(), Location(0, 0));
 }
 
 @end

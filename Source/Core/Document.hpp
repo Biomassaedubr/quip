@@ -11,14 +11,14 @@ namespace quip {
   struct SearchExpression;
   struct Selection;
   struct SelectionSet;
-  
+
   struct Document {
     Document ();
-    Document (const std::string & contents);
+    explicit Document (const std::string & contents);
     
     bool isEmpty () const noexcept;
     bool isMissingTrailingNewline () const noexcept;
-    
+        
     std::string contents () const;
     std::string contents (const Selection & selection) const;
     std::vector<std::string> contents (const SelectionSet & selection) const;
@@ -26,17 +26,20 @@ namespace quip {
     DocumentIterator begin () const;
     DocumentIterator end () const;
     DocumentIterator at (const Location & location) const;
+        
+    std::int64_t distance (const Location & from, const Location & to) const;
     
     const std::string & path () const;
     void setPath (const std::string & path);
 
     std::size_t rows () const;
     const std::string & row (std::size_t index) const;
-    
-    Location clip (const Location & location) const;
-    
+
+    SelectionSet insert (const Selection & selection, const std::string & text);
     SelectionSet insert (const SelectionSet & selections, const std::string & text);
     SelectionSet insert (const SelectionSet & selections, const std::vector<std::string> & text);
+
+    SelectionSet erase (const Selection & selection);
     SelectionSet erase (const SelectionSet & selections);
     
     SelectionSet matches (const SearchExpression & expression) const;

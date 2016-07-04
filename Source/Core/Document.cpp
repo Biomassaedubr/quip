@@ -111,6 +111,22 @@ namespace quip {
     return DocumentIterator(*this, location);
   }
   
+  std::int64_t Document::distance (const Location & from, const Location & to) const {
+    if (from.row() == to.row()) {
+      return to.column() - from.column();
+    }
+    
+    Location lower = std::min(from, to);
+    Location upper = std::max(from, to);
+    std::int64_t result = m_rows[lower.row()].size() - lower.column();
+    for (std::uint64_t index = lower.row() + 1; index < upper.row(); ++index) {
+      result += m_rows[index].size();
+    }
+    
+    result += upper.column();
+    return from <= to ? result : -result;
+  }
+  
   const std::string & Document::path () const {
     return m_path;
   }
@@ -132,19 +148,15 @@ namespace quip {
   std::size_t Document::rows () const {
     return m_rows.size();
   }
-  
-  Location Document::clip (const Location & location) const {
-    std::size_t row = std::min(location.row(), static_cast<std::uint64_t>(m_rows.size()) - 1);
-    std::size_t column = std::min(location.column(), static_cast<std::uint64_t>(m_rows[row].size()) - 1);
-    
-    return Location(column, row);
+
+  SelectionSet Document::insert (const Selection & selection, const std::string & text) {
+    return insert(SelectionSet(selection), text);
   }
   
   SelectionSet Document::insert (const SelectionSet & selections, const std::string & text) {
     std::vector<std::string> replicated(selections.count(), text);
     return insert(selections, replicated);
   }
-
   
   SelectionSet Document::insert (const SelectionSet & selections, const std::vector<std::string> & text) {
     if (selections.count() == 0 || text.size() == 0) {
@@ -161,54 +173,58 @@ namespace quip {
     std::int64_t columnShift = 0;
     std::int64_t rowShift = 0;
     for (std::size_t index = 0; index < selections.count(); ++index) {
-      std::vector<std::string> lines = splitText(text[index]);
-      std::size_t rowsInserted = lines.size() - 1;
-      
-      const Selection & selection = selections[index];
-      Location insertionPoint = selection.lowerBound().adjustBy(columnShift, rowShift);
-      std::uint64_t insertionColumn = insertionPoint.column();
-      std::uint64_t insertionRow = insertionPoint.row();
-      std::string prefix = isEmpty() ? "" : m_rows[insertionRow].substr(0, insertionColumn);
-      std::string suffix = isEmpty() ? "" : m_rows[insertionRow].substr(insertionColumn);
-      if (!isEmpty()) {
-        m_rows[insertionRow] = prefix + lines.front();
-      } else {
-        m_rows.push_back(lines.front());
-      }
-      
-      if (rowsInserted > 0) {
-        // Make room for additional lines in the document storage.
-        m_rows.insert(m_rows.begin() + insertionRow + 1, rowsInserted, "");
-        for (std::size_t line = 1; line < lines.size(); ++line) {
-          ++insertionRow;
-          m_rows[insertionRow] = lines[line];
-        }
-        
-        columnShift -= prefix.length();
-      } else {
-        columnShift += lines.front().size();
-      }
-      
-      // Complete the insert.
-      m_rows[insertionRow] += suffix;
-      
-      // Row shift is applied continually, but the column shift gets reset
-      // when moving to selections that originated on a different row.
-      if (index + 1 < selections.count()) {
-        rowShift += rowsInserted;
-        
-        const Selection & next = selections[index + 1];
-        if (selection.lowerBound().row() != next.lowerBound().row()) {
-          columnShift = 0;
-        }
-      }
-      
-      // Record where the selection should move post-insert.
-      Location location(m_rows[insertionRow].size() - suffix.size(), insertionRow);
-      updated.emplace_back(location, location);
+     std::vector<std::string> lines = splitText(text[index]);
+     std::size_t rowsInserted = lines.size() - 1;
+     
+     const Selection & selection = selections[index];
+     Location insertionPoint = selection.lowerBound().adjustBy(columnShift, rowShift);
+     std::uint64_t insertionColumn = insertionPoint.column();
+     std::uint64_t insertionRow = insertionPoint.row();
+     std::string prefix = isEmpty() ? "" : m_rows[insertionRow].substr(0, insertionColumn);
+     std::string suffix = isEmpty() ? "" : m_rows[insertionRow].substr(insertionColumn);
+     if (!isEmpty()) {
+       m_rows[insertionRow] = prefix + lines.front();
+     } else {
+       m_rows.push_back(lines.front());
+     }
+     
+     if (rowsInserted > 0) {
+       // Make room for additional lines in the document storage.
+       m_rows.insert(m_rows.begin() + insertionRow + 1, rowsInserted, "");
+       for (std::size_t line = 1; line < lines.size(); ++line) {
+         ++insertionRow;
+         m_rows[insertionRow] = lines[line];
+       }
+     
+       columnShift -= prefix.length();
+     } else {
+       columnShift += lines.front().size();
+     }
+     
+     // Complete the insert.
+     m_rows[insertionRow] += suffix;
+     
+     // Row shift is applied continually, but the column shift gets reset
+     // when moving to selections that originated on a different row.
+     if (index + 1 < selections.count()) {
+       rowShift += rowsInserted;
+     
+       const Selection & next = selections[index + 1];
+       if (selection.lowerBound().row() != next.lowerBound().row()) {
+         columnShift = 0;
+       }
+     }
+     
+     // Record where the selection should move post-insert.
+     Location location(m_rows[insertionRow].size() - suffix.size(), insertionRow);
+     updated.emplace_back(location, location);
     }
     
     return SelectionSet(updated);
+  }
+  
+  SelectionSet Document::erase (const Selection & selection) {
+    return erase(SelectionSet(selection));
   }
   
   SelectionSet Document::erase (const SelectionSet & selections) {
@@ -220,58 +236,76 @@ namespace quip {
     // can be reserved up front.
     std::vector<Selection> updated;
     updated.reserve(selections.count());
-    
-    // As text is removed, it may cause the document to shift underneath subsequent selections.
-    // Those shifts must be tracked in order to ensure all the correct text is erased.
+
     std::int64_t columnShift = 0;
     std::int64_t rowShift = 0;
-    for (std::size_t index = 0; index < selections.count(); ++index) {
+    for (std::uint64_t index = 0; index < selections.count(); ++index) {
       const Selection & selection = selections[index];
-      Location lowerBound = selection.lowerBound().adjustBy(columnShift, rowShift);
-      Location upperBound = selection.upperBound().adjustBy(columnShift, rowShift);
-      std::size_t rowsRemoved = selection.height() - 1;
+      Location origin = selection.origin().adjustBy(columnShift, rowShift);
+      Location extent = selection.extent().adjustBy(selection.height() == 1 ? columnShift : 0, rowShift);
+      std::int64_t rowsToRemove = extent.row() - origin.row();
       
-      // The prefix is easy to compute, but the suffix must be special-cased when a line
-      // terminator or the very last character in the document is removed.
-      std::string prefix = m_rows[lowerBound.row()].substr(0, lowerBound.column());
+      // Whether or not the selection covers the trailing newline of a row or
+      // includes the last row in the document impacts how the erasure is handled.
+      bool hasLastCharacterInRow = extent.column() == row(extent.row()).size() - 1;
+      bool hasLastRowInDocument = extent.row() == m_rows.size() - 1;
+      
+      // Determine how many rows to remove and how to compose the resulting text.
+      std::string prefix = m_rows[origin.row()].substr(0, origin.column());
       std::string suffix;
-      
-      const std::string & upperLine = m_rows[upperBound.row()];
-      if (upperBound.column() == upperLine.length() - 1) {
-        if (upperLine.back() == '\n') {
-          suffix = m_rows[upperBound.row() + 1];
-          ++rowsRemoved;
-        } else {
-          // Only the last character in the document can (legally) terminate a row without
-          // being a newline.
-          suffix = "";
-          --columnShift;
-        }
+      if (hasLastCharacterInRow && !hasLastRowInDocument) {
+        suffix = m_rows[extent.row() + 1];
+        ++rowsToRemove;
       } else {
-        suffix = m_rows[upperBound.row()].substr(upperBound.column() + 1);
+        suffix = m_rows[extent.row()].substr(extent.column() + 1);
       }
-      
-      std::size_t lowerLineLength = m_rows[lowerBound.row()].size();
-      m_rows.erase(m_rows.begin() + lowerBound.row() + 1, m_rows.begin() + lowerBound.row() + rowsRemoved + 1);
-      m_rows[lowerBound.row()] = prefix + suffix;
-      
-      // Clip the selection to the document bounds.
-      updated.push_back(clip(selection.origin().adjustBy(columnShift, rowShift)));
-      columnShift -= lowerLineLength - m_rows[lowerBound.row()].size();
-      
+
+      // Update shifts to track how this selection impacts any subsequent selections.
+      rowShift -= rowsToRemove;
+      if (rowsToRemove > 0) {
+        columnShift = 0;
+      }
       
       if (index + 1 < selections.count()) {
         const Selection & next = selections[index + 1];
         
-        if(selection.lowerBound().row() == next.lowerBound().row() - 1) {
-          columnShift = -(lowerLineLength - m_rows[lowerBound.row()].size());
-          rowShift -= rowsRemoved;
-          
-        } else if (selection.lowerBound().row() != next.lowerBound().row()) {
-          columnShift = 0;
-          rowShift -= rowsRemoved;
+        // Whether or not adjacent selections have the same line in common or are only
+        // separated by a newline that will be removed impacts how to shift the
+        // next selection.
+        bool hasSameLine = selection.extent().row() == next.origin().row();
+        bool hasNextLine = selection.extent().row() == next.origin().row() - 1;
+        if (hasSameLine) {
+          columnShift -= extent.column() - origin.column() + 1;
+        } else if (hasNextLine && hasLastCharacterInRow) {
+          columnShift = extent.column();
         }
       }
+      
+      // Remove rows and write composed text.
+      std::vector<std::string>::iterator firstRemovedRow = m_rows.begin() + origin.row();
+      std::vector<std::string>::iterator lastRemovedRow = firstRemovedRow + rowsToRemove;
+      m_rows.erase(firstRemovedRow, lastRemovedRow);
+      m_rows[origin.row()] = prefix + suffix;
+      
+      // Erase operations collapse selections to the origin, generally. However, it's
+      // possible that the origin no longer exists.
+      if (origin <= Location(m_rows.back().size() - 1, m_rows.size() - 1)) {
+        updated.emplace_back(origin);
+      } else if (origin.column() > 0) {
+        updated.emplace_back(origin.adjustBy(-1, 0));
+      } else if (origin.row() > 0) {
+        std::uint64_t row = origin.row() - 1;
+        updated.emplace_back(Location(m_rows[row].size() - 1, row));
+      } else {
+        updated.emplace_back(Location(0, 0));
+      }
+    }
+    
+    // If the very last character of the document was removed, also remove the
+    // very last row so that the document's internal text state is consistent with
+    // a default-constructed, empty document.
+    if (m_rows.size() == 1 && m_rows.back().size() == 0) {
+      m_rows.clear();
     }
     
     return SelectionSet(updated);
