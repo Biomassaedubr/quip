@@ -11,14 +11,30 @@ namespace quip {
   : Color(1.0f, 1.0f, 1.0f, 1.0f) {
   }
   
-  Color::Color (float r, float g, float b)
-  : Color(r, g, b, 1.0f) {
+  Color::Color (float red, float green, float blue)
+  : Color(red, green, blue, 1.0f) {
   }
   
-  Color::Color (float r, float g, float b, float a)
-  : r(r)
-  , g(g)
-  , b(b)
-  , a(a) {
+  Color::Color (float red, float green, float blue, float alpha)
+  : m_red(red)
+  , m_green(green)
+  , m_blue(blue)
+  , m_alpha(alpha) {
+  }
+  
+  float Color::red () const noexcept {
+    return m_red;
+  }
+  
+  float Color::green () const noexcept {
+    return m_green;
+  }
+  
+  float Color::blue () const noexcept {
+    return m_blue;
+  }
+  
+  float Color::alpha () const noexcept {
+    return m_alpha;
   }
 }

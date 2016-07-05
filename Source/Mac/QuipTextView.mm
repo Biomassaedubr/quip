@@ -22,7 +22,7 @@ namespace {
   };
 
   static void initializeHighlight (Highlight * highlight, quip::Color foreground) {
-      highlight->foregroundColor = CGColorCreateGenericRGB(foreground.r, foreground.g, foreground.b, foreground.a);
+      highlight->foregroundColor = CGColorCreateGenericRGB(foreground.red(), foreground.green(), foreground.blue(), foreground.alpha());
       
       CFStringRef keys[] = { kCTForegroundColorAttributeName };
       CFTypeRef values[] = { highlight->foregroundColor };
@@ -297,8 +297,8 @@ static CGFloat gCursorBlinkInterval = 0.57;
       CGFloat x = firstColumn * m_cellSize.width;
       CGFloat y = self.frame.size.height - m_cellSize.height - (row * m_cellSize.height);
       const quip::Color & color = selection == drawInfo.selections.primary() ? drawInfo.primaryColor : drawInfo.secondaryColor;
-      CGContextSetRGBStrokeColor(context, color.r, color.g, color.b, color.a);
-      CGContextSetRGBFillColor(context, color.r, color.g, color.b, color.a);
+      CGContextSetRGBStrokeColor(context, color.red(), color.green(), color.blue(), color.alpha());
+      CGContextSetRGBFillColor(context, color.red(), color.green(), color.blue(), color.alpha());
       
       if (m_isCursorVisible || (drawInfo.flags & quip::CursorFlags::Blink) == 0) {
         switch (drawInfo.style) {
@@ -339,7 +339,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   if ([[self window] isKeyWindow]) {
     NSColor * systemHighlightColor = [[NSColor selectedTextBackgroundColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     quip::Color primaryColor([systemHighlightColor redComponent], [systemHighlightColor greenComponent], [systemHighlightColor blueComponent]);
-    quip::Color secondaryColor(primaryColor.r * 0.5f, primaryColor.g * 0.5f, primaryColor.b * 0.5f);
+    quip::Color secondaryColor(primaryColor.red() * 0.5f, primaryColor.green() * 0.5f, primaryColor.blue() * 0.5f);
     
     quip::SelectionDrawInfo drawInfo;
     drawInfo.primaryColor = primaryColor;
