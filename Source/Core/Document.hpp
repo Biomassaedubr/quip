@@ -52,6 +52,8 @@ namespace quip {
     
     std::vector<std::string> m_rows;
     
+    std::vector<std::string> decompose (const std::string & text) const;
+    
     std::vector<std::size_t> buildSpanTable (std::string * contents) const;
     Location linearPositionToLocation (const std::vector<std::size_t> & spanTable, std::size_t position) const;
   };

@@ -13,39 +13,13 @@
 #include <string>
 
 namespace quip {
-  namespace {
-    std::vector<std::string> splitText (const std::string & source) {
-      std::vector<std::string> results;
-      if (source.size() == 0) {
-        results.emplace_back("");
-        return results;
-      }
-      
-      for (std::size_t index = 0; index < source.size(); ++index) {
-        std::size_t start = index;
-        while (source[index] != '\n' && index < source.size()) {
-          ++index;
-        }
-        
-        results.emplace_back(source.substr(start, index - start + 1));
-      }
-      
-      // Account for potential trailing newline.
-      if (results.back().back() == '\n') {
-        results.emplace_back("");
-      }
-      
-      return results;
-    }
-  }
-  
   Document::Document ()
   : m_syntaxParseFunction(Syntax::getSyntaxForUnknown()) {
   }
   
   Document::Document (const std::string & content)
   : m_syntaxParseFunction(Syntax::getSyntaxForUnknown())
-  , m_rows(splitText(content)) {
+  , m_rows(decompose(content)) {
   }
   
   std::string Document::contents () const {
@@ -168,56 +142,61 @@ namespace quip {
     std::vector<Selection> updated;
     updated.reserve(selections.count());
     
-    // As text is inserted, it may cause the document to shift underneath subsequent selections.
-    // Those shifts must be tracked in order to ensure the inserted text is placed correctly.
     std::int64_t columnShift = 0;
     std::int64_t rowShift = 0;
-    for (std::size_t index = 0; index < selections.count(); ++index) {
-     std::vector<std::string> lines = splitText(text[index]);
-     std::size_t rowsInserted = lines.size() - 1;
-     
-     const Selection & selection = selections[index];
-     Location insertionPoint = selection.lowerBound().adjustBy(columnShift, rowShift);
-     std::uint64_t insertionColumn = insertionPoint.column();
-     std::uint64_t insertionRow = insertionPoint.row();
-     std::string prefix = isEmpty() ? "" : m_rows[insertionRow].substr(0, insertionColumn);
-     std::string suffix = isEmpty() ? "" : m_rows[insertionRow].substr(insertionColumn);
-     if (!isEmpty()) {
-       m_rows[insertionRow] = prefix + lines.front();
-     } else {
-       m_rows.push_back(lines.front());
-     }
-     
-     if (rowsInserted > 0) {
-       // Make room for additional lines in the document storage.
-       m_rows.insert(m_rows.begin() + insertionRow + 1, rowsInserted, "");
-       for (std::size_t line = 1; line < lines.size(); ++line) {
-         ++insertionRow;
-         m_rows[insertionRow] = lines[line];
-       }
-     
-       columnShift -= prefix.length();
-     } else {
-       columnShift += lines.front().size();
-     }
-     
-     // Complete the insert.
-     m_rows[insertionRow] += suffix;
-     
-     // Row shift is applied continually, but the column shift gets reset
-     // when moving to selections that originated on a different row.
-     if (index + 1 < selections.count()) {
-       rowShift += rowsInserted;
-     
-       const Selection & next = selections[index + 1];
-       if (selection.lowerBound().row() != next.lowerBound().row()) {
-         columnShift = 0;
-       }
-     }
-     
-     // Record where the selection should move post-insert.
-     Location location(m_rows[insertionRow].size() - suffix.size(), insertionRow);
-     updated.emplace_back(location, location);
+    for (std::uint64_t index = 0; index < selections.count(); ++index) {
+      std::vector<std::string> lines = decompose(text[index]);
+      if (lines.size() == 0) {
+        continue;
+      }
+      
+      if (m_rows.size() == 0) {
+        // If the document is empty, just copy the entire lines array in and break the loop.
+        // The selection set is basically irrelevant; the only legal set for an empty document
+        // consists entirely of the single-character selection at (0, 0).
+        m_rows = lines;
+        updated.emplace_back(Location(m_rows.back().size(), m_rows.size() - 1));
+        break;
+      }
+      
+      const Selection & selection = selections[index];
+      Location origin = selection.origin().adjustBy(columnShift, rowShift);
+      std::string prefix = m_rows[origin.row()].substr(0, origin.column());
+      std::string suffix = m_rows[origin.row()].substr(origin.column());
+      std::uint64_t rowsToInsert = lines.size() - 1;
+      if (lines.back().back() == '\n') {
+        ++rowsToInsert;
+      }
+      
+      // Compose resulting text, inserting rows as needed.
+      m_rows[origin.row()] = prefix + lines.front();
+      m_rows.insert(m_rows.begin() + origin.row() + 1, rowsToInsert, "");
+      for (std::uint64_t line = 1; line <= lines.size() - 1; ++line) {
+        m_rows[origin.row() + line] = lines[line];
+      }
+      
+      m_rows[origin.row() + rowsToInsert] += suffix;
+      
+      // Update shifts to track how this selection impacts any subsequent selections.
+      columnShift += lines.front().size();
+      rowShift += rowsToInsert;
+      if (index + 1 < selections.count()) {
+        const Selection & next = selections[index + 1];
+        if (selection.extent().row() != next.origin().row()) {
+          // Whether or not adjacent selections have the same line in common impacts how
+          // to shift the next selection.
+          columnShift = 0;
+        }
+      }
+      
+      // Insert operations displace selections such that the origin remains after the
+      // text that was inserted.
+      if (rowsToInsert == 0) {
+        updated.emplace_back(Location(origin.column() + lines.front().size(), origin.row()));
+      } else {
+        std::uint64_t row = origin.row() + rowsToInsert;
+        updated.emplace_back(Location(m_rows[row].size() - suffix.size(), row));
+      }
     }
     
     return SelectionSet(updated);
@@ -345,6 +324,28 @@ namespace quip {
   
   std::vector<AttributeRange> Document::highlight (std::uint64_t row) const {
     return m_syntaxParseFunction(m_rows[row], m_path);
+  }
+  
+  std::vector<std::string> Document::decompose (const std::string & text) const {
+    std::vector<std::string> results;
+    if (text.size() == 0) {
+      return results;
+    }
+    
+    std::string::size_type start = 0;
+    std::string::size_type end = 0;
+    while (start < text.size()) {
+      end = text.find_first_of('\n', start);
+      if (end != std::string::npos) {
+        results.emplace_back(text.substr(start, end - start + 1));
+        start = end + 1;
+      } else {
+        results.emplace_back(text.substr(start));
+        break;
+      }
+    }
+    
+    return results;
   }
   
   std::vector<std::size_t> Document::buildSpanTable (std::string * contents) const {
