@@ -22,7 +22,7 @@
   [[[self scrollView] contentView] scrollToPoint:CGPointMake(0.0, NSMaxY([[self textView] frame]) - NSHeight([[[self scrollView] contentView] bounds]))];
   
   NSWindow * window = [self window];
-  [window makeKeyAndOrderFront:self];
+  [window setDelegate:self];
 }
 
 - (void)setDocument:(id)document {
@@ -34,6 +34,14 @@
     [[self textView] setDocument:[container document]];
     [[[self scrollView] contentView] scrollToPoint:CGPointMake(0.0, NSMaxY([[self textView] frame]) - NSHeight([[[self scrollView] contentView] bounds]))];
   }
+}
+
+- (void)windowDidBecomeKey:(NSNotification *)notification {
+  [[self textView] setActBackgrounded:NO];
+}
+
+- (void)windowDidResignKey:(NSNotification *)notification {
+  [[self textView] setActBackgrounded:YES];
 }
 
 @end

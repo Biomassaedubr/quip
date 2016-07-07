@@ -3,7 +3,7 @@
 #import "QuipStatusView.h"
 #import "QuipTextView.h"
 
-@interface QuipWindowController : NSWindowController
+@interface QuipWindowController : NSWindowController<NSWindowDelegate>
 
 @property (nonatomic, weak) IBOutlet NSScrollView * scrollView;
 @property (nonatomic, weak) IBOutlet QuipStatusView * statusView;

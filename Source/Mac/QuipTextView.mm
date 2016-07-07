@@ -49,7 +49,8 @@ namespace {
   CGSize m_cellSize;
   
   CGFloat m_cursorTimer;
-  BOOL m_isCursorVisible;
+  BOOL m_shouldDrawCursor;
+  BOOL m_shouldDrawSelections;
   
   std::shared_ptr<quip::EditContext> m_context;
   
@@ -101,7 +102,8 @@ static CGFloat gCursorBlinkInterval = 0.57;
     m_statusView = nullptr;
     
     m_cursorTimer = gCursorBlinkInterval;
-    m_isCursorVisible = YES;
+    m_shouldDrawCursor = YES;
+    m_shouldDrawSelections = YES;
     
     // Start a background timer for periodic update tasks (such as cursor blinking).
     NSTimer * timer = [NSTimer timerWithTimeInterval:gTickInterval target:self selector:@selector(tick:) userInfo:nil repeats:YES];
@@ -159,7 +161,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   m_cursorTimer -= gTickInterval;
   if (m_cursorTimer <= 0.0) {
     m_cursorTimer = gCursorBlinkInterval;
-    m_isCursorVisible = !m_isCursorVisible;
+    m_shouldDrawCursor = !m_shouldDrawCursor;
     
     [self setNeedsDisplay:YES];
   }
@@ -167,7 +169,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
 
 - (void)resetCursorBlink {
   m_cursorTimer = gCursorBlinkInterval;
-  m_isCursorVisible = YES;
+  m_shouldDrawCursor = YES;
   
   [self setNeedsDisplay:YES];
 }
@@ -273,6 +275,11 @@ static CGFloat gCursorBlinkInterval = 0.57;
   m_statusView = status;
 }
 
+- (void)setActBackgrounded:(BOOL)shouldActBackgrounded {
+  m_shouldDrawSelections = !shouldActBackgrounded;
+  [self resetCursorBlink];
+}
+
 - (void)scrollToLocation:(quip::Location)location {
   CGFloat y = self.frame.size.height - (m_cellSize.height * (location.row() + 1));
   
@@ -300,7 +307,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
       CGContextSetRGBStrokeColor(context, color.red(), color.green(), color.blue(), color.alpha());
       CGContextSetRGBFillColor(context, color.red(), color.green(), color.blue(), color.alpha());
       
-      if (m_isCursorVisible || (drawInfo.flags & quip::CursorFlags::Blink) == 0) {
+      if (m_shouldDrawCursor || (drawInfo.flags & quip::CursorFlags::Blink) == 0) {
         switch (drawInfo.style) {
           case quip::CursorStyle::VerticalBlock:
             CGContextFillRect(context, CGRectMake(x, y - 2.0, m_cellSize.width * (lastColumn + 1 - firstColumn), 0.75 * m_cellSize.height));
@@ -336,7 +343,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   CGContextFillRect(context, dirtyRect);
   
   // Draw selections and overlays first (text is drawn over them).
-  if ([[self window] isKeyWindow]) {
+  if (m_shouldDrawSelections) {
     NSColor * systemHighlightColor = [[NSColor selectedTextBackgroundColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     quip::Color primaryColor([systemHighlightColor redComponent], [systemHighlightColor greenComponent], [systemHighlightColor blueComponent]);
     quip::Color secondaryColor(primaryColor.red() * 0.5f, primaryColor.green() * 0.5f, primaryColor.blue() * 0.5f);

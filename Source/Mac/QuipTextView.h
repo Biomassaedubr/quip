@@ -13,4 +13,6 @@
 
 - (void)setStatus:(QuipStatusView *)status;
 
+- (void)setActBackgrounded:(BOOL)shouldActBackgrounded;
+
 @end
