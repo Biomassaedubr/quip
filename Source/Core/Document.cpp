@@ -257,6 +257,8 @@ namespace quip {
           columnShift -= extent.column() - origin.column() + 1;
         } else if (hasNextLine && hasLastCharacterInRow) {
           columnShift = extent.column();
+        } else {
+          columnShift = 0;
         }
       }
       

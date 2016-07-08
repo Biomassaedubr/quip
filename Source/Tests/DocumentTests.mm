@@ -280,6 +280,27 @@ using namespace quip;
   XCTAssertEqual(result[2].origin(), Location(7, 0));
 }
 
+- (void)testEraseMultipleCharactersAcrossMultipleDisjointLinesViaMultipleSelections {
+  Document document("ABCDEFGH\nIJKLMNOP\nQRSTUVWX\n");
+  SelectionSet selections({
+    Selection(Location(0, 0)),
+    Selection(Location(2, 0), Location(4, 0)),
+    Selection(Location(1, 2)),
+    Selection(Location(3, 2), Location(5, 2))
+  });
+  SelectionSet result = document.erase(selections);
+  
+  XCTAssertEqual(document.rows(), 3);
+  XCTAssertEqual(document.row(0), "BFGH\n");
+  XCTAssertEqual(document.row(1), "IJKLMNOP\n");
+  XCTAssertEqual(document.row(2), "QSWX\n");
+  XCTAssertEqual(result.count(), 4);
+  XCTAssertEqual(result[0].origin(), Location(0, 0));
+  XCTAssertEqual(result[1].origin(), Location(1, 0));
+  XCTAssertEqual(result[2].origin(), Location(1, 2));
+  XCTAssertEqual(result[3].origin(), Location(2, 2));
+}
+
 - (void)testEraseSingleNewline {
   Document document("ABCD\nEFGH\n");
   SelectionSet result = document.erase(Selection(Location(4, 0)));
