@@ -46,6 +46,14 @@ namespace quip {
   }
   
   std::string Document::contents (const Selection & selection) const {
+    if (m_rows.size() == 0) {
+      // Selections always cover at least one character, so it's not
+      // ambiguous to return an empty string for an empty document.
+      // Although strictly speaking the only selection for which this
+      // is legal and consistent is (0,0).
+      return "";
+    }
+    
     Location lowerBound = selection.lowerBound();
     Location upperBound = selection.upperBound();
     
@@ -64,8 +72,11 @@ namespace quip {
   
   std::vector<std::string> Document::contents (const SelectionSet & selections) const {
     std::vector<std::string> results;
-    results.reserve(selections.count());
+    if (m_rows.size() == 0) {
+      return results;
+    }
     
+    results.reserve(selections.count());
     for (const Selection & selection : selections) {
       results.emplace_back(contents(selection));
     }

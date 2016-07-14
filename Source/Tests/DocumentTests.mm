@@ -93,11 +93,25 @@ using namespace quip;
   XCTAssertEqual(result, "ABCD\nEFGH\n");
 }
 
+- (void)testGetContentsOfEntireDocumentForEmptyDocument {
+  Document document;
+  std::string result = document.contents();
+  
+  XCTAssertEqual(result, "");
+}
+
 - (void)testGetContentsOfSelection {
   Document document("ABCD\nEFGH\n");
   std::string result = document.contents(Selection(Location(2, 0), Location(1, 1)));
   
   XCTAssertEqual(result, "CD\nEF");
+}
+
+- (void)testGetContentsOfSelectionForEmptyDocument {
+  Document document;
+  std::string result = document.contents(Selection(Location(0, 0)));
+  
+  XCTAssertEqual(result, "");
 }
 
 - (void)testGetContentsOfSelectionSet {
@@ -111,6 +125,14 @@ using namespace quip;
   XCTAssertEqual(result.size(), 2);
   XCTAssertEqual(result[0], "D\nE");
   XCTAssertEqual(result[1], "H\nI");
+}
+
+- (void)testGetContentsOfSelectionSetForEmptyDocument {
+  Document document;
+  SelectionSet selections(Selection(Location(0, 0)));
+  std::vector<std::string> result = document.contents(selections);
+  
+  XCTAssertEqual(result.size(), 0);
 }
 
 - (void)testSetPath {
