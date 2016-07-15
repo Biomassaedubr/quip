@@ -293,8 +293,8 @@ static CGFloat gCursorBlinkInterval = 0.57;
 - (void)drawSelections:(const quip::SelectionDrawInfo &)drawInfo context:(CGContextRef)context {
   quip::Document & document = m_context->document();
   for (const quip::Selection & selection : drawInfo.selections) {
-    const quip::Location & lower = selection.lowerBound();
-    const quip::Location & upper = selection.upperBound();
+    const quip::Location & lower = selection.origin();
+    const quip::Location & upper = selection.extent();
     std::size_t row = lower.row();
     
     do {

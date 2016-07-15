@@ -4,7 +4,7 @@
 
 namespace {
   static bool compareSelectionsByLowestLocation (const quip::Selection & left, const quip::Selection & right) {
-    return left.lowerBound() < right.lowerBound();
+    return left.origin() < right.origin();
   }
 }
 
@@ -30,10 +30,10 @@ namespace quip {
       std::size_t basis = 0;
       std::size_t candidate = 1;
       while (basis < m_selections.size() && candidate < m_selections.size()) {
-        if (m_selections[basis].upperBound() >= m_selections[candidate].lowerBound()) {
+        if (m_selections[basis].extent() >= m_selections[candidate].origin()) {
           // The two selections overlap and should be collapsed. Subsequent selections may also overlap the new combined
           // selection, so only the candidate index is advanced.
-          m_selections[basis] = Selection(m_selections[basis].lowerBound(), m_selections[candidate].upperBound());
+          m_selections[basis] = Selection(m_selections[basis].origin(), m_selections[candidate].extent());
           ++candidate;
         } else {
           // The selections don't overlap, so finalize the first selection and move both indices along.

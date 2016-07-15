@@ -5,6 +5,10 @@
 #include <cstdint>
 
 namespace quip {
+  // A inclusive region of marked text that can be operated on.
+  //
+  // A selection is defined by an origin location and an extent location. If they
+  // are not equal, the origin is always earlier in the document than the extent.
   struct Selection {
     explicit Selection (const Location & location);
     Selection (const Location & origin, const Location & extent);
@@ -20,9 +24,6 @@ namespace quip {
     void setOrigin (const Location & location);
     void setExtent (const Location & location);
     
-    const Location & lowerBound () const;
-    const Location & upperBound () const;
-    
     std::uint64_t height () const;
 
     friend void swap (Selection & left, Selection & right);
@@ -30,6 +31,8 @@ namespace quip {
   private:
     Location m_origin;
     Location m_extent;
+    
+    void normalize ();
   };
   
   bool operator== (const Selection & left, const Selection & right);

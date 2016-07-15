@@ -54,18 +54,18 @@ namespace quip {
       return "";
     }
     
-    Location lowerBound = selection.lowerBound();
-    Location upperBound = selection.upperBound();
+    Location origin = selection.origin();
+    Location extent = selection.extent();
     
     if (selection.height() == 1) {
-      return m_rows[lowerBound.row()].substr(lowerBound.column(), upperBound.column() - lowerBound.column() + 1);
+      return m_rows[origin.row()].substr(origin.column(), extent.column() - origin.column() + 1);
     } else {
-      std::string result = m_rows[lowerBound.row()].substr(lowerBound.column());
+      std::string result = m_rows[origin.row()].substr(origin.column());
       for (std::size_t index = 1; index < selection.height() - 1; ++index) {
-        result += m_rows[lowerBound.row() + index];
+        result += m_rows[origin.row() + index];
       }
       
-      result += m_rows[upperBound.row()].substr(0, upperBound.column() + 1);
+      result += m_rows[extent.row()].substr(0, extent.column() + 1);
       return result;
     }
   }

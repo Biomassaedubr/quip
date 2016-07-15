@@ -13,7 +13,7 @@ useful for editing code is still forthcoming.
 
 These are Quip's (current) key ideals:
 
- - Quip operates on directed, inclusive selections. Solving a problem should be accomplished by crafting
+ - Quip operates on inclusive selections. Solving a problem should be accomplished by crafting
    a selection set and then operating on that selection set.
  - Quip is modal, and supports many modes. A mode should reflect a task and expose functionality for
    making that task happen: navigate the document, edit the document, search the document.

@@ -4,12 +4,14 @@
 
 namespace quip {
   Selection::Selection (const Location & location)
-  : Selection(location, location) {
+  : m_origin(location)
+  , m_extent(location) {
   }
   
   Selection::Selection (const Location & origin, const Location & extent)
   : m_origin(origin)
   , m_extent(extent) {
+    normalize();
   }
   
   Selection::Selection (const Selection & other)
@@ -44,22 +46,22 @@ namespace quip {
 
   void Selection::setOrigin (const Location & location) {
     m_origin = location;
+    normalize();
   }
   
   void Selection::setExtent (const Location & location) {
     m_extent = location;
-  }
-  
-  const Location & Selection::lowerBound () const {
-    return std::min(origin(), extent());
-  }
-  
-  const Location & Selection::upperBound () const {
-    return std::max(origin(), extent());
+    normalize();
   }
   
   std::uint64_t Selection::height () const {
-    return upperBound().row() - lowerBound().row() + 1;
+    return m_extent.row() - m_origin.row() + 1;
+  }
+  
+  void Selection::normalize () {
+    if (m_origin > m_extent) {
+      std::swap(m_origin, m_extent);
+    }
   }
   
   bool operator== (const Selection & left, const Selection & right) {
