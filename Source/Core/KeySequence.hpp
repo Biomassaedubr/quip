@@ -2,6 +2,7 @@
 
 #include "Key.hpp"
 
+#include <string>
 #include <vector>
 
 namespace quip {
@@ -12,6 +13,7 @@ namespace quip {
     KeySequence ();
     KeySequence (Key key);
     KeySequence (std::initializer_list<Key> keys);
+    KeySequence (const char * expression);
     
     std::size_t count () const;
     
@@ -22,6 +24,6 @@ namespace quip {
     const Key * end () const;
     
   private:
-    std::vector<Key> m_keys;
+    std::vector<Key> m_keys;    
   };
 }

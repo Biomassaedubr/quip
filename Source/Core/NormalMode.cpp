@@ -21,8 +21,8 @@ namespace quip {
 
     addMapping(Key::A, &NormalMode::selectThisLine);
 
-    addMapping({Key::R, Key::F}, &NormalMode::rotateSelectionForward);
-    addMapping({Key::R, Key::B}, &NormalMode::rotateSelectionBackward);
+    addMapping("RF", &NormalMode::rotateSelectionForward);
+    addMapping("RB", &NormalMode::rotateSelectionBackward);
     addMapping(Key::Z, &NormalMode::collapseSelections);
 
     addMapping(Key::F, &NormalMode::enterJumpMode);

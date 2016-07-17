@@ -69,6 +69,18 @@ namespace quip {
     ArrowUp = 0x7e,
     ArrowDown = 0x7d,
     ArrowLeft = 0x7b,
-    ArrowRight = 0x7c
+    ArrowRight = 0x7c,
+    
+    // Masks used to indicate a modifier is held or released.
+    ModifierDownMask = 0x1000,
+    ModifierUpMask = 0x2000,
+    
+    // Masks used to indicate which modifier is held or released.
+    ShiftMask = 0x10000,
+    ControlMask = 0x20000,
+    OptionMask = 0x40000,
   };
+  
+  Key keyFromScanCode (int code);
+  Key keyFromCharacter (char character);
 }

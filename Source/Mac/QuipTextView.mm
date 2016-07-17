@@ -204,7 +204,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)keyDown:(NSEvent *)event {
-  quip::KeyStroke keyStroke(static_cast<quip::Key>(event.keyCode), std::string([[event characters] cStringUsingEncoding:NSUTF8StringEncoding]));
+  quip::KeyStroke keyStroke(quip::keyFromScanCode(event.keyCode), std::string([[event characters] cStringUsingEncoding:NSUTF8StringEncoding]));
   if (m_context->processKey(keyStroke)) {
     [self resetCursorBlink];
   }
