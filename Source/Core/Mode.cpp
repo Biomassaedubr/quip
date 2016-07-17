@@ -19,13 +19,18 @@ namespace quip {
   }
   
   bool Mode::processKey (const KeyStroke & keyStroke, EditContext & context) {
-    auto cursor = m_mappings.find(keyStroke.key());
-    if (cursor != std::end(m_mappings)) {
-      cursor->second(context);
-      return true;
+    m_sequence.append(keyStroke.key());
+    
+    const MapTrieNode * node = m_mappings.find(m_sequence);
+    if (node == nullptr) {
+      m_sequence.clear();
+      return onUnmappedKey(keyStroke, context);
+    } else if (node->handler() != nullptr) {
+      m_sequence.clear();
+      node->handler()(context);
     }
     
-    return onUnmappedKey(keyStroke, context);
+    return true;
   }
   
   void Mode::enter (EditContext & context) {

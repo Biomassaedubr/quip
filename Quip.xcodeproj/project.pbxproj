@@ -14,6 +14,13 @@
 		030AC7121C781B9F00219938 /* SelectionSetTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C88A1C781AFB00AF5475 /* SelectionSetTests.mm */; };
 		030AC7131C781B9F00219938 /* SelectionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C88B1C781AFB00AF5475 /* SelectionTests.mm */; };
 		030AC7161C781BD300219938 /* libQuip.Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D1C8241C78196400AF5475 /* libQuip.Core.a */; };
+		031FC0D01D3BE6CF00628179 /* KeySequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031FC0CE1D3BE6CF00628179 /* KeySequence.cpp */; };
+		031FC0D11D3BE6CF00628179 /* KeySequence.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 031FC0CF1D3BE6CF00628179 /* KeySequence.hpp */; };
+		031FC0D41D3BE9AD00628179 /* MapTrie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031FC0D21D3BE9AD00628179 /* MapTrie.cpp */; };
+		031FC0D51D3BE9AD00628179 /* MapTrie.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 031FC0D31D3BE9AD00628179 /* MapTrie.hpp */; };
+		031FC0D81D3BEA0700628179 /* MapTrieNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031FC0D61D3BEA0700628179 /* MapTrieNode.cpp */; };
+		031FC0D91D3BEA0700628179 /* MapTrieNode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 031FC0D71D3BEA0700628179 /* MapTrieNode.hpp */; };
+		031FC0DD1D3BFD4100628179 /* KeySequenceTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 031FC0DC1D3BFD4100628179 /* KeySequenceTests.mm */; };
 		033CA9721D011ED200ABD567 /* Transaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9701D011ED200ABD567 /* Transaction.cpp */; };
 		033CA9751D011FDA00ABD567 /* InsertTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9731D011FDA00ABD567 /* InsertTransaction.cpp */; };
 		033CA9791D01273400ABD567 /* EraseTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9771D01273400ABD567 /* EraseTransaction.cpp */; };
@@ -73,6 +80,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		031FC0CE1D3BE6CF00628179 /* KeySequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KeySequence.cpp; path = Source/Core/KeySequence.cpp; sourceTree = "<group>"; };
+		031FC0CF1D3BE6CF00628179 /* KeySequence.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = KeySequence.hpp; path = Source/Core/KeySequence.hpp; sourceTree = "<group>"; };
+		031FC0D21D3BE9AD00628179 /* MapTrie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MapTrie.cpp; path = Source/Core/MapTrie.cpp; sourceTree = "<group>"; };
+		031FC0D31D3BE9AD00628179 /* MapTrie.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MapTrie.hpp; path = Source/Core/MapTrie.hpp; sourceTree = "<group>"; };
+		031FC0D61D3BEA0700628179 /* MapTrieNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MapTrieNode.cpp; path = Source/Core/MapTrieNode.cpp; sourceTree = "<group>"; };
+		031FC0D71D3BEA0700628179 /* MapTrieNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MapTrieNode.hpp; path = Source/Core/MapTrieNode.hpp; sourceTree = "<group>"; };
+		031FC0DC1D3BFD4100628179 /* KeySequenceTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = KeySequenceTests.mm; path = Source/Tests/KeySequenceTests.mm; sourceTree = SOURCE_ROOT; };
 		033CA9701D011ED200ABD567 /* Transaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Transaction.cpp; path = Source/Core/Transaction.cpp; sourceTree = "<group>"; };
 		033CA9711D011ED200ABD567 /* Transaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Transaction.hpp; path = Source/Core/Transaction.hpp; sourceTree = "<group>"; };
 		033CA9731D011FDA00ABD567 /* InsertTransaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InsertTransaction.cpp; path = Source/Core/InsertTransaction.cpp; sourceTree = "<group>"; };
@@ -312,9 +326,10 @@
 			children = (
 				037DCDED1C8BA78B00643D44 /* CursorFlags.hpp */,
 				03D1C8381C78197200AF5475 /* CursorStyle.hpp */,
-				03D1C8391C78197200AF5475 /* Key.hpp */,
-				03D1C83A1C78197200AF5475 /* KeyStroke.hpp */,
-				03D1C83B1C78197200AF5475 /* KeyStroke.cpp */,
+				031FC0D31D3BE9AD00628179 /* MapTrie.hpp */,
+				031FC0D21D3BE9AD00628179 /* MapTrie.cpp */,
+				031FC0D71D3BEA0700628179 /* MapTrieNode.hpp */,
+				031FC0D61D3BEA0700628179 /* MapTrieNode.cpp */,
 				03D1C83C1C78197200AF5475 /* Mode.hpp */,
 				03D1C83D1C78197200AF5475 /* Mode.cpp */,
 				03D1C8441C78197200AF5475 /* Implementation */,
@@ -344,6 +359,11 @@
 		03D1C8501C78197200AF5475 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				03D1C8391C78197200AF5475 /* Key.hpp */,
+				03D1C83A1C78197200AF5475 /* KeyStroke.hpp */,
+				03D1C83B1C78197200AF5475 /* KeyStroke.cpp */,
+				031FC0CF1D3BE6CF00628179 /* KeySequence.hpp */,
+				031FC0CE1D3BE6CF00628179 /* KeySequence.cpp */,
 				03D1C84F1C78197200AF5475 /* ViewController.hpp */,
 			);
 			name = UI;
@@ -380,6 +400,7 @@
 				03D1C8871C781AFB00AF5475 /* Info.plist */,
 				03D1C8851C781AFB00AF5475 /* DocumentIteratorTests.mm */,
 				03D1C8861C781AFB00AF5475 /* DocumentTests.mm */,
+				031FC0DC1D3BFD4100628179 /* KeySequenceTests.mm */,
 				03D1C8881C781AFB00AF5475 /* LocationTests.mm */,
 				03D1C8891C781AFB00AF5475 /* SearchExpressionTests.mm */,
 				03D1C88A1C781AFB00AF5475 /* SelectionSetTests.mm */,
@@ -400,7 +421,10 @@
 				037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */,
 				039037181D09065500CC932C /* UnknownGrammar.hpp in Headers */,
 				0390371C1D090D9400CC932C /* MarkdownGrammar.hpp in Headers */,
+				031FC0D51D3BE9AD00628179 /* MapTrie.hpp in Headers */,
+				031FC0D91D3BEA0700628179 /* MapTrieNode.hpp in Headers */,
 				03E10D971D0C7CF200DFC8D0 /* JumpMode.hpp in Headers */,
+				031FC0D11D3BE6CF00628179 /* KeySequence.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,6 +568,7 @@
 			files = (
 				03D1C86B1C7819F400AF5475 /* Syntax.cpp in Sources */,
 				03D1C8681C7819ED00AF5475 /* DocumentIterator.cpp in Sources */,
+				031FC0D01D3BE6CF00628179 /* KeySequence.cpp in Sources */,
 				03D1C8671C7819ED00AF5475 /* Document.cpp in Sources */,
 				0390371B1D090D9400CC932C /* MarkdownGrammar.cpp in Sources */,
 				03D1C8691C7819ED00AF5475 /* Location.cpp in Sources */,
@@ -555,6 +580,7 @@
 				037DCDEB1C8B6F7100643D44 /* SelectionDrawInfo.cpp in Sources */,
 				03D1C8751C781A1000AF5475 /* Color.cpp in Sources */,
 				03D1C86D1C7819FB00AF5475 /* Mode.cpp in Sources */,
+				031FC0D41D3BE9AD00628179 /* MapTrie.cpp in Sources */,
 				03D1C8711C781A0900AF5475 /* SearchExpression.cpp in Sources */,
 				03E10D961D0C7CF200DFC8D0 /* JumpMode.cpp in Sources */,
 				03D1C86E1C781A0100AF5475 /* EditMode.cpp in Sources */,
@@ -562,6 +588,7 @@
 				03D1C8701C781A0100AF5475 /* SearchMode.cpp in Sources */,
 				039037171D09065500CC932C /* UnknownGrammar.cpp in Sources */,
 				03D1C86F1C781A0100AF5475 /* NormalMode.cpp in Sources */,
+				031FC0D81D3BEA0700628179 /* MapTrieNode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,6 +598,7 @@
 			files = (
 				030AC70F1C781B9F00219938 /* DocumentTests.mm in Sources */,
 				030AC7111C781B9F00219938 /* SearchExpressionTests.mm in Sources */,
+				031FC0DD1D3BFD4100628179 /* KeySequenceTests.mm in Sources */,
 				030AC7101C781B9F00219938 /* LocationTests.mm in Sources */,
 				030AC7121C781B9F00219938 /* SelectionSetTests.mm in Sources */,
 				030AC7131C781B9F00219938 /* SelectionTests.mm in Sources */,

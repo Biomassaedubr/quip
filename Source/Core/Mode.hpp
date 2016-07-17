@@ -3,7 +3,9 @@
 #include "CursorFlags.hpp"
 #include "CursorStyle.hpp"
 #include "Key.hpp"
+#include "KeySequence.hpp"
 #include "KeyStroke.hpp"
+#include "MapTrie.hpp"
 
 #include <functional>
 #include <map>
@@ -11,9 +13,8 @@
 namespace quip {
   struct EditContext;
   
+  // An operational state.
   struct Mode {
-    typedef std::function<void (EditContext &)> MapCallback;
-    
     virtual ~Mode ();
     
     virtual CursorStyle cursorStyle () const;
@@ -29,8 +30,13 @@ namespace quip {
   protected:
     template<typename ModeType>
     void addMapping (Key key, void (ModeType::* callback)(EditContext &)) {
-      MapCallback bound = std::bind(callback, static_cast<ModeType *>(this), std::placeholders::_1);
-      m_mappings.insert(std::make_pair(key, bound));
+      addMapping(KeySequence(key), callback);
+    }
+    
+    template<typename ModeType>
+    void addMapping (KeySequence sequence, void (ModeType::* callback)(EditContext &)) {
+      MapHandler bound = std::bind(callback, static_cast<ModeType *>(this), std::placeholders::_1);
+      m_mappings.insert(sequence, bound);
     }
     
     virtual void onEnter (EditContext & context);
@@ -39,6 +45,7 @@ namespace quip {
     virtual bool onUnmappedKey (const KeyStroke & keyStroke, EditContext & context);
     
   private:
-    std::map<Key, MapCallback> m_mappings;
+    KeySequence m_sequence;
+    MapTrie m_mappings;
   };
 }
