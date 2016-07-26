@@ -91,6 +91,30 @@ using namespace quip;
   }
 }
 
+- (void)testConstructWithExpressionForBackSlash {
+  KeySequence sequence("/");
+  XCTAssertEqual(sequence.count(), 1);
+  
+  Key expected[] = { Key::BackSlash };
+  Key * cursor = expected;
+  for (const Key & key : sequence) {
+    XCTAssertEqual(key, *cursor);
+    ++cursor;
+  }
+}
+
+- (void)testConstructWithExpressionForForwardSlash {
+  KeySequence sequence("\\");
+  XCTAssertEqual(sequence.count(), 1);
+  
+  Key expected[] = { Key::ForwardSlash };
+  Key * cursor = expected;
+  for (const Key & key : sequence) {
+    XCTAssertEqual(key, *cursor);
+    ++cursor;
+  }
+}
+
 - (void)testAppend {
   KeySequence sequence(Key::A);
   XCTAssertEqual(sequence.count(), 1);

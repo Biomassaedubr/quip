@@ -61,6 +61,10 @@ namespace quip {
         return Key::Y;
       case 'Z':
         return Key::Z;
+      case '/':
+        return Key::BackSlash;
+      case '\\':
+        return Key::ForwardSlash;
       default:
         return Key::Escape;
     }

@@ -27,7 +27,7 @@ namespace quip {
 
     addMapping(Key::F, &NormalMode::enterJumpMode);
     addMapping(Key::I, &NormalMode::enterEditMode);
-    addMapping(Key::S, &NormalMode::enterSearchMode);
+    addMapping("/", &NormalMode::enterSearchMode);
 
     addMapping(Key::X, &NormalMode::deleteSelections);
     addMapping(Key::C, &NormalMode::changeSelections);
