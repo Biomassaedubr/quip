@@ -6,5 +6,6 @@
 namespace quip {
   struct ViewController {
     Signal<void(Location)> scrollToLocation;
+    Signal<void(Location)> scrollLocationIntoView;
   };
 }

@@ -16,6 +16,8 @@
 
 - (void)setActBackgrounded:(BOOL)shouldActBackgrounded;
 
+- (void)scrollLocationIntoView:(quip::Location)location;
+
 - (QuipPopupView *)createPopupAtLocation:(NSString *)text atLocation:(quip::Location)location;
 
 @end

@@ -54,6 +54,7 @@ namespace quip {
     
     Selection result(target, target);
     context.selections().replace(result);
+    context.controller().scrollLocationIntoView.transmit(context.selections().primary().origin());
   }
   
   void NormalMode::selectBelowPrimaryExtent (EditContext & context) {
@@ -79,6 +80,7 @@ namespace quip {
     Selection result(target, target);
     
     context.selections().replace(result);
+    context.controller().scrollLocationIntoView.transmit(context.selections().primary().origin());
   }
 
   void NormalMode::selectAfterPrimaryExtent (EditContext & context) {
@@ -96,6 +98,7 @@ namespace quip {
 
     Selection result(target, target);
     context.selections().replace(result);
+    context.controller().scrollLocationIntoView.transmit(context.selections().primary().origin());
   }
   
   void NormalMode::selectAbovePrimaryOrigin (EditContext & context) {
@@ -121,6 +124,7 @@ namespace quip {
     Selection result(target, target);
     
     context.selections().replace(result);
+    context.controller().scrollLocationIntoView.transmit(context.selections().primary().origin());
   }
   
   void NormalMode::selectThisWord (EditContext & context) {

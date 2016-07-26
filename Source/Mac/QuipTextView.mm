@@ -284,6 +284,10 @@ static CGFloat gCursorBlinkInterval = 0.57;
     [self scrollToLocation:location];
   });
   
+  m_context->controller().scrollLocationIntoView.connect([=] (quip::Location location) {
+    [self scrollLocationIntoView:location];
+  });
+  
   [self setNeedsDisplay:YES];
 }
 
@@ -295,6 +299,13 @@ static CGFloat gCursorBlinkInterval = 0.57;
 - (void)setActBackgrounded:(BOOL)shouldActBackgrounded {
   m_shouldDrawSelections = !shouldActBackgrounded;
   [self resetCursorBlink];
+}
+
+- (void)scrollLocationIntoView:(quip::Location)location {
+  CGFloat x = location.column() * m_cellSize.width;
+  CGFloat y = self.frame.size.height - (m_cellSize.height * (location.row() + 1));
+  CGRect target = CGRectMake(x, y, m_cellSize.width, m_cellSize.height);  
+  [self scrollRectToVisible:target];
 }
 
 - (QuipPopupView *)createPopupAtLocation:(NSString *)text atLocation:(quip::Location)location {
