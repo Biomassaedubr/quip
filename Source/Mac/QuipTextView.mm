@@ -300,7 +300,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   CGFloat x = location.column() * m_cellSize.width;
   CGFloat y = self.frame.size.height - (m_cellSize.height * (location.row() + 2));
   
-  QuipPopupView * popup = [[QuipPopupView alloc] initWithFrame:CGRectMake(x, y, width, height)];
+  QuipPopupView * popup = [[QuipPopupView alloc] initWithFrame:CGRectMake(x, y - 2.0, width, height)];
   [popup setContent:text];
   [popup setDuration:0.5];
   

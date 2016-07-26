@@ -28,7 +28,7 @@
 - (void)drawRect:(NSRect)dirtyRect {
   CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
 
-  CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.5);
+  CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.2);
   CGContextFillRect(context, dirtyRect);
   
   CFStringRef text = (__bridge CFStringRef)[self content];
@@ -40,7 +40,7 @@
   CFAttributedStringEndEditing(attributed);
   
   CTLineRef line = CTLineCreateWithAttributedString(attributed);
-  CGContextSetTextPosition(context, 0.0f, 0.0f);
+  CGContextSetTextPosition(context, 0.0f, 5.0f);
   CTLineDraw(line, context);
   
   CFRelease(line);
