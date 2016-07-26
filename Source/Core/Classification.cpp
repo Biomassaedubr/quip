@@ -80,6 +80,10 @@ namespace quip {
   }
   
   Selection classifyLine (const Document & document, const Location & location, ClassificationFlags flags) {
+    if (document.isEmpty()) {
+      return Selection(Location(0, 0));
+    }
+    
     if (flags & ClassificationFlags::Next) {
       std::size_t row = location.row() + 1 < document.rows() ? location.row() + 1 : document.rows() - 1;
       Location origin(0, row);
