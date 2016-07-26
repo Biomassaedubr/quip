@@ -423,9 +423,10 @@ static CGFloat gCursorBlinkInterval = 0.57;
     y -= m_cellSize.height;
   }
   
-  m_context->statusService().setStatus(m_context->mode().status().c_str());  
-  [m_statusView setLineCount:m_context->document().rows()];
-  [m_statusView setFileType:"?"];
+  quip::StatusService & status = m_context->statusService();
+  status.setStatus(m_context->mode().status().c_str());
+  status.setFileType("?");
+  status.setLineCount(m_context->document().rows());
 }
 
 @end

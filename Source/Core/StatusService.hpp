@@ -8,5 +8,7 @@ namespace quip {
     ~StatusService ();
     
     virtual void setStatus (const std::string & text) = 0;
+    virtual void setFileType (const std::string & fileType) = 0;
+    virtual void setLineCount (const std::size_t count) = 0;
   };
 }
