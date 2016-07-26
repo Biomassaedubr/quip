@@ -220,6 +220,16 @@ using namespace quip;
   XCTAssertEqual(result.primary().origin(), Location(2, 2));
 }
 
+- (void)testEraseFromEmptyDocument {
+  Document document;
+  Selection selection(Location(0, 0));
+  SelectionSet result = document.erase(selection);
+  
+  XCTAssertEqual(document.rows(), 0);
+  XCTAssertEqual(result.count(), 1);
+  XCTAssertEqual(result.primary().origin(), Location(0, 0));
+}
+
 - (void)testEraseEmptySelections {
   Document document("ABCD\n");
   SelectionSet empty;

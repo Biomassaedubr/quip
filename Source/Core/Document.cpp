@@ -218,7 +218,7 @@ namespace quip {
   }
   
   SelectionSet Document::erase (const SelectionSet & selections) {
-    if (selections.count() == 0) {
+    if (m_rows.size() == 0 || selections.count() == 0) {
       return selections;
     }
     
