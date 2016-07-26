@@ -1,5 +1,6 @@
 #import "QuipTextView.h"
 
+#import "QuipPopupView.h"
 #import "QuipStatusView.h"
 
 #include "AttributeRange.hpp"
@@ -8,6 +9,7 @@
 #include "Key.hpp"
 #include "KeyStroke.hpp"
 #include "Mode.hpp"
+#include "PopupServiceProvider.hpp"
 #include "Selection.hpp"
 #include "Syntax.hpp"
 
@@ -52,6 +54,7 @@ namespace {
   BOOL m_shouldDrawCursor;
   BOOL m_shouldDrawSelections;
   
+  std::unique_ptr<quip::PopupServiceProvider> m_popupServiceProvider;
   std::shared_ptr<quip::EditContext> m_context;
   
   QuipStatusView * m_statusView;
@@ -70,6 +73,8 @@ static CGFloat gCursorBlinkInterval = 0.57;
 - (instancetype)initWithFrame:(NSRect)frame {
   self = [super initWithFrame:frame];
   if (self != nil) {
+    m_popupServiceProvider = std::make_unique<quip::PopupServiceProvider>(self);
+    
     m_font = CTFontCreateWithName(CFSTR("Menlo"), 13.0, nil);
     
     NSDictionary * attributes = @{NSFontAttributeName: [NSFont fontWithName:@"Menlo" size:13.0f]};
@@ -125,6 +130,8 @@ static CGFloat gCursorBlinkInterval = 0.57;
   
   CFRelease(m_fontAttributes);
   CFRelease(m_font);
+  
+  m_popupServiceProvider.reset();
 }
 
 - (void)setFrame:(NSRect)frame {
@@ -158,6 +165,8 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)tick:(NSTimer *)timer {
+  m_popupServiceProvider->tick(gTickInterval);
+  
   m_cursorTimer -= gTickInterval;
   if (m_cursorTimer <= 0.0) {
     m_cursorTimer = gCursorBlinkInterval;
@@ -261,7 +270,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)setDocument:(std::shared_ptr<quip::Document>)document {
-  m_context = std::make_shared<quip::EditContext>(document);
+  m_context = std::make_shared<quip::EditContext>(m_popupServiceProvider.get(), document);
 
   CGRect frame = [self frame];
   CGRect parent = [[self superview] frame];
@@ -283,6 +292,19 @@ static CGFloat gCursorBlinkInterval = 0.57;
 - (void)setActBackgrounded:(BOOL)shouldActBackgrounded {
   m_shouldDrawSelections = !shouldActBackgrounded;
   [self resetCursorBlink];
+}
+
+- (void)createPopupAtLocation:(NSString *)text atLocation:(quip::Location)location {
+  CGFloat width = m_cellSize.width * [text length];
+  CGFloat height = m_cellSize.height;
+  CGFloat x = location.column() * m_cellSize.width;
+  CGFloat y = self.frame.size.height - (m_cellSize.height * (location.row() + 2));
+  
+  QuipPopupView * popup = [[QuipPopupView alloc] initWithFrame:CGRectMake(x, y, width, height)];
+  [popup setContent:text];
+  [popup setDuration:0.5];
+  
+  [self addSubview:popup];
 }
 
 - (void)scrollToLocation:(quip::Location)location {

@@ -27,6 +27,10 @@
 		033CA9791D01273400ABD567 /* EraseTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9771D01273400ABD567 /* EraseTransaction.cpp */; };
 		037DCDEB1C8B6F7100643D44 /* SelectionDrawInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */; };
 		037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 037DCDEA1C8B6F7100643D44 /* SelectionDrawInfo.hpp */; };
+		038806C31D470D25001E56F1 /* QuipPopupView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038806C21D470D25001E56F1 /* QuipPopupView.mm */; };
+		038806C71D470E5C001E56F1 /* PopupService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038806C51D470E5C001E56F1 /* PopupService.cpp */; };
+		038806C81D470E5C001E56F1 /* PopupService.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 038806C61D470E5C001E56F1 /* PopupService.hpp */; };
+		038806CF1D4714BE001E56F1 /* PopupServiceProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038806CE1D4714BE001E56F1 /* PopupServiceProvider.mm */; };
 		038ECDDB1C698FE2002E571D /* ApplicationDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDCE1C698FE2002E571D /* ApplicationDelegate.mm */; };
 		038ECDDD1C698FE2002E571D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDD01C698FE2002E571D /* main.m */; };
 		038ECDDE1C698FE2002E571D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDD11C698FE2002E571D /* MainMenu.xib */; };
@@ -98,6 +102,12 @@
 		037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionDrawInfo.cpp; path = Source/Core/SelectionDrawInfo.cpp; sourceTree = "<group>"; };
 		037DCDEA1C8B6F7100643D44 /* SelectionDrawInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionDrawInfo.hpp; path = Source/Core/SelectionDrawInfo.hpp; sourceTree = "<group>"; };
 		037DCDED1C8BA78B00643D44 /* CursorFlags.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CursorFlags.hpp; path = Source/Core/CursorFlags.hpp; sourceTree = "<group>"; };
+		038806C11D470D25001E56F1 /* QuipPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipPopupView.h; path = Source/Mac/QuipPopupView.h; sourceTree = "<group>"; };
+		038806C21D470D25001E56F1 /* QuipPopupView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipPopupView.mm; path = Source/Mac/QuipPopupView.mm; sourceTree = "<group>"; };
+		038806C51D470E5C001E56F1 /* PopupService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PopupService.cpp; path = Source/Core/PopupService.cpp; sourceTree = "<group>"; };
+		038806C61D470E5C001E56F1 /* PopupService.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PopupService.hpp; path = Source/Core/PopupService.hpp; sourceTree = "<group>"; };
+		038806CE1D4714BE001E56F1 /* PopupServiceProvider.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PopupServiceProvider.mm; path = Source/Mac/PopupServiceProvider.mm; sourceTree = "<group>"; };
+		038806D01D4714DC001E56F1 /* PopupServiceProvider.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = PopupServiceProvider.hpp; path = Source/Mac/PopupServiceProvider.hpp; sourceTree = "<group>"; };
 		038ECDCD1C698FE2002E571D /* ApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplicationDelegate.h; path = Source/Mac/ApplicationDelegate.h; sourceTree = "<group>"; };
 		038ECDCE1C698FE2002E571D /* ApplicationDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ApplicationDelegate.mm; path = Source/Mac/ApplicationDelegate.mm; sourceTree = "<group>"; };
 		038ECDCF1C698FE2002E571D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Mac/Info.plist; sourceTree = "<group>"; };
@@ -230,22 +240,43 @@
 			name = Grammar;
 			sourceTree = "<group>";
 		};
+		038806C41D470E32001E56F1 /* Popups */ = {
+			isa = PBXGroup;
+			children = (
+				038806C61D470E5C001E56F1 /* PopupService.hpp */,
+				038806C51D470E5C001E56F1 /* PopupService.cpp */,
+			);
+			name = Popups;
+			sourceTree = "<group>";
+		};
+		038806CD1D47149F001E56F1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				038806D01D4714DC001E56F1 /* PopupServiceProvider.hpp */,
+				038806CE1D4714BE001E56F1 /* PopupServiceProvider.mm */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		038ECDE51C698FF0002E571D /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				038806CD1D47149F001E56F1 /* Services */,
 				038ECDD01C698FE2002E571D /* main.m */,
-				038ECDD41C698FE2002E571D /* QuipStatusView.h */,
-				038ECDD51C698FE2002E571D /* QuipStatusView.mm */,
-				038ECDD61C698FE2002E571D /* QuipTextView.h */,
-				038ECDD71C698FE2002E571D /* QuipTextView.mm */,
-				038ECDD81C698FE2002E571D /* QuipWindowController.h */,
-				038ECDD91C698FE2002E571D /* QuipWindowController.mm */,
 				038ECDCD1C698FE2002E571D /* ApplicationDelegate.h */,
 				038ECDCE1C698FE2002E571D /* ApplicationDelegate.mm */,
 				038ECDD21C698FE2002E571D /* QuipDocument.h */,
 				038ECDD31C698FE2002E571D /* QuipDocument.mm */,
 				03DC0F0D1C96674A0082EC8C /* QuipDocumentController.h */,
 				03DC0F0E1C96674A0082EC8C /* QuipDocumentController.mm */,
+				038806C11D470D25001E56F1 /* QuipPopupView.h */,
+				038806C21D470D25001E56F1 /* QuipPopupView.mm */,
+				038ECDD41C698FE2002E571D /* QuipStatusView.h */,
+				038ECDD51C698FE2002E571D /* QuipStatusView.mm */,
+				038ECDD61C698FE2002E571D /* QuipTextView.h */,
+				038ECDD71C698FE2002E571D /* QuipTextView.mm */,
+				038ECDD81C698FE2002E571D /* QuipWindowController.h */,
+				038ECDD91C698FE2002E571D /* QuipWindowController.mm */,
 				038ECDD11C698FE2002E571D /* MainMenu.xib */,
 				038ECDDA1C698FE2002E571D /* QuipWindowController.xib */,
 				038ECDE61C699039002E571D /* Images.xcassets */,
@@ -389,6 +420,7 @@
 				03D1C8321C78197200AF5475 /* Documents */,
 				03D1C8371C78197200AF5475 /* Highlighting */,
 				03D1C8451C78197200AF5475 /* Mode */,
+				038806C41D470E32001E56F1 /* Popups */,
 				03D1C84E1C78197200AF5475 /* Selections */,
 				033CA96F1D011EB500ABD567 /* Transaction */,
 				03D1C8501C78197200AF5475 /* UI */,
@@ -422,6 +454,7 @@
 			files = (
 				03E7B5011C9A596700BA1F82 /* Classification.hpp in Headers */,
 				037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */,
+				038806C81D470E5C001E56F1 /* PopupService.hpp in Headers */,
 				039037181D09065500CC932C /* UnknownGrammar.hpp in Headers */,
 				0390371C1D090D9400CC932C /* MarkdownGrammar.hpp in Headers */,
 				031FC0D51D3BE9AD00628179 /* MapTrie.hpp in Headers */,
@@ -553,6 +586,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				038ECDE21C698FE2002E571D /* QuipWindowController.mm in Sources */,
+				038806CF1D4714BE001E56F1 /* PopupServiceProvider.mm in Sources */,
 				038ECDDD1C698FE2002E571D /* main.m in Sources */,
 				038ECDDF1C698FE2002E571D /* QuipDocument.mm in Sources */,
 				033CA9791D01273400ABD567 /* EraseTransaction.cpp in Sources */,
@@ -561,6 +595,7 @@
 				03DC0F0F1C96674A0082EC8C /* QuipDocumentController.mm in Sources */,
 				033CA9721D011ED200ABD567 /* Transaction.cpp in Sources */,
 				038ECDE01C698FE2002E571D /* QuipStatusView.mm in Sources */,
+				038806C31D470D25001E56F1 /* QuipPopupView.mm in Sources */,
 				033CA9751D011FDA00ABD567 /* InsertTransaction.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -576,6 +611,7 @@
 				0390371B1D090D9400CC932C /* MarkdownGrammar.cpp in Sources */,
 				03D1C8691C7819ED00AF5475 /* Location.cpp in Sources */,
 				03D1C8721C781A0900AF5475 /* Selection.cpp in Sources */,
+				038806C71D470E5C001E56F1 /* PopupService.cpp in Sources */,
 				03D1C86C1C7819FB00AF5475 /* KeyStroke.cpp in Sources */,
 				03D1C86A1C7819F400AF5475 /* AttributeRange.cpp in Sources */,
 				031FC0E11D3C0F1F00628179 /* Key.cpp in Sources */,

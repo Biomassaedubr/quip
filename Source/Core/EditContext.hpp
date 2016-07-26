@@ -2,6 +2,7 @@
 
 #include "Key.hpp"
 #include "KeyStroke.hpp"
+#include "PopupService.hpp"
 #include "SelectionDrawInfo.hpp"
 #include "SelectionSet.hpp"
 #include "ViewController.hpp"
@@ -17,8 +18,8 @@ namespace quip {
   struct Transaction;
   
   struct EditContext {
-    EditContext ();
-    EditContext (std::shared_ptr<Document> document);
+    EditContext (PopupService * popupService);
+    EditContext (PopupService * popupService, std::shared_ptr<Document> document);
     
     Document & document ();
     SelectionSet & selections ();
@@ -41,6 +42,7 @@ namespace quip {
     bool processKey (const KeyStroke & keyStroke);
     
     ViewController & controller ();
+    PopupService & popupService ();
     
   private:
     std::shared_ptr<Document> m_document;
@@ -55,5 +57,6 @@ namespace quip {
     std::stack<std::shared_ptr<Transaction>> m_redoStack;
     
     ViewController m_controller;
+    PopupService * m_popupService;
   };
 }

@@ -48,6 +48,7 @@ namespace quip {
   }
   
   bool Mode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
+    context.popupService().createPopupAtLocation(context.selections().primary().origin(), "No mapping.");
     return false;
   }
 }

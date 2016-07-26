@@ -4,6 +4,7 @@
 
 #include <memory>
 
+@class QuipPopupView;
 @class QuipStatusView;
 
 @interface QuipTextView : NSView
@@ -14,5 +15,7 @@
 - (void)setStatus:(QuipStatusView *)status;
 
 - (void)setActBackgrounded:(BOOL)shouldActBackgrounded;
+
+- (void)createPopupAtLocation:(NSString *)text atLocation:(quip::Location)location;
 
 @end

@@ -13,13 +13,14 @@
 #include <memory>
 
 namespace quip {
-  EditContext::EditContext ()
-  : EditContext(std::make_shared<Document>()) {
+  EditContext::EditContext (PopupService * popupService)
+  : EditContext(popupService, std::make_shared<Document>()) {
   }
   
-  EditContext::EditContext (std::shared_ptr<Document> document)
+  EditContext::EditContext (PopupService * popupService, std::shared_ptr<Document> document)
   : m_document(document)
-  , m_selections(Selection(Location(0, 0))) {
+  , m_selections(Selection(Location(0, 0)))
+  , m_popupService(popupService) {
     
     // Populate with standard modes.
     m_modes.insert(std::make_pair("EditMode", std::make_shared<EditMode>()));
@@ -109,5 +110,9 @@ namespace quip {
   
   ViewController & EditContext::controller () {
     return m_controller;
+  }
+  
+  PopupService & EditContext::popupService () {
+    return *m_popupService;
   }
 }
