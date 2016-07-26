@@ -27,6 +27,9 @@
 		033CA9791D01273400ABD567 /* EraseTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9771D01273400ABD567 /* EraseTransaction.cpp */; };
 		037DCDEB1C8B6F7100643D44 /* SelectionDrawInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */; };
 		037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 037DCDEA1C8B6F7100643D44 /* SelectionDrawInfo.hpp */; };
+		037F306F1D47A6D5009F6EE2 /* StatusService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 037F306D1D47A6D5009F6EE2 /* StatusService.cpp */; };
+		037F30701D47A6D5009F6EE2 /* StatusService.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 037F306E1D47A6D5009F6EE2 /* StatusService.hpp */; };
+		037F30731D47A734009F6EE2 /* StatusServiceProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 037F30721D47A734009F6EE2 /* StatusServiceProvider.mm */; };
 		038806C31D470D25001E56F1 /* QuipPopupView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038806C21D470D25001E56F1 /* QuipPopupView.mm */; };
 		038806C71D470E5C001E56F1 /* PopupService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038806C51D470E5C001E56F1 /* PopupService.cpp */; };
 		038806C81D470E5C001E56F1 /* PopupService.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 038806C61D470E5C001E56F1 /* PopupService.hpp */; };
@@ -102,6 +105,10 @@
 		037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionDrawInfo.cpp; path = Source/Core/SelectionDrawInfo.cpp; sourceTree = "<group>"; };
 		037DCDEA1C8B6F7100643D44 /* SelectionDrawInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionDrawInfo.hpp; path = Source/Core/SelectionDrawInfo.hpp; sourceTree = "<group>"; };
 		037DCDED1C8BA78B00643D44 /* CursorFlags.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CursorFlags.hpp; path = Source/Core/CursorFlags.hpp; sourceTree = "<group>"; };
+		037F306D1D47A6D5009F6EE2 /* StatusService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StatusService.cpp; path = Source/Core/StatusService.cpp; sourceTree = "<group>"; };
+		037F306E1D47A6D5009F6EE2 /* StatusService.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StatusService.hpp; path = Source/Core/StatusService.hpp; sourceTree = "<group>"; };
+		037F30711D47A734009F6EE2 /* StatusServiceProvider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StatusServiceProvider.hpp; path = Source/Mac/StatusServiceProvider.hpp; sourceTree = "<group>"; };
+		037F30721D47A734009F6EE2 /* StatusServiceProvider.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = StatusServiceProvider.mm; path = Source/Mac/StatusServiceProvider.mm; sourceTree = "<group>"; };
 		038806C11D470D25001E56F1 /* QuipPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipPopupView.h; path = Source/Mac/QuipPopupView.h; sourceTree = "<group>"; };
 		038806C21D470D25001E56F1 /* QuipPopupView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipPopupView.mm; path = Source/Mac/QuipPopupView.mm; sourceTree = "<group>"; };
 		038806C51D470E5C001E56F1 /* PopupService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PopupService.cpp; path = Source/Core/PopupService.cpp; sourceTree = "<group>"; };
@@ -240,6 +247,24 @@
 			name = Grammar;
 			sourceTree = "<group>";
 		};
+		037F306B1D47A6AF009F6EE2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				037F306C1D47A6BF009F6EE2 /* Status */,
+				038806C41D470E32001E56F1 /* Popups */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		037F306C1D47A6BF009F6EE2 /* Status */ = {
+			isa = PBXGroup;
+			children = (
+				037F306E1D47A6D5009F6EE2 /* StatusService.hpp */,
+				037F306D1D47A6D5009F6EE2 /* StatusService.cpp */,
+			);
+			name = Status;
+			sourceTree = "<group>";
+		};
 		038806C41D470E32001E56F1 /* Popups */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +279,8 @@
 			children = (
 				038806D01D4714DC001E56F1 /* PopupServiceProvider.hpp */,
 				038806CE1D4714BE001E56F1 /* PopupServiceProvider.mm */,
+				037F30711D47A734009F6EE2 /* StatusServiceProvider.hpp */,
+				037F30721D47A734009F6EE2 /* StatusServiceProvider.mm */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -420,8 +447,8 @@
 				03D1C8321C78197200AF5475 /* Documents */,
 				03D1C8371C78197200AF5475 /* Highlighting */,
 				03D1C8451C78197200AF5475 /* Mode */,
-				038806C41D470E32001E56F1 /* Popups */,
 				03D1C84E1C78197200AF5475 /* Selections */,
+				037F306B1D47A6AF009F6EE2 /* Services */,
 				033CA96F1D011EB500ABD567 /* Transaction */,
 				03D1C8501C78197200AF5475 /* UI */,
 				03D1C8541C78197200AF5475 /* Utility */,
@@ -456,6 +483,7 @@
 				037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */,
 				038806C81D470E5C001E56F1 /* PopupService.hpp in Headers */,
 				039037181D09065500CC932C /* UnknownGrammar.hpp in Headers */,
+				037F30701D47A6D5009F6EE2 /* StatusService.hpp in Headers */,
 				0390371C1D090D9400CC932C /* MarkdownGrammar.hpp in Headers */,
 				031FC0D51D3BE9AD00628179 /* MapTrie.hpp in Headers */,
 				031FC0D91D3BEA0700628179 /* MapTrieNode.hpp in Headers */,
@@ -593,6 +621,7 @@
 				038ECDE11C698FE2002E571D /* QuipTextView.mm in Sources */,
 				038ECDDB1C698FE2002E571D /* ApplicationDelegate.mm in Sources */,
 				03DC0F0F1C96674A0082EC8C /* QuipDocumentController.mm in Sources */,
+				037F30731D47A734009F6EE2 /* StatusServiceProvider.mm in Sources */,
 				033CA9721D011ED200ABD567 /* Transaction.cpp in Sources */,
 				038ECDE01C698FE2002E571D /* QuipStatusView.mm in Sources */,
 				038806C31D470D25001E56F1 /* QuipPopupView.mm in Sources */,
@@ -627,6 +656,7 @@
 				03D1C8661C7819E600AF5475 /* EditContext.cpp in Sources */,
 				03D1C8701C781A0100AF5475 /* SearchMode.cpp in Sources */,
 				039037171D09065500CC932C /* UnknownGrammar.cpp in Sources */,
+				037F306F1D47A6D5009F6EE2 /* StatusService.cpp in Sources */,
 				03D1C86F1C781A0100AF5475 /* NormalMode.cpp in Sources */,
 				031FC0D81D3BEA0700628179 /* MapTrieNode.cpp in Sources */,
 			);

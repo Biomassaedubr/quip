@@ -15,8 +15,8 @@
   [[self scrollView] setBackgroundColor:[NSColor colorWithWhite:1.0 alpha:1.0]];
   
   QuipDocument * document = [self document];
-  [[self textView] setDocument:[document document]];
   [[self textView] setStatus:[self statusView]];
+  [[self textView] setDocument:[document document]];
 
   // Ensure the clip view is scrolled to the top of the document.
   [[[self scrollView] contentView] scrollToPoint:CGPointMake(0.0, NSMaxY([[self textView] frame]) - NSHeight([[[self scrollView] contentView] bounds]))];

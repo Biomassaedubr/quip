@@ -5,6 +5,7 @@
 #include "PopupService.hpp"
 #include "SelectionDrawInfo.hpp"
 #include "SelectionSet.hpp"
+#include "StatusService.hpp"
 #include "ViewController.hpp"
 
 #include <map>
@@ -18,8 +19,8 @@ namespace quip {
   struct Transaction;
   
   struct EditContext {
-    EditContext (PopupService * popupService);
-    EditContext (PopupService * popupService, std::shared_ptr<Document> document);
+    EditContext (PopupService * popupService, StatusService * statusService);
+    EditContext (PopupService * popupService, StatusService * statusService, std::shared_ptr<Document> document);
     
     Document & document ();
     SelectionSet & selections ();
@@ -43,6 +44,7 @@ namespace quip {
     
     ViewController & controller ();
     PopupService & popupService ();
+    StatusService & statusService ();
     
   private:
     std::shared_ptr<Document> m_document;
@@ -58,5 +60,6 @@ namespace quip {
     
     ViewController m_controller;
     PopupService * m_popupService;
+    StatusService * m_statusService;
   };
 }

@@ -11,6 +11,7 @@
 #include "Mode.hpp"
 #include "PopupServiceProvider.hpp"
 #include "Selection.hpp"
+#include "StatusServiceProvider.hpp"
 #include "Syntax.hpp"
 
 #include <cmath>
@@ -55,6 +56,7 @@ namespace {
   BOOL m_shouldDrawSelections;
   
   std::unique_ptr<quip::PopupServiceProvider> m_popupServiceProvider;
+  std::unique_ptr<quip::StatusServiceProvider> m_statusServiceProvider;
   std::shared_ptr<quip::EditContext> m_context;
   
   QuipStatusView * m_statusView;
@@ -270,7 +272,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)setDocument:(std::shared_ptr<quip::Document>)document {
-  m_context = std::make_shared<quip::EditContext>(m_popupServiceProvider.get(), document);
+  m_context = std::make_shared<quip::EditContext>(m_popupServiceProvider.get(), m_statusServiceProvider.get(), document);
 
   CGRect frame = [self frame];
   CGRect parent = [[self superview] frame];
@@ -287,6 +289,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
 
 - (void)setStatus:(QuipStatusView *)status {
   m_statusView = status;
+  m_statusServiceProvider = std::make_unique<quip::StatusServiceProvider>(status);
 }
 
 - (void)setActBackgrounded:(BOOL)shouldActBackgrounded {
@@ -420,7 +423,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
     y -= m_cellSize.height;
   }
   
-  [m_statusView setStatus:m_context->mode().status().c_str()];
+  m_context->statusService().setStatus(m_context->mode().status().c_str());  
   [m_statusView setLineCount:m_context->document().rows()];
   [m_statusView setFileType:"?"];
 }

@@ -13,14 +13,15 @@
 #include <memory>
 
 namespace quip {
-  EditContext::EditContext (PopupService * popupService)
-  : EditContext(popupService, std::make_shared<Document>()) {
+  EditContext::EditContext (PopupService * popupService, StatusService * statusService)
+  : EditContext(popupService, statusService, std::make_shared<Document>()) {
   }
   
-  EditContext::EditContext (PopupService * popupService, std::shared_ptr<Document> document)
+  EditContext::EditContext (PopupService * popupService, StatusService * statusService, std::shared_ptr<Document> document)
   : m_document(document)
   , m_selections(Selection(Location(0, 0)))
-  , m_popupService(popupService) {
+  , m_popupService(popupService)
+  , m_statusService(statusService) {
     
     // Populate with standard modes.
     m_modes.insert(std::make_pair("EditMode", std::make_shared<EditMode>()));
@@ -114,5 +115,9 @@ namespace quip {
   
   PopupService & EditContext::popupService () {
     return *m_popupService;
+  }
+  
+  StatusService & EditContext::statusService () {
+    return *m_statusService;
   }
 }
