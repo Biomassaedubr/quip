@@ -95,28 +95,4 @@ namespace quip {
     
     return m_keys.data() + m_keys.size();
   }
-  
-//  const char * KeySequence::parseSpecialKeyExpression (const char * expression) {
-//    // There are two types of special expressions: named keys and modified keys.
-//    // The latter will contain a hyphen.
-//    const char * cursor = expression;
-//    bool isModifiedKeyExpression = false;
-//    while (*cursor != 0 && *cursor != '>') {
-//      if (*cursor++ == '-') {
-//        isModifiedKeyExpression = true;
-//        break;
-//      }
-//    }
-//    
-//    if (isModifiedKeyExpression) {
-//      
-//    } else {
-//      std::string name(expression + 1, cursor);
-//      if (name == "ESC") {
-//        append(Key::Escape);
-//      }
-//      
-//      return cursor + 1;
-//    }
-//  }
 }
