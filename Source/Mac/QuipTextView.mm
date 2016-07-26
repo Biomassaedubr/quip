@@ -263,6 +263,11 @@ static CGFloat gCursorBlinkInterval = 0.57;
 - (void)setDocument:(std::shared_ptr<quip::Document>)document {
   m_context = std::make_shared<quip::EditContext>(document);
 
+  CGRect frame = [self frame];
+  CGRect parent = [[self superview] frame];
+  CGFloat height = MAX(parent.size.height, m_cellSize.height * document->rows());
+  [self setFrameSize:NSMakeSize(frame.size.width, height)];
+  
   // Bind controller signals.
   m_context->controller().scrollToLocation.connect([=] (quip::Location location) {
     [self scrollToLocation:location];
