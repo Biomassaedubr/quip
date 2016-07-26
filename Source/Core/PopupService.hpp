@@ -5,6 +5,8 @@
 namespace quip {
   struct Location;
   
+  typedef std::uint64_t PopupHandle;
+
   // Provides functionality for creating, manipulating and destroying popup
   // views for an edit context.
   //
@@ -15,6 +17,6 @@ namespace quip {
     
     virtual void tick (double elapsedSeconds) = 0;
     
-    virtual void createPopupAtLocation (const Location & location, const std::string & text) = 0;
+    virtual PopupHandle createPopupAtLocation (const Location & location, const std::string & text) = 0;
   };
 }

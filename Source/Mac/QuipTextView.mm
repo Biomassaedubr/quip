@@ -294,7 +294,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   [self resetCursorBlink];
 }
 
-- (void)createPopupAtLocation:(NSString *)text atLocation:(quip::Location)location {
+- (QuipPopupView *)createPopupAtLocation:(NSString *)text atLocation:(quip::Location)location {
   CGFloat width = m_cellSize.width * [text length];
   CGFloat height = m_cellSize.height;
   CGFloat x = location.column() * m_cellSize.width;
@@ -305,6 +305,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   [popup setDuration:0.5];
   
   [self addSubview:popup];
+  return popup;
 }
 
 - (void)scrollToLocation:(quip::Location)location {
