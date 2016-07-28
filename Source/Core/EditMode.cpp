@@ -56,6 +56,9 @@ namespace quip {
   
   bool EditMode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
     switch (keyStroke.key()) {
+      case Key::Tab:
+        context.performTransaction(InsertTransaction::create(context.selections(), "  "));
+        return true;
       case Key::Delete:
         backspace(context);
         return true;
