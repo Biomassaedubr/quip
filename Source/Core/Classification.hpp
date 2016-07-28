@@ -17,4 +17,8 @@ namespace quip {
   
   Selection classifyWord (const Document & document, const Location & location, ClassificationFlags flags);
   Selection classifyLine (const Document & document, const Location & location, ClassificationFlags flags);
+  
+  // "This" or "these" selectors.
+  Selection selectThisWord (const Document & document, const Selection & basis);
+  Selection selectThisLine (const Document & document, const Selection & basis);
 }

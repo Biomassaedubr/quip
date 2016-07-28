@@ -100,4 +100,30 @@ namespace quip {
       return Selection(origin, extent);
     }
   }
+  
+  Selection selectThisWord (const Document & document, const Selection & basis) {
+    // Move backwards until after a space.
+    DocumentIterator origin = document.at(basis.origin());
+    while (origin != document.begin() && !std::isspace(*origin)) {
+      --origin;
+    }
+    ++origin;
+    
+    // Move forwards until before a space.
+    DocumentIterator extent = document.at(basis.extent());
+    while (extent != document.end() && !std::isspace(*extent)) {
+      ++extent;
+    }
+    --extent;
+    
+    return Selection(origin.location(), extent.location());
+  }
+  
+  Selection selectThisLine (const Document & document, const Selection & basis) {
+    Location origin(0, basis.origin().row());
+    
+    std::uint64_t row = basis.extent().row();
+    Location extent(document.row(row).size() - 1, row);
+    return Selection(origin, extent);
+  }
 }

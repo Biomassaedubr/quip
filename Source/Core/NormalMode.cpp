@@ -10,16 +10,16 @@
 
 namespace quip {
   NormalMode::NormalMode () {
-    addMapping(Key::H, &NormalMode::selectBeforePrimaryOrigin);
-    addMapping(Key::J, &NormalMode::selectBelowPrimaryExtent);
-    addMapping(Key::K, &NormalMode::selectAbovePrimaryOrigin);
-    addMapping(Key::L, &NormalMode::selectAfterPrimaryExtent);
+    addMapping(Key::H, &NormalMode::doSelectBeforePrimaryOrigin);
+    addMapping(Key::J, &NormalMode::doSelectBelowPrimaryExtent);
+    addMapping(Key::K, &NormalMode::doSelectAbovePrimaryOrigin);
+    addMapping(Key::L, &NormalMode::doSelectAfterPrimaryExtent);
     
-    addMapping(Key::T, &NormalMode::selectThisWord);
-    addMapping(Key::W, &NormalMode::selectNextWord);
-    addMapping(Key::B, &NormalMode::selectPriorWord);
+    addMapping("TW", &NormalMode::doSelectThisWord);
+    addMapping(Key::W, &NormalMode::doSelectNextWord);
+    addMapping(Key::B, &NormalMode::doSelectPriorWord);
 
-    addMapping(Key::A, &NormalMode::selectThisLine);
+    addMapping("TL", &NormalMode::doSelectThisLine);
 
     addMapping("RF", &NormalMode::rotateSelectionForward);
     addMapping("RB", &NormalMode::rotateSelectionBackward);
@@ -39,7 +39,7 @@ namespace quip {
     return "Normal";
   }
   
-  void NormalMode::selectBeforePrimaryOrigin (EditContext & context) {
+  void NormalMode::doSelectBeforePrimaryOrigin (EditContext & context) {
     if (context.document().isEmpty()) {
       return;
     }
@@ -57,7 +57,7 @@ namespace quip {
     context.controller().scrollLocationIntoView.transmit(context.selections().primary().origin());
   }
   
-  void NormalMode::selectBelowPrimaryExtent (EditContext & context) {
+  void NormalMode::doSelectBelowPrimaryExtent (EditContext & context) {
     if (context.document().isEmpty()) {
       return;
     }
@@ -83,7 +83,7 @@ namespace quip {
     context.controller().scrollLocationIntoView.transmit(context.selections().primary().origin());
   }
 
-  void NormalMode::selectAfterPrimaryExtent (EditContext & context) {
+  void NormalMode::doSelectAfterPrimaryExtent (EditContext & context) {
     if (context.document().isEmpty()) {
       return;
     }
@@ -101,7 +101,7 @@ namespace quip {
     context.controller().scrollLocationIntoView.transmit(context.selections().primary().origin());
   }
   
-  void NormalMode::selectAbovePrimaryOrigin (EditContext & context) {
+  void NormalMode::doSelectAbovePrimaryOrigin (EditContext & context) {
     if (context.document().isEmpty()) {
       return;
     }
@@ -127,28 +127,20 @@ namespace quip {
     context.controller().scrollLocationIntoView.transmit(context.selections().primary().origin());
   }
   
-  void NormalMode::selectThisWord (EditContext & context) {
-    context.selections().replace(classifyWord(context.document(), context.selections().primary().origin(), ClassificationFlags::This));
+  void NormalMode::doSelectThisWord (EditContext & context) {
+    context.selections().replace(selectThisWord(context.document(), context.selections().primary()));
   }
   
-  void NormalMode::selectNextWord (EditContext & context) {
+  void NormalMode::doSelectNextWord (EditContext & context) {
     context.selections().replace(classifyWord(context.document(), context.selections().primary().extent(), ClassificationFlags::Next));
   }
   
-  void NormalMode::selectPriorWord (EditContext & context) {
+  void NormalMode::doSelectPriorWord (EditContext & context) {
     context.selections().replace(classifyWord(context.document(), context.selections().primary().origin(), ClassificationFlags::Prior));
   }
   
-  void NormalMode::selectThisLine (EditContext & context) {
-    context.selections().replace(classifyLine(context.document(), context.selections().primary().origin(), ClassificationFlags::This));
-  }
-  
-  void NormalMode::selectNextLine (EditContext & context) {
-    context.selections().replace(classifyLine(context.document(), context.selections().primary().extent(), ClassificationFlags::Next));
-  }
-  
-  void NormalMode::selectPriorLine (EditContext & context) {
-    context.selections().replace(classifyLine(context.document(), context.selections().primary().origin(), ClassificationFlags::Prior));
+  void NormalMode::doSelectThisLine (EditContext & context) {
+    context.selections().replace(selectThisLine(context.document(), context.selections().primary()));
   }
   
   void NormalMode::rotateSelectionForward (EditContext & context) {

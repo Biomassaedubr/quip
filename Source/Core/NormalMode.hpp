@@ -11,18 +11,16 @@ namespace quip {
     std::string status () const override;
 
   private:
-    void selectBeforePrimaryOrigin (EditContext & context);
-    void selectBelowPrimaryExtent (EditContext & context);
-    void selectAfterPrimaryExtent (EditContext & context);
-    void selectAbovePrimaryOrigin (EditContext & context);
+    void doSelectBeforePrimaryOrigin (EditContext & context);
+    void doSelectBelowPrimaryExtent (EditContext & context);
+    void doSelectAfterPrimaryExtent (EditContext & context);
+    void doSelectAbovePrimaryOrigin (EditContext & context);
     
-    void selectThisWord (EditContext & context);
-    void selectNextWord (EditContext & context);
-    void selectPriorWord (EditContext & context);
+    void doSelectThisWord (EditContext & context);
+    void doSelectNextWord (EditContext & context);
+    void doSelectPriorWord (EditContext & context);
     
-    void selectThisLine (EditContext & context);
-    void selectNextLine (EditContext & context);
-    void selectPriorLine (EditContext & context);
+    void doSelectThisLine (EditContext & context);
     
     void enterJumpMode (EditContext & context);
     void enterEditMode (EditContext & context);
