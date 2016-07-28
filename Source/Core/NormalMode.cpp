@@ -132,7 +132,7 @@ namespace quip {
   }
   
   void NormalMode::doSelectNextWord (EditContext & context) {
-    context.selections().replace(classifyWord(context.document(), context.selections().primary().extent(), ClassificationFlags::Next));
+    context.selections().replace(selectNextWord(context.document(), context.selections().primary()));
   }
   
   void NormalMode::doSelectPriorWord (EditContext & context) {

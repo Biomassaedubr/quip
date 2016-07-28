@@ -5,6 +5,16 @@
 #include "Selection.hpp"
 
 namespace quip {
+  namespace {
+    bool isWordCharacter (char character) {
+      return std::isalnum(character) || character == '_';
+    }
+    
+    bool isSimpleWhitespace (char character) {
+      return character == ' ' || character == '\t';
+    }
+  }
+  
   Selection classifyWord (const Document & document, const Location & location, ClassificationFlags flags) {
     if (flags & ClassificationFlags::Next) {
       DocumentIterator cursor = document.at(location);
@@ -104,19 +114,46 @@ namespace quip {
   Selection selectThisWord (const Document & document, const Selection & basis) {
     // Move backwards until after a space.
     DocumentIterator origin = document.at(basis.origin());
-    while (origin != document.begin() && !std::isspace(*origin)) {
+    while (origin != document.begin() && isWordCharacter(*origin)) {
       --origin;
     }
     ++origin;
     
     // Move forwards until before a space.
     DocumentIterator extent = document.at(basis.extent());
-    while (extent != document.end() && !std::isspace(*extent)) {
+    while (extent != document.end() && isWordCharacter(*extent)) {
       ++extent;
     }
     --extent;
     
     return Selection(origin.location(), extent.location());
+  }
+  
+  Selection selectNextWord (const Document & document, const Selection & basis) {
+    // Move until a non-word character.
+    DocumentIterator cursor = document.at(basis.extent());
+    while (cursor != document.end() && isWordCharacter(*cursor)) {
+      ++cursor;
+    }
+    
+    // Then move until a word character.
+    while (cursor != document.end() && !isWordCharacter(*cursor)) {
+      ++cursor;
+    }
+    
+    // Save the origin, and move to the next non-word character.
+    Location origin = cursor.location();
+    while (cursor != document.end() && isWordCharacter(*cursor)) {
+      ++cursor;
+    }
+    
+    // Also include the trailing whitespace.
+    while (cursor != document.end() && isSimpleWhitespace(*cursor)) {
+      ++cursor;
+    }
+    --cursor;
+    
+    return Selection(origin, cursor.location());
   }
   
   Selection selectThisLine (const Document & document, const Selection & basis) {
