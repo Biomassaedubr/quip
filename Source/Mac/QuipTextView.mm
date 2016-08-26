@@ -288,6 +288,11 @@ static CGFloat gCursorBlinkInterval = 0.57;
     [self scrollLocationIntoView:location];
   });
   
+  m_context->document().onDocumentModified().connect([=] () {
+    CGFloat height = MAX(parent.size.height, m_cellSize.height * document->rows());
+    [self setFrameSize:NSMakeSize(frame.size.width, height)];
+  });
+  
   [self setNeedsDisplay:YES];
 }
 

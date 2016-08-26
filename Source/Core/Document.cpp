@@ -210,6 +210,7 @@ namespace quip {
       }
     }
     
+    m_documentModifiedSignal.transmit();
     return SelectionSet(updated);
   }
   
@@ -300,6 +301,7 @@ namespace quip {
       m_rows.clear();
     }
     
+    m_documentModifiedSignal.transmit();
     return SelectionSet(updated);
   }
   
@@ -337,6 +339,10 @@ namespace quip {
   
   std::vector<AttributeRange> Document::highlight (std::uint64_t row) const {
     return m_syntaxParseFunction(m_rows[row], m_path);
+  }
+  
+  Signal<void()> & Document::onDocumentModified () {
+    return m_documentModifiedSignal;
   }
   
   std::vector<std::string> Document::decompose (const std::string & text) const {

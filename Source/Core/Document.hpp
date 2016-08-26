@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Location.hpp"
+#include "Signal.hpp"
 #include "Syntax.hpp"
 
 #include <string>
@@ -46,11 +47,15 @@ namespace quip {
     
     std::vector<AttributeRange> highlight (std::uint64_t row) const;
     
+    Signal<void()> & onDocumentModified ();
+    
   private:
     std::string m_path;
     SyntaxParseFunction m_syntaxParseFunction;
     
     std::vector<std::string> m_rows;
+    
+    Signal<void()> m_documentModifiedSignal;
     
     std::vector<std::string> decompose (const std::string & text) const;
     
