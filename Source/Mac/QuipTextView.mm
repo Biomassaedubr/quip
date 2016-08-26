@@ -276,7 +276,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
 
   CGRect frame = [self frame];
   CGRect parent = [[self superview] frame];
-  CGFloat height = MAX(parent.size.height, m_cellSize.height * document->rows());
+  CGFloat height = MAX(parent.size.height, m_cellSize.height * (document->rows() + 1));
   [self setFrameSize:NSMakeSize(frame.size.width, height)];
   
   // Bind controller signals.
@@ -289,7 +289,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   });
   
   m_context->document().onDocumentModified().connect([=] () {
-    CGFloat height = MAX(parent.size.height, m_cellSize.height * document->rows());
+    CGFloat height = MAX(parent.size.height, m_cellSize.height * (document->rows() + 1));
     [self setFrameSize:NSMakeSize(frame.size.width, height)];
   });
   
