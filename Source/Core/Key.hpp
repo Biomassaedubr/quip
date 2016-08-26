@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 namespace quip {
   enum struct Key {
     A = 0x0,
@@ -84,4 +86,7 @@ namespace quip {
   
   Key keyFromScanCode (int code);
   Key keyFromCharacter (char character);
+  
+  bool keyIsNumber (Key key);
+  std::uint32_t numberFromKey (Key key);
 }

@@ -46,6 +46,8 @@ namespace quip {
     
   private:
     KeySequence m_sequence;
+    std::uint32_t m_count;
+    
     MapTrie m_mappings;
   };
 }

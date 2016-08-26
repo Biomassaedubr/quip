@@ -19,15 +19,26 @@ namespace quip {
   }
   
   bool Mode::processKey (const KeyStroke & keyStroke, EditContext & context) {
-    m_sequence.append(keyStroke.key());
+    if (m_sequence.count() == 0 && keyIsNumber(keyStroke.key())) {
+      m_count *= 10;
+      m_count += numberFromKey(keyStroke.key());
+    } else {
+      m_sequence.append(keyStroke.key());
     
-    const MapTrieNode * node = m_mappings.find(m_sequence);
-    if (node == nullptr) {
-      m_sequence.clear();
-      return onUnmappedKey(keyStroke, context);
-    } else if (node->handler() != nullptr) {
-      m_sequence.clear();
-      node->handler()(context);
+      const MapTrieNode * node = m_mappings.find(m_sequence);
+      if (node == nullptr) {
+        m_sequence.clear();
+        m_count = 0;
+        return onUnmappedKey(keyStroke, context);
+      } else if (node->handler() != nullptr) {
+        m_sequence.clear();
+        
+        for (std::uint32_t index = 0; index < std::max(1U, m_count); ++index) {
+          node->handler()(context);
+        }
+        
+        m_count = 0;
+      }
     }
     
     return true;

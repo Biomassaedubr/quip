@@ -69,4 +69,49 @@ namespace quip {
         return Key::Escape;
     }
   }
+  
+  bool keyIsNumber (Key key) {
+    switch (key) {
+      case Key::Key1:
+      case Key::Key2:
+      case Key::Key3:
+      case Key::Key4:
+      case Key::Key5:
+      case Key::Key6:
+      case Key::Key7:
+      case Key::Key8:
+      case Key::Key9:
+      case Key::Key0:
+        return true;
+      default:
+        return false;
+    }
+  }
+  
+  std::uint32_t numberFromKey (Key key) {
+    switch (key) {
+      case Key::Key1:
+        return 1;
+      case Key::Key2:
+        return 2;
+      case Key::Key3:
+        return 3;
+      case Key::Key4:
+        return 4;
+      case Key::Key5:
+        return 5;
+      case Key::Key6:
+        return 6;
+      case Key::Key7:
+        return 7;
+      case Key::Key8:
+        return 8;
+      case Key::Key9:
+        return 9;
+      case Key::Key0:
+      default:
+        return 0;
+    }
+  }
+  
 }
