@@ -69,7 +69,18 @@ namespace quip {
         break;
       default:
         if (keyStroke.text().size() > 0) {
-          context.performTransaction(InsertTransaction::create(context.selections(), keyStroke.text()));
+          if (keyStroke.key() == Key::Return) {
+            std::vector<std::string> text(context.selections().count(), keyStroke.text());
+            for (std::uint32_t index = 0; index < context.selections().count(); ++index) {
+              const Selection & selection = context.selections()[index];
+              text[index] += context.document().indentOfRow(selection.extent().row());
+            }
+            
+            context.performTransaction(InsertTransaction::create(context.selections(), text));
+          } else {
+            context.performTransaction(InsertTransaction::create(context.selections(), keyStroke.text()));
+          }
+          
           context.controller().scrollLocationIntoView.transmit(context.selections().primary().extent());
           return true;
         }

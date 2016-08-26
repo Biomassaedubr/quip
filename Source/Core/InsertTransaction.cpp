@@ -4,7 +4,7 @@
 #include "EditContext.hpp"
 
 namespace quip {
-  InsertTransaction::InsertTransaction (const SelectionSet & selections, const std::string & text)
+  InsertTransaction::InsertTransaction (const SelectionSet & selections, const std::vector<std::string> & text)
   : m_selections(selections)
   , m_text(text) {
   }
@@ -21,6 +21,10 @@ namespace quip {
   }
   
   std::shared_ptr<Transaction> InsertTransaction::create (const SelectionSet & selections, const std::string & text) {
+    return std::make_shared<InsertTransaction>(selections, std::vector<std::string> {selections.count(), text });
+  }
+  
+  std::shared_ptr<Transaction> InsertTransaction::create (const SelectionSet & selections, const std::vector<std::string> & text) {
     return std::make_shared<InsertTransaction>(selections, text);
   }
 }

@@ -35,6 +35,8 @@ namespace quip {
 
     std::size_t rows () const;
     const std::string & row (std::size_t index) const;
+    
+    std::string indentOfRow (std::size_t index) const;
 
     SelectionSet insert (const Selection & selection, const std::string & text);
     SelectionSet insert (const SelectionSet & selections, const std::string & text);

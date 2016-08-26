@@ -130,6 +130,24 @@ namespace quip {
     return m_rows[index];
   }
   
+  std::string Document::indentOfRow (std::size_t index) const {
+    const std::string & text = row(index);
+    if (text.size() == 0) {
+      if (index == 0) {
+        return "";
+      } else {
+        return indentOfRow(index - 1);
+      }
+    }
+    
+    std::string::const_iterator cursor = text.begin();
+    while (std::isspace(*cursor)) {
+      ++cursor;
+    }
+    
+    return std::string(text.begin(), cursor);
+  }
+  
   std::size_t Document::rows () const {
     return m_rows.size();
   }
