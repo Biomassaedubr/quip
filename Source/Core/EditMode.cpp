@@ -70,6 +70,7 @@ namespace quip {
       default:
         if (keyStroke.text().size() > 0) {
           context.performTransaction(InsertTransaction::create(context.selections(), keyStroke.text()));
+          context.controller().scrollLocationIntoView.transmit(context.selections().primary().extent());
           return true;
         }
     }
