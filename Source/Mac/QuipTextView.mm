@@ -61,6 +61,11 @@ namespace {
   std::shared_ptr<quip::EditContext> m_context;
   
   QuipStatusView * m_statusView;
+  
+  std::uint32_t m_scrollToLocationToken;
+  std::uint32_t m_scrollLocationIntoViewToken;
+  std::uint32_t m_documentModifiedToken;
+  std::uint32_t m_transactionAppliedToken;
 }
 @end
 
@@ -113,6 +118,11 @@ static CGFloat gCursorBlinkInterval = 0.57;
     m_cursorTimer = gCursorBlinkInterval;
     m_shouldDrawCursor = YES;
     m_shouldDrawSelections = YES;
+    
+    m_scrollToLocationToken = 0;
+    m_scrollLocationIntoViewToken = 0;
+    m_documentModifiedToken = 0;
+    m_transactionAppliedToken = 0;
     
     // Start a background timer for periodic update tasks (such as cursor blinking).
     NSTimer * timer = [NSTimer timerWithTimeInterval:gTickInterval target:self selector:@selector(tick:) userInfo:nil repeats:YES];
@@ -274,6 +284,20 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)setDocument:(std::shared_ptr<quip::Document>)document {
+  if (m_context != nullptr) {
+    m_context->controller().scrollToLocation.disconnect(m_scrollToLocationToken);
+    m_scrollToLocationToken = 0;
+    
+    m_context->controller().scrollLocationIntoView.disconnect(m_scrollLocationIntoViewToken);
+    m_scrollLocationIntoViewToken = 0;
+    
+    m_context->document().onDocumentModified().disconnect(m_documentModifiedToken);
+    m_documentModifiedToken = 0;
+    
+    m_context->onTransactionApplied().disconnect(m_transactionAppliedToken);
+    m_transactionAppliedToken = 0;
+  }
+
   m_context = std::make_shared<quip::EditContext>(m_popupServiceProvider.get(), m_statusServiceProvider.get(), document);
 
   NSWindowController * controller = [[self window] windowController];
@@ -285,20 +309,20 @@ static CGFloat gCursorBlinkInterval = 0.57;
   [self setFrameSize:NSMakeSize(frame.size.width, height)];
   
   // Bind controller signals.
-  m_context->controller().scrollToLocation.connect([=] (quip::Location location) {
+  m_scrollToLocationToken = m_context->controller().scrollToLocation.connect([=] (quip::Location location) {
     [self scrollToLocation:location];
   });
   
-  m_context->controller().scrollLocationIntoView.connect([=] (quip::Location location) {
+  m_scrollLocationIntoViewToken = m_context->controller().scrollLocationIntoView.connect([=] (quip::Location location) {
     [self scrollLocationIntoView:location];
   });
   
-  m_context->document().onDocumentModified().connect([=] () {
+  m_documentModifiedToken = m_context->document().onDocumentModified().connect([=] () {
     CGFloat height = MAX(parent.size.height, m_cellSize.height * (document->rows() + 1));
     [self setFrameSize:NSMakeSize(frame.size.width, height)];
   });
   
-  m_context->onTransactionApplied().connect([=] (quip::ChangeType type) {
+  m_transactionAppliedToken = m_context->onTransactionApplied().connect([=] (quip::ChangeType type) {
     switch(type) {
       case quip::ChangeType::Undo:
         [container updateChangeCount:NSChangeUndone];

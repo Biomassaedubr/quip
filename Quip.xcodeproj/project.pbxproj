@@ -26,6 +26,7 @@
 		033CA9751D011FDA00ABD567 /* InsertTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9731D011FDA00ABD567 /* InsertTransaction.cpp */; };
 		033CA9791D01273400ABD567 /* EraseTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9771D01273400ABD567 /* EraseTransaction.cpp */; };
 		036FD3FD1D75356D006EDD9E /* ChangeType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 036FD3FC1D75356D006EDD9E /* ChangeType.hpp */; };
+		036FD3FF1D75CDC7006EDD9E /* SignalTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 036FD3FE1D75CDC7006EDD9E /* SignalTests.mm */; };
 		037DCDEB1C8B6F7100643D44 /* SelectionDrawInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */; };
 		037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 037DCDEA1C8B6F7100643D44 /* SelectionDrawInfo.hpp */; };
 		037F306F1D47A6D5009F6EE2 /* StatusService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 037F306D1D47A6D5009F6EE2 /* StatusService.cpp */; };
@@ -104,6 +105,7 @@
 		033CA9771D01273400ABD567 /* EraseTransaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EraseTransaction.cpp; path = Source/Core/EraseTransaction.cpp; sourceTree = "<group>"; };
 		033CA9781D01273400ABD567 /* EraseTransaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EraseTransaction.hpp; path = Source/Core/EraseTransaction.hpp; sourceTree = "<group>"; };
 		036FD3FC1D75356D006EDD9E /* ChangeType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ChangeType.hpp; path = Source/Core/ChangeType.hpp; sourceTree = "<group>"; };
+		036FD3FE1D75CDC7006EDD9E /* SignalTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SignalTests.mm; path = Source/Tests/SignalTests.mm; sourceTree = SOURCE_ROOT; };
 		037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionDrawInfo.cpp; path = Source/Core/SelectionDrawInfo.cpp; sourceTree = "<group>"; };
 		037DCDEA1C8B6F7100643D44 /* SelectionDrawInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionDrawInfo.hpp; path = Source/Core/SelectionDrawInfo.hpp; sourceTree = "<group>"; };
 		037DCDED1C8BA78B00643D44 /* CursorFlags.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CursorFlags.hpp; path = Source/Core/CursorFlags.hpp; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 				03D1C8891C781AFB00AF5475 /* SearchExpressionTests.mm */,
 				03D1C88A1C781AFB00AF5475 /* SelectionSetTests.mm */,
 				03D1C88B1C781AFB00AF5475 /* SelectionTests.mm */,
+				036FD3FE1D75CDC7006EDD9E /* SignalTests.mm */,
 			);
 			name = Tests;
 			path = Quip.Core.Tests;
@@ -671,6 +674,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				030AC70F1C781B9F00219938 /* DocumentTests.mm in Sources */,
+				036FD3FF1D75CDC7006EDD9E /* SignalTests.mm in Sources */,
 				030AC7111C781B9F00219938 /* SearchExpressionTests.mm in Sources */,
 				031FC0DD1D3BFD4100628179 /* KeySequenceTests.mm in Sources */,
 				030AC7101C781B9F00219938 /* LocationTests.mm in Sources */,
