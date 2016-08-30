@@ -67,6 +67,7 @@ namespace {
 static NSString * gSizeQueryString = @"m";
 
 static std::size_t gTabSize = 2;
+static CGFloat gMargin = 1.0f;
 
 static CGFloat gTickInterval = 1.0 / 30.0;
 static CGFloat gCursorBlinkInterval = 0.57;
@@ -367,7 +368,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
       std::size_t firstColumn = row == lower.row() ? lower.column() : 0;
       std::size_t lastColumn = row == upper.row() ? upper.column() : document.row(row).size() - 1;
       
-      CGFloat x = firstColumn * m_cellSize.width;
+      CGFloat x = gMargin + (firstColumn * m_cellSize.width);
       CGFloat y = self.frame.size.height - m_cellSize.height - (row * m_cellSize.height);
       const quip::Color & color = selection == drawInfo.selections.primary() ? drawInfo.primaryColor : drawInfo.secondaryColor;
       CGContextSetRGBStrokeColor(context, color.red(), color.green(), color.blue(), color.alpha());
@@ -431,7 +432,8 @@ static CGFloat gCursorBlinkInterval = 0.57;
   CGFloat y = self.frame.size.height - m_cellSize.height;
   for (std::size_t row = 0; row < document.rows(); ++row) {
     // Only draw the row if it clips into the dirty rectangle.
-    if (CGRectIntersectsRect(dirtyRect, CGRectMake(0.0, y, self.frame.size.width, m_cellSize.height))) {
+    CGRect rowFrame = CGRectMake(gMargin, y, self.frame.size.width - (2.0 *  - gMargin), m_cellSize.height);
+    if (CGRectIntersectsRect(dirtyRect, rowFrame)) {
       std::vector<quip::AttributeRange> syntaxAttributes = m_context->document().highlight(row);
       CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, document.row(row).c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
       CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(text));
@@ -447,7 +449,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
       CFAttributedStringEndEditing(attributed);
       
       CTLineRef line = CTLineCreateWithAttributedString(attributed);
-      CGContextSetTextPosition(context, 0.0f, y);
+      CGContextSetTextPosition(context, gMargin, y);
       CTLineDraw(line, context);
       
       CFRelease(line);
