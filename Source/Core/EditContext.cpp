@@ -76,6 +76,7 @@ namespace quip {
   
   void EditContext::performTransaction(std::shared_ptr<Transaction> transaction) {
     transaction->perform(*this);
+    m_onTransactionApplied.transmit(ChangeType::Do);
     m_undoStack.push(transaction);
   }
   
@@ -86,6 +87,7 @@ namespace quip {
   void EditContext::undo () {
     if (canUndo()) {
       m_undoStack.top()->rollback(*this);
+      m_onTransactionApplied.transmit(ChangeType::Undo);
       m_redoStack.push(m_undoStack.top());
       
       m_undoStack.pop();
@@ -99,6 +101,7 @@ namespace quip {
   void EditContext::redo () {
     if (canRedo()) {
       m_redoStack.top()->perform(*this);
+      m_onTransactionApplied.transmit(ChangeType::Redo);
       m_undoStack.push(m_redoStack.top());
 
       m_redoStack.pop();
@@ -119,5 +122,9 @@ namespace quip {
   
   StatusService & EditContext::statusService () {
     return *m_statusService;
+  }
+  
+  Signal<void (ChangeType)> & EditContext::onTransactionApplied () {
+    return m_onTransactionApplied;
   }
 }

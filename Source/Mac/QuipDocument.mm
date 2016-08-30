@@ -45,11 +45,15 @@
   NSString * path = [[self fileURL] path];
   m_document->setPath([path cStringUsingEncoding:NSUTF8StringEncoding]);
   
+  m_document->onDocumentModified().connect([=] {
+    [self updateChangeCount:NSChangeDone];
+  });
+  
   return YES;
 }
 
 + (BOOL)autosavesInPlace {
-  return YES;
+  return NO;
 }
 
 @end

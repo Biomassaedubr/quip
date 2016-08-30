@@ -1,10 +1,12 @@
 #pragma once
 
+#include "ChangeType.hpp"
 #include "Key.hpp"
 #include "KeyStroke.hpp"
 #include "PopupService.hpp"
 #include "SelectionDrawInfo.hpp"
 #include "SelectionSet.hpp"
+#include "Signal.hpp"
 #include "StatusService.hpp"
 #include "ViewController.hpp"
 
@@ -46,6 +48,8 @@ namespace quip {
     PopupService & popupService ();
     StatusService & statusService ();
     
+    Signal<void (ChangeType)> & onTransactionApplied ();
+    
   private:
     std::shared_ptr<Document> m_document;
     
@@ -61,5 +65,7 @@ namespace quip {
     ViewController m_controller;
     PopupService * m_popupService;
     StatusService * m_statusService;
+    
+    Signal<void (ChangeType)> m_onTransactionApplied;
   };
 }

@@ -4,6 +4,7 @@
 #import "QuipStatusView.h"
 
 #include "AttributeRange.hpp"
+#include "ChangeType.hpp"
 #include "Color.hpp"
 #include "EditContext.hpp"
 #include "Key.hpp"
@@ -274,6 +275,9 @@ static CGFloat gCursorBlinkInterval = 0.57;
 - (void)setDocument:(std::shared_ptr<quip::Document>)document {
   m_context = std::make_shared<quip::EditContext>(m_popupServiceProvider.get(), m_statusServiceProvider.get(), document);
 
+  NSWindowController * controller = [[self window] windowController];
+  NSDocument * container = [controller document];
+  
   CGRect frame = [self frame];
   CGRect parent = [[self superview] frame];
   CGFloat height = MAX(parent.size.height, m_cellSize.height * (document->rows() + 1));
@@ -291,6 +295,21 @@ static CGFloat gCursorBlinkInterval = 0.57;
   m_context->document().onDocumentModified().connect([=] () {
     CGFloat height = MAX(parent.size.height, m_cellSize.height * (document->rows() + 1));
     [self setFrameSize:NSMakeSize(frame.size.width, height)];
+  });
+  
+  m_context->onTransactionApplied().connect([=] (quip::ChangeType type) {
+    switch(type) {
+      case quip::ChangeType::Undo:
+        [container updateChangeCount:NSChangeUndone];
+        break;
+      case quip::ChangeType::Redo:
+        [container updateChangeCount:NSChangeRedone];
+        break;
+      case quip::ChangeType::Do:
+      default:
+        [container updateChangeCount:NSChangeDone];
+        break;
+    }
   });
   
   [self setNeedsDisplay:YES];
