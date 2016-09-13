@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Syntax.hpp"
+
 #include <map>
 #include <string>
 #include <vector>
@@ -7,12 +9,13 @@
 namespace quip {
   struct FileType {
     std::string name;
+    SyntaxParseFunction parser;
   };
   
   struct FileTypeDatabase {
     FileTypeDatabase ();
     
-    void registerFileType (const std::string & name, const std::vector<std::string> & extensions);
+    void registerFileType (const std::string & name, SyntaxParseFunction syntaxParser, const std::vector<std::string> & extensions);
     
     const FileType* lookupByExtension (const std::string & extension) const;
     

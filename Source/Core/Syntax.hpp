@@ -15,9 +15,4 @@ namespace quip {
   };
   
   typedef std::vector<AttributeRange> (*SyntaxParseFunction)(const std::string &, const std::string &);
-  
-  namespace Syntax {
-    SyntaxParseFunction getSyntaxForExtention (const std::string & extension);
-    SyntaxParseFunction getSyntaxForUnknown ();
-  };
 }

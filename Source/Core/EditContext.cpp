@@ -4,11 +4,13 @@
 #include "EditMode.hpp"
 #include "JumpMode.hpp"
 #include "Location.hpp"
+#include "MarkdownGrammar.hpp"
 #include "Mode.hpp"
 #include "NormalMode.hpp"
 #include "SearchMode.hpp"
 #include "Selection.hpp"
 #include "Transaction.hpp"
+#include "UnknownGrammar.hpp"
 
 #include <memory>
 
@@ -24,11 +26,11 @@ namespace quip {
   , m_statusService(statusService) {
     
     // Populate with standard file types.
-    m_fileTypeDatabase.registerFileType("Text File", {"txt", "text"});
-    m_fileTypeDatabase.registerFileType("Markdown File", {"md", "markdown"});
-    m_fileTypeDatabase.registerFileType("C++ Source", {"cpp", "cxx"});
-    m_fileTypeDatabase.registerFileType("C++ Header", {"hpp", "hxx"});
-    m_fileTypeDatabase.registerFileType("GLSL Shader Source", {"fsh", "vsh"});
+    m_fileTypeDatabase.registerFileType("Text", UnknownGrammar::parse, {"txt", "text"});
+    m_fileTypeDatabase.registerFileType("Markdown", MarkdownGrammar::parse, {"md", "markdown"});
+    m_fileTypeDatabase.registerFileType("C++ Source", UnknownGrammar::parse, {"cpp", "cxx"});
+    m_fileTypeDatabase.registerFileType("C++ Header", UnknownGrammar::parse, {"hpp", "hxx"});
+    m_fileTypeDatabase.registerFileType("GLSL Shader Source", UnknownGrammar::parse,  {"fsh", "vsh"});
     
     // Populate with standard modes.
     m_modes.insert(std::make_pair("EditMode", std::make_shared<EditMode>()));

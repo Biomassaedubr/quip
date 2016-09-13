@@ -5,11 +5,12 @@ namespace quip {
     m_unknownFileType.name = "?";
   }
   
-  void FileTypeDatabase::registerFileType (const std::string & name, const std::vector<std::string> & extensions) {
+  void FileTypeDatabase::registerFileType (const std::string & name, SyntaxParseFunction syntaxParser, const std::vector<std::string> & extensions) {
     m_knownTypes.emplace_back(std::make_unique<FileType>());
     
     FileType * type = m_knownTypes.back().get();
     type->name = name;
+    type->parser = syntaxParser;
     
     for (const std::string & extension : extensions) {
       m_knownExtensions.emplace(extension, type);

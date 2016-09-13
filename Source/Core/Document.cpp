@@ -13,13 +13,11 @@
 #include <string>
 
 namespace quip {
-  Document::Document ()
-  : m_syntaxParseFunction(Syntax::getSyntaxForUnknown()) {
+  Document::Document () {
   }
   
   Document::Document (const std::string & content)
-  : m_syntaxParseFunction(Syntax::getSyntaxForUnknown())
-  , m_rows(decompose(content)) {
+  : m_rows(decompose(content)) {
   }
   
   std::string Document::contents () const {
@@ -118,12 +116,6 @@ namespace quip {
   
   void Document::setPath (const std::string & path) {
     m_path = path;
-    
-    // Find the extension.
-    std::size_t index = m_path.find_last_of('.');
-    if (index != std::string::npos) {
-      m_syntaxParseFunction = Syntax::getSyntaxForExtention(m_path.substr(index + 1));
-    }
   }
   
   const std::string & Document::row (std::size_t index) const {
@@ -353,10 +345,6 @@ namespace quip {
     }
     
     return SelectionSet(results);
-  }
-  
-  std::vector<AttributeRange> Document::highlight (std::uint64_t row) const {
-    return m_syntaxParseFunction(m_rows[row], m_path);
   }
   
   Signal<void()> & Document::onDocumentModified () {

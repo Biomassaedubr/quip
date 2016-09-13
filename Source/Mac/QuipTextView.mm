@@ -426,6 +426,17 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
+  // Find the document's extension.
+  std::size_t index = m_context->document().path().find_last_of('.');
+  std::string extension = "";
+  const quip::FileType * fileType = nullptr;
+  if (index != std::string::npos) {
+    extension = m_context->document().path().substr(index + 1);
+  }
+
+  // Find the document's type.
+  fileType = m_context->fileTypeDatabase().lookupByExtension(extension);
+  
   quip::Document & document = m_context->document();
   CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
   
@@ -458,7 +469,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
     // Only draw the row if it clips into the dirty rectangle.
     CGRect rowFrame = CGRectMake(gMargin, y, self.frame.size.width - (2.0 *  - gMargin), m_cellSize.height);
     if (CGRectIntersectsRect(dirtyRect, rowFrame)) {
-      std::vector<quip::AttributeRange> syntaxAttributes = m_context->document().highlight(row);
+      std::vector<quip::AttributeRange> syntaxAttributes = fileType->parser(m_context->document().row(row), m_context->document().path());
       CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, document.row(row).c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
       CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(text));
       
@@ -486,18 +497,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   
   quip::StatusService & status = m_context->statusService();
   status.setStatus(m_context->mode().status().c_str());
-  
-  // Find the extension.
-  std::size_t index = m_context->document().path().find_last_of('.');
-  if (index != std::string::npos) {
-    std::string extension = m_context->document().path().substr(index + 1);
-    const quip::FileType * fileType = m_context->fileTypeDatabase().lookupByExtension(extension);
-    status.setFileType(fileType->name);
-  }
-  else {
-    status.setFileType("?");
-  }
-  
+  status.setFileType(fileType->name);
   status.setLineCount(m_context->document().rows());
 }
 

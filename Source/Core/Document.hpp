@@ -46,15 +46,11 @@ namespace quip {
     SelectionSet erase (const SelectionSet & selections);
     
     SelectionSet matches (const SearchExpression & expression) const;
-    
-    std::vector<AttributeRange> highlight (std::uint64_t row) const;
-    
+        
     Signal<void()> & onDocumentModified ();
     
   private:
-    std::string m_path;
-    SyntaxParseFunction m_syntaxParseFunction;
-    
+    std::string m_path;    
     std::vector<std::string> m_rows;
     
     Signal<void()> m_documentModifiedSignal;
