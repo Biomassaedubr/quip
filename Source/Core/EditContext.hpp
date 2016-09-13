@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ChangeType.hpp"
+#include "FileTypeDatabase.hpp"
 #include "Key.hpp"
 #include "KeyStroke.hpp"
 #include "PopupService.hpp"
@@ -48,10 +49,13 @@ namespace quip {
     PopupService & popupService ();
     StatusService & statusService ();
     
+    const FileTypeDatabase& fileTypeDatabase () const;
+    
     Signal<void (ChangeType)> & onTransactionApplied ();
     
   private:
     std::shared_ptr<Document> m_document;
+    FileTypeDatabase m_fileTypeDatabase;
     
     SelectionSet m_selections;
     std::map<std::string, SelectionDrawInfo> m_overlays;

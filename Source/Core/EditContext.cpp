@@ -23,6 +23,13 @@ namespace quip {
   , m_popupService(popupService)
   , m_statusService(statusService) {
     
+    // Populate with standard file types.
+    m_fileTypeDatabase.registerFileType("Text File", {"txt", "text"});
+    m_fileTypeDatabase.registerFileType("Markdown File", {"md", "markdown"});
+    m_fileTypeDatabase.registerFileType("C++ Source", {"cpp", "cxx"});
+    m_fileTypeDatabase.registerFileType("C++ Header", {"hpp", "hxx"});
+    m_fileTypeDatabase.registerFileType("GLSL Shader Source", {"fsh", "vsh"});
+    
     // Populate with standard modes.
     m_modes.insert(std::make_pair("EditMode", std::make_shared<EditMode>()));
     m_modes.insert(std::make_pair("JumpMode", std::make_shared<JumpMode>()));
@@ -122,6 +129,10 @@ namespace quip {
   
   StatusService & EditContext::statusService () {
     return *m_statusService;
+  }
+  
+  const FileTypeDatabase & EditContext::fileTypeDatabase () const {
+    return m_fileTypeDatabase;
   }
   
   Signal<void (ChangeType)> & EditContext::onTransactionApplied () {

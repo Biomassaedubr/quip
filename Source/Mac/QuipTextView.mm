@@ -24,17 +24,17 @@ namespace {
     CFDictionaryRef attributes;
     CGColorRef foregroundColor;
   };
-
+  
   static void initializeHighlight (Highlight * highlight, quip::Color foreground) {
-      highlight->foregroundColor = CGColorCreateGenericRGB(foreground.red(), foreground.green(), foreground.blue(), foreground.alpha());
-      
-      CFStringRef keys[] = { kCTForegroundColorAttributeName };
-      CFTypeRef values[] = { highlight->foregroundColor };
-      const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
-      const void ** opaqueValues = reinterpret_cast<const void **>(&values);
-      highlight->attributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    highlight->foregroundColor = CGColorCreateGenericRGB(foreground.red(), foreground.green(), foreground.blue(), foreground.alpha());
+    
+    CFStringRef keys[] = { kCTForegroundColorAttributeName };
+    CFTypeRef values[] = { highlight->foregroundColor };
+    const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
+    const void ** opaqueValues = reinterpret_cast<const void **>(&values);
+    highlight->attributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   }
-
+  
   static void releaseHighlight (Highlight * highlight) {
     CFRelease(highlight->attributes);
     CFRelease(highlight->foregroundColor);
@@ -297,9 +297,9 @@ static CGFloat gCursorBlinkInterval = 0.57;
     m_context->onTransactionApplied().disconnect(m_transactionAppliedToken);
     m_transactionAppliedToken = 0;
   }
-
+  
   m_context = std::make_shared<quip::EditContext>(m_popupServiceProvider.get(), m_statusServiceProvider.get(), document);
-
+  
   NSWindowController * controller = [[self window] windowController];
   NSDocument * container = [controller document];
   
@@ -353,7 +353,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
 - (void)scrollLocationIntoView:(quip::Location)location {
   CGFloat x = location.column() * m_cellSize.width;
   CGFloat y = self.frame.size.height - (m_cellSize.height * (location.row() + 1));
-  CGRect target = CGRectMake(x, y, m_cellSize.width, m_cellSize.height);  
+  CGRect target = CGRectMake(x, y, m_cellSize.width, m_cellSize.height);
   [self scrollRectToVisible:target];
 }
 
@@ -461,7 +461,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
       std::vector<quip::AttributeRange> syntaxAttributes = m_context->document().highlight(row);
       CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, document.row(row).c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
       CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(text));
-
+      
       CFAttributedStringBeginEditing(attributed);
       CFAttributedStringReplaceString(attributed, CFRangeMake(0, 0), text);
       CFAttributedStringSetAttributes(attributed, CFRangeMake(0, CFStringGetLength(text)), m_fontAttributes, YES);
@@ -486,7 +486,18 @@ static CGFloat gCursorBlinkInterval = 0.57;
   
   quip::StatusService & status = m_context->statusService();
   status.setStatus(m_context->mode().status().c_str());
-  status.setFileType("?");
+  
+  // Find the extension.
+  std::size_t index = m_context->document().path().find_last_of('.');
+  if (index != std::string::npos) {
+    std::string extension = m_context->document().path().substr(index + 1);
+    const quip::FileType * fileType = m_context->fileTypeDatabase().lookupByExtension(extension);
+    status.setFileType(fileType->name);
+  }
+  else {
+    status.setFileType("?");
+  }
+  
   status.setLineCount(m_context->document().rows());
 }
 
