@@ -1,8 +1,11 @@
 #include "FileTypeDatabase.hpp"
 
+#include "UnknownSyntax.hpp"
+
 namespace quip {
   FileTypeDatabase::FileTypeDatabase() {
     m_unknownFileType.name = "?";
+    m_unknownFileType.syntax = UnknownSyntax::get();
   }
   
   void FileTypeDatabase::registerFileType (const std::string & name, Syntax * syntax, const std::vector<std::string> & extensions) {
