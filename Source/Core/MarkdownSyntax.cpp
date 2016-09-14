@@ -1,11 +1,12 @@
-#include "MarkdownGrammar.hpp"
+#include "MarkdownSyntax.hpp"
 
 #include "Document.hpp"
+#include "Syntax.hpp"
 
 #include "pegtl.hh"
 
 namespace quip {
-  namespace MarkdownGrammar {
+  namespace MarkdownSyntax {
     using namespace pegtl;
     
     struct Header : seq<plus<one<'#'>>, star<any>> {};
@@ -27,11 +28,18 @@ namespace quip {
       }
     };
     
-    std::vector<AttributeRange> parse (const std::string & row, const std::string & context) {
-      std::vector<AttributeRange> results;
-      parse_string<File, Action>(row, context, results);
-      
-      return results;
+    struct Implementation : Syntax {
+      virtual std::vector<AttributeRange> parse (const std::string & row, const std::string & context) override {
+        std::vector<AttributeRange> results;
+        parse_string<File, Action>(row, context, results);
+        
+        return results;
+      }
+    };
+    
+    Syntax * get () {
+      static Implementation result;
+      return &result;
     }
   }
 }

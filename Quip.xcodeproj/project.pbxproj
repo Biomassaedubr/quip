@@ -45,10 +45,10 @@
 		038ECDE21C698FE2002E571D /* QuipWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDD91C698FE2002E571D /* QuipWindowController.mm */; };
 		038ECDE31C698FE2002E571D /* QuipWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDDA1C698FE2002E571D /* QuipWindowController.xib */; };
 		038ECDE71C699039002E571D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDE61C699039002E571D /* Images.xcassets */; };
-		039037171D09065500CC932C /* UnknownGrammar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039037151D09065500CC932C /* UnknownGrammar.cpp */; };
-		039037181D09065500CC932C /* UnknownGrammar.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 039037161D09065500CC932C /* UnknownGrammar.hpp */; };
-		0390371B1D090D9400CC932C /* MarkdownGrammar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039037191D090D9400CC932C /* MarkdownGrammar.cpp */; };
-		0390371C1D090D9400CC932C /* MarkdownGrammar.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0390371A1D090D9400CC932C /* MarkdownGrammar.hpp */; };
+		039037171D09065500CC932C /* UnknownSyntax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039037151D09065500CC932C /* UnknownSyntax.cpp */; };
+		039037181D09065500CC932C /* UnknownSyntax.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 039037161D09065500CC932C /* UnknownSyntax.hpp */; };
+		0390371B1D090D9400CC932C /* MarkdownSyntax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039037191D090D9400CC932C /* MarkdownSyntax.cpp */; };
+		0390371C1D090D9400CC932C /* MarkdownSyntax.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0390371A1D090D9400CC932C /* MarkdownSyntax.hpp */; };
 		03D1C8661C7819E600AF5475 /* EditContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C82A1C78197200AF5475 /* EditContext.cpp */; };
 		03D1C8671C7819ED00AF5475 /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C82D1C78197200AF5475 /* Document.cpp */; };
 		03D1C8681C7819ED00AF5475 /* DocumentIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C82F1C78197200AF5475 /* DocumentIterator.cpp */; };
@@ -136,10 +136,10 @@
 		038ECDD91C698FE2002E571D /* QuipWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipWindowController.mm; path = Source/Mac/QuipWindowController.mm; sourceTree = "<group>"; };
 		038ECDDA1C698FE2002E571D /* QuipWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QuipWindowController.xib; path = Source/Mac/QuipWindowController.xib; sourceTree = "<group>"; };
 		038ECDE61C699039002E571D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
-		039037151D09065500CC932C /* UnknownGrammar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UnknownGrammar.cpp; path = Source/Core/UnknownGrammar.cpp; sourceTree = "<group>"; };
-		039037161D09065500CC932C /* UnknownGrammar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UnknownGrammar.hpp; path = Source/Core/UnknownGrammar.hpp; sourceTree = "<group>"; };
-		039037191D090D9400CC932C /* MarkdownGrammar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MarkdownGrammar.cpp; path = Source/Core/MarkdownGrammar.cpp; sourceTree = "<group>"; };
-		0390371A1D090D9400CC932C /* MarkdownGrammar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MarkdownGrammar.hpp; path = Source/Core/MarkdownGrammar.hpp; sourceTree = "<group>"; };
+		039037151D09065500CC932C /* UnknownSyntax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UnknownSyntax.cpp; path = Source/Core/UnknownSyntax.cpp; sourceTree = "<group>"; };
+		039037161D09065500CC932C /* UnknownSyntax.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UnknownSyntax.hpp; path = Source/Core/UnknownSyntax.hpp; sourceTree = "<group>"; };
+		039037191D090D9400CC932C /* MarkdownSyntax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MarkdownSyntax.cpp; path = Source/Core/MarkdownSyntax.cpp; sourceTree = "<group>"; };
+		0390371A1D090D9400CC932C /* MarkdownSyntax.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MarkdownSyntax.hpp; path = Source/Core/MarkdownSyntax.hpp; sourceTree = "<group>"; };
 		03CCFAEB1BF1A1BE0033929E /* Quip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D1C8241C78196400AF5475 /* libQuip.Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQuip.Core.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D1C8291C78197200AF5475 /* EditContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EditContext.hpp; path = Source/Core/EditContext.hpp; sourceTree = "<group>"; };
@@ -245,15 +245,15 @@
 			name = Implementations;
 			sourceTree = "<group>";
 		};
-		035B12A81D07D5B500C7ADF3 /* Grammar */ = {
+		035B12A81D07D5B500C7ADF3 /* Syntax */ = {
 			isa = PBXGroup;
 			children = (
-				039037161D09065500CC932C /* UnknownGrammar.hpp */,
-				039037151D09065500CC932C /* UnknownGrammar.cpp */,
-				0390371A1D090D9400CC932C /* MarkdownGrammar.hpp */,
-				039037191D090D9400CC932C /* MarkdownGrammar.cpp */,
+				039037161D09065500CC932C /* UnknownSyntax.hpp */,
+				039037151D09065500CC932C /* UnknownSyntax.cpp */,
+				0390371A1D090D9400CC932C /* MarkdownSyntax.hpp */,
+				039037191D090D9400CC932C /* MarkdownSyntax.cpp */,
 			);
-			name = Grammar;
+			name = Syntax;
 			sourceTree = "<group>";
 		};
 		037F306B1D47A6AF009F6EE2 /* Services */ = {
@@ -368,7 +368,7 @@
 		03D1C8371C78197200AF5475 /* Highlighting */ = {
 			isa = PBXGroup;
 			children = (
-				035B12A81D07D5B500C7ADF3 /* Grammar */,
+				035B12A81D07D5B500C7ADF3 /* Syntax */,
 				03D1C8331C78197200AF5475 /* AttributeRange.hpp */,
 				03D1C8341C78197200AF5475 /* AttributeRange.cpp */,
 				03D1C8351C78197200AF5475 /* Syntax.hpp */,
@@ -496,9 +496,9 @@
 				036FD3FD1D75356D006EDD9E /* ChangeType.hpp in Headers */,
 				037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */,
 				038806C81D470E5C001E56F1 /* PopupService.hpp in Headers */,
-				039037181D09065500CC932C /* UnknownGrammar.hpp in Headers */,
+				039037181D09065500CC932C /* UnknownSyntax.hpp in Headers */,
 				037F30701D47A6D5009F6EE2 /* StatusService.hpp in Headers */,
-				0390371C1D090D9400CC932C /* MarkdownGrammar.hpp in Headers */,
+				0390371C1D090D9400CC932C /* MarkdownSyntax.hpp in Headers */,
 				031FC0D51D3BE9AD00628179 /* MapTrie.hpp in Headers */,
 				031FC0D91D3BEA0700628179 /* MapTrieNode.hpp in Headers */,
 				03E10D971D0C7CF200DFC8D0 /* JumpMode.hpp in Headers */,
@@ -651,7 +651,7 @@
 				03D1C8681C7819ED00AF5475 /* DocumentIterator.cpp in Sources */,
 				031FC0D01D3BE6CF00628179 /* KeySequence.cpp in Sources */,
 				03D1C8671C7819ED00AF5475 /* Document.cpp in Sources */,
-				0390371B1D090D9400CC932C /* MarkdownGrammar.cpp in Sources */,
+				0390371B1D090D9400CC932C /* MarkdownSyntax.cpp in Sources */,
 				03D1C8691C7819ED00AF5475 /* Location.cpp in Sources */,
 				03D1C8721C781A0900AF5475 /* Selection.cpp in Sources */,
 				038806C71D470E5C001E56F1 /* PopupService.cpp in Sources */,
@@ -670,7 +670,7 @@
 				03D1C86E1C781A0100AF5475 /* EditMode.cpp in Sources */,
 				03D1C8661C7819E600AF5475 /* EditContext.cpp in Sources */,
 				03D1C8701C781A0100AF5475 /* SearchMode.cpp in Sources */,
-				039037171D09065500CC932C /* UnknownGrammar.cpp in Sources */,
+				039037171D09065500CC932C /* UnknownSyntax.cpp in Sources */,
 				037F306F1D47A6D5009F6EE2 /* StatusService.cpp in Sources */,
 				03D1C86F1C781A0100AF5475 /* NormalMode.cpp in Sources */,
 				031FC0D81D3BEA0700628179 /* MapTrieNode.cpp in Sources */,

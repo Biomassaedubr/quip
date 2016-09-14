@@ -469,7 +469,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
     // Only draw the row if it clips into the dirty rectangle.
     CGRect rowFrame = CGRectMake(gMargin, y, self.frame.size.width - (2.0 *  - gMargin), m_cellSize.height);
     if (CGRectIntersectsRect(dirtyRect, rowFrame)) {
-      std::vector<quip::AttributeRange> syntaxAttributes = fileType->parser(m_context->document().row(row), m_context->document().path());
+      std::vector<quip::AttributeRange> syntaxAttributes = fileType->syntax->parse(m_context->document().row(row), m_context->document().path());
       CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, document.row(row).c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
       CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(text));
       

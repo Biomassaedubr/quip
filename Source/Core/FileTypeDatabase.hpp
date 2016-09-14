@@ -9,13 +9,13 @@
 namespace quip {
   struct FileType {
     std::string name;
-    SyntaxParseFunction parser;
+    Syntax * syntax;
   };
   
   struct FileTypeDatabase {
     FileTypeDatabase ();
     
-    void registerFileType (const std::string & name, SyntaxParseFunction syntaxParser, const std::vector<std::string> & extensions);
+    void registerFileType (const std::string & name, Syntax * syntax, const std::vector<std::string> & extensions);
     
     const FileType* lookupByExtension (const std::string & extension) const;
     

@@ -14,5 +14,7 @@ namespace quip {
     std::string pattern;
   };
   
-  typedef std::vector<AttributeRange> (*SyntaxParseFunction)(const std::string &, const std::string &);
+  struct Syntax {
+    virtual std::vector<AttributeRange> parse (const std::string & text, const std::string & context) = 0;
+  };
 }
