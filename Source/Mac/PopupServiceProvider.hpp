@@ -15,7 +15,8 @@ namespace quip {
     
     void tick (double elapsedSeconds) override;
     
-    PopupHandle createPopupAtLocation (const Location & location, const std::string & text) override;
+    virtual PopupHandle createPopupAtLocation (const Location & location, const std::string & text) override;
+    virtual void destroyPopup(PopupHandle popup) override;
     
   private:
     QuipTextView * m_view;

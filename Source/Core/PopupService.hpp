@@ -18,5 +18,6 @@ namespace quip {
     virtual void tick (double elapsedSeconds) = 0;
     
     virtual PopupHandle createPopupAtLocation (const Location & location, const std::string & text) = 0;
+    virtual void destroyPopup(PopupHandle popup) = 0;
   };
 }

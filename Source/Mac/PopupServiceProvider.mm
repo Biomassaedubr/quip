@@ -11,10 +11,10 @@ namespace quip {
   
   void PopupServiceProvider::tick (double elapsedSeconds) {
     for (const std::pair<PopupHandle, QuipPopupView *> & record : m_popups) {
-      QuipPopupView * popup = record.second;
-      [popup setDuration:[popup duration] - elapsedSeconds];
-      if ([popup duration] <= 0.0) {
-        [popup removeFromSuperview];
+      QuipPopupView * popupView = record.second;
+      [popupView setDuration:[popupView duration] - elapsedSeconds];
+      if ([popupView duration] <= 0.0) {
+        [popupView removeFromSuperview];
       }
     }
   }
@@ -25,5 +25,15 @@ namespace quip {
     m_popups.emplace(result, popup);
     
     return result;
+  }
+  
+  void PopupServiceProvider::destroyPopup(PopupHandle popup) {
+    std::map<PopupHandle, QuipPopupView *>::const_iterator cursor = m_popups.find(popup);
+    if(cursor != std::end(m_popups)) {
+      QuipPopupView * popupView = cursor->second;
+      [popupView removeFromSuperview];
+      
+      m_popups.erase(cursor);
+    }
   }
 }
