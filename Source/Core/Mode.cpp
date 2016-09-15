@@ -3,6 +3,10 @@
 #include "EditContext.hpp"
 
 namespace quip {
+  Mode::Mode ()
+  : m_count(0) {
+  }
+  
   Mode::~Mode () {
   }
   

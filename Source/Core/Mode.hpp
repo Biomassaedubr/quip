@@ -15,6 +15,7 @@ namespace quip {
   
   // An operational state.
   struct Mode {
+    Mode ();
     virtual ~Mode ();
     
     virtual CursorStyle cursorStyle () const;
