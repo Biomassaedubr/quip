@@ -4,8 +4,12 @@
 @private
   CTFontRef m_font;
   CFDictionaryRef m_fontAttributes;
+  
+  CGSize m_cellSize;
 }
 @end
+
+static NSString * gSizeQueryString = @"m";
 
 @implementation QuipPopupView
 
@@ -20,6 +24,8 @@
     const void ** opaqueValues = reinterpret_cast<const void **>(&values);
     m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     
+    NSDictionary * attributes = @{NSFontAttributeName: [NSFont fontWithName:@"Menlo" size:13.0f]};
+    m_cellSize = [gSizeQueryString sizeWithAttributes:attributes];
   }
   
   return self;
@@ -31,20 +37,25 @@
   CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.2);
   CGContextFillRect(context, dirtyRect);
   
-  CFStringRef text = (__bridge CFStringRef)[self content];
-  CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(text));
-  
-  CFAttributedStringBeginEditing(attributed);
-  CFAttributedStringReplaceString(attributed, CFRangeMake(0, 0), text);
-  CFAttributedStringSetAttributes(attributed, CFRangeMake(0, CFStringGetLength(text)), m_fontAttributes, YES);
-  CFAttributedStringEndEditing(attributed);
-  
-  CTLineRef line = CTLineCreateWithAttributedString(attributed);
-  CGContextSetTextPosition(context, 0.0f, 5.0f);
-  CTLineDraw(line, context);
-  
-  CFRelease(line);
-  CFRelease(attributed);
+  CGFloat y = self.frame.size.height - m_cellSize.height;
+  for (NSString * row in [self content]) {
+    CFStringRef string = (__bridge CFStringRef)row;
+    CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(string));
+    
+    CFAttributedStringBeginEditing(attributed);
+    CFAttributedStringReplaceString(attributed, CFRangeMake(0, 0), string);
+    CFAttributedStringSetAttributes(attributed, CFRangeMake(0, CFStringGetLength(string)), m_fontAttributes, YES);
+    CFAttributedStringEndEditing(attributed);
+    
+    CTLineRef line = CTLineCreateWithAttributedString(attributed);
+    CGContextSetTextPosition(context, 0.0f, y);
+    CTLineDraw(line, context);
+    
+    CFRelease(line);
+    CFRelease(attributed);
+    
+    y -= m_cellSize.height;
+  }
 }
 
 @end

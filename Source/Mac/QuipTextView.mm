@@ -358,13 +358,19 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (QuipPopupView *)createPopupAtLocation:(NSString *)text atLocation:(quip::Location)location {
+  NSMutableArray* strings = [[NSMutableArray alloc] init];
+  [text enumerateLinesUsingBlock:^(NSString* line, BOOL* stop) {
+    [strings addObject:line];
+    *stop = NO;
+  }];
+  
   CGFloat width = m_cellSize.width * [text length];
-  CGFloat height = m_cellSize.height;
+  CGFloat height = m_cellSize.height * [strings count];
   CGFloat x = location.column() * m_cellSize.width;
-  CGFloat y = self.frame.size.height - (m_cellSize.height * (location.row() + 2));
+  CGFloat y = self.frame.size.height - height - m_cellSize.height;
   
   QuipPopupView * popup = [[QuipPopupView alloc] initWithFrame:CGRectMake(x, y - 2.0, width, height)];
-  [popup setContent:text];
+  [popup setContent:strings];
   [popup setDuration:0.5];
   
   [self addSubview:popup];
