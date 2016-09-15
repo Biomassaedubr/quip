@@ -6,7 +6,9 @@
 #include "AttributeRange.hpp"
 #include "ChangeType.hpp"
 #include "Color.hpp"
+#include "DrawingServiceProvider.hpp"
 #include "EditContext.hpp"
+#include "Extent.hpp"
 #include "Key.hpp"
 #include "KeyStroke.hpp"
 #include "Mode.hpp"
@@ -50,12 +52,11 @@ namespace {
   
   Highlight m_highlightAttributes[quip::AttributeCount];
   
-  CGSize m_cellSize;
-  
   CGFloat m_cursorTimer;
   BOOL m_shouldDrawCursor;
   BOOL m_shouldDrawSelections;
-  
+
+  std::unique_ptr<quip::DrawingServiceProvider> m_drawingServiceProvider;
   std::unique_ptr<quip::PopupServiceProvider> m_popupServiceProvider;
   std::unique_ptr<quip::StatusServiceProvider> m_statusServiceProvider;
   std::shared_ptr<quip::EditContext> m_context;
@@ -82,17 +83,16 @@ static CGFloat gCursorBlinkInterval = 0.57;
 - (instancetype)initWithFrame:(NSRect)frame {
   self = [super initWithFrame:frame];
   if (self != nil) {
+    m_drawingServiceProvider = std::make_unique<quip::DrawingServiceProvider>("Menlo", 13.0f);
     m_popupServiceProvider = std::make_unique<quip::PopupServiceProvider>(self);
     
     m_font = CTFontCreateWithName(CFSTR("Menlo"), 13.0, nil);
     
-    NSDictionary * attributes = @{NSFontAttributeName: [NSFont fontWithName:@"Menlo" size:13.0f]};
-    m_cellSize = [gSizeQueryString sizeWithAttributes:attributes];
-    
-    std::size_t tabStopCount = static_cast<std::size_t>(std::ceil(frame.size.width / m_cellSize.width));
+    quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+    std::size_t tabStopCount = static_cast<std::size_t>(std::ceil(frame.size.width / cellSize.width()));
     m_tabStops.reserve(tabStopCount);
     for (std::size_t index = 0; index < tabStopCount; ++index) {
-      m_tabStops.emplace_back(CTTextTabCreate(kCTTextAlignmentNatural, (index + 1) * m_cellSize.width * gTabSize, nullptr));
+      m_tabStops.emplace_back(CTTextTabCreate(kCTTextAlignmentNatural, (index + 1) * cellSize.width() * gTabSize, nullptr));
     };
     
     CFArrayRef tabStopArray = CFArrayCreate(kCFAllocatorDefault, reinterpret_cast<const void **>(m_tabStops.data()), tabStopCount, &kCFTypeArrayCallBacks);
@@ -199,9 +199,9 @@ static CGFloat gCursorBlinkInterval = 0.57;
 
 - (void)mouseDown:(NSEvent *)event {
   NSPoint location = [self convertPoint:event.locationInWindow fromView:nil];
-  std::size_t column = static_cast<std::size_t>(location.x / m_cellSize.width);
-  std::size_t row = static_cast<std::size_t>((self.frame.size.height - location.y) / m_cellSize.height);
-  quip::Location target(column, row);
+  quip::Coordinate coordinate(location.x, location.y);
+  quip::Rectangle rectangle(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+  quip::Location target = m_drawingServiceProvider->locationForCoordinateInFrame(coordinate, rectangle);
   
   if (target.row() >= m_context->document().rows() || target.column() >= m_context->document().row(target.row()).length()) {
     return;
@@ -213,9 +213,9 @@ static CGFloat gCursorBlinkInterval = 0.57;
 
 - (void)mouseDragged:(NSEvent *)event {
   NSPoint location = [self convertPoint:event.locationInWindow fromView:nil];
-  std::size_t column = static_cast<std::size_t>(location.x / m_cellSize.width);
-  std::size_t row = static_cast<std::size_t>((self.frame.size.height - location.y) / m_cellSize.height);
-  quip::Location target(column, row);
+  quip::Coordinate coordinate(location.x, location.y);
+  quip::Rectangle rectangle(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+  quip::Location target = m_drawingServiceProvider->locationForCoordinateInFrame(coordinate, rectangle);
   
   if (target.row() >= m_context->document().rows() || target.column() >= m_context->document().row(target.row()).length()) {
     return;
@@ -303,9 +303,10 @@ static CGFloat gCursorBlinkInterval = 0.57;
   NSWindowController * controller = [[self window] windowController];
   NSDocument * container = [controller document];
   
+  quip::Extent cellSize = m_drawingServiceProvider->cellSize();
   CGRect frame = [self frame];
   CGRect parent = [[self superview] frame];
-  CGFloat height = MAX(parent.size.height, m_cellSize.height * (document->rows() + 1));
+  CGFloat height = MAX(parent.size.height, cellSize.height() * (document->rows() + 1));
   [self setFrameSize:NSMakeSize(frame.size.width, height)];
   
   // Bind controller signals.
@@ -318,7 +319,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   });
   
   m_documentModifiedToken = m_context->document().onDocumentModified().connect([=] () {
-    CGFloat height = MAX(parent.size.height, m_cellSize.height * (document->rows() + 1));
+    CGFloat height = MAX(parent.size.height, cellSize.height() * (document->rows() + 1));
     [self setFrameSize:NSMakeSize(frame.size.width, height)];
   });
   
@@ -351,9 +352,10 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)scrollLocationIntoView:(quip::Location)location {
-  CGFloat x = location.column() * m_cellSize.width;
-  CGFloat y = self.frame.size.height - (m_cellSize.height * (location.row() + 1));
-  CGRect target = CGRectMake(x, y, m_cellSize.width, m_cellSize.height);
+  quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+  quip::Rectangle rectangle(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+  quip::Coordinate coordinate = m_drawingServiceProvider->coordinateForLocationInFrame(location, rectangle);
+  CGRect target = CGRectMake(coordinate.x, coordinate.y, cellSize.width(), cellSize.height());
   [self scrollRectToVisible:target];
 }
 
@@ -364,10 +366,11 @@ static CGFloat gCursorBlinkInterval = 0.57;
     *stop = NO;
   }];
   
-  CGFloat width = m_cellSize.width * [text length];
-  CGFloat height = m_cellSize.height * [strings count];
-  CGFloat x = location.column() * m_cellSize.width;
-  CGFloat y = self.frame.size.height - height - m_cellSize.height;
+  quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+  CGFloat width = cellSize.width() * [text length];
+  CGFloat height = cellSize.height() * [strings count];
+  CGFloat x = location.column() * cellSize.width();
+  CGFloat y = self.frame.size.height - height - cellSize.height();
   
   QuipPopupView * popup = [[QuipPopupView alloc] initWithFrame:CGRectMake(x, y - 2.0, width, height)];
   [popup setContent:strings];
@@ -378,7 +381,8 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)scrollToLocation:(quip::Location)location {
-  CGFloat y = self.frame.size.height - (m_cellSize.height * (location.row() + 1));
+  quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+  CGFloat y = self.frame.size.height - (cellSize.height() * (location.row() + 1));
   
   // The parent of this view is the NSClipView, which will have the height of the
   // visible portion of the document, which can be used to bias the target point
@@ -388,6 +392,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)drawSelections:(const quip::SelectionDrawInfo &)drawInfo context:(CGContextRef)context {
+  quip::Extent cellSize = m_drawingServiceProvider->cellSize();
   quip::Document & document = m_context->document();
   for (const quip::Selection & selection : drawInfo.selections) {
     const quip::Location & lower = selection.origin();
@@ -398,8 +403,8 @@ static CGFloat gCursorBlinkInterval = 0.57;
       std::size_t firstColumn = row == lower.row() ? lower.column() : 0;
       std::size_t lastColumn = row == upper.row() ? upper.column() : document.row(row).size() - 1;
       
-      CGFloat x = gMargin + (firstColumn * m_cellSize.width);
-      CGFloat y = self.frame.size.height - m_cellSize.height - (row * m_cellSize.height);
+      CGFloat x = gMargin + (firstColumn * cellSize.width());
+      CGFloat y = self.frame.size.height - cellSize.height() - (row * cellSize.height());
       const quip::Color & color = selection == drawInfo.selections.primary() ? drawInfo.primaryColor : drawInfo.secondaryColor;
       CGContextSetRGBStrokeColor(context, color.red(), color.green(), color.blue(), color.alpha());
       CGContextSetRGBFillColor(context, color.red(), color.green(), color.blue(), color.alpha());
@@ -407,20 +412,20 @@ static CGFloat gCursorBlinkInterval = 0.57;
       if (m_shouldDrawCursor || (drawInfo.flags & quip::CursorFlags::Blink) == 0) {
         switch (drawInfo.style) {
           case quip::CursorStyle::VerticalBlock:
-            CGContextFillRect(context, CGRectMake(x, y - 2.0, m_cellSize.width * (lastColumn + 1 - firstColumn), 0.75 * m_cellSize.height));
+            CGContextFillRect(context, CGRectMake(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), 0.75 * cellSize.height()));
             break;
           case quip::CursorStyle::VerticalBlockHalf:
-            CGContextFillRect(context, CGRectMake(x, y - 2.0, m_cellSize.width * (lastColumn + 1 - firstColumn), 0.25 * m_cellSize.height));
+            CGContextFillRect(context, CGRectMake(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), 0.25 * cellSize.height()));
             break;
           case quip::CursorStyle::VerticalBar:
             CGContextMoveToPoint(context, x, y - 2.0);
-            CGContextAddLineToPoint(context, x, y + m_cellSize.height - 6.0);
+            CGContextAddLineToPoint(context, x, y + cellSize.height() - 6.0);
             CGContextStrokePath(context);
             break;
           case quip::CursorStyle::Underline:
           default:
             CGContextMoveToPoint(context, x, y - 2.0);
-            CGContextAddLineToPoint(context, x + (m_cellSize.width * (lastColumn + 1 - firstColumn)), y - 2.0);
+            CGContextAddLineToPoint(context, x + (cellSize.width() * (lastColumn + 1 - firstColumn)), y - 2.0);
             CGContextStrokePath(context);
             break;
         }
@@ -470,10 +475,11 @@ static CGFloat gCursorBlinkInterval = 0.57;
   }
   
   // Draw text.
-  CGFloat y = self.frame.size.height - m_cellSize.height;
+  quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+  CGFloat y = self.frame.size.height - cellSize.height();
   for (std::size_t row = 0; row < document.rows(); ++row) {
     // Only draw the row if it clips into the dirty rectangle.
-    CGRect rowFrame = CGRectMake(gMargin, y, self.frame.size.width - (2.0 *  - gMargin), m_cellSize.height);
+    CGRect rowFrame = CGRectMake(gMargin, y, self.frame.size.width - (2.0 *  - gMargin), cellSize.height());
     if (CGRectIntersectsRect(dirtyRect, rowFrame)) {
       std::vector<quip::AttributeRange> syntaxAttributes = fileType->syntax->parse(m_context->document().row(row), m_context->document().path());
       CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, document.row(row).c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
@@ -498,7 +504,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
       CFRelease(text);
     }
     
-    y -= m_cellSize.height;
+    y -= cellSize.height();
   }
   
   quip::StatusService & status = m_context->statusService();

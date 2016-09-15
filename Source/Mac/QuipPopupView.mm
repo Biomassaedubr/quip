@@ -1,11 +1,13 @@
 #import "QuipPopupView.h"
 
+#include "DrawingServiceProvider.hpp"
+
 @interface QuipPopupView () {
 @private
   CTFontRef m_font;
   CFDictionaryRef m_fontAttributes;
   
-  CGSize m_cellSize;
+  std::unique_ptr<quip::DrawingServiceProvider> m_drawingServiceProvider;
 }
 @end
 
@@ -16,6 +18,8 @@ static NSString * gSizeQueryString = @"m";
 - (instancetype)initWithFrame:(NSRect)frameRect {
   self = [super initWithFrame:frameRect];
   if (self != nil) {
+    m_drawingServiceProvider = std::make_unique<quip::DrawingServiceProvider>("Menlo", 13.0f);
+
     m_font = CTFontCreateWithName(CFSTR("Menlo"), 13.0, nil);
     
     CFStringRef keys[] = { kCTFontAttributeName };
@@ -23,9 +27,6 @@ static NSString * gSizeQueryString = @"m";
     const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
     const void ** opaqueValues = reinterpret_cast<const void **>(&values);
     m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    
-    NSDictionary * attributes = @{NSFontAttributeName: [NSFont fontWithName:@"Menlo" size:13.0f]};
-    m_cellSize = [gSizeQueryString sizeWithAttributes:attributes];
   }
   
   return self;
@@ -37,7 +38,8 @@ static NSString * gSizeQueryString = @"m";
   CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.2);
   CGContextFillRect(context, dirtyRect);
   
-  CGFloat y = self.frame.size.height - m_cellSize.height;
+  quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+  CGFloat y = self.frame.size.height - cellSize.height();
   for (NSString * row in [self content]) {
     CFStringRef string = (__bridge CFStringRef)row;
     CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(string));
@@ -54,7 +56,7 @@ static NSString * gSizeQueryString = @"m";
     CFRelease(line);
     CFRelease(attributed);
     
-    y -= m_cellSize.height;
+    y -= cellSize.height();
   }
 }
 

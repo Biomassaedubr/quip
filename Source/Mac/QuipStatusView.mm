@@ -1,11 +1,14 @@
 #import "QuipStatusView.h"
 
+#include "DrawingServiceProvider.hpp"
+
 @interface QuipStatusView () {
 @private
   CTFontRef m_font;
   CFDictionaryRef m_fontAttributes;
+
+  std::unique_ptr<quip::DrawingServiceProvider> m_drawingServiceProvider;
   
-  CGSize m_cellSize;
   NSString * m_text;
   std::size_t m_lineCount;
   NSString * m_fileType;
@@ -22,10 +25,9 @@ static CGFloat gStatusLineLeftPadding = 2.0;
 - (instancetype)initWithFrame:(NSRect)frame {
   self = [super initWithFrame:frame];
   if (self != nil) {
+    m_drawingServiceProvider = std::make_unique<quip::DrawingServiceProvider>("Menlo", 13.0f);
+
     m_font = CTFontCreateWithName(CFSTR("Menlo"), 13.0, nil);
-    
-    NSDictionary * attributes = @{NSFontAttributeName: [NSFont fontWithName:@"Menlo" size:13.0f]};
-    m_cellSize = [gSizeQueryString sizeWithAttributes:attributes];
     
     CFStringRef keys[] = { kCTFontAttributeName };
     CFTypeRef values[] = { m_font };

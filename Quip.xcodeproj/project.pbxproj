@@ -25,6 +25,17 @@
 		033CA9721D011ED200ABD567 /* Transaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9701D011ED200ABD567 /* Transaction.cpp */; };
 		033CA9751D011FDA00ABD567 /* InsertTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9731D011FDA00ABD567 /* InsertTransaction.cpp */; };
 		033CA9791D01273400ABD567 /* EraseTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9771D01273400ABD567 /* EraseTransaction.cpp */; };
+		03532D4C1D8B5D700007E2BF /* DrawingService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03532D4A1D8B5D700007E2BF /* DrawingService.cpp */; };
+		03532D4D1D8B5D700007E2BF /* DrawingService.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03532D4B1D8B5D700007E2BF /* DrawingService.hpp */; };
+		03532D501D8B5DD30007E2BF /* Extent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03532D4E1D8B5DD30007E2BF /* Extent.cpp */; };
+		03532D511D8B5DD30007E2BF /* Extent.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03532D4F1D8B5DD30007E2BF /* Extent.hpp */; };
+		03532D531D8B5E5A0007E2BF /* ExtentTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03532D521D8B5E5A0007E2BF /* ExtentTests.mm */; };
+		03532D551D8B5F490007E2BF /* DrawingServiceProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03532D541D8B5F490007E2BF /* DrawingServiceProvider.mm */; };
+		03532D591D8B63D10007E2BF /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03532D571D8B63D10007E2BF /* Rectangle.cpp */; };
+		03532D5A1D8B63D10007E2BF /* Rectangle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03532D581D8B63D10007E2BF /* Rectangle.hpp */; };
+		03532D5D1D8B65840007E2BF /* Coordinate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03532D5B1D8B65840007E2BF /* Coordinate.cpp */; };
+		03532D5E1D8B65840007E2BF /* Coordinate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03532D5C1D8B65840007E2BF /* Coordinate.hpp */; };
+		03532D601D8B65DF0007E2BF /* CoordinateTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03532D5F1D8B65DF0007E2BF /* CoordinateTests.mm */; };
 		036FD3FD1D75356D006EDD9E /* ChangeType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 036FD3FC1D75356D006EDD9E /* ChangeType.hpp */; };
 		036FD3FF1D75CDC7006EDD9E /* SignalTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 036FD3FE1D75CDC7006EDD9E /* SignalTests.mm */; };
 		037DCDEB1C8B6F7100643D44 /* SelectionDrawInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */; };
@@ -106,6 +117,18 @@
 		033CA9741D011FDA00ABD567 /* InsertTransaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = InsertTransaction.hpp; path = Source/Core/InsertTransaction.hpp; sourceTree = "<group>"; };
 		033CA9771D01273400ABD567 /* EraseTransaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EraseTransaction.cpp; path = Source/Core/EraseTransaction.cpp; sourceTree = "<group>"; };
 		033CA9781D01273400ABD567 /* EraseTransaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EraseTransaction.hpp; path = Source/Core/EraseTransaction.hpp; sourceTree = "<group>"; };
+		03532D4A1D8B5D700007E2BF /* DrawingService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DrawingService.cpp; path = Source/Core/DrawingService.cpp; sourceTree = "<group>"; };
+		03532D4B1D8B5D700007E2BF /* DrawingService.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DrawingService.hpp; path = Source/Core/DrawingService.hpp; sourceTree = "<group>"; };
+		03532D4E1D8B5DD30007E2BF /* Extent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Extent.cpp; path = Source/Core/Extent.cpp; sourceTree = "<group>"; };
+		03532D4F1D8B5DD30007E2BF /* Extent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Extent.hpp; path = Source/Core/Extent.hpp; sourceTree = "<group>"; };
+		03532D521D8B5E5A0007E2BF /* ExtentTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ExtentTests.mm; path = Source/Tests/ExtentTests.mm; sourceTree = SOURCE_ROOT; };
+		03532D541D8B5F490007E2BF /* DrawingServiceProvider.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DrawingServiceProvider.mm; path = Source/Mac/DrawingServiceProvider.mm; sourceTree = "<group>"; };
+		03532D561D8B5F650007E2BF /* DrawingServiceProvider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DrawingServiceProvider.hpp; path = Source/Mac/DrawingServiceProvider.hpp; sourceTree = "<group>"; };
+		03532D571D8B63D10007E2BF /* Rectangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Rectangle.cpp; path = Source/Core/Rectangle.cpp; sourceTree = "<group>"; };
+		03532D581D8B63D10007E2BF /* Rectangle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Rectangle.hpp; path = Source/Core/Rectangle.hpp; sourceTree = "<group>"; };
+		03532D5B1D8B65840007E2BF /* Coordinate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Coordinate.cpp; path = Source/Core/Coordinate.cpp; sourceTree = "<group>"; };
+		03532D5C1D8B65840007E2BF /* Coordinate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Coordinate.hpp; path = Source/Core/Coordinate.hpp; sourceTree = "<group>"; };
+		03532D5F1D8B65DF0007E2BF /* CoordinateTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CoordinateTests.mm; path = Source/Tests/CoordinateTests.mm; sourceTree = SOURCE_ROOT; };
 		036FD3FC1D75356D006EDD9E /* ChangeType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ChangeType.hpp; path = Source/Core/ChangeType.hpp; sourceTree = "<group>"; };
 		036FD3FE1D75CDC7006EDD9E /* SignalTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SignalTests.mm; path = Source/Tests/SignalTests.mm; sourceTree = SOURCE_ROOT; };
 		037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionDrawInfo.cpp; path = Source/Core/SelectionDrawInfo.cpp; sourceTree = "<group>"; };
@@ -245,6 +268,15 @@
 			name = Implementations;
 			sourceTree = "<group>";
 		};
+		03532D491D8B5D5E0007E2BF /* Drawing */ = {
+			isa = PBXGroup;
+			children = (
+				03532D4B1D8B5D700007E2BF /* DrawingService.hpp */,
+				03532D4A1D8B5D700007E2BF /* DrawingService.cpp */,
+			);
+			name = Drawing;
+			sourceTree = "<group>";
+		};
 		035B12A81D07D5B500C7ADF3 /* Syntax */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +291,7 @@
 		037F306B1D47A6AF009F6EE2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				03532D491D8B5D5E0007E2BF /* Drawing */,
 				037F306C1D47A6BF009F6EE2 /* Status */,
 				038806C41D470E32001E56F1 /* Popups */,
 			);
@@ -290,6 +323,8 @@
 				038806CE1D4714BE001E56F1 /* PopupServiceProvider.mm */,
 				037F30711D47A734009F6EE2 /* StatusServiceProvider.hpp */,
 				037F30721D47A734009F6EE2 /* StatusServiceProvider.mm */,
+				03532D561D8B5F650007E2BF /* DrawingServiceProvider.hpp */,
+				03532D541D8B5F490007E2BF /* DrawingServiceProvider.mm */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -444,9 +479,15 @@
 		03D1C8541C78197200AF5475 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				03D1C8511C78197200AF5475 /* Signal.hpp */,
 				03D1C8521C78197200AF5475 /* Color.hpp */,
 				03D1C8531C78197200AF5475 /* Color.cpp */,
+				03532D5C1D8B65840007E2BF /* Coordinate.hpp */,
+				03532D5B1D8B65840007E2BF /* Coordinate.cpp */,
+				03532D4F1D8B5DD30007E2BF /* Extent.hpp */,
+				03532D4E1D8B5DD30007E2BF /* Extent.cpp */,
+				03532D581D8B63D10007E2BF /* Rectangle.hpp */,
+				03532D571D8B63D10007E2BF /* Rectangle.cpp */,
+				03D1C8511C78197200AF5475 /* Signal.hpp */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -471,8 +512,10 @@
 			isa = PBXGroup;
 			children = (
 				03D1C8871C781AFB00AF5475 /* Info.plist */,
+				03532D5F1D8B65DF0007E2BF /* CoordinateTests.mm */,
 				03D1C8851C781AFB00AF5475 /* DocumentIteratorTests.mm */,
 				03D1C8861C781AFB00AF5475 /* DocumentTests.mm */,
+				03532D521D8B5E5A0007E2BF /* ExtentTests.mm */,
 				031FC0DC1D3BFD4100628179 /* KeySequenceTests.mm */,
 				03D1C8881C781AFB00AF5475 /* LocationTests.mm */,
 				03D1C8891C781AFB00AF5475 /* SearchExpressionTests.mm */,
@@ -495,11 +538,15 @@
 				03FCA8FA1D88BFAF00B1C574 /* FileTypeDatabase.hpp in Headers */,
 				036FD3FD1D75356D006EDD9E /* ChangeType.hpp in Headers */,
 				037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */,
+				03532D4D1D8B5D700007E2BF /* DrawingService.hpp in Headers */,
+				03532D511D8B5DD30007E2BF /* Extent.hpp in Headers */,
 				038806C81D470E5C001E56F1 /* PopupService.hpp in Headers */,
 				039037181D09065500CC932C /* UnknownSyntax.hpp in Headers */,
+				03532D5A1D8B63D10007E2BF /* Rectangle.hpp in Headers */,
 				037F30701D47A6D5009F6EE2 /* StatusService.hpp in Headers */,
 				0390371C1D090D9400CC932C /* MarkdownSyntax.hpp in Headers */,
 				031FC0D51D3BE9AD00628179 /* MapTrie.hpp in Headers */,
+				03532D5E1D8B65840007E2BF /* Coordinate.hpp in Headers */,
 				031FC0D91D3BEA0700628179 /* MapTrieNode.hpp in Headers */,
 				03E10D971D0C7CF200DFC8D0 /* JumpMode.hpp in Headers */,
 				031FC0D11D3BE6CF00628179 /* KeySequence.hpp in Headers */,
@@ -628,6 +675,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				038ECDE21C698FE2002E571D /* QuipWindowController.mm in Sources */,
+				03532D551D8B5F490007E2BF /* DrawingServiceProvider.mm in Sources */,
 				038806CF1D4714BE001E56F1 /* PopupServiceProvider.mm in Sources */,
 				038ECDDD1C698FE2002E571D /* main.m in Sources */,
 				038ECDDF1C698FE2002E571D /* QuipDocument.mm in Sources */,
@@ -654,6 +702,7 @@
 				0390371B1D090D9400CC932C /* MarkdownSyntax.cpp in Sources */,
 				03D1C8691C7819ED00AF5475 /* Location.cpp in Sources */,
 				03D1C8721C781A0900AF5475 /* Selection.cpp in Sources */,
+				03532D501D8B5DD30007E2BF /* Extent.cpp in Sources */,
 				038806C71D470E5C001E56F1 /* PopupService.cpp in Sources */,
 				03D1C86C1C7819FB00AF5475 /* KeyStroke.cpp in Sources */,
 				03FCA8F91D88BFAF00B1C574 /* FileTypeDatabase.cpp in Sources */,
@@ -666,8 +715,11 @@
 				03D1C86D1C7819FB00AF5475 /* Mode.cpp in Sources */,
 				031FC0D41D3BE9AD00628179 /* MapTrie.cpp in Sources */,
 				03D1C8711C781A0900AF5475 /* SearchExpression.cpp in Sources */,
+				03532D5D1D8B65840007E2BF /* Coordinate.cpp in Sources */,
 				03E10D961D0C7CF200DFC8D0 /* JumpMode.cpp in Sources */,
+				03532D4C1D8B5D700007E2BF /* DrawingService.cpp in Sources */,
 				03D1C86E1C781A0100AF5475 /* EditMode.cpp in Sources */,
+				03532D591D8B63D10007E2BF /* Rectangle.cpp in Sources */,
 				03D1C8661C7819E600AF5475 /* EditContext.cpp in Sources */,
 				03D1C8701C781A0100AF5475 /* SearchMode.cpp in Sources */,
 				039037171D09065500CC932C /* UnknownSyntax.cpp in Sources */,
@@ -682,6 +734,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				030AC70F1C781B9F00219938 /* DocumentTests.mm in Sources */,
+				03532D601D8B65DF0007E2BF /* CoordinateTests.mm in Sources */,
+				03532D531D8B5E5A0007E2BF /* ExtentTests.mm in Sources */,
 				036FD3FF1D75CDC7006EDD9E /* SignalTests.mm in Sources */,
 				030AC7111C781B9F00219938 /* SearchExpressionTests.mm in Sources */,
 				031FC0DD1D3BFD4100628179 /* KeySequenceTests.mm in Sources */,
