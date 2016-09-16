@@ -46,8 +46,8 @@ namespace quip {
     }
     
     SelectionDrawInfo overlays;
-    overlays.primaryColor = Color::Red;
-    overlays.secondaryColor = Color::Red;
+    overlays.primaryColor = Color::red();
+    overlays.secondaryColor = Color::red();
     overlays.selections.replace(SelectionSet(overlaySelections));
     overlays.flags = CursorFlags::None;
     overlays.style = CursorStyle::Underline;

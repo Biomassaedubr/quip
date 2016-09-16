@@ -1,5 +1,7 @@
 #include "DrawingService.hpp"
 
+#include "Rectangle.hpp"
+
 namespace quip {
   DrawingService::~DrawingService() {
   }

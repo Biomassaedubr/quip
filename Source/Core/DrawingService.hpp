@@ -3,11 +3,13 @@
 #include "Coordinate.hpp"
 #include "Extent.hpp"
 #include "Location.hpp"
-#include "Rectangle.hpp"
 
 #include <string>
 
 namespace quip {
+  struct Color;
+  struct Rectangle;
+  
   // Provides functionality for drawing text and indicators to a view.
   struct DrawingService {
     ~DrawingService ();
@@ -16,6 +18,8 @@ namespace quip {
 
     Coordinate coordinateForLocationInFrame(const Location & location, const Rectangle & frame) const;
     Location locationForCoordinateInFrame(const Coordinate & coordinate, const Rectangle & frame) const;
+    
+    virtual void fillRectangle (const Rectangle & rectangle, const Color & color) = 0;
   
   protected:
     void setCellSize (Extent size);

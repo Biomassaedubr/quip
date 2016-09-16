@@ -4,24 +4,25 @@ namespace quip {
   // A four-component floating point color.
   struct Color {
     Color ();
-    Color (float red, float green, float blue);
-    Color (float red, float green, float blue, float alpha);
+    Color (float r, float g, float b);
+    Color (float r, float g, float b, float a);
     
-    float red () const noexcept;
-    float green () const noexcept;
-    float blue () const noexcept;
-    float alpha () const noexcept;
+    float r () const noexcept;
+    float g () const noexcept;
+    float b () const noexcept;
+    float a () const noexcept;
     
-    static Color White;
-    static Color Black;
-    static Color Red;
-    static Color Green;
-    static Color Blue;
+    static Color red();
+    static Color green();
+    static Color blue();
+    static Color transparent();
+    static Color black();
+    static Color white();
     
   private:
-    float m_red;
-    float m_green;
-    float m_blue;
-    float m_alpha;
+    float m_r;
+    float m_g;
+    float m_b;
+    float m_a;
   };
 }

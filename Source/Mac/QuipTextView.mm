@@ -28,7 +28,7 @@ namespace {
   };
   
   static void initializeHighlight (Highlight * highlight, quip::Color foreground) {
-    highlight->foregroundColor = CGColorCreateGenericRGB(foreground.red(), foreground.green(), foreground.blue(), foreground.alpha());
+    highlight->foregroundColor = CGColorCreateGenericRGB(foreground.r(), foreground.g(), foreground.b(), foreground.a());
     
     CFStringRef keys[] = { kCTForegroundColorAttributeName };
     CFTypeRef values[] = { highlight->foregroundColor };
@@ -406,16 +406,16 @@ static CGFloat gCursorBlinkInterval = 0.57;
       CGFloat x = gMargin + (firstColumn * cellSize.width());
       CGFloat y = self.frame.size.height - cellSize.height() - (row * cellSize.height());
       const quip::Color & color = selection == drawInfo.selections.primary() ? drawInfo.primaryColor : drawInfo.secondaryColor;
-      CGContextSetRGBStrokeColor(context, color.red(), color.green(), color.blue(), color.alpha());
-      CGContextSetRGBFillColor(context, color.red(), color.green(), color.blue(), color.alpha());
+      CGContextSetRGBStrokeColor(context, color.r(), color.g(), color.b(), color.a());
+      CGContextSetRGBFillColor(context, color.r(), color.g(), color.b(), color.a());
       
       if (m_shouldDrawCursor || (drawInfo.flags & quip::CursorFlags::Blink) == 0) {
         switch (drawInfo.style) {
           case quip::CursorStyle::VerticalBlock:
-            CGContextFillRect(context, CGRectMake(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), 0.75 * cellSize.height()));
+            m_drawingServiceProvider->fillRectangle(quip::Rectangle(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), 0.75 * cellSize.height()), color);
             break;
           case quip::CursorStyle::VerticalBlockHalf:
-            CGContextFillRect(context, CGRectMake(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), 0.25 * cellSize.height()));
+            m_drawingServiceProvider->fillRectangle(quip::Rectangle(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), 0.25 * cellSize.height()), color);
             break;
           case quip::CursorStyle::VerticalBar:
             CGContextMoveToPoint(context, x, y - 2.0);
@@ -452,14 +452,14 @@ static CGFloat gCursorBlinkInterval = 0.57;
   CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
   
   // Clear the background.
-  CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 1.0f);
-  CGContextFillRect(context, dirtyRect);
+  quip::Rectangle rectangle(dirtyRect.origin.x, dirtyRect.origin.y, dirtyRect.size.width, dirtyRect.size.height);
+  m_drawingServiceProvider->fillRectangle(rectangle, quip::Color::white());
   
   // Draw selections and overlays first (text is drawn over them).
   if (m_shouldDrawSelections) {
     NSColor * systemHighlightColor = [[NSColor selectedTextBackgroundColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
     quip::Color primaryColor([systemHighlightColor redComponent], [systemHighlightColor greenComponent], [systemHighlightColor blueComponent]);
-    quip::Color secondaryColor(primaryColor.red() * 0.5f, primaryColor.green() * 0.5f, primaryColor.blue() * 0.5f);
+    quip::Color secondaryColor(primaryColor.r() * 0.5f, primaryColor.g() * 0.5f, primaryColor.b() * 0.5f);
     
     quip::SelectionDrawInfo drawInfo;
     drawInfo.primaryColor = primaryColor;
