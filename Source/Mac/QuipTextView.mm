@@ -393,6 +393,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
 
 - (void)drawSelections:(const quip::SelectionDrawInfo &)drawInfo context:(CGContextRef)context {
   quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+  quip::Rectangle viewFrame = quip::Rectangle(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
   quip::Document & document = m_context->document();
   for (const quip::Selection & selection : drawInfo.selections) {
     const quip::Location & lower = selection.origin();
@@ -424,9 +425,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
             break;
           case quip::CursorStyle::Underline:
           default:
-            CGContextMoveToPoint(context, x, y - 2.0);
-            CGContextAddLineToPoint(context, x + (cellSize.width() * (lastColumn + 1 - firstColumn)), y - 2.0);
-            CGContextStrokePath(context);
+            m_drawingServiceProvider->drawUnderline(row, firstColumn, lastColumn, color, viewFrame);
             break;
         }
       }
