@@ -407,8 +407,6 @@ static CGFloat gCursorBlinkInterval = 0.57;
       CGFloat x = gMargin + (firstColumn * cellSize.width());
       CGFloat y = self.frame.size.height - cellSize.height() - (row * cellSize.height());
       const quip::Color & color = selection == drawInfo.selections.primary() ? drawInfo.primaryColor : drawInfo.secondaryColor;
-      CGContextSetRGBStrokeColor(context, color.r(), color.g(), color.b(), color.a());
-      CGContextSetRGBFillColor(context, color.r(), color.g(), color.b(), color.a());
       
       if (m_shouldDrawCursor || (drawInfo.flags & quip::CursorFlags::Blink) == 0) {
         switch (drawInfo.style) {
@@ -419,9 +417,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
             m_drawingServiceProvider->fillRectangle(quip::Rectangle(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), 0.25 * cellSize.height()), color);
             break;
           case quip::CursorStyle::VerticalBar:
-            CGContextMoveToPoint(context, x, y - 2.0);
-            CGContextAddLineToPoint(context, x, y + cellSize.height() - 6.0);
-            CGContextStrokePath(context);
+            m_drawingServiceProvider->drawBarBefore(quip::Location(firstColumn, row), color, viewFrame);
             break;
           case quip::CursorStyle::Underline:
           default:
