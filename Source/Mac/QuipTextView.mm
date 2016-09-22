@@ -56,7 +56,7 @@ namespace {
   BOOL m_shouldDrawCursor;
   BOOL m_shouldDrawSelections;
 
-  std::unique_ptr<quip::DrawingServiceProvider> m_drawingServiceProvider;
+  std::unique_ptr<quip::DrawingService> m_drawingServiceProvider;
   std::unique_ptr<quip::PopupServiceProvider> m_popupServiceProvider;
   std::unique_ptr<quip::StatusServiceProvider> m_statusServiceProvider;
   std::shared_ptr<quip::EditContext> m_context;

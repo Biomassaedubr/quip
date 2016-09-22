@@ -7,7 +7,7 @@
   CTFontRef m_font;
   CFDictionaryRef m_fontAttributes;
   
-  std::unique_ptr<quip::DrawingServiceProvider> m_drawingServiceProvider;
+  std::unique_ptr<quip::DrawingService> m_drawingServiceProvider;
 }
 @end
 

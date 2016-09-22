@@ -20,7 +20,10 @@ namespace quip {
     Location locationForCoordinateInFrame(const Coordinate & coordinate, const Rectangle & frame) const;
     
     virtual void fillRectangle (const Rectangle & rectangle, const Color & color) = 0;
-  
+    
+    virtual void drawUnderline (std::size_t row, std::size_t firstColumn, std::size_t lastColumn, const Color & color, const Rectangle & frame) = 0;
+    virtual void drawBarBefore (const Location & location, const Color & color, const Rectangle & frame) = 0;
+    
     virtual void drawText (const std::string & text, const Coordinate& coordinate) = 0;
     virtual Rectangle measureText (const std::string & text) = 0;
     

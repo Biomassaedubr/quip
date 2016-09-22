@@ -4,7 +4,7 @@
 
 @interface QuipStatusView () {
 @private
-  std::unique_ptr<quip::DrawingServiceProvider> m_drawingServiceProvider;
+  std::unique_ptr<quip::DrawingService> m_drawingServiceProvider;
   
   NSString * m_text;
   std::size_t m_lineCount;

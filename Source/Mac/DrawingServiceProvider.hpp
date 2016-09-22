@@ -13,8 +13,8 @@ namespace quip {
     
     void fillRectangle (const Rectangle & rectangle, const Color & color) override;
     
-    void drawUnderline (std::size_t row, std::size_t firstColumn, std::size_t lastColumn, const Color & color, const Rectangle & frame);
-    void drawBarBefore (const Location & location, const Color & color, const Rectangle & frame);
+    void drawUnderline (std::size_t row, std::size_t firstColumn, std::size_t lastColumn, const Color & color, const Rectangle & frame) override;
+    void drawBarBefore (const Location & location, const Color & color, const Rectangle & frame) override;
     
     void drawText (const std::string & text, const Coordinate& coordinate) override;
     Rectangle measureText (const std::string & text) override;
