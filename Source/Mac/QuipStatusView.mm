@@ -4,9 +4,6 @@
 
 @interface QuipStatusView () {
 @private
-  CTFontRef m_font;
-  CFDictionaryRef m_fontAttributes;
-
   std::unique_ptr<quip::DrawingServiceProvider> m_drawingServiceProvider;
   
   NSString * m_text;
@@ -26,24 +23,10 @@ static CGFloat gStatusLineLeftPadding = 2.0;
   self = [super initWithFrame:frame];
   if (self != nil) {
     m_drawingServiceProvider = std::make_unique<quip::DrawingServiceProvider>("Menlo", 13.0f);
-
-    m_font = CTFontCreateWithName(CFSTR("Menlo"), 13.0, nil);
-    
-    CFStringRef keys[] = { kCTFontAttributeName };
-    CFTypeRef values[] = { m_font };
-    const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
-    const void ** opaqueValues = reinterpret_cast<const void **>(&values);
-    m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    
     m_text = @"";
   }
   
   return self;
-}
-
-- (void)dealloc {
-  CFRelease(m_fontAttributes);
-  CFRelease(m_font);
 }
 
 - (void)setStatus:(const char *)status {
@@ -68,31 +51,14 @@ static CGFloat gStatusLineLeftPadding = 2.0;
     return;
   }
   
-  CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
+  std::string textLabel([m_text cStringUsingEncoding:NSUTF8StringEncoding]);
+  m_drawingServiceProvider->drawText(textLabel, quip::Coordinate(gStatusLineLeftPadding, gStatusLineBottomPadding));
+  
   NSString * lineCountLabel = [NSString stringWithFormat:@"%lu line%@ (%@)", m_lineCount, m_lineCount == 1 ? @"" : @"s", m_fileType];
-
-  {
-    CFStringRef text = (__bridge CFStringRef)m_text;
-    CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, text, m_fontAttributes);
-    CTLineRef line = CTLineCreateWithAttributedString(attributed);
-  
-    CGContextSetTextPosition(context, gStatusLineLeftPadding, gStatusLineBottomPadding);
-    CTLineDraw(line, context);
-    CFRelease(line);
-    CFRelease(attributed);
-  }
-  
-  {
-    CFStringRef text = (__bridge CFStringRef)lineCountLabel;
-    CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, text, m_fontAttributes);
-    CTLineRef line = CTLineCreateWithAttributedString(attributed);
-    
-    CGRect bounds = CTLineGetBoundsWithOptions(line, 0);
-    CGContextSetTextPosition(context, [self frame].size.width - gStatusLineLeftPadding - bounds.size.width, gStatusLineBottomPadding);
-    CTLineDraw(line, context);
-    CFRelease(line);
-    CFRelease(attributed);
-  }
+  std::string lineLabel([lineCountLabel cStringUsingEncoding:NSUTF8StringEncoding]);
+  quip::Rectangle lineBounds = m_drawingServiceProvider->measureText(lineLabel);
+  quip::Coordinate lineLocation([self frame].size.width - gStatusLineLeftPadding - lineBounds.width(), gStatusLineBottomPadding);
+  m_drawingServiceProvider->drawText(lineLabel, lineLocation);
 }
 
 @end

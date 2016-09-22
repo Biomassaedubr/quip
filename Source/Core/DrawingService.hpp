@@ -21,6 +21,9 @@ namespace quip {
     
     virtual void fillRectangle (const Rectangle & rectangle, const Color & color) = 0;
   
+    virtual void drawText (const std::string & text, const Coordinate& coordinate) = 0;
+    virtual Rectangle measureText (const std::string & text) = 0;
+    
   protected:
     void setCellSize (Extent size);
     
