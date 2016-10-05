@@ -432,80 +432,83 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
-  // Find the document's extension.
-  std::size_t index = m_context->document().path().find_last_of('.');
-  std::string extension = "";
-  const quip::FileType * fileType = nullptr;
-  if (index != std::string::npos) {
-    extension = m_context->document().path().substr(index + 1);
-  }
-
-  // Find the document's type.
-  fileType = m_context->fileTypeDatabase().lookupByExtension(extension);
-  
-  quip::Document & document = m_context->document();
   CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
   
   // Clear the background.
   quip::Rectangle rectangle(dirtyRect.origin.x, dirtyRect.origin.y, dirtyRect.size.width, dirtyRect.size.height);
   m_drawingServiceProvider->fillRectangle(rectangle, quip::Color::white());
   
-  // Draw selections and overlays first (text is drawn over them).
-  if (m_shouldDrawSelections) {
-    NSColor * systemHighlightColor = [[NSColor selectedTextBackgroundColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-    quip::Color primaryColor([systemHighlightColor redComponent], [systemHighlightColor greenComponent], [systemHighlightColor blueComponent]);
-    quip::Color secondaryColor(primaryColor.r() * 0.5f, primaryColor.g() * 0.5f, primaryColor.b() * 0.5f);
+  if (m_context != nullptr) {
+    quip::Document & document = m_context->document();
+
+    // Find the document's extension.
+    std::size_t index = m_context->document().path().find_last_of('.');
+    std::string extension = "";
+    const quip::FileType * fileType = nullptr;
+    if (index != std::string::npos) {
+      extension = m_context->document().path().substr(index + 1);
+    }
+
+    // Find the document's type.
+    fileType = m_context->fileTypeDatabase().lookupByExtension(extension);
     
-    quip::SelectionDrawInfo drawInfo;
-    drawInfo.primaryColor = primaryColor;
-    drawInfo.secondaryColor = secondaryColor;
-    drawInfo.flags = m_context->mode().cursorFlags();
-    drawInfo.style = m_context->mode().cursorStyle();
-    drawInfo.selections = m_context->selections();
-    [self drawSelections:drawInfo context:context];
-  }
-  
-  for (auto && overlay : m_context->overlays()) {
-    [self drawSelections:overlay.second context:context];
-  }
-  
-  // Draw text.
-  quip::Extent cellSize = m_drawingServiceProvider->cellSize();
-  CGFloat y = self.frame.size.height - cellSize.height();
-  for (std::size_t row = 0; row < document.rows(); ++row) {
-    // Only draw the row if it clips into the dirty rectangle.
-    CGRect rowFrame = CGRectMake(gMargin, y, self.frame.size.width - (2.0 *  - gMargin), cellSize.height());
-    if (CGRectIntersectsRect(dirtyRect, rowFrame)) {
-      std::vector<quip::AttributeRange> syntaxAttributes = fileType->syntax->parse(m_context->document().row(row), m_context->document().path());
-      CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, document.row(row).c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
-      CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(text));
+    // Draw selections and overlays first (text is drawn over them).
+    if (m_shouldDrawSelections) {
+      NSColor * systemHighlightColor = [[NSColor selectedTextBackgroundColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+      quip::Color primaryColor([systemHighlightColor redComponent], [systemHighlightColor greenComponent], [systemHighlightColor blueComponent]);
+      quip::Color secondaryColor(primaryColor.r() * 0.5f, primaryColor.g() * 0.5f, primaryColor.b() * 0.5f);
       
-      CFAttributedStringBeginEditing(attributed);
-      CFAttributedStringReplaceString(attributed, CFRangeMake(0, 0), text);
-      CFAttributedStringSetAttributes(attributed, CFRangeMake(0, CFStringGetLength(text)), m_fontAttributes, YES);
-      
-      for (const quip::AttributeRange & range : syntaxAttributes) {
-        CFAttributedStringSetAttributes(attributed, CFRangeMake(range.start, range.length), m_highlightAttributes[range.name].attributes, NO);
-      }
-      
-      CFAttributedStringEndEditing(attributed);
-      
-      CTLineRef line = CTLineCreateWithAttributedString(attributed);
-      CGContextSetTextPosition(context, gMargin, y);
-      CTLineDraw(line, context);
-      
-      CFRelease(line);
-      CFRelease(attributed);
-      CFRelease(text);
+      quip::SelectionDrawInfo drawInfo;
+      drawInfo.primaryColor = primaryColor;
+      drawInfo.secondaryColor = secondaryColor;
+      drawInfo.flags = m_context->mode().cursorFlags();
+      drawInfo.style = m_context->mode().cursorStyle();
+      drawInfo.selections = m_context->selections();
+      [self drawSelections:drawInfo context:context];
     }
     
-    y -= cellSize.height();
+    for (auto && overlay : m_context->overlays()) {
+      [self drawSelections:overlay.second context:context];
+    }
+    
+    // Draw text.
+    quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+    CGFloat y = self.frame.size.height - cellSize.height();
+    for (std::size_t row = 0; row < document.rows(); ++row) {
+      // Only draw the row if it clips into the dirty rectangle.
+      CGRect rowFrame = CGRectMake(gMargin, y, self.frame.size.width - (2.0 *  - gMargin), cellSize.height());
+      if (CGRectIntersectsRect(dirtyRect, rowFrame)) {
+        std::vector<quip::AttributeRange> syntaxAttributes = fileType->syntax->parse(m_context->document().row(row), m_context->document().path());
+        CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, document.row(row).c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
+        CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(text));
+        
+        CFAttributedStringBeginEditing(attributed);
+        CFAttributedStringReplaceString(attributed, CFRangeMake(0, 0), text);
+        CFAttributedStringSetAttributes(attributed, CFRangeMake(0, CFStringGetLength(text)), m_fontAttributes, YES);
+        
+        for (const quip::AttributeRange & range : syntaxAttributes) {
+          CFAttributedStringSetAttributes(attributed, CFRangeMake(range.start, range.length), m_highlightAttributes[range.name].attributes, NO);
+        }
+        
+        CFAttributedStringEndEditing(attributed);
+        
+        CTLineRef line = CTLineCreateWithAttributedString(attributed);
+        CGContextSetTextPosition(context, gMargin, y);
+        CTLineDraw(line, context);
+        
+        CFRelease(line);
+        CFRelease(attributed);
+        CFRelease(text);
+      }
+      
+      y -= cellSize.height();
+    }
+    
+    quip::StatusService & status = m_context->statusService();
+    status.setStatus(m_context->mode().status().c_str());
+    status.setFileType(fileType->name);
+    status.setLineCount(m_context->document().rows());
   }
-  
-  quip::StatusService & status = m_context->statusService();
-  status.setStatus(m_context->mode().status().c_str());
-  status.setFileType(fileType->name);
-  status.setLineCount(m_context->document().rows());
 }
 
 @end
