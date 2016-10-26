@@ -15,6 +15,8 @@ namespace quip {
     std::string status () const override;
     
   protected:
+    bool allowsCounts () const override;
+    
     bool onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) override;
     
   private:

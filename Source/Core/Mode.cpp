@@ -23,7 +23,7 @@ namespace quip {
   }
   
   bool Mode::processKey (const KeyStroke & keyStroke, EditContext & context) {
-    if (m_sequence.count() == 0 && keyIsNumber(keyStroke.key())) {
+    if (allowsCounts() && m_sequence.count() == 0 && keyIsNumber(keyStroke.key())) {
       m_count *= 10;
       m_count += numberFromKey(keyStroke.key());
     } else {
@@ -54,6 +54,10 @@ namespace quip {
   
   void Mode::exit (EditContext & context) {
     onExit(context);
+  }
+  
+  bool Mode::allowsCounts () const {
+    return true;
   }
   
   void Mode::onEnter (EditContext & context) {

@@ -40,6 +40,8 @@ namespace quip {
       m_mappings.insert(sequence, bound);
     }
     
+    virtual bool allowsCounts () const;
+    
     virtual void onEnter (EditContext & context);
     virtual void onExit (EditContext & context);
     

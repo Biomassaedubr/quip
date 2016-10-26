@@ -54,6 +54,10 @@ namespace quip {
     return "Edit";
   }
   
+  bool EditMode::allowsCounts () const {
+    return false;
+  }
+  
   bool EditMode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
     switch (keyStroke.key()) {
       case Key::Tab:
