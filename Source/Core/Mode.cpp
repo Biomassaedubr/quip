@@ -26,6 +26,13 @@ namespace quip {
     if (allowsCounts() && m_sequence.count() == 0 && keyIsNumber(keyStroke.key())) {
       m_count *= 10;
       m_count += numberFromKey(keyStroke.key());
+    } else if (allowsRepeats() && m_sequence.count() == 0 && m_previousSequence.count() > 0 && keyStroke.key() == Key::Period) {
+      const MapTrieNode * node = m_mappings.find(m_previousSequence);
+      if (node != nullptr) {
+        for (std::uint32_t index = 0; index < std::max(1U, m_count); ++index) {
+          node->handler()(context);
+        }
+      }
     } else {
       m_sequence.append(keyStroke.key());
     
@@ -35,6 +42,7 @@ namespace quip {
         m_count = 0;
         return onUnmappedKey(keyStroke, context);
       } else if (node->handler() != nullptr) {
+        m_previousSequence = m_sequence;
         m_sequence.clear();
         
         for (std::uint32_t index = 0; index < std::max(1U, m_count); ++index) {
@@ -54,6 +62,10 @@ namespace quip {
   
   void Mode::exit (EditContext & context) {
     onExit(context);
+  }
+  
+  bool Mode::allowsRepeats () const {
+    return true;
   }
   
   bool Mode::allowsCounts () const {

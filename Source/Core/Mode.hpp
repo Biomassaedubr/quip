@@ -40,6 +40,7 @@ namespace quip {
       m_mappings.insert(sequence, bound);
     }
     
+    virtual bool allowsRepeats () const;
     virtual bool allowsCounts () const;
     
     virtual void onEnter (EditContext & context);
@@ -49,6 +50,7 @@ namespace quip {
     
   private:
     KeySequence m_sequence;
+    KeySequence m_previousSequence;
     std::uint32_t m_count;
     
     MapTrie m_mappings;
