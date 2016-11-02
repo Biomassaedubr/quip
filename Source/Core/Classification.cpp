@@ -7,7 +7,7 @@
 namespace quip {
   namespace {
     bool isWordCharacter (char character) {
-      return std::isalnum(character) || character == '_';
+      return !std::isspace(character);//std::isalnum(character) || character == '_';
     }
   }
   
@@ -36,9 +36,17 @@ namespace quip {
       ++cursor;
     }
     
+    if (cursor == document.end()) {
+      return basis;
+    }
+    
     // Then move until a word character.
     while (cursor != document.end() && !isWordCharacter(*cursor)) {
       ++cursor;
+    }
+    
+    if (cursor == document.end()) {
+      return basis;
     }
     
     // Save the origin, and move to the next non-word character...
