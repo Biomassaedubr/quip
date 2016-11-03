@@ -15,6 +15,8 @@
 
 static const char * kOpenPanelKey = "AssociatedOpenPanel";
 
+static NSString * kShowHiddenSettingsKey = @"ShowHiddenFiles";
+
 static BOOL canDocumentBeTransient (NSDocument * document) {
   QuipDocument * container = (QuipDocument *)document;
   if (container == nil) {
@@ -62,6 +64,14 @@ static BOOL canDocumentBeTransient (NSDocument * document) {
   [button setButtonType:NSSwitchButton];
   [button sizeToFit];
   
+  BOOL shouldShowHiddenFiles = [[NSUserDefaults standardUserDefaults] boolForKey:kShowHiddenSettingsKey];
+  if (shouldShowHiddenFiles) {
+    [button setState:NSOnState];
+    [openPanel setShowsHiddenFiles:YES];
+  } else {
+    [button setState:NSOffState];
+  }
+  
   [button setTarget:self];
   [button setAction:@selector(handleShowHiddenClicked:)];
   objc_setAssociatedObject(button, kOpenPanelKey, openPanel, OBJC_ASSOCIATION_RETAIN);
@@ -89,9 +99,12 @@ static BOOL canDocumentBeTransient (NSDocument * document) {
 
 - (void)handleShowHiddenClicked:(id)sender {
   NSOpenPanel * openPanel = objc_getAssociatedObject(sender, kOpenPanelKey);
+  BOOL shouldShowHiddenFiles = (BOOL)[sender intValue];
   if (openPanel != nil) {
-    [openPanel setShowsHiddenFiles:[sender intValue]];
+    [openPanel setShowsHiddenFiles:shouldShowHiddenFiles];
   }
+  
+  [[NSUserDefaults standardUserDefaults] setBool:shouldShowHiddenFiles forKey:kShowHiddenSettingsKey];
 }
 
 - (void)replaceDocument:(QuipDocument *)existing withDocument:(QuipDocument *)replacement {
