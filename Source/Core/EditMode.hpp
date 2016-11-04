@@ -4,7 +4,6 @@
 
 namespace quip {
   struct EditContext;
-  struct KeyStroke;
   
   struct EditMode : Mode {
     EditMode ();
@@ -17,7 +16,7 @@ namespace quip {
   protected:
     bool allowsCounts () const override;
     
-    bool onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) override;
+    bool onUnmappedKey (Key key, const std::string & text, EditContext & context) override;
     
   private:
     void commitInsert (EditContext & context);

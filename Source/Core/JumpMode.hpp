@@ -6,7 +6,6 @@
 
 namespace quip {
   struct EditContext;
-  struct KeyStroke;
   
   struct JumpMode : Mode {
     JumpMode  ();
@@ -17,7 +16,7 @@ namespace quip {
     void onEnter (EditContext & context) override;
     void onExit (EditContext & context) override;
     
-    bool onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) override;
+    bool onUnmappedKey (Key key, const std::string & text, EditContext & context) override;
     
   private:
     std::uint64_t m_row;

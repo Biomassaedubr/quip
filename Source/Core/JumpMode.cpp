@@ -58,12 +58,11 @@ namespace quip {
     context.clearOverlay("Jump");
   }
   
-  bool JumpMode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
-    if (keyStroke.key() == Key::Escape) {
+  bool JumpMode::onUnmappedKey (Key key, const std::string & text, EditContext & context) {
+    if (key == Key::Escape) {
       context.leaveMode();
     } else {
-      char key = keyStroke.text()[0];
-      std::map<char, std::uint64_t>::iterator cursor = m_jumps.find(key);
+      std::map<char, std::uint64_t>::iterator cursor = m_jumps.find(text[0]);
       if (cursor == std::end(m_jumps)) {
         return false;
       }

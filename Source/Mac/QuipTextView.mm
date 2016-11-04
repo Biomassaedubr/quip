@@ -10,7 +10,6 @@
 #include "EditContext.hpp"
 #include "Extent.hpp"
 #include "Key.hpp"
-#include "KeyStroke.hpp"
 #include "Mode.hpp"
 #include "PopupServiceProvider.hpp"
 #include "Selection.hpp"
@@ -227,8 +226,9 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)keyDown:(NSEvent *)event {
-  quip::KeyStroke keyStroke(quip::keyFromScanCode(event.keyCode), std::string([[event characters] cStringUsingEncoding:NSUTF8StringEncoding]));
-  if (m_context->processKey(keyStroke)) {
+  quip::Key key = quip::keyFromScanCode(event.keyCode);
+  std::string text = key == quip::Key::Return ? "\n" : std::string([[event characters] cStringUsingEncoding:NSUTF8StringEncoding]);
+  if (m_context->processKeyEvent(key, text)) {
     [self resetCursorBlink];
   }
 }

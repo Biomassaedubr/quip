@@ -3,7 +3,6 @@
 #include "Color.hpp"
 #include "Document.hpp"
 #include "EditContext.hpp"
-#include "KeyStroke.hpp"
 #include "SearchExpression.hpp"
 #include "SelectionDrawInfo.hpp"
 
@@ -17,17 +16,17 @@ namespace quip {
     return "s/" + m_search;
   }
   
-  bool SearchMode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
-    if (keyStroke.text().size() == 0 && keyStroke.key() != Key::Delete) {
+  bool SearchMode::onUnmappedKey (Key key, const std::string & text, EditContext & context) {
+    if (text.size() == 0 && key != Key::Delete) {
       return false;
     }
     
-    if (keyStroke.key() == Key::Delete) {
+    if (key == Key::Delete) {
       if (m_search.size() > 0) {
         m_search.pop_back();
       }
     } else {
-      m_search += keyStroke.text();
+      m_search += text;
     }
     
     if (m_search.size() > 0) {

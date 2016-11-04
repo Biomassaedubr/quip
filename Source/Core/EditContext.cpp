@@ -117,8 +117,8 @@ namespace quip {
     }
   }
   
-  bool EditContext::processKey (const KeyStroke & keyStroke) {
-    return mode().processKey(keyStroke, *this);
+  bool EditContext::processKeyEvent (Key key, const std::string & text) {
+    return mode().processKeyEvent(key, text, *this);
   }
   
   ViewController & EditContext::controller () {

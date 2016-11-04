@@ -4,7 +4,6 @@
 #include "EditContext.hpp"
 #include "EraseTransaction.hpp"
 #include "InsertTransaction.hpp"
-#include "KeyStroke.hpp"
 
 namespace quip {
   namespace {
@@ -58,8 +57,8 @@ namespace quip {
     return false;
   }
   
-  bool EditMode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
-    switch (keyStroke.key()) {
+  bool EditMode::onUnmappedKey (Key key, const std::string & text, EditContext & context) {
+    switch (key) {
       case Key::Tab:
         context.performTransaction(InsertTransaction::create(context.selections(), "  "));
         return true;
@@ -72,17 +71,17 @@ namespace quip {
       case Key::ArrowRight:
         break;
       default:
-        if (keyStroke.text().size() > 0) {
-          if (keyStroke.key() == Key::Return) {
-            std::vector<std::string> text(context.selections().count(), keyStroke.text());
+        if (text.size() > 0) {
+          if (key == Key::Return) {
+            std::vector<std::string> indented(context.selections().count(), text);
             for (std::uint32_t index = 0; index < context.selections().count(); ++index) {
               const Selection & selection = context.selections()[index];
-              text[index] += context.document().indentOfRow(selection.extent().row());
+              indented[index] += context.document().indentOfRow(selection.extent().row());
             }
             
-            context.performTransaction(InsertTransaction::create(context.selections(), text));
+            context.performTransaction(InsertTransaction::create(context.selections(), indented));
           } else {
-            context.performTransaction(InsertTransaction::create(context.selections(), keyStroke.text()));
+            context.performTransaction(InsertTransaction::create(context.selections(), text));
           }
           
           context.controller().scrollLocationIntoView.transmit(context.selections().primary().extent());

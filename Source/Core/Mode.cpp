@@ -22,11 +22,11 @@ namespace quip {
     return "";
   }
   
-  bool Mode::processKey (const KeyStroke & keyStroke, EditContext & context) {
-    if (allowsCounts() && m_sequence.count() == 0 && keyIsNumber(keyStroke.key())) {
+  bool Mode::processKeyEvent (Key key, const std::string & text, EditContext & context) {
+    if (allowsCounts() && m_sequence.count() == 0 && keyIsNumber(key)) {
       m_count *= 10;
-      m_count += numberFromKey(keyStroke.key());
-    } else if (allowsRepeats() && m_sequence.count() == 0 && m_previousSequence.count() > 0 && keyStroke.key() == Key::Period) {
+      m_count += numberFromKey(key);
+    } else if (allowsRepeats() && m_sequence.count() == 0 && m_previousSequence.count() > 0 && key == Key::Period) {
       const MapTrieNode * node = m_mappings.find(m_previousSequence);
       if (node != nullptr) {
         for (std::uint32_t index = 0; index < std::max(1U, m_count); ++index) {
@@ -34,13 +34,13 @@ namespace quip {
         }
       }
     } else {
-      m_sequence.append(keyStroke.key());
+      m_sequence.append(key);
     
       const MapTrieNode * node = m_mappings.find(m_sequence);
       if (node == nullptr) {
         m_sequence.clear();
         m_count = 0;
-        return onUnmappedKey(keyStroke, context);
+        return onUnmappedKey(key, text, context);
       } else if (node->handler() != nullptr) {
         m_previousSequence = m_sequence;
         m_sequence.clear();
@@ -78,7 +78,7 @@ namespace quip {
   void Mode::onExit (EditContext & context) {
   }
   
-  bool Mode::onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) {
+  bool Mode::onUnmappedKey (Key key, const std::string & text, EditContext & context) {
     context.popupService().createPopupAtLocation(context.selections().primary().origin(), "No mapping.");
     return false;
   }

@@ -4,7 +4,6 @@
 
 namespace quip {
   struct EditContext;
-  struct KeyStroke;
   
   struct SearchMode : Mode {
     SearchMode ();
@@ -12,7 +11,7 @@ namespace quip {
     std::string status () const override;
     
   protected:
-    bool onUnmappedKey (const KeyStroke & keyStroke, EditContext & context) override;
+    bool onUnmappedKey (Key key, const std::string & text, EditContext & context) override;
     
   private:
     void abortSearch (EditContext & context);

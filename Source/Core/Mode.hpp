@@ -4,7 +4,6 @@
 #include "CursorStyle.hpp"
 #include "Key.hpp"
 #include "KeySequence.hpp"
-#include "KeyStroke.hpp"
 #include "MapTrie.hpp"
 
 #include <functional>
@@ -23,7 +22,7 @@ namespace quip {
 
     virtual std::string status () const;
     
-    bool processKey (const KeyStroke & keyStroke, EditContext & context);
+    bool processKeyEvent (Key key, const std::string & text, EditContext & context);
     
     void enter (EditContext & context);
     void exit (EditContext & context);
@@ -46,7 +45,7 @@ namespace quip {
     virtual void onEnter (EditContext & context);
     virtual void onExit (EditContext & context);
     
-    virtual bool onUnmappedKey (const KeyStroke & keyStroke, EditContext & context);
+    virtual bool onUnmappedKey (Key key, const std::string & text, EditContext & context);
     
   private:
     KeySequence m_sequence;
