@@ -1,7 +1,24 @@
 #import "DrawingServiceProvider.hpp"
 
+#include "AttributeRange.hpp"
+
 namespace quip {
   namespace {
+    static void initializeHighlight (Highlight * highlight, quip::Color foreground) {
+      highlight->foregroundColor = CGColorCreateGenericRGB(foreground.r(), foreground.g(), foreground.b(), foreground.a());
+      
+      CFStringRef keys[] = { kCTForegroundColorAttributeName };
+      CFTypeRef values[] = { highlight->foregroundColor };
+      const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
+      const void ** opaqueValues = reinterpret_cast<const void **>(&values);
+      highlight->attributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    }
+    
+    static void releaseHighlight (Highlight * highlight) {
+      CFRelease(highlight->attributes);
+      CFRelease(highlight->foregroundColor);
+    }
+    
     CGRect makeCGRect(const Rectangle & rectangle) {
       return CGRectMake(rectangle.x(), rectangle.y(), rectangle.width(), rectangle.height());
     }
@@ -17,14 +34,22 @@ namespace quip {
     m_font = CTFontCreateWithName(fontNameRef, fontSize, nil);
     CFRelease(fontNameRef);
     
-    CFStringRef keys[] = { kCTFontAttributeName };
+    CFStringRef keys[] = { kCTFontAttributeName, kCTParagraphStyleAttributeName };
     CFTypeRef values[] = { m_font };
     const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
     const void ** opaqueValues = reinterpret_cast<const void **>(&values);
     m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    
+    initializeHighlight(m_highlightAttributes + quip::Keyword, quip::Color(0.0f, 0.0f, 1.0f));
+    initializeHighlight(m_highlightAttributes + quip::Preprocessor, quip::Color(0.5f, 0.25f, 0.1f));
+    initializeHighlight(m_highlightAttributes + quip::Comment, quip::Color(0.0f, 0.5f, 0.0f));
   }
   
   DrawingServiceProvider::~DrawingServiceProvider() {
+    for (std::size_t index = 0; index < quip::AttributeCount; ++index) {
+      releaseHighlight(m_highlightAttributes + index);
+    }
+    
     CFRelease(m_fontAttributes);
     CFRelease(m_font);
   }
@@ -58,19 +83,29 @@ namespace quip {
     CGContextAddLineToPoint(context, origin.x, origin.y + cellSize().height() - 6.0);
     CGContextStrokePath(context);
   }
-  
-  void DrawingServiceProvider::drawText(const std::string & text, const quip::Coordinate & coordinate) {
+
+  void DrawingServiceProvider::drawText(const std::string & text, const quip::Coordinate & coordinate, const std::vector<AttributeRange> & attributes) {
     CFStringRef string = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, text.c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
-    CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, string, m_fontAttributes);
-    CTLineRef line = CTLineCreateWithAttributedString(attributed);
+    CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(string));
+    
+    CFAttributedStringBeginEditing(attributed);
+    CFAttributedStringReplaceString(attributed, CFRangeMake(0, 0), string);
+    CFAttributedStringSetAttributes(attributed, CFRangeMake(0, CFStringGetLength(string)), m_fontAttributes, YES);
+    
+    for (const AttributeRange & range : attributes) {
+      CFAttributedStringSetAttributes(attributed, CFRangeMake(range.start, range.length), m_highlightAttributes[range.name].attributes, NO);
+    }
+    
+    CFAttributedStringEndEditing(attributed);
     
     CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
+    CTLineRef line = CTLineCreateWithAttributedString(attributed);
     CGContextSetTextPosition(context, coordinate.x, coordinate.y);
     CTLineDraw(line, context);
     
-    CFRelease(string);
     CFRelease(line);
     CFRelease(attributed);
+    CFRelease(string);
   }
   
   Rectangle DrawingServiceProvider::measureText(const std::string & text) {

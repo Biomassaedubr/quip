@@ -20,37 +20,8 @@
 #include <map>
 #include <vector>
 
-namespace {
-  struct Highlight {
-    CFDictionaryRef attributes;
-    CGColorRef foregroundColor;
-  };
-  
-  static void initializeHighlight (Highlight * highlight, quip::Color foreground) {
-    highlight->foregroundColor = CGColorCreateGenericRGB(foreground.r(), foreground.g(), foreground.b(), foreground.a());
-    
-    CFStringRef keys[] = { kCTForegroundColorAttributeName };
-    CFTypeRef values[] = { highlight->foregroundColor };
-    const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
-    const void ** opaqueValues = reinterpret_cast<const void **>(&values);
-    highlight->attributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  }
-  
-  static void releaseHighlight (Highlight * highlight) {
-    CFRelease(highlight->attributes);
-    CFRelease(highlight->foregroundColor);
-  }
-}
-
 @interface QuipTextView () {
 @private
-  CTFontRef m_font;
-  CFDictionaryRef m_fontAttributes;
-  CTParagraphStyleRef m_paragraphAttributes;
-  std::vector<CTTextTabRef> m_tabStops;
-  
-  Highlight m_highlightAttributes[quip::AttributeCount];
-  
   CGFloat m_cursorTimer;
   BOOL m_shouldDrawCursor;
   BOOL m_shouldDrawSelections;
@@ -69,7 +40,6 @@ namespace {
 }
 @end
 
-static std::size_t gTabSize = 2;
 static CGFloat gMargin = 1.0f;
 
 static CGFloat gTickInterval = 1.0 / 30.0;
@@ -82,32 +52,6 @@ static CGFloat gCursorBlinkInterval = 0.57;
   if (self != nil) {
     m_drawingServiceProvider = std::make_unique<quip::DrawingServiceProvider>("Menlo", 13.0f);
     m_popupServiceProvider = std::make_unique<quip::PopupServiceProvider>(self);
-    
-    m_font = CTFontCreateWithName(CFSTR("Menlo"), 13.0, nil);
-    
-    quip::Extent cellSize = m_drawingServiceProvider->cellSize();
-    std::size_t tabStopCount = static_cast<std::size_t>(std::ceil(frame.size.width / cellSize.width()));
-    m_tabStops.reserve(tabStopCount);
-    for (std::size_t index = 0; index < tabStopCount; ++index) {
-      m_tabStops.emplace_back(CTTextTabCreate(kCTTextAlignmentNatural, (index + 1) * cellSize.width() * gTabSize, nullptr));
-    };
-    
-    CFArrayRef tabStopArray = CFArrayCreate(kCFAllocatorDefault, reinterpret_cast<const void **>(m_tabStops.data()), tabStopCount, &kCFTypeArrayCallBacks);
-    CTParagraphStyleSetting paragraphSettings[] = {
-      { kCTParagraphStyleSpecifierTabStops, sizeof(CFArrayRef), &tabStopArray },
-    };
-    
-    m_paragraphAttributes = CTParagraphStyleCreate(paragraphSettings, 1);
-    
-    CFStringRef keys[] = { kCTFontAttributeName, kCTParagraphStyleAttributeName };
-    CFTypeRef values[] = { m_font, m_paragraphAttributes };
-    const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
-    const void ** opaqueValues = reinterpret_cast<const void **>(&values);
-    m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 2, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    
-    initializeHighlight(m_highlightAttributes + quip::Keyword, quip::Color(0.0f, 0.0f, 1.0f));
-    initializeHighlight(m_highlightAttributes + quip::Preprocessor, quip::Color(0.5f, 0.25f, 0.1f));
-    initializeHighlight(m_highlightAttributes + quip::Comment, quip::Color(0.0f, 0.5f, 0.0f));
     
     m_context = nullptr;
     m_statusView = nullptr;
@@ -129,19 +73,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   return self;
 }
 
-- (void)dealloc {
-  for (std::size_t index = 0; index < quip::AttributeCount; ++index) {
-    releaseHighlight(m_highlightAttributes + index);
-  }
-  
-  CFRelease(m_paragraphAttributes);
-  for (CTTextTabRef & tab : m_tabStops) {
-    CFRelease(tab);
-  }
-  
-  CFRelease(m_fontAttributes);
-  CFRelease(m_font);
-  
+- (void)dealloc {  
   m_popupServiceProvider.reset();
 }
 
@@ -477,26 +409,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
       CGRect rowFrame = CGRectMake(gMargin, y, self.frame.size.width - (2.0 *  - gMargin), cellSize.height());
       if (CGRectIntersectsRect(dirtyRect, rowFrame)) {
         std::vector<quip::AttributeRange> syntaxAttributes = fileType->syntax->parse(m_context->document().row(row), m_context->document().path());
-        CFStringRef text = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, document.row(row).c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
-        CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(text));
-        
-        CFAttributedStringBeginEditing(attributed);
-        CFAttributedStringReplaceString(attributed, CFRangeMake(0, 0), text);
-        CFAttributedStringSetAttributes(attributed, CFRangeMake(0, CFStringGetLength(text)), m_fontAttributes, YES);
-        
-        for (const quip::AttributeRange & range : syntaxAttributes) {
-          CFAttributedStringSetAttributes(attributed, CFRangeMake(range.start, range.length), m_highlightAttributes[range.name].attributes, NO);
-        }
-        
-        CFAttributedStringEndEditing(attributed);
-        
-        CTLineRef line = CTLineCreateWithAttributedString(attributed);
-        CGContextSetTextPosition(context, gMargin, y);
-        CTLineDraw(line, context);
-        
-        CFRelease(line);
-        CFRelease(attributed);
-        CFRelease(text);
+        m_drawingServiceProvider->drawText(document.row(row), quip::Coordinate(gMargin, y), syntaxAttributes);
       }
       
       y -= cellSize.height();

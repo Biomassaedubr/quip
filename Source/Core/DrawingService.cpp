@@ -25,4 +25,9 @@ namespace quip {
     std::size_t row = static_cast<std::size_t>((frame.height() - coordinate.y) / m_cellSize.height());
     return Location(column, row);
   }
+  
+  void DrawingService::drawText (const std::string & text, const Coordinate& coordinate) {
+    std::vector<AttributeRange> attributes;
+    drawText(text, coordinate, attributes);
+  }
 }
