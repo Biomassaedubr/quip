@@ -38,6 +38,13 @@
   [window setDelegate:self];
 }
 
+- (void)windowWillClose:(NSNotification *)notification {
+  [[self statusView] attachDrawingService:nullptr];
+  [[self textView] attachDrawingService:nullptr];
+  
+  m_drawingService.reset();
+}
+
 - (void)setDocument:(id)document {
   [super setDocument:document];
   
