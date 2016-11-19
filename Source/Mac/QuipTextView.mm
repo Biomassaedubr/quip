@@ -69,8 +69,6 @@ namespace {
 }
 @end
 
-static NSString * gSizeQueryString = @"m";
-
 static std::size_t gTabSize = 2;
 static CGFloat gMargin = 1.0f;
 
