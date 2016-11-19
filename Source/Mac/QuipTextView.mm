@@ -26,7 +26,7 @@
   BOOL m_shouldDrawCursor;
   BOOL m_shouldDrawSelections;
 
-  std::unique_ptr<quip::DrawingService> m_drawingServiceProvider;
+  quip::DrawingService * m_drawingService;
   std::unique_ptr<quip::PopupServiceProvider> m_popupServiceProvider;
   std::unique_ptr<quip::StatusServiceProvider> m_statusServiceProvider;
   std::shared_ptr<quip::EditContext> m_context;
@@ -50,7 +50,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
 - (instancetype)initWithFrame:(NSRect)frame {
   self = [super initWithFrame:frame];
   if (self != nil) {
-    m_drawingServiceProvider = std::make_unique<quip::DrawingServiceProvider>("Menlo", 13.0f);
+    m_drawingService = nullptr;
     m_popupServiceProvider = std::make_unique<quip::PopupServiceProvider>(self);
     
     m_context = nullptr;
@@ -130,7 +130,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   NSPoint location = [self convertPoint:event.locationInWindow fromView:nil];
   quip::Coordinate coordinate(location.x, location.y);
   quip::Rectangle rectangle(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
-  quip::Location target = m_drawingServiceProvider->locationForCoordinateInFrame(coordinate, rectangle);
+  quip::Location target = m_drawingService->locationForCoordinateInFrame(coordinate, rectangle);
   
   if (target.row() >= m_context->document().rows() || target.column() >= m_context->document().row(target.row()).length()) {
     return;
@@ -144,7 +144,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   NSPoint location = [self convertPoint:event.locationInWindow fromView:nil];
   quip::Coordinate coordinate(location.x, location.y);
   quip::Rectangle rectangle(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
-  quip::Location target = m_drawingServiceProvider->locationForCoordinateInFrame(coordinate, rectangle);
+  quip::Location target = m_drawingService->locationForCoordinateInFrame(coordinate, rectangle);
   
   if (target.row() >= m_context->document().rows() || target.column() >= m_context->document().row(target.row()).length()) {
     return;
@@ -209,6 +209,10 @@ static CGFloat gCursorBlinkInterval = 0.57;
   m_context->selections().replace(selection);
 }
 
+- (void)attachDrawingService:(quip::DrawingService *)drawingService {
+  m_drawingService = drawingService;
+}
+
 - (quip::Document &)document {
   return m_context->document();
 }
@@ -233,7 +237,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   NSWindowController * controller = [[self window] windowController];
   NSDocument * container = [controller document];
   
-  quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+  quip::Extent cellSize = m_drawingService->cellSize();
   CGRect frame = [self frame];
   CGRect parent = [[self superview] frame];
   CGFloat height = MAX(parent.size.height, cellSize.height() * (document->rows() + 1));
@@ -282,9 +286,9 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)scrollLocationIntoView:(quip::Location)location {
-  quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+  quip::Extent cellSize = m_drawingService->cellSize();
   quip::Rectangle rectangle(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
-  quip::Coordinate coordinate = m_drawingServiceProvider->coordinateForLocationInFrame(location, rectangle);
+  quip::Coordinate coordinate = m_drawingService->coordinateForLocationInFrame(location, rectangle);
   CGRect target = CGRectMake(coordinate.x, coordinate.y, cellSize.width(), cellSize.height());
   [self scrollRectToVisible:target];
 }
@@ -296,13 +300,14 @@ static CGFloat gCursorBlinkInterval = 0.57;
     *stop = NO;
   }];
   
-  quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+  quip::Extent cellSize = m_drawingService->cellSize();
   CGFloat width = cellSize.width() * [text length];
   CGFloat height = cellSize.height() * [strings count];
   CGFloat x = location.column() * cellSize.width();
   CGFloat y = self.frame.size.height - height - cellSize.height();
   
   QuipPopupView * popup = [[QuipPopupView alloc] initWithFrame:CGRectMake(x, y - 2.0, width, height)];
+  [popup attachDrawingService:m_drawingService];
   [popup setContent:strings];
   [popup setDuration:0.5];
   
@@ -311,7 +316,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)scrollToLocation:(quip::Location)location {
-  quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+  quip::Extent cellSize = m_drawingService->cellSize();
   CGFloat y = self.frame.size.height - (cellSize.height() * (location.row() + 1));
   
   // The parent of this view is the NSClipView, which will have the height of the
@@ -322,7 +327,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)drawSelections:(const quip::SelectionDrawInfo &)drawInfo context:(CGContextRef)context {
-  quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+  quip::Extent cellSize = m_drawingService->cellSize();
   quip::Rectangle viewFrame = quip::Rectangle(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
   quip::Document & document = m_context->document();
   for (const quip::Selection & selection : drawInfo.selections) {
@@ -341,17 +346,17 @@ static CGFloat gCursorBlinkInterval = 0.57;
       if (m_shouldDrawCursor || (drawInfo.flags & quip::CursorFlags::Blink) == 0) {
         switch (drawInfo.style) {
           case quip::CursorStyle::VerticalBlock:
-            m_drawingServiceProvider->fillRectangle(quip::Rectangle(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), 0.75 * cellSize.height()), color);
+            m_drawingService->fillRectangle(quip::Rectangle(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), 0.75 * cellSize.height()), color);
             break;
           case quip::CursorStyle::VerticalBlockHalf:
-            m_drawingServiceProvider->fillRectangle(quip::Rectangle(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), 0.25 * cellSize.height()), color);
+            m_drawingService->fillRectangle(quip::Rectangle(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), 0.25 * cellSize.height()), color);
             break;
           case quip::CursorStyle::VerticalBar:
-            m_drawingServiceProvider->drawBarBefore(quip::Location(firstColumn, row), color, viewFrame);
+            m_drawingService->drawBarBefore(quip::Location(firstColumn, row), color, viewFrame);
             break;
           case quip::CursorStyle::Underline:
           default:
-            m_drawingServiceProvider->drawUnderline(row, firstColumn, lastColumn, color, viewFrame);
+            m_drawingService->drawUnderline(row, firstColumn, lastColumn, color, viewFrame);
             break;
         }
       }
@@ -362,11 +367,15 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
+  if (m_drawingService == nullptr) {
+    return;
+  }
+  
   CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
   
   // Clear the background.
   quip::Rectangle rectangle(dirtyRect.origin.x, dirtyRect.origin.y, dirtyRect.size.width, dirtyRect.size.height);
-  m_drawingServiceProvider->fillRectangle(rectangle, quip::Color::white());
+  m_drawingService->fillRectangle(rectangle, quip::Color::white());
   
   if (m_context != nullptr) {
     quip::Document & document = m_context->document();
@@ -402,14 +411,14 @@ static CGFloat gCursorBlinkInterval = 0.57;
     }
     
     // Draw text.
-    quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+    quip::Extent cellSize = m_drawingService->cellSize();
     CGFloat y = self.frame.size.height - cellSize.height();
     for (std::size_t row = 0; row < document.rows(); ++row) {
       // Only draw the row if it clips into the dirty rectangle.
       CGRect rowFrame = CGRectMake(gMargin, y, self.frame.size.width - (2.0 *  - gMargin), cellSize.height());
       if (CGRectIntersectsRect(dirtyRect, rowFrame)) {
         std::vector<quip::AttributeRange> syntaxAttributes = fileType->syntax->parse(m_context->document().row(row), m_context->document().path());
-        m_drawingServiceProvider->drawText(document.row(row), quip::Coordinate(gMargin, y), syntaxAttributes);
+        m_drawingService->drawText(document.row(row), quip::Coordinate(gMargin, y), syntaxAttributes);
       }
       
       y -= cellSize.height();

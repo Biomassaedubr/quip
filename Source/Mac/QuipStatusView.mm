@@ -4,7 +4,7 @@
 
 @interface QuipStatusView () {
 @private
-  std::unique_ptr<quip::DrawingService> m_drawingServiceProvider;
+  quip::DrawingService * m_drawingService;
   
   NSString * m_text;
   std::size_t m_lineCount;
@@ -22,11 +22,15 @@ static CGFloat gStatusLineLeftPadding = 2.0;
 - (instancetype)initWithFrame:(NSRect)frame {
   self = [super initWithFrame:frame];
   if (self != nil) {
-    m_drawingServiceProvider = std::make_unique<quip::DrawingServiceProvider>("Menlo", 13.0f);
+    m_drawingService = nullptr;
     m_text = @"";
   }
   
   return self;
+}
+
+- (void)attachDrawingService:(quip::DrawingService *)drawingService {
+  m_drawingService = drawingService;
 }
 
 - (void)setStatus:(const char *)status {
@@ -52,13 +56,13 @@ static CGFloat gStatusLineLeftPadding = 2.0;
   }
   
   std::string textLabel([m_text cStringUsingEncoding:NSUTF8StringEncoding]);
-  m_drawingServiceProvider->drawText(textLabel, quip::Coordinate(gStatusLineLeftPadding, gStatusLineBottomPadding));
+  m_drawingService->drawText(textLabel, quip::Coordinate(gStatusLineLeftPadding, gStatusLineBottomPadding));
   
   NSString * lineCountLabel = [NSString stringWithFormat:@"%lu line%@ (%@)", m_lineCount, m_lineCount == 1 ? @"" : @"s", m_fileType];
   std::string lineLabel([lineCountLabel cStringUsingEncoding:NSUTF8StringEncoding]);
-  quip::Rectangle lineBounds = m_drawingServiceProvider->measureText(lineLabel);
+  quip::Rectangle lineBounds = m_drawingService->measureText(lineLabel);
   quip::Coordinate lineLocation([self frame].size.width - gStatusLineLeftPadding - lineBounds.width(), gStatusLineBottomPadding);
-  m_drawingServiceProvider->drawText(lineLabel, lineLocation);
+  m_drawingService->drawText(lineLabel, lineLocation);
 }
 
 @end

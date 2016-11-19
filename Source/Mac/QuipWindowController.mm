@@ -4,11 +4,24 @@
 #import "QuipTextView.h"
 #import "QuipStatusView.h"
 
+#include "DrawingServiceProvider.hpp"
+
+@interface QuipWindowController () {
+@private
+  std::unique_ptr<quip::DrawingService> m_drawingService;
+}
+@end
+
 @implementation QuipWindowController
 
 - (void)windowDidLoad {
   [super windowDidLoad];
 
+  m_drawingService = std::make_unique<quip::DrawingServiceProvider>("Menlo", 13.0f);
+  
+  [[self textView] attachDrawingService:m_drawingService.get()];
+  [[self statusView] attachDrawingService:m_drawingService.get()];
+  
   [[self textView] setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
   [[self statusView] setAutoresizingMask:NSViewWidthSizable];
   [[self scrollView] setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];

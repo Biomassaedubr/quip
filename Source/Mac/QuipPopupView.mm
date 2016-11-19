@@ -4,7 +4,7 @@
 
 @interface QuipPopupView () {
 @private
-  std::unique_ptr<quip::DrawingService> m_drawingServiceProvider;
+  quip::DrawingService * m_drawingService;
 }
 @end
 
@@ -13,10 +13,14 @@
 - (instancetype)initWithFrame:(NSRect)frameRect {
   self = [super initWithFrame:frameRect];
   if (self != nil) {
-    m_drawingServiceProvider = std::make_unique<quip::DrawingServiceProvider>("Menlo", 13.0f);
+    m_drawingService = nullptr;
   }
   
   return self;
+}
+
+- (void)attachDrawingService:(quip::DrawingService *)drawingService {
+  m_drawingService = drawingService;
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
@@ -25,11 +29,11 @@
   CGContextSetRGBFillColor(context, 1.0, 1.0, 0.0, 0.2);
   CGContextFillRect(context, dirtyRect);
   
-  quip::Extent cellSize = m_drawingServiceProvider->cellSize();
+  quip::Extent cellSize = m_drawingService->cellSize();
   CGFloat y = self.frame.size.height - cellSize.height();
   for (NSString * row in [self content]) {
     std::string string = [row cStringUsingEncoding:NSUTF8StringEncoding];
-    m_drawingServiceProvider->drawText(string, quip::Coordinate(0.0f, y));
+    m_drawingService->drawText(string, quip::Coordinate(0.0f, y));
     
     y -= cellSize.height();
   }

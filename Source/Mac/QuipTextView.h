@@ -1,6 +1,7 @@
 #import <Cocoa/Cocoa.h>
 
 #include "Document.hpp"
+#include "DrawingService.hpp"
 
 #include <memory>
 
@@ -8,6 +9,7 @@
 @class QuipStatusView;
 
 @interface QuipTextView : NSView
+- (void)attachDrawingService:(quip::DrawingService *)drawingService;
 
 - (quip::Document &)document;
 - (void)setDocument:(std::shared_ptr<quip::Document>)document;
