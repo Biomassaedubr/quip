@@ -4,14 +4,9 @@
 
 @interface QuipPopupView () {
 @private
-  CTFontRef m_font;
-  CFDictionaryRef m_fontAttributes;
-  
   std::unique_ptr<quip::DrawingService> m_drawingServiceProvider;
 }
 @end
-
-static NSString * gSizeQueryString = @"m";
 
 @implementation QuipPopupView
 
@@ -19,14 +14,6 @@ static NSString * gSizeQueryString = @"m";
   self = [super initWithFrame:frameRect];
   if (self != nil) {
     m_drawingServiceProvider = std::make_unique<quip::DrawingServiceProvider>("Menlo", 13.0f);
-
-    m_font = CTFontCreateWithName(CFSTR("Menlo"), 13.0, nil);
-    
-    CFStringRef keys[] = { kCTFontAttributeName };
-    CFTypeRef values[] = { m_font };
-    const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
-    const void ** opaqueValues = reinterpret_cast<const void **>(&values);
-    m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   }
   
   return self;
@@ -41,20 +28,8 @@ static NSString * gSizeQueryString = @"m";
   quip::Extent cellSize = m_drawingServiceProvider->cellSize();
   CGFloat y = self.frame.size.height - cellSize.height();
   for (NSString * row in [self content]) {
-    CFStringRef string = (__bridge CFStringRef)row;
-    CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(string));
-    
-    CFAttributedStringBeginEditing(attributed);
-    CFAttributedStringReplaceString(attributed, CFRangeMake(0, 0), string);
-    CFAttributedStringSetAttributes(attributed, CFRangeMake(0, CFStringGetLength(string)), m_fontAttributes, YES);
-    CFAttributedStringEndEditing(attributed);
-    
-    CTLineRef line = CTLineCreateWithAttributedString(attributed);
-    CGContextSetTextPosition(context, 0.0f, y);
-    CTLineDraw(line, context);
-    
-    CFRelease(line);
-    CFRelease(attributed);
+    std::string string = [row cStringUsingEncoding:NSUTF8StringEncoding];
+    m_drawingServiceProvider->drawText(string, quip::Coordinate(0.0f, y));
     
     y -= cellSize.height();
   }
