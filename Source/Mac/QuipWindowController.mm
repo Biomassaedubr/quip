@@ -22,7 +22,6 @@
   [[self textView] attachDrawingService:m_drawingService.get()];
   [[self statusView] attachDrawingService:m_drawingService.get()];
   
-  [[self textView] setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
   [[self statusView] setAutoresizingMask:NSViewWidthSizable];
   [[self scrollView] setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
   [[self scrollView] setBackgroundColor:[NSColor colorWithWhite:1.0 alpha:1.0]];

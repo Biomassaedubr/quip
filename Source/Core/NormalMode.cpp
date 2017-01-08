@@ -129,18 +129,22 @@ namespace quip {
   
   void NormalMode::doSelectThisWord (EditContext & context) {
     context.selections().replace(selectThisWord(context.document(), context.selections().primary()));
+    context.controller().scrollToLocation.transmit(context.selections().primary().extent());
   }
   
   void NormalMode::doSelectNextWord (EditContext & context) {
     context.selections().replace(selectNextWord(context.document(), context.selections().primary()));
+    context.controller().scrollLocationIntoView.transmit(context.selections().primary().extent());
   }
   
   void NormalMode::doSelectPriorWord (EditContext & context) {
     context.selections().replace(selectPriorWord(context.document(), context.selections().primary()));
+    context.controller().scrollToLocation.transmit(context.selections().primary().extent());
   }
   
   void NormalMode::doSelectThisLine (EditContext & context) {
     context.selections().replace(selectThisLine(context.document(), context.selections().primary()));
+    context.controller().scrollToLocation.transmit(context.selections().primary().extent());
   }
   
   void NormalMode::rotateSelectionForward (EditContext & context) {
