@@ -12,6 +12,25 @@ using namespace quip;
 
 @implementation DocumentIteratorTests
 
+- (void)testBeginIsZeroZero {
+  Document document("A\nB");
+  DocumentIterator cursor = document.begin();
+  
+  XCTAssertEqual(cursor.location(), Location(0, 0));
+}
+
+- (void)testEndIsOnePastTheLastColumnOnTheLastRow {
+  Document document("A\nB");
+  DocumentIterator cursor = document.end();
+  XCTAssertEqual(cursor.location(), Location(1, 1));
+  
+  cursor = document.begin();
+  ++cursor;
+  ++cursor;
+  ++cursor;
+  XCTAssertEqual(cursor, document.end());
+}
+
 - (void)testDereference {
   Document document("Q");
   DocumentIterator cursor = document.begin();

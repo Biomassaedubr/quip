@@ -87,7 +87,11 @@ namespace quip {
   }
   
   DocumentIterator Document::end () const {
-    return DocumentIterator(*this, Location(0, m_rows.size()));
+    if (isEmpty()) {
+      return begin();
+    }
+    
+    return DocumentIterator(*this, Location(m_rows.back().size(), m_rows.size() - 1));
   }
   
   DocumentIterator Document::at (const Location & location) const {
