@@ -69,10 +69,14 @@ namespace quip {
   }
   
   void EditContext::enterMode (const std::string & name) {
+    enterMode(name, 0);
+  }
+  
+  void EditContext::enterMode (const std::string & name, std::uint64_t how) {
     std::map<std::string, std::shared_ptr<Mode>>::iterator cursor = m_modes.find(name);
     if (cursor != m_modes.end()) {
       m_modeHistory.push(cursor->second);
-      mode().enter(*this);
+      mode().enter(*this, how);
     }
   }
   

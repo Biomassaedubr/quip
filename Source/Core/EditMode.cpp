@@ -50,11 +50,25 @@ namespace quip {
   }
   
   std::string EditMode::status () const {
-    return "Edit";
+    return m_status;
   }
   
   bool EditMode::allowsCounts () const {
     return false;
+  }
+  
+  void EditMode::onEnter(EditContext & context, std::uint64_t how) {
+    switch(how) {
+      case InsertBehavior:
+        m_status = "Edit (Insert)";
+        break;
+      case AppendBehavior:
+        m_status = "Edit (Append)";
+        break;
+      default:
+        m_status = "Edit";
+        break;
+    }
   }
   
   bool EditMode::onUnmappedKey (Key key, const std::string & text, EditContext & context) {

@@ -33,6 +33,7 @@ namespace quip {
     void clearOverlay (const std::string & name);
     
     void enterMode (const std::string & name);
+    void enterMode (const std::string & name, std::uint64_t how);
     void leaveMode ();
     
     void performTransaction (std::shared_ptr<Transaction> transaction);

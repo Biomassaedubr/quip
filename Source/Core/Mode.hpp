@@ -24,7 +24,7 @@ namespace quip {
     
     bool processKeyEvent (Key key, const std::string & text, EditContext & context);
     
-    void enter (EditContext & context);
+    void enter (EditContext & context, std::uint64_t how);
     void exit (EditContext & context);
     
   protected:
@@ -42,7 +42,7 @@ namespace quip {
     virtual bool allowsRepeats () const;
     virtual bool allowsCounts () const;
     
-    virtual void onEnter (EditContext & context);
+    virtual void onEnter (EditContext & context, std::uint64_t how);
     virtual void onExit (EditContext & context);
     
     virtual bool onUnmappedKey (Key key, const std::string & text, EditContext & context);

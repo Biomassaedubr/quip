@@ -16,7 +16,7 @@ namespace quip {
     return "Jump Forward";
   }
   
-  void JumpMode::onEnter (EditContext & context) {
+  void JumpMode::onEnter (EditContext & context, std::uint64_t how) {
     m_jumps.clear();
     if (context.document().isEmpty()) {
       return;

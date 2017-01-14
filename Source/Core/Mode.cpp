@@ -56,8 +56,8 @@ namespace quip {
     return true;
   }
   
-  void Mode::enter (EditContext & context) {
-    onEnter(context);
+  void Mode::enter (EditContext & context, std::uint64_t how) {
+    onEnter(context, how);
   }
   
   void Mode::exit (EditContext & context) {
@@ -72,7 +72,7 @@ namespace quip {
     return true;
   }
   
-  void Mode::onEnter (EditContext & context) {
+  void Mode::onEnter (EditContext & context, std::uint64_t how) {
   }
   
   void Mode::onExit (EditContext & context) {

@@ -4,6 +4,7 @@
 #include "Document.hpp"
 #include "DocumentIterator.hpp"
 #include "EditContext.hpp"
+#include "EditMode.hpp"
 #include "EraseTransaction.hpp"
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
@@ -26,7 +27,8 @@ namespace quip {
     addMapping(Key::Z, &NormalMode::collapseSelections);
 
     addMapping(Key::F, &NormalMode::enterJumpMode);
-    addMapping(Key::I, &NormalMode::enterEditMode);
+    addMapping(Key::I, &NormalMode::enterEditModeByInserting);
+    addMapping(Key::A, &NormalMode::enterEditModeByAppending);
     addMapping("/", &NormalMode::enterSearchMode);
 
     addMapping(Key::X, &NormalMode::deleteSelections);
@@ -165,8 +167,12 @@ namespace quip {
     context.enterMode("JumpMode");
   }
   
-  void NormalMode::enterEditMode (EditContext & context) {
-    context.enterMode("EditMode");
+  void NormalMode::enterEditModeByInserting (EditContext & context) {
+    context.enterMode("EditMode", EditMode::InsertBehavior);
+  }
+  
+  void NormalMode::enterEditModeByAppending (EditContext & context) {
+    context.enterMode("EditMode", EditMode::AppendBehavior);
   }
   
   void NormalMode::enterSearchMode (EditContext & context) {

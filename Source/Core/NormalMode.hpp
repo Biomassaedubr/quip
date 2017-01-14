@@ -23,7 +23,8 @@ namespace quip {
     void doSelectThisLine (EditContext & context);
     
     void enterJumpMode (EditContext & context);
-    void enterEditMode (EditContext & context);
+    void enterEditModeByInserting (EditContext & context);
+    void enterEditModeByAppending (EditContext & context);
     void enterSearchMode (EditContext & context);
     
     void rotateSelectionForward (EditContext & context);

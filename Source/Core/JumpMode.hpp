@@ -13,7 +13,7 @@ namespace quip {
     std::string status () const override;
     
   protected:
-    void onEnter (EditContext & context) override;
+    void onEnter (EditContext & context, std::uint64_t how) override;
     void onExit (EditContext & context) override;
     
     bool onUnmappedKey (Key key, const std::string & text, EditContext & context) override;
