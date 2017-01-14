@@ -42,7 +42,7 @@ namespace quip {
   }
   
   CursorStyle EditMode::cursorStyle () const {
-    return CursorStyle::VerticalBar;
+    return CursorStyle::VerticalBarAtOrigin;
   }
   
   CursorFlags EditMode::cursorFlags () const {

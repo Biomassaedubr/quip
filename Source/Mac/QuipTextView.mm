@@ -351,8 +351,11 @@ static CGFloat gCursorBlinkInterval = 0.57;
           case quip::CursorStyle::VerticalBlockHalf:
             m_drawingService->fillRectangle(quip::Rectangle(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), 0.25 * cellSize.height()), color);
             break;
-          case quip::CursorStyle::VerticalBar:
+          case quip::CursorStyle::VerticalBarAtOrigin:
             m_drawingService->drawBarBefore(quip::Location(firstColumn, row), color, viewFrame);
+            break;
+          case quip::CursorStyle::VerticalBarAtExtent:
+            m_drawingService->drawBarAfter(quip::Location(lastColumn, row), color, viewFrame);
             break;
           case quip::CursorStyle::Underline:
           default:

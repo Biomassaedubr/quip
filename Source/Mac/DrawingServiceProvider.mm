@@ -84,6 +84,17 @@ namespace quip {
     CGContextStrokePath(context);
   }
 
+  void DrawingServiceProvider::drawBarAfter (const Location & location, const Color & color, const Rectangle & frame)
+  {
+    CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
+    CGContextSetRGBStrokeColor(context, color.r(), color.g(), color.b(), color.a());
+    Coordinate origin = coordinateForLocationInFrame(location, frame);
+    
+    CGContextMoveToPoint(context, origin.x + cellSize().width(), origin.y - 2.0);
+    CGContextAddLineToPoint(context, origin.x + cellSize().width(), origin.y + cellSize().height() - 6.0);
+    CGContextStrokePath(context);
+  }
+
   void DrawingServiceProvider::drawText(const std::string & text, const quip::Coordinate & coordinate, const std::vector<AttributeRange> & attributes) {
     CFStringRef string = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, text.c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
     CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(string));

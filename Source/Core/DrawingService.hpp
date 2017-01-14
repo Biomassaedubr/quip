@@ -25,6 +25,7 @@ namespace quip {
     
     virtual void drawUnderline (std::size_t row, std::size_t firstColumn, std::size_t lastColumn, const Color & color, const Rectangle & frame) = 0;
     virtual void drawBarBefore (const Location & location, const Color & color, const Rectangle & frame) = 0;
+    virtual void drawBarAfter (const Location & location, const Color & color, const Rectangle & frame) = 0;
     
     void drawText (const std::string & text, const Coordinate& coordinate);
     
