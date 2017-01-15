@@ -1,4 +1,4 @@
 language: objective-c
-osx_image: xcode8.1
-xcode_project: Quip.xcodeproj
-xcode_scheme: Quip
+osx_image: xcode8.2
+script:
+ - xcodebuild -project Quip.xcodeproj -scheme Quip -configuration Release build test
