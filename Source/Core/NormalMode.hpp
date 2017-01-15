@@ -21,6 +21,8 @@ namespace quip {
     void doSelectPriorWord (EditContext & context);
     
     void doSelectThisLine (EditContext & context);
+    void doSelectNextLine (EditContext & context);
+    void doSelectPriorLine (EditContext & context);
     
     void enterJumpMode (EditContext & context);
     void enterSearchMode (EditContext & context);

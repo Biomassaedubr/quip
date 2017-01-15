@@ -22,6 +22,8 @@ namespace quip {
     addMapping(Key::B, &NormalMode::doSelectPriorWord);
 
     addMapping("TL", &NormalMode::doSelectThisLine);
+    addMapping("NL", &NormalMode::doSelectNextLine);
+    addMapping("PL", &NormalMode::doSelectPriorLine);
 
     addMapping("RF", &NormalMode::rotateSelectionForward);
     addMapping("RB", &NormalMode::rotateSelectionBackward);
@@ -149,6 +151,16 @@ namespace quip {
   
   void NormalMode::doSelectThisLine (EditContext & context) {
     context.selections().replace(selectThisLine(context.document(), context.selections().primary()));
+    context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+  }
+  
+  void NormalMode::doSelectNextLine (EditContext & context) {
+    context.selections().replace(selectNextLine(context.document(), context.selections().primary()));
+    context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+  }
+  
+  void NormalMode::doSelectPriorLine (EditContext & context) {
+    context.selections().replace(selectPriorLine(context.document(), context.selections().primary()));
     context.controller().scrollToLocation.transmit(context.selections().primary().extent());
   }
   

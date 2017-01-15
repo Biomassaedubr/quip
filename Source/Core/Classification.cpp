@@ -96,4 +96,28 @@ namespace quip {
     Location extent(document.row(row).size() - 1, row);
     return Selection(origin, extent);
   }
+  
+  Selection selectNextLine (const Document & document, const Selection & basis) {
+    std::uint64_t row = basis.extent().row();
+    if (row + 1 < document.rows()) {
+      ++row;
+      Location origin(0, row);
+      Location extent(document.row(row).size() - 1, row);
+      return Selection(origin, extent);
+    }
+    
+    return selectThisLine(document, basis);
+  }
+  
+  Selection selectPriorLine (const Document & document, const Selection & basis) {
+    std::uint64_t row = basis.origin().row();
+    if (row > 0) {
+      --row;
+      Location origin(0, row);
+      Location extent(document.row(row).size() - 1, row);
+      return Selection(origin, extent);
+    }
+    
+    return selectThisLine(document, basis);
+  }
 }
