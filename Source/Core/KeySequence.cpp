@@ -1,15 +1,18 @@
 #include "KeySequence.hpp"
 
 namespace quip {
-  KeySequence::KeySequence () {
+  KeySequence::KeySequence ()
+  : m_isShiftOpen(false) {
   }
   
   KeySequence::KeySequence (Key key)
-  : m_keys({key}) {
+  : m_keys({key})
+  , m_isShiftOpen(false) {
   }
   
   KeySequence::KeySequence (std::initializer_list<Key> keys)
-  : m_keys(keys) {
+  : m_keys(keys)
+  , m_isShiftOpen(false) {
   }
   
   KeySequence::KeySequence (const char * expression) {
@@ -74,10 +77,15 @@ namespace quip {
   
   void KeySequence::append (Key key) {
     m_keys.emplace_back(key);
+    
+    if (key == modifierDown(Key::ShiftMask)) {
+      m_isShiftOpen = true;
+    }
   }
   
   void KeySequence::clear () {
     m_keys.clear();
+    m_isShiftOpen = false;
   }
   
   const Key * KeySequence::begin () const {
@@ -94,5 +102,14 @@ namespace quip {
     }
     
     return m_keys.data() + m_keys.size();
+  }
+  
+  KeySequence KeySequence::withModifiersClosed () const {
+    KeySequence result(*this);
+    if (m_isShiftOpen) {
+      result.append(modifierUp(Key::ShiftMask));
+    }
+    
+    return result;
   }
 }

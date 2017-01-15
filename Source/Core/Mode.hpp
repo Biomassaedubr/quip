@@ -22,6 +22,7 @@ namespace quip {
 
     virtual std::string status () const;
     
+    bool processKeyEvent (Key key, EditContext & context);
     bool processKeyEvent (Key key, const std::string & text, EditContext & context);
     
     void enter (EditContext & context, std::uint64_t how);

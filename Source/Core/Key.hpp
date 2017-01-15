@@ -84,6 +84,9 @@ namespace quip {
     OptionMask = 0x40000,
   };
   
+  Key modifierDown(Key modifierMask);
+  Key modifierUp(Key modifierMask);
+  
   Key keyFromScanCode (int code);
   Key keyFromCharacter (char character);
   

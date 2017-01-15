@@ -23,7 +23,11 @@ namespace quip {
     const Key * begin () const;
     const Key * end () const;
     
+    KeySequence withModifiersClosed () const;
+    
   private:
-    std::vector<Key> m_keys;    
+    std::vector<Key> m_keys;
+    
+    bool m_isShiftOpen;
   };
 }

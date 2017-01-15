@@ -21,6 +21,11 @@ namespace quip {
   std::string Mode::status () const {
     return "";
   }
+
+  bool Mode::processKeyEvent (Key key, EditContext & context) {
+    m_sequence.append(key);
+    return true;
+  }
   
   bool Mode::processKeyEvent (Key key, const std::string & text, EditContext & context) {
     if (allowsCounts() && m_sequence.count() == 0 && keyIsNumber(key)) {
@@ -35,14 +40,17 @@ namespace quip {
       }
     } else {
       m_sequence.append(key);
-    
-      const MapTrieNode * node = m_mappings.find(m_sequence);
+      
+      // Copy the sequence, closing any open modifiers. This allows the sequence to be looked up
+      // in the mapping trie.
+      KeySequence checked(m_sequence.withModifiersClosed());
+      const MapTrieNode * node = m_mappings.find(checked);
       if (node == nullptr) {
         m_sequence.clear();
         m_count = 0;
         return onUnmappedKey(key, text, context);
       } else if (node->handler() != nullptr) {
-        m_previousSequence = m_sequence;
+        m_previousSequence = checked;
         m_sequence.clear();
         
         for (std::uint32_t index = 0; index < std::max(1U, m_count); ++index) {

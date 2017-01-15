@@ -6,6 +6,7 @@
 #include "EditContext.hpp"
 #include "EditMode.hpp"
 #include "EraseTransaction.hpp"
+#include "Location.hpp"
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
 
@@ -27,9 +28,11 @@ namespace quip {
     addMapping(Key::Z, &NormalMode::collapseSelections);
 
     addMapping(Key::F, &NormalMode::enterJumpMode);
-    addMapping(Key::I, &NormalMode::enterEditModeByInserting);
-    addMapping(Key::A, &NormalMode::enterEditModeByAppending);
     addMapping("/", &NormalMode::enterSearchMode);
+    addMapping("I", &NormalMode::enterEditModeByInserting);
+    addMapping("<S-I>", &NormalMode::enterEditModeByInsertingAtStartOfLines);
+    addMapping("A", &NormalMode::enterEditModeByAppending);
+    addMapping("<S-A>", &NormalMode::enterEditModeByAppendingAtEndOfLines);
 
     addMapping(Key::X, &NormalMode::deleteSelections);
     addMapping(Key::C, &NormalMode::changeSelections);
@@ -167,7 +170,23 @@ namespace quip {
     context.enterMode("JumpMode");
   }
   
+  void NormalMode::enterSearchMode (EditContext & context) {
+    context.enterMode("SearchMode");
+  }
+  
   void NormalMode::enterEditModeByInserting (EditContext & context) {
+    context.enterMode("EditMode", EditMode::InsertBehavior);
+  }
+  
+  void NormalMode::enterEditModeByInsertingAtStartOfLines (EditContext & context) {
+    std::vector<Selection> adjusted;
+    adjusted.reserve(context.selections().count());
+    for(const Selection& selection : context.selections()) {
+      Location location(0, selection.origin().row());
+      adjusted.emplace_back(location);
+    }
+    
+    context.selections().replace(SelectionSet(adjusted));
     context.enterMode("EditMode", EditMode::InsertBehavior);
   }
   
@@ -175,8 +194,16 @@ namespace quip {
     context.enterMode("EditMode", EditMode::AppendBehavior);
   }
   
-  void NormalMode::enterSearchMode (EditContext & context) {
-    context.enterMode("SearchMode");
+  void NormalMode::enterEditModeByAppendingAtEndOfLines (EditContext & context) {
+    std::vector<Selection> adjusted;
+    adjusted.reserve(context.selections().count());
+    for(const Selection& selection : context.selections()) {
+      Location location(context.document().row(selection.extent().row()).size() - 2, selection.extent().row());
+      adjusted.emplace_back(location);
+    }
+    
+    context.selections().replace(SelectionSet(adjusted));
+    context.enterMode("EditMode", EditMode::AppendBehavior);
   }
   
   void NormalMode::deleteSelections (EditContext & context) {

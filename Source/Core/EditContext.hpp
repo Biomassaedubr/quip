@@ -42,7 +42,8 @@ namespace quip {
     void undo ();
     bool canRedo () const noexcept;
     void redo ();
-    
+
+    bool processKeyEvent (Key key);
     bool processKeyEvent (Key key, const std::string & text);
     
     ViewController & controller ();

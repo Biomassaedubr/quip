@@ -3,6 +3,18 @@
 #include <cctype>
 
 namespace quip {
+  Key modifierDown(Key modifierMask) {
+    std::uint32_t mask = static_cast<std::uint32_t>(modifierMask);
+    std::uint32_t down = static_cast<std::uint32_t>(Key::ModifierDownMask);
+    return static_cast<Key>(mask | down);
+  }
+  
+  Key modifierUp(Key modifierMask) {
+    std::uint32_t mask = static_cast<std::uint32_t>(modifierMask);
+    std::uint32_t up = static_cast<std::uint32_t>(Key::ModifierUpMask);
+    return static_cast<Key>(mask | up);
+  }
+  
   Key keyFromScanCode (int code) {
     return static_cast<Key>(code);
   }

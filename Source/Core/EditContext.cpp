@@ -121,6 +121,10 @@ namespace quip {
     }
   }
   
+  bool EditContext::processKeyEvent (Key key) {
+    return mode().processKeyEvent(key, *this);
+  }
+  
   bool EditContext::processKeyEvent (Key key, const std::string & text) {
     return mode().processKeyEvent(key, text, *this);
   }
