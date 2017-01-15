@@ -76,6 +76,10 @@ namespace quip {
     return false;
   }
   
+  bool EditMode::allowsRepeats () const {
+    return false;
+  }
+  
   void EditMode::onEnter(EditContext & context, std::uint64_t how) {
     m_useAppendBehavior = how == AppendBehavior;
   }

@@ -18,6 +18,7 @@ namespace quip {
     
   protected:
     bool allowsCounts () const override;
+    bool allowsRepeats () const override;
     
     void onEnter (EditContext & context, std::uint64_t how) override;
 
