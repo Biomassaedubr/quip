@@ -228,6 +228,32 @@ namespace quip {
     return SelectionSet(updated);
   }
   
+  SelectionSet Document::append (const Selection & selection, const std::string & text) {
+    return append(SelectionSet(selection), text);
+  }
+  
+  SelectionSet Document::append (const SelectionSet & selections, const std::string & text) {
+    std::vector<std::string> replicated(selections.count(), text);
+    return append(selections, replicated);
+  }
+  
+  SelectionSet Document::append (const SelectionSet & selections, const std::vector<std::string> & text) {
+    std::vector<Selection> adjusted;
+    adjusted.reserve(selections.count());
+    for (const Selection & selection : selections) {
+      DocumentIterator iterator = at(selection.extent());
+      if (iterator != end()) {
+        ++iterator;
+      }
+      
+      adjusted.emplace_back(iterator.location());
+    }
+    
+    SelectionSet result(adjusted);
+    insert(result, text);
+    return result;
+  }
+  
   SelectionSet Document::erase (const Selection & selection) {
     return erase(SelectionSet(selection));
   }

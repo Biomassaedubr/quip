@@ -38,6 +38,8 @@
 		03532D601D8B65DF0007E2BF /* CoordinateTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03532D5F1D8B65DF0007E2BF /* CoordinateTests.mm */; };
 		036FD3FD1D75356D006EDD9E /* ChangeType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 036FD3FC1D75356D006EDD9E /* ChangeType.hpp */; };
 		036FD3FF1D75CDC7006EDD9E /* SignalTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 036FD3FE1D75CDC7006EDD9E /* SignalTests.mm */; };
+		0374FD8B1E2AFE9600CA3196 /* AppendTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0374FD891E2AFE9600CA3196 /* AppendTransaction.cpp */; };
+		0374FD8C1E2AFE9600CA3196 /* AppendTransaction.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0374FD8A1E2AFE9600CA3196 /* AppendTransaction.hpp */; };
 		037DCDEB1C8B6F7100643D44 /* SelectionDrawInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */; };
 		037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 037DCDEA1C8B6F7100643D44 /* SelectionDrawInfo.hpp */; };
 		037F306F1D47A6D5009F6EE2 /* StatusService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 037F306D1D47A6D5009F6EE2 /* StatusService.cpp */; };
@@ -130,6 +132,8 @@
 		03532D5F1D8B65DF0007E2BF /* CoordinateTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CoordinateTests.mm; path = Source/Tests/CoordinateTests.mm; sourceTree = SOURCE_ROOT; };
 		036FD3FC1D75356D006EDD9E /* ChangeType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ChangeType.hpp; path = Source/Core/ChangeType.hpp; sourceTree = "<group>"; };
 		036FD3FE1D75CDC7006EDD9E /* SignalTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SignalTests.mm; path = Source/Tests/SignalTests.mm; sourceTree = SOURCE_ROOT; };
+		0374FD891E2AFE9600CA3196 /* AppendTransaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppendTransaction.cpp; path = Source/Core/AppendTransaction.cpp; sourceTree = "<group>"; };
+		0374FD8A1E2AFE9600CA3196 /* AppendTransaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AppendTransaction.hpp; path = Source/Core/AppendTransaction.hpp; sourceTree = "<group>"; };
 		037DCDE91C8B6F7100643D44 /* SelectionDrawInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionDrawInfo.cpp; path = Source/Core/SelectionDrawInfo.cpp; sourceTree = "<group>"; };
 		037DCDEA1C8B6F7100643D44 /* SelectionDrawInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SelectionDrawInfo.hpp; path = Source/Core/SelectionDrawInfo.hpp; sourceTree = "<group>"; };
 		037DCDED1C8BA78B00643D44 /* CursorFlags.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CursorFlags.hpp; path = Source/Core/CursorFlags.hpp; sourceTree = "<group>"; };
@@ -257,6 +261,8 @@
 		033CA9761D0122B600ABD567 /* Implementations */ = {
 			isa = PBXGroup;
 			children = (
+				0374FD8A1E2AFE9600CA3196 /* AppendTransaction.hpp */,
+				0374FD891E2AFE9600CA3196 /* AppendTransaction.cpp */,
 				033CA9741D011FDA00ABD567 /* InsertTransaction.hpp */,
 				033CA9731D011FDA00ABD567 /* InsertTransaction.cpp */,
 				033CA9781D01273400ABD567 /* EraseTransaction.hpp */,
@@ -530,6 +536,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03E7B5011C9A596700BA1F82 /* Classification.hpp in Headers */,
+				0374FD8C1E2AFE9600CA3196 /* AppendTransaction.hpp in Headers */,
 				03FCA8FA1D88BFAF00B1C574 /* FileTypeDatabase.hpp in Headers */,
 				036FD3FD1D75356D006EDD9E /* ChangeType.hpp in Headers */,
 				037DCDEC1C8B6F7100643D44 /* SelectionDrawInfo.hpp in Headers */,
@@ -714,6 +721,7 @@
 				03532D4C1D8B5D700007E2BF /* DrawingService.cpp in Sources */,
 				03D1C86E1C781A0100AF5475 /* EditMode.cpp in Sources */,
 				03532D591D8B63D10007E2BF /* Rectangle.cpp in Sources */,
+				0374FD8B1E2AFE9600CA3196 /* AppendTransaction.cpp in Sources */,
 				03D1C8661C7819E600AF5475 /* EditContext.cpp in Sources */,
 				03D1C8701C781A0100AF5475 /* SearchMode.cpp in Sources */,
 				039037171D09065500CC932C /* UnknownSyntax.cpp in Sources */,

@@ -42,6 +42,10 @@ namespace quip {
     SelectionSet insert (const SelectionSet & selections, const std::string & text);
     SelectionSet insert (const SelectionSet & selections, const std::vector<std::string> & text);
 
+    SelectionSet append (const Selection & selection, const std::string & text);
+    SelectionSet append (const SelectionSet & selections, const std::string & text);
+    SelectionSet append (const SelectionSet & selections, const std::vector<std::string> & text);
+
     SelectionSet erase (const Selection & selection);
     SelectionSet erase (const SelectionSet & selections);
     

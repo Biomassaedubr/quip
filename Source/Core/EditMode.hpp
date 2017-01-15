@@ -26,6 +26,6 @@ namespace quip {
   private:
     void commitInsert (EditContext & context);
     
-    std::string m_status;
+    bool m_useAppendBehavior;
   };
 }
