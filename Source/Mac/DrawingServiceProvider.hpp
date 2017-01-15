@@ -8,13 +8,15 @@
 #import <Cocoa/Cocoa.h>
 
 namespace quip {
+  struct GlobalSettings;
+  
   struct Highlight {
     CFDictionaryRef attributes;
     CGColorRef foregroundColor;
   };
   
   struct DrawingServiceProvider : DrawingService {
-    DrawingServiceProvider (const std::string & fontName, float fontSize);
+    DrawingServiceProvider (const GlobalSettings & settings);
     ~DrawingServiceProvider ();
     
     void fillRectangle (const Rectangle & rectangle, const Color & color) override;

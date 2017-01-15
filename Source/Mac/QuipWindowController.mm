@@ -1,5 +1,6 @@
 #import "QuipWindowController.h"
 
+#import "QuipApplicationDelegate.h"
 #import "QuipDocument.h"
 #import "QuipTextView.h"
 #import "QuipStatusView.h"
@@ -16,8 +17,8 @@
 
 - (void)windowDidLoad {
   [super windowDidLoad];
-
-  m_drawingService = std::make_unique<quip::DrawingServiceProvider>("Menlo", 13.0f);
+  
+  m_drawingService = std::make_unique<quip::DrawingServiceProvider>([[QuipApplicationDelegate sharedDelegate] settings]);
   
   [[self textView] attachDrawingService:m_drawingService.get()];
   [[self statusView] attachDrawingService:m_drawingService.get()];

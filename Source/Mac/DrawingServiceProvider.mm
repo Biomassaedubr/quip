@@ -1,6 +1,7 @@
 #import "DrawingServiceProvider.hpp"
 
 #include "AttributeRange.hpp"
+#include "GlobalSettings.hpp"
 
 namespace quip {
   namespace {
@@ -24,14 +25,14 @@ namespace quip {
     }
   }
   
-  DrawingServiceProvider::DrawingServiceProvider(const std::string & fontName, float fontSize) {
-    NSString * name = [NSString stringWithUTF8String:fontName.c_str()];
-    NSDictionary * attributes = @{NSFontAttributeName: [NSFont fontWithName:name size:fontSize]};
+  DrawingServiceProvider::DrawingServiceProvider(const GlobalSettings & settings) {
+    NSString * name = [NSString stringWithUTF8String:settings.defaultFontFace().c_str()];
+    NSDictionary * attributes = @{NSFontAttributeName: [NSFont fontWithName:name size:settings.defaultFontSize()]};
     CGSize size = [@"m" sizeWithAttributes:attributes];
     setCellSize(Extent(size.width, size.height));
     
-    CFStringRef fontNameRef = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, fontName.c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
-    m_font = CTFontCreateWithName(fontNameRef, fontSize, nil);
+    CFStringRef fontNameRef = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, settings.defaultFontFace().c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
+    m_font = CTFontCreateWithName(fontNameRef, settings.defaultFontSize(), nil);
     CFRelease(fontNameRef);
     
     CFStringRef keys[] = { kCTFontAttributeName, kCTParagraphStyleAttributeName };
