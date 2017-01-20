@@ -15,8 +15,8 @@ namespace quip {
   }
   
   Coordinate DrawingService::coordinateForLocationInFrame (const Location & location, const Rectangle & frame) const {
-    float x = location.column() * m_cellSize.width();
-    float y = frame.height() - (m_cellSize.height() * (location.row() + 1));
+    float x = location.column() * m_cellSize.width() + frame.x();
+    float y = frame.height() - (m_cellSize.height() * (location.row() + 1)) + frame.y();
     return Coordinate(x, y);
   }
   

@@ -341,7 +341,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
 
 - (void)drawSelections:(const quip::SelectionDrawInfo &)drawInfo context:(CGContextRef)context {
   quip::Extent cellSize = m_drawingService->cellSize();
-  quip::Rectangle viewFrame = quip::Rectangle(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+  quip::Rectangle viewFrame = quip::Rectangle(self.frame.origin.x + gMargin, self.frame.origin.y, self.frame.size.width - (2.0f * gMargin), self.frame.size.height);
   quip::Document & document = m_context->document();
   for (const quip::Selection & selection : drawInfo.selections) {
     const quip::Location & lower = selection.origin();
