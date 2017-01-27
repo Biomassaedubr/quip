@@ -7,7 +7,7 @@
 namespace quip {
   namespace {
     bool isWordCharacter (char character) {
-      return !std::isspace(character);
+      return std::isalnum(character);
     }
   }
   
