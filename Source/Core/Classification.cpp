@@ -79,7 +79,7 @@ namespace quip {
   
   Selection selectPriorWord (const Document & document, const Selection & basis) {
     // Move until a non-word character.
-    DocumentIterator cursor = document.at(basis.extent());
+    DocumentIterator cursor = document.at(basis.origin());
     while (cursor != document.begin() && isWordCharacter(*cursor)) {
       --cursor;
     }
@@ -90,17 +90,7 @@ namespace quip {
     }
     
     // Save the extent, and move to the next non-word character...
-    Location extent = cursor.location();
-    while (cursor != document.begin() && isWordCharacter(*cursor)) {
-      --cursor;
-    }
-    
-    // ...but don't actually include that non-word character.
-    if (cursor != document.begin()) {
-      ++cursor;
-    }
-    
-    return Selection(cursor.location(), extent);
+    return selectThisWord(document, Selection(cursor.location()));
   }
   
   Selection selectThisLine (const Document & document, const Selection & basis) {
