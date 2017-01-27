@@ -58,23 +58,7 @@ namespace quip {
       return basis;
     }
     
-    // Save the origin, and move to the next non-word character...
-    Location origin = cursor.location();
-    while (cursor != document.end() && isWordCharacter(*cursor)) {
-      ++cursor;
-    }
-    
-    // ...then include the whitespace range until the next word character.
-    while(cursor != document.end() && std::isspace(*cursor)) {
-      ++cursor;
-    }
-    
-    // Don't actually include that last character.
-    if (cursor != document.end()) {
-      --cursor;
-    }
-    
-    return Selection(origin, cursor.location());
+    return selectThisWord(document, Selection(cursor.location()));
   }
   
   Selection selectPriorWord (const Document & document, const Selection & basis) {
