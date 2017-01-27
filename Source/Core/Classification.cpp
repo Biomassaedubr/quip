@@ -55,7 +55,12 @@ namespace quip {
       ++cursor;
     }
     
-    // ...but don't actually include that non-word character.
+    // ...then include the whitespace range until the next word character.
+    while(cursor != document.end() && std::isspace(*cursor)) {
+      ++cursor;
+    }
+    
+    // Don't actually include that last character.
     if (cursor != document.end()) {
       --cursor;
     }
