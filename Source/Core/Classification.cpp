@@ -24,7 +24,16 @@ namespace quip {
     while (extent != document.end() && isWordCharacter(*extent)) {
       ++extent;
     }
-    --extent;
+    
+    // ...then include the whitespace range until the next word character.
+    while(extent != document.end() && std::isspace(*extent)) {
+      ++extent;
+    }
+    
+    // Don't actually include that last character.
+    if (extent != document.end()) {
+      --extent;
+    }
     
     return Selection(origin.location(), extent.location());
   }
