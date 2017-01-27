@@ -368,7 +368,11 @@ static CGFloat gCursorBlinkInterval = 0.57;
             m_drawingService->drawBarBefore(quip::Location(firstColumn, row), color, viewFrame);
             break;
           case quip::CursorStyle::VerticalBarAtExtent:
-            m_drawingService->drawBarAfter(quip::Location(lastColumn, row), color, viewFrame);
+            if(document.isEmpty() || document.row(row).size() == 0) {
+              m_drawingService->drawBarBefore(quip::Location(lastColumn, row), color, viewFrame);
+            } else {
+              m_drawingService->drawBarAfter(quip::Location(lastColumn, row), color, viewFrame);
+            }
             break;
           case quip::CursorStyle::Underline:
           default:
