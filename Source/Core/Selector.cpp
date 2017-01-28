@@ -17,6 +17,21 @@ namespace quip {
     bool isWhitespaceExceptNewline(char character) {
       return std::isspace(character) && character != '\n';
     }
+    
+    DocumentIterator selectTrailingWhitespaceIfApplicable(const Document& document, const DocumentIterator& start) {
+      DocumentIterator result = start;
+      if (result != document.end()) {
+        // Try to select any (appropriate) trailing whitespace as well.
+        ++result;
+        if (isWhitespaceExceptNewline(*result)) {
+          result.advanceWhile(isWhitespaceExceptNewline);
+        } else {
+          --result;
+        }
+      }
+      
+      return result;
+    }
   }
   
   Selection selectThisWord(const Document& document, const Selection& basis) {
@@ -25,16 +40,8 @@ namespace quip {
     
     DocumentIterator extent = origin;
     extent.advanceWhile(isWordCharacter);
-    if (extent != document.end()) {
-      // Try to select any (appropriate) trailing whitespace as well.
-      ++extent;
-      if (isWhitespaceExceptNewline(*extent)) {
-        extent.advanceWhile(isWhitespaceExceptNewline);
-      } else {
-        --extent;
-      }
-    }
-   
+    extent = selectTrailingWhitespaceIfApplicable(document, extent);
+    
     return Selection(origin.location(), extent.location());
   }
   
@@ -71,15 +78,7 @@ namespace quip {
   Selection selectRemainingWord(const Document& document, const Selection& basis) {
     DocumentIterator extent = document.at(basis.extent());
     extent.advanceWhile(isWordCharacter);
-    if (extent != document.end()) {
-      // Try to select any (appropriate) trailing whitespace as well.
-      ++extent;
-      if (isWhitespaceExceptNewline(*extent)) {
-        extent.advanceWhile(isWhitespaceExceptNewline);
-      } else {
-        --extent;
-      }
-    }
+    extent = selectTrailingWhitespaceIfApplicable(document, extent);
     
     return Selection(basis.origin(), extent.location());
   }
