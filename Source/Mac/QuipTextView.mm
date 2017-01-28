@@ -135,10 +135,19 @@ static CGFloat gCursorBlinkInterval = 0.57;
   quip::Rectangle rectangle(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
   quip::Location target = m_drawingService->locationForCoordinateInFrame(coordinate, rectangle);
   
-  if (target.row() >= m_context->document().rows() || target.column() >= m_context->document().row(target.row()).length()) {
-    return;
+  // Adjust the target based on the actual bounds of the document.
+  std::uint64_t row = target.row();
+  if (row >= m_context->document().rows()) {
+    row = m_context->document().rows() - 1;
   }
   
+  std::uint64_t column = target.column();
+  const std::string& line = m_context->document().row(row);
+  if (column >= line.size()) {
+    column = line.size() - 1;
+  }
+  
+  target = quip::Location(column, row);
   m_context->selections().replace(quip::Selection(target));
   [self resetCursorBlink];
 }
