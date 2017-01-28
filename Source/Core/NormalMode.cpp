@@ -1,6 +1,5 @@
 #include "NormalMode.hpp"
 
-#include "Classification.hpp"
 #include "Document.hpp"
 #include "DocumentIterator.hpp"
 #include "EditContext.hpp"
@@ -9,6 +8,7 @@
 #include "Location.hpp"
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
+#include "Selector.hpp"
 
 namespace quip {
   NormalMode::NormalMode () {
