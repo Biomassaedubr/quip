@@ -1,16 +1,18 @@
 #pragma once
 
 namespace quip {
-  // A four-component floating point color.
+  // A floating-point, four-component color.
+  //
+  // Each color component is in the range [0, 1].
   struct Color {
-    Color ();
-    Color (float r, float g, float b);
-    Color (float r, float g, float b, float a);
+    Color();
+    Color(float r, float g, float b);
+    Color(float r, float g, float b, float a);
     
-    float r () const noexcept;
-    float g () const noexcept;
-    float b () const noexcept;
-    float a () const noexcept;
+    float r() const noexcept;
+    float g() const noexcept;
+    float b() const noexcept;
+    float a() const noexcept;
     
     static Color red();
     static Color green();
