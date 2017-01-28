@@ -22,6 +22,7 @@
 		031FC0D91D3BEA0700628179 /* MapTrieNode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 031FC0D71D3BEA0700628179 /* MapTrieNode.hpp */; };
 		031FC0DD1D3BFD4100628179 /* KeySequenceTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 031FC0DC1D3BFD4100628179 /* KeySequenceTests.mm */; };
 		031FC0E11D3C0F1F00628179 /* Key.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031FC0E01D3C0F1F00628179 /* Key.cpp */; };
+		03372BFC1E3C1F19005342DD /* SelectorTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03372BFB1E3C1F19005342DD /* SelectorTests.mm */; };
 		033CA9721D011ED200ABD567 /* Transaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9701D011ED200ABD567 /* Transaction.cpp */; };
 		033CA9751D011FDA00ABD567 /* InsertTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9731D011FDA00ABD567 /* InsertTransaction.cpp */; };
 		033CA9791D01273400ABD567 /* EraseTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9771D01273400ABD567 /* EraseTransaction.cpp */; };
@@ -114,6 +115,7 @@
 		031FC0D71D3BEA0700628179 /* MapTrieNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MapTrieNode.hpp; path = Source/Core/MapTrieNode.hpp; sourceTree = "<group>"; };
 		031FC0DC1D3BFD4100628179 /* KeySequenceTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = KeySequenceTests.mm; path = Source/Tests/KeySequenceTests.mm; sourceTree = SOURCE_ROOT; };
 		031FC0E01D3C0F1F00628179 /* Key.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Key.cpp; path = Source/Core/Key.cpp; sourceTree = "<group>"; };
+		03372BFB1E3C1F19005342DD /* SelectorTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectorTests.mm; path = Source/Tests/SelectorTests.mm; sourceTree = SOURCE_ROOT; };
 		033CA9701D011ED200ABD567 /* Transaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Transaction.cpp; path = Source/Core/Transaction.cpp; sourceTree = "<group>"; };
 		033CA9711D011ED200ABD567 /* Transaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Transaction.hpp; path = Source/Core/Transaction.hpp; sourceTree = "<group>"; };
 		033CA9731D011FDA00ABD567 /* InsertTransaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InsertTransaction.cpp; path = Source/Core/InsertTransaction.cpp; sourceTree = "<group>"; };
@@ -536,6 +538,7 @@
 				03D1C8891C781AFB00AF5475 /* SearchExpressionTests.mm */,
 				03D1C88A1C781AFB00AF5475 /* SelectionSetTests.mm */,
 				03D1C88B1C781AFB00AF5475 /* SelectionTests.mm */,
+				03372BFB1E3C1F19005342DD /* SelectorTests.mm */,
 				036FD3FE1D75CDC7006EDD9E /* SignalTests.mm */,
 			);
 			name = Tests;
@@ -754,6 +757,7 @@
 				030AC70F1C781B9F00219938 /* DocumentTests.mm in Sources */,
 				03532D601D8B65DF0007E2BF /* CoordinateTests.mm in Sources */,
 				03532D531D8B5E5A0007E2BF /* ExtentTests.mm in Sources */,
+				03372BFC1E3C1F19005342DD /* SelectorTests.mm in Sources */,
 				036FD3FF1D75CDC7006EDD9E /* SignalTests.mm in Sources */,
 				030AC7111C781B9F00219938 /* SearchExpressionTests.mm in Sources */,
 				031FC0DD1D3BFD4100628179 /* KeySequenceTests.mm in Sources */,
