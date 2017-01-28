@@ -87,4 +87,28 @@ using namespace quip;
   XCTAssertEqual(result.extent(), Location(3, 1));
 }
 
+- (void)testSelectPriorWordFromWord {
+  Document document("Hello world!");
+  Selection result = selectPriorWord(document, Selection(Location(7, 0)));
+  
+  XCTAssertEqual(result.origin(), Location(0, 0));
+  XCTAssertEqual(result.extent(), Location(5, 0));
+}
+
+- (void)testSelectPriorWordFromWhitespace {
+  Document document("Hello world!");
+  Selection result = selectPriorWord(document, Selection(Location(5, 0)));
+  
+  XCTAssertEqual(result.origin(), Location(0, 0));
+  XCTAssertEqual(result.extent(), Location(5, 0));
+}
+
+- (void)testSelectPriorWordAcrossNewline {
+  Document document("Hello world \nand friends!");
+  Selection result = selectPriorWord(document, Selection(Location(1, 1)));
+  
+  XCTAssertEqual(result.origin(), Location(6, 0));
+  XCTAssertEqual(result.extent(), Location(11, 0));
+}
+
 @end

@@ -14,7 +14,6 @@ namespace quip {
       if (!pass) {
         --self;
       }
-      
     }
     
     return self;
@@ -43,7 +42,16 @@ namespace quip {
       if (!pass) {
         ++self;
       }
-      
+    }
+    
+    return self;
+  }
+  
+  template<typename PredicateType>
+  DocumentIterator& DocumentIterator::reverseUntil(PredicateType predicate) {
+    DocumentIterator& self = *this;
+    while(self != m_document->begin() && !predicate(*self)) {
+      --self;
     }
     
     return self;
