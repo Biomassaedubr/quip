@@ -11,15 +11,16 @@
 #include "Selector.hpp"
 
 namespace quip {
-  NormalMode::NormalMode () {
+  NormalMode::NormalMode() {
     addMapping(Key::H, &NormalMode::doSelectBeforePrimaryOrigin);
     addMapping(Key::J, &NormalMode::doSelectBelowPrimaryExtent);
     addMapping(Key::K, &NormalMode::doSelectAbovePrimaryOrigin);
     addMapping(Key::L, &NormalMode::doSelectAfterPrimaryExtent);
     
     addMapping("TW", &NormalMode::doSelectThisWord);
-    addMapping(Key::W, &NormalMode::doSelectNextWord);
-    addMapping(Key::B, &NormalMode::doSelectPriorWord);
+    addMapping("W", &NormalMode::doSelectNextWord);
+    addMapping("B", &NormalMode::doSelectPriorWord);
+    addMapping("RW", &NormalMode::doSelectRemainingWord);
 
     addMapping("TL", &NormalMode::doSelectThisLine);
     addMapping("NL", &NormalMode::doSelectNextLine);
@@ -42,11 +43,11 @@ namespace quip {
     m_virtualColumn = 0;
   }
   
-  std::string NormalMode::status () const {
+  std::string NormalMode::status() const {
     return "Normal";
   }
   
-  void NormalMode::doSelectBeforePrimaryOrigin (EditContext & context) {
+  void NormalMode::doSelectBeforePrimaryOrigin(EditContext& context) {
     if (context.document().isEmpty()) {
       return;
     }
@@ -64,7 +65,7 @@ namespace quip {
     context.controller().scrollLocationIntoView.transmit(context.selections().primary().origin());
   }
   
-  void NormalMode::doSelectBelowPrimaryExtent (EditContext & context) {
+  void NormalMode::doSelectBelowPrimaryExtent(EditContext& context) {
     if (context.document().isEmpty()) {
       return;
     }
@@ -90,7 +91,7 @@ namespace quip {
     context.controller().scrollLocationIntoView.transmit(context.selections().primary().origin());
   }
 
-  void NormalMode::doSelectAfterPrimaryExtent (EditContext & context) {
+  void NormalMode::doSelectAfterPrimaryExtent(EditContext& context) {
     if (context.document().isEmpty()) {
       return;
     }
@@ -108,7 +109,7 @@ namespace quip {
     context.controller().scrollLocationIntoView.transmit(context.selections().primary().origin());
   }
   
-  void NormalMode::doSelectAbovePrimaryOrigin (EditContext & context) {
+  void NormalMode::doSelectAbovePrimaryOrigin(EditContext& context) {
     if (context.document().isEmpty()) {
       return;
     }
@@ -134,66 +135,71 @@ namespace quip {
     context.controller().scrollLocationIntoView.transmit(context.selections().primary().origin());
   }
   
-  void NormalMode::doSelectThisWord (EditContext & context) {
+  void NormalMode::doSelectThisWord(EditContext& context) {
     context.selections().replace(selectThisWord(context.document(), context.selections().primary()));
     context.controller().scrollToLocation.transmit(context.selections().primary().extent());
   }
   
-  void NormalMode::doSelectNextWord (EditContext & context) {
+  void NormalMode::doSelectNextWord(EditContext& context) {
     context.selections().replace(selectNextWord(context.document(), context.selections().primary()));
     context.controller().scrollLocationIntoView.transmit(context.selections().primary().extent());
   }
   
-  void NormalMode::doSelectPriorWord (EditContext & context) {
+  void NormalMode::doSelectPriorWord(EditContext& context) {
     context.selections().replace(selectPriorWord(context.document(), context.selections().primary()));
     context.controller().scrollToLocation.transmit(context.selections().primary().extent());
   }
   
-  void NormalMode::doSelectThisLine (EditContext & context) {
+  void NormalMode::doSelectRemainingWord(EditContext& context) {
+    context.selections().replace(selectRemainingWord(context.document(), context.selections().primary()));
+    context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+  }
+  
+  void NormalMode::doSelectThisLine(EditContext& context) {
     context.selections().replace(selectThisLine(context.document(), context.selections().primary()));
     context.controller().scrollToLocation.transmit(context.selections().primary().extent());
   }
   
-  void NormalMode::doSelectNextLine (EditContext & context) {
+  void NormalMode::doSelectNextLine(EditContext& context) {
     context.selections().replace(selectNextLine(context.document(), context.selections().primary()));
     context.controller().scrollToLocation.transmit(context.selections().primary().extent());
   }
   
-  void NormalMode::doSelectPriorLine (EditContext & context) {
+  void NormalMode::doSelectPriorLine(EditContext& context) {
     context.selections().replace(selectPriorLine(context.document(), context.selections().primary()));
     context.controller().scrollToLocation.transmit(context.selections().primary().extent());
   }
   
-  void NormalMode::rotateSelectionForward (EditContext & context) {
+  void NormalMode::rotateSelectionForward(EditContext& context) {
     context.selections().rotateForward();
     context.controller().scrollToLocation.transmit(context.selections().primary().origin());
   }
   
-  void NormalMode::rotateSelectionBackward (EditContext & context) {
+  void NormalMode::rotateSelectionBackward(EditContext& context) {
     context.selections().rotateBackward();
     context.controller().scrollToLocation.transmit(context.selections().primary().origin());
   }
   
-  void NormalMode::collapseSelections (EditContext & context) {
+  void NormalMode::collapseSelections(EditContext& context) {
     context.selections().replace(context.selections().primary());
   }
   
-  void NormalMode::enterJumpMode (EditContext & context) {
+  void NormalMode::enterJumpMode(EditContext& context) {
     context.enterMode("JumpMode");
   }
   
-  void NormalMode::enterSearchMode (EditContext & context) {
+  void NormalMode::enterSearchMode(EditContext& context) {
     context.enterMode("SearchMode");
   }
   
-  void NormalMode::enterEditModeByInserting (EditContext & context) {
+  void NormalMode::enterEditModeByInserting(EditContext& context) {
     context.enterMode("EditMode", EditMode::InsertBehavior);
   }
   
-  void NormalMode::enterEditModeByInsertingAtStartOfLines (EditContext & context) {
+  void NormalMode::enterEditModeByInsertingAtStartOfLines(EditContext& context) {
     std::vector<Selection> adjusted;
     adjusted.reserve(context.selections().count());
-    for(const Selection& selection : context.selections()) {
+    for (const Selection& selection : context.selections()) {
       Location location(0, selection.origin().row());
       adjusted.emplace_back(location);
     }
@@ -202,14 +208,14 @@ namespace quip {
     context.enterMode("EditMode", EditMode::InsertBehavior);
   }
   
-  void NormalMode::enterEditModeByAppending (EditContext & context) {
+  void NormalMode::enterEditModeByAppending(EditContext& context) {
     context.enterMode("EditMode", EditMode::AppendBehavior);
   }
   
-  void NormalMode::enterEditModeByAppendingAtEndOfLines (EditContext & context) {
+  void NormalMode::enterEditModeByAppendingAtEndOfLines(EditContext& context) {
     std::vector<Selection> adjusted;
     adjusted.reserve(context.selections().count());
-    for(const Selection& selection : context.selections()) {
+    for (const Selection& selection : context.selections()) {
       Location location(context.document().row(selection.extent().row()).size() - 2, selection.extent().row());
       adjusted.emplace_back(location);
     }
@@ -218,11 +224,11 @@ namespace quip {
     context.enterMode("EditMode", EditMode::AppendBehavior);
   }
   
-  void NormalMode::deleteSelections (EditContext & context) {
+  void NormalMode::deleteSelections(EditContext& context) {
     context.performTransaction(EraseTransaction::create(context.selections()));
   }
   
-  void NormalMode::changeSelections (EditContext & context) {
+  void NormalMode::changeSelections(EditContext& context) {
     context.performTransaction(EraseTransaction::create(context.selections()));
     context.enterMode("EditMode");
   }

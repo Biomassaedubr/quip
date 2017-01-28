@@ -55,4 +55,12 @@ using namespace quip;
   XCTAssertEqual(result.extent(), Location(11, 0));
 }
 
+- (void)testSelectRemainingWord {
+  Document document("Hello world!");
+  Selection result = selectRemainingWord(document, Selection(Location(2, 0)));
+
+  XCTAssertEqual(result.origin(), Location(2, 0));
+  XCTAssertEqual(result.extent(), Location(5, 0));
+}
+
 @end

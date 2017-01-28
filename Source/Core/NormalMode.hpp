@@ -6,37 +6,38 @@ namespace quip {
   struct EditContext;
   
   struct NormalMode : Mode {
-    NormalMode ();
+    NormalMode();
     
-    std::string status () const override;
+    std::string status() const override;
 
   private:
-    void doSelectBeforePrimaryOrigin (EditContext & context);
-    void doSelectBelowPrimaryExtent (EditContext & context);
-    void doSelectAfterPrimaryExtent (EditContext & context);
-    void doSelectAbovePrimaryOrigin (EditContext & context);
+    void doSelectBeforePrimaryOrigin(EditContext& context);
+    void doSelectBelowPrimaryExtent(EditContext& context);
+    void doSelectAfterPrimaryExtent(EditContext& context);
+    void doSelectAbovePrimaryOrigin(EditContext& context);
     
-    void doSelectThisWord (EditContext & context);
-    void doSelectNextWord (EditContext & context);
-    void doSelectPriorWord (EditContext & context);
+    void doSelectThisWord(EditContext& context);
+    void doSelectNextWord(EditContext& context);
+    void doSelectPriorWord(EditContext& context);
+    void doSelectRemainingWord(EditContext& context);
     
-    void doSelectThisLine (EditContext & context);
-    void doSelectNextLine (EditContext & context);
-    void doSelectPriorLine (EditContext & context);
+    void doSelectThisLine(EditContext& context);
+    void doSelectNextLine(EditContext& context);
+    void doSelectPriorLine(EditContext& context);
     
-    void enterJumpMode (EditContext & context);
-    void enterSearchMode (EditContext & context);
-    void enterEditModeByInserting (EditContext & context);
-    void enterEditModeByInsertingAtStartOfLines (EditContext & context);
-    void enterEditModeByAppending (EditContext & context);
-    void enterEditModeByAppendingAtEndOfLines (EditContext & context);
+    void enterJumpMode(EditContext& context);
+    void enterSearchMode(EditContext& context);
+    void enterEditModeByInserting(EditContext& context);
+    void enterEditModeByInsertingAtStartOfLines(EditContext& context);
+    void enterEditModeByAppending(EditContext& context);
+    void enterEditModeByAppendingAtEndOfLines(EditContext& context);
     
-    void rotateSelectionForward (EditContext & context);
-    void rotateSelectionBackward (EditContext & context);
-    void collapseSelections (EditContext & context);
+    void rotateSelectionForward(EditContext& context);
+    void rotateSelectionBackward(EditContext& context);
+    void collapseSelections(EditContext& context);
     
-    void deleteSelections (EditContext & context);
-    void changeSelections (EditContext & context);
+    void deleteSelections(EditContext& context);
+    void changeSelections(EditContext& context);
     
     std::uint64_t m_virtualColumn;
   };
