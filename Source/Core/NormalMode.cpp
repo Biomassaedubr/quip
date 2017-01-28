@@ -136,38 +136,59 @@ namespace quip {
   }
   
   void NormalMode::doSelectThisWord(EditContext& context) {
-    context.selections().replace(selectThisWord(context.document(), context.selections().primary()));
-    context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+    Optional<Selection> result = selectThisWord(context.document(), context.selections().primary());
+    if (result.has_value()) {
+      context.selections().replace(result.value());
+      context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+    }
   }
   
   void NormalMode::doSelectNextWord(EditContext& context) {
-    context.selections().replace(selectNextWord(context.document(), context.selections().primary()));
-    context.controller().scrollLocationIntoView.transmit(context.selections().primary().extent());
+    Optional<Selection> result = selectNextWord(context.document(), context.selections().primary());
+    if (result.has_value()) {
+      context.selections().replace(result.value());
+      context.controller().scrollLocationIntoView.transmit(context.selections().primary().extent());
+    }
   }
   
   void NormalMode::doSelectPriorWord(EditContext& context) {
-    context.selections().replace(selectPriorWord(context.document(), context.selections().primary()));
-    context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+    Optional<Selection> result = selectPriorWord(context.document(), context.selections().primary());
+    if (result.has_value()) {
+      context.selections().replace(result.value());
+      context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+    }
   }
   
   void NormalMode::doSelectRemainingWord(EditContext& context) {
-    context.selections().replace(selectRemainingWord(context.document(), context.selections().primary()));
-    context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+    Optional<Selection> result = selectRemainingWord(context.document(), context.selections().primary());
+    if (result.has_value()) {
+      context.selections().replace(result.value());
+      context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+    }
   }
   
   void NormalMode::doSelectThisLine(EditContext& context) {
-    context.selections().replace(selectThisLine(context.document(), context.selections().primary()));
-    context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+    Optional<Selection> result = selectThisLine(context.document(), context.selections().primary());
+    if (result.has_value()) {
+      context.selections().replace(result.value());
+      context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+    }
   }
   
   void NormalMode::doSelectNextLine(EditContext& context) {
-    context.selections().replace(selectNextLine(context.document(), context.selections().primary()));
-    context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+    Optional<Selection> result = selectNextLine(context.document(), context.selections().primary());
+    if (result.has_value()) {
+      context.selections().replace(result.value());
+      context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+    }
   }
   
   void NormalMode::doSelectPriorLine(EditContext& context) {
-    context.selections().replace(selectPriorLine(context.document(), context.selections().primary()));
-    context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+    Optional<Selection> result = selectPriorLine(context.document(), context.selections().primary());
+    if (result.has_value()) {
+      context.selections().replace(result.value());
+      context.controller().scrollToLocation.transmit(context.selections().primary().extent());
+    }
   }
   
   void NormalMode::rotateSelectionForward(EditContext& context) {

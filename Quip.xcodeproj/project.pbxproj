@@ -37,6 +37,7 @@
 		03532D5D1D8B65840007E2BF /* Coordinate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03532D5B1D8B65840007E2BF /* Coordinate.cpp */; };
 		03532D5E1D8B65840007E2BF /* Coordinate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03532D5C1D8B65840007E2BF /* Coordinate.hpp */; };
 		03532D601D8B65DF0007E2BF /* CoordinateTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03532D5F1D8B65DF0007E2BF /* CoordinateTests.mm */; };
+		035DCDD01E3D37D700B52098 /* optional_lite.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 035DCDCF1E3D37D700B52098 /* optional_lite.hpp */; };
 		036FD3FD1D75356D006EDD9E /* ChangeType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 036FD3FC1D75356D006EDD9E /* ChangeType.hpp */; };
 		036FD3FF1D75CDC7006EDD9E /* SignalTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 036FD3FE1D75CDC7006EDD9E /* SignalTests.mm */; };
 		0371316F1E2BC3EE00EE78F6 /* GlobalSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0371316D1E2BC3EE00EE78F6 /* GlobalSettings.cpp */; };
@@ -134,6 +135,9 @@
 		03532D5B1D8B65840007E2BF /* Coordinate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Coordinate.cpp; path = Source/Core/Coordinate.cpp; sourceTree = "<group>"; };
 		03532D5C1D8B65840007E2BF /* Coordinate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Coordinate.hpp; path = Source/Core/Coordinate.hpp; sourceTree = "<group>"; };
 		03532D5F1D8B65DF0007E2BF /* CoordinateTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CoordinateTests.mm; path = Source/Tests/CoordinateTests.mm; sourceTree = SOURCE_ROOT; };
+		035DCDCF1E3D37D700B52098 /* optional_lite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = optional_lite.hpp; path = "Dependencies/optional-lite/optional_lite.hpp"; sourceTree = "<group>"; };
+		035DCDD11E3D37E400B52098 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = "Dependencies/optional-lite/LICENSE"; sourceTree = "<group>"; };
+		035DCDD21E3D383300B52098 /* Optional.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Optional.hpp; path = Source/Core/Optional.hpp; sourceTree = "<group>"; };
 		036FD3FC1D75356D006EDD9E /* ChangeType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ChangeType.hpp; path = Source/Core/ChangeType.hpp; sourceTree = "<group>"; };
 		036FD3FE1D75CDC7006EDD9E /* SignalTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SignalTests.mm; path = Source/Tests/SignalTests.mm; sourceTree = SOURCE_ROOT; };
 		0371316D1E2BC3EE00EE78F6 /* GlobalSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GlobalSettings.cpp; path = Source/Core/GlobalSettings.cpp; sourceTree = "<group>"; };
@@ -298,6 +302,23 @@
 			name = Syntax;
 			sourceTree = "<group>";
 		};
+		035DCDCD1E3D37A600B52098 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				035DCDCE1E3D37AE00B52098 /* optional-lite */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		035DCDCE1E3D37AE00B52098 /* optional-lite */ = {
+			isa = PBXGroup;
+			children = (
+				035DCDD11E3D37E400B52098 /* LICENSE */,
+				035DCDCF1E3D37D700B52098 /* optional_lite.hpp */,
+			);
+			name = "optional-lite";
+			sourceTree = "<group>";
+		};
 		0371316B1E2BC3CB00EE78F6 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +401,7 @@
 			children = (
 				038ECDE51C698FF0002E571D /* Application */,
 				03D1C8551C78197200AF5475 /* Core */,
+				035DCDCD1E3D37A600B52098 /* Dependencies */,
 				03D1C87B1C781A4A00AF5475 /* Tests */,
 				03CCFAEC1BF1A1BE0033929E /* Products */,
 			);
@@ -506,6 +528,7 @@
 				03532D581D8B63D10007E2BF /* Rectangle.hpp */,
 				03532D571D8B63D10007E2BF /* Rectangle.cpp */,
 				03D1C8511C78197200AF5475 /* Signal.hpp */,
+				035DCDD21E3D383300B52098 /* Optional.hpp */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -566,6 +589,7 @@
 				03532D5A1D8B63D10007E2BF /* Rectangle.hpp in Headers */,
 				037131701E2BC3EE00EE78F6 /* GlobalSettings.hpp in Headers */,
 				037F30701D47A6D5009F6EE2 /* StatusService.hpp in Headers */,
+				035DCDD01E3D37D700B52098 /* optional_lite.hpp in Headers */,
 				0390371C1D090D9400CC932C /* MarkdownSyntax.hpp in Headers */,
 				031FC0D51D3BE9AD00628179 /* MapTrie.hpp in Headers */,
 				03532D5E1D8B65840007E2BF /* Coordinate.hpp in Headers */,
