@@ -15,6 +15,14 @@
 
 using namespace quip;
 
+- (void)testSelectThisWordFromStartOfDocument {
+  Document document("Hello world!");
+  Selection result = selectThisWord(document, Selection(Location(0, 0)));
+  
+  XCTAssertEqual(result.origin(), Location(0, 0));
+  XCTAssertEqual(result.extent(), Location(5, 0));
+}
+
 - (void)testSelectThisWordFromStartOfWord {
   Document document("Hello world!");
   Selection result = selectThisWord(document, Selection(Location(6, 0)));
@@ -33,6 +41,14 @@ using namespace quip;
 
 - (void)testSelectThisWordCoversTrailingWhitespace {
   Document document("Hello world and friends!");
+  Selection result = selectThisWord(document, Selection(Location(6, 0)));
+  
+  XCTAssertEqual(result.origin(), Location(6, 0));
+  XCTAssertEqual(result.extent(), Location(11, 0));
+}
+
+- (void)testSelectThisWordCoversTrailingWhitespaceButNotNewlines {
+  Document document("Hello world \nand friends!");
   Selection result = selectThisWord(document, Selection(Location(6, 0)));
   
   XCTAssertEqual(result.origin(), Location(6, 0));

@@ -9,32 +9,28 @@ namespace quip {
     bool isWordCharacter (char character) {
       return std::isalnum(character);
     }
+    
+    bool isWhitespaceExceptNewline (char character) {
+      return std::isspace(character) && character != '\n';
+    }
   }
   
-  Selection selectThisWord (const Document & document, const Selection & basis) {
-    // Move backwards until after a space.
+  Selection selectThisWord (const Document& document, const Selection& basis) {
     DocumentIterator origin = document.at(basis.origin());
-    while (origin != document.begin() && isWordCharacter(*origin)) {
-      --origin;
-    }
-    ++origin;
+    origin.reverseWhile(isWordCharacter);
     
-    // Move forwards until before a space.
-    DocumentIterator extent = document.at(basis.extent());
-    while (extent != document.end() && isWordCharacter(*extent)) {
-      ++extent;
-    }
-    
-    // ...then include the whitespace range until the next word character.
-    while(extent != document.end() && std::isspace(*extent)) {
-      ++extent;
-    }
-    
-    // Don't actually include that last character.
+    DocumentIterator extent = origin;
+    extent.advanceWhile(isWordCharacter);
     if (extent != document.end()) {
-      --extent;
+      // Try to select any (appropriate) trailing whitespace as well.
+      ++extent;
+      if (isWhitespaceExceptNewline(*extent)) {
+        extent.advanceWhile(isWhitespaceExceptNewline);
+      } else {
+        --extent;
+      }
     }
-    
+   
     return Selection(origin.location(), extent.location());
   }
   

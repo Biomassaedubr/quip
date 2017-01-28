@@ -9,14 +9,28 @@ namespace quip {
   struct Document;
   
   struct DocumentIterator {
-    DocumentIterator (const Document & document, Location location);
+    DocumentIterator(const Document& document, Location location);
     
-    Location location () const;
+    Location location() const;
     
-    char operator* () const;
+    char operator*() const;
     
-    DocumentIterator & operator++ ();
-    DocumentIterator & operator-- ();
+    DocumentIterator& operator++();
+    DocumentIterator& operator--();
+    
+    // Advance the iterator while a predicate passes for the character referred to by the iterator.
+    //
+    // The iterator is not updated if the predicate fails for the character initially referred to.
+    // Otherwise, the iterator will refer to the last character that passed the predicate.
+    template<typename PredicateType>
+    DocumentIterator& advanceWhile(PredicateType predicate);
+    
+    // Reverse the iterator while a predicate passes for the character referred to by the iterator.
+    //
+    // The iterator is not updated if the predicate fails for the character initially referred to.
+    // Otherwise, the iterator will refer to the last character that passed the predicate.
+    template<typename PredicateType>
+    DocumentIterator& reverseWhile(PredicateType predicate);
     
     friend bool operator== (const DocumentIterator & left, const DocumentIterator & right);
     friend bool operator!= (const DocumentIterator & left, const DocumentIterator & right);
@@ -37,3 +51,5 @@ namespace std {
     typedef std::bidirectional_iterator_tag iterator_category;
   };
 }
+
+#include "DocumentIterator.inl"

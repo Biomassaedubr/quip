@@ -168,6 +168,7 @@
 		038ECDD91C698FE2002E571D /* QuipWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipWindowController.mm; path = Source/Mac/QuipWindowController.mm; sourceTree = "<group>"; };
 		038ECDDA1C698FE2002E571D /* QuipWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QuipWindowController.xib; path = Source/Mac/QuipWindowController.xib; sourceTree = "<group>"; };
 		038ECDE61C699039002E571D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
+		038F24351E3C4E6400A8B445 /* DocumentIterator.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = DocumentIterator.inl; path = Source/Core/DocumentIterator.inl; sourceTree = "<group>"; };
 		039037151D09065500CC932C /* UnknownSyntax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UnknownSyntax.cpp; path = Source/Core/UnknownSyntax.cpp; sourceTree = "<group>"; };
 		039037161D09065500CC932C /* UnknownSyntax.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UnknownSyntax.hpp; path = Source/Core/UnknownSyntax.hpp; sourceTree = "<group>"; };
 		039037191D090D9400CC932C /* MarkdownSyntax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MarkdownSyntax.cpp; path = Source/Core/MarkdownSyntax.cpp; sourceTree = "<group>"; };
@@ -411,6 +412,7 @@
 				03D1C82C1C78197200AF5475 /* Document.hpp */,
 				03D1C82D1C78197200AF5475 /* Document.cpp */,
 				03D1C82E1C78197200AF5475 /* DocumentIterator.hpp */,
+				038F24351E3C4E6400A8B445 /* DocumentIterator.inl */,
 				03D1C82F1C78197200AF5475 /* DocumentIterator.cpp */,
 				03D1C8301C78197200AF5475 /* Location.hpp */,
 				03D1C8311C78197200AF5475 /* Location.cpp */,
