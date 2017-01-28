@@ -25,6 +25,13 @@ namespace quip {
     template<typename PredicateType>
     DocumentIterator& advanceWhile(PredicateType predicate);
     
+    // Advance the iterator until a predicate passes for the character referred to by the iterator.
+    //
+    // The iterator is not updated if the predicate passes for the character initially referred to.
+    // Otherwise, the iterator will refer to the first character that passed the predicate.
+    template<typename PredicateType>
+    DocumentIterator& advanceUntil(PredicateType predicate);
+    
     // Reverse the iterator while a predicate passes for the character referred to by the iterator.
     //
     // The iterator is not updated if the predicate fails for the character initially referred to.

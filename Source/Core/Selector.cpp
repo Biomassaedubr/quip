@@ -10,6 +10,10 @@ namespace quip {
       return std::isalnum(character);
     }
     
+    bool isNotWordCharacter(char character) {
+      return !isWordCharacter(character);
+    }
+    
     bool isWhitespaceExceptNewline(char character) {
       return std::isspace(character) && character != '\n';
     }
@@ -35,26 +39,18 @@ namespace quip {
   }
   
   Selection selectNextWord(const Document& document, const Selection& basis) {
-    // Move until a non-word character.
-    DocumentIterator cursor = document.at(basis.extent());
-    while (cursor != document.end() && isWordCharacter(*cursor)) {
-      ++cursor;
-    }
-    
-    if (cursor == document.end()) {
+    DocumentIterator origin = document.at(basis.extent());
+    origin.advanceUntil(isNotWordCharacter);
+    if (origin == document.end()) {
       return basis;
     }
     
-    // Then move until a word character.
-    while (cursor != document.end() && !isWordCharacter(*cursor)) {
-      ++cursor;
-    }
-    
-    if (cursor == document.end()) {
+    origin.advanceUntil(isWordCharacter);
+    if (origin == document.end()) {
       return basis;
     }
     
-    return selectThisWord(document, Selection(cursor.location()));
+    return selectThisWord(document, Selection(origin.location()));
   }
   
   Selection selectPriorWord(const Document& document, const Selection& basis) {

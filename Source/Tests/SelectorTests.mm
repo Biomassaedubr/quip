@@ -63,4 +63,28 @@ using namespace quip;
   XCTAssertEqual(result.extent(), Location(5, 0));
 }
 
+- (void)testSelectNextWordFromWord {
+  Document document("Hello world!");
+  Selection result = selectNextWord(document, Selection(Location(2, 0)));
+  
+  XCTAssertEqual(result.origin(), Location(6, 0));
+  XCTAssertEqual(result.extent(), Location(10, 0));
+}
+
+- (void)testSelectNextWordFromWhitespace {
+  Document document("Hello world!");
+  Selection result = selectNextWord(document, Selection(Location(5, 0)));
+  
+  XCTAssertEqual(result.origin(), Location(6, 0));
+  XCTAssertEqual(result.extent(), Location(10, 0));
+}
+
+- (void)testSelectNextWordAcrossNewline {
+  Document document("Hello world \nand friends!");
+  Selection result = selectNextWord(document, Selection(Location(6, 0)));
+  
+  XCTAssertEqual(result.origin(), Location(0, 1));
+  XCTAssertEqual(result.extent(), Location(3, 1));
+}
+
 @end
