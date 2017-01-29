@@ -130,6 +130,10 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)mouseDown:(NSEvent *)event {
+  if (m_context->document().isEmpty()) {
+    return;
+  }
+  
   NSPoint location = [self convertPoint:event.locationInWindow fromView:nil];
   quip::Coordinate coordinate(location.x, location.y);
   quip::Rectangle rectangle(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
