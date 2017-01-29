@@ -6,15 +6,11 @@
 
 namespace quip {
   struct Script {
-    Script(const std::string& path);
-    ~Script();
+    Script(const std::string& identifier);
     
-    void run();
-    
-    void addPackagePath(const std::string& path);
+    const std::string& identifier() const;
     
   private:
-    lua_State* m_state;
-    std::string m_path;
+    std::string m_identifier;
   };
 }
