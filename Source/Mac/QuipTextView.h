@@ -2,6 +2,7 @@
 
 #include "Document.hpp"
 #include "DrawingService.hpp"
+#include "ScriptHost.hpp"
 
 #include <memory>
 
@@ -9,17 +10,18 @@
 @class QuipStatusView;
 
 @interface QuipTextView : NSView
-- (void)attachDrawingService:(quip::DrawingService *)drawingService;
-
-- (quip::Document &)document;
+- (void)attachDrawingService:(quip::DrawingService*)drawingService;
+- (void)attachScriptHost:(quip::ScriptHost*)scriptHost;
+  
+- (quip::Document&)document;
 - (void)setDocument:(std::shared_ptr<quip::Document>)document;
 
-- (void)setStatus:(QuipStatusView *)status;
+- (void)setStatus:(QuipStatusView*)status;
 
 - (void)setActBackgrounded:(BOOL)shouldActBackgrounded;
 
 - (void)scrollLocationIntoView:(quip::Location)location;
 
-- (QuipPopupView *)createPopupAtLocation:(NSString *)text atLocation:(quip::Location)location;
+- (QuipPopupView*)createPopupAtLocation:(NSString*)text atLocation:(quip::Location)location;
 
 @end

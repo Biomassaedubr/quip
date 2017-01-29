@@ -5,14 +5,17 @@
 
 namespace quip {
   namespace {
-    static void initializeHighlight (Highlight * highlight, quip::Color foreground) {
-      highlight->foregroundColor = CGColorCreateGenericRGB(foreground.r(), foreground.g(), foreground.b(), foreground.a());
+    static void initializeHighlight (std::unordered_map<std::string, Highlight>& mapping, const std::string& name, quip::Color foreground) {
+      Highlight result;
+      result.foregroundColor = CGColorCreateGenericRGB(foreground.r(), foreground.g(), foreground.b(), foreground.a());
       
       CFStringRef keys[] = { kCTForegroundColorAttributeName };
-      CFTypeRef values[] = { highlight->foregroundColor };
+      CFTypeRef values[] = { result.foregroundColor };
       const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
       const void ** opaqueValues = reinterpret_cast<const void **>(&values);
-      highlight->attributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+      result.attributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+      
+      mapping[name] = result;
     }
     
     static void releaseHighlight (Highlight * highlight) {
@@ -41,14 +44,17 @@ namespace quip {
     const void ** opaqueValues = reinterpret_cast<const void **>(&values);
     m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     
-    initializeHighlight(m_highlightAttributes + quip::Keyword, quip::Color(0.0f, 0.0f, 1.0f));
-    initializeHighlight(m_highlightAttributes + quip::Preprocessor, quip::Color(0.5f, 0.25f, 0.1f));
-    initializeHighlight(m_highlightAttributes + quip::Comment, quip::Color(0.0f, 0.5f, 0.0f));
+    initializeHighlight(m_highlightAttributes, "Keyword", quip::Color(0.0f, 0.0f, 1.0f));
+    initializeHighlight(m_highlightAttributes, "Preprocessor", quip::Color(0.5f, 0.25f, 0.1f));
+    initializeHighlight(m_highlightAttributes, "Comment", quip::Color(0.0f, 0.5f, 0.0f));
   }
   
   DrawingServiceProvider::~DrawingServiceProvider() {
-    for (std::size_t index = 0; index < quip::AttributeCount; ++index) {
-      releaseHighlight(m_highlightAttributes + index);
+    auto cursor = m_highlightAttributes.begin();
+    auto end = m_highlightAttributes.end();
+    while (cursor != end) {
+      releaseHighlight(&cursor->second);
+      ++cursor;
     }
     
     CFRelease(m_fontAttributes);
@@ -104,7 +110,7 @@ namespace quip {
     CFAttributedStringReplaceString(attributed, CFRangeMake(0, 0), string);
     CFAttributedStringSetAttributes(attributed, CFRangeMake(0, CFStringGetLength(string)), m_fontAttributes, YES);
     
-    for (const AttributeRange & range : attributes) {
+    for (const AttributeRange& range : attributes) {
       CFAttributedStringSetAttributes(attributed, CFRangeMake(range.start, range.length), m_highlightAttributes[range.name].attributes, NO);
     }
     

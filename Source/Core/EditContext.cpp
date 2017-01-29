@@ -4,33 +4,35 @@
 #include "EditMode.hpp"
 #include "JumpMode.hpp"
 #include "Location.hpp"
-#include "MarkdownSyntax.hpp"
 #include "Mode.hpp"
 #include "NormalMode.hpp"
 #include "SearchMode.hpp"
 #include "Selection.hpp"
 #include "Transaction.hpp"
-#include "UnknownSyntax.hpp"
 
 #include <memory>
 
 namespace quip {
-  EditContext::EditContext (PopupService * popupService, StatusService * statusService)
-  : EditContext(popupService, statusService, std::make_shared<Document>()) {
+  EditContext::EditContext(PopupService* popupService, StatusService* statusService, ScriptHost* scriptHost)
+  : EditContext(popupService, statusService, scriptHost, std::make_shared<Document>()) {
   }
   
-  EditContext::EditContext (PopupService * popupService, StatusService * statusService, std::shared_ptr<Document> document)
+  EditContext::EditContext(PopupService* popupService, StatusService* statusService, ScriptHost* scriptHost, std::shared_ptr<Document> document)
   : m_document(document)
   , m_selections(Selection(Location(0, 0)))
   , m_popupService(popupService)
-  , m_statusService(statusService) {
+  , m_statusService(statusService)
+  , m_scriptHost(scriptHost)
+  , m_fileTypeDatabase(*scriptHost) {
     
     // Populate with standard file types.
-    m_fileTypeDatabase.registerFileType("Text", UnknownSyntax::get(), {"txt", "text"});
-    m_fileTypeDatabase.registerFileType("Markdown", MarkdownSyntax::get(), {"md", "markdown"});
-    m_fileTypeDatabase.registerFileType("C++ Source", UnknownSyntax::get(), {"cpp", "cxx"});
-    m_fileTypeDatabase.registerFileType("C++ Header", UnknownSyntax::get(), {"hpp", "hxx"});
-    m_fileTypeDatabase.registerFileType("GLSL Shader Source", UnknownSyntax::get(),  {"fsh", "vsh"});
+    m_fileTypeDatabase.registerFileType("Text", "text", {"txt", "text"});
+    m_fileTypeDatabase.registerFileType("Markdown", "markdown", {"md", "markdown"});
+    m_fileTypeDatabase.registerFileType("C++ Source", "cpp", {"cpp", "cxx"});
+    m_fileTypeDatabase.registerFileType("C++ Header", "cpp", {"hpp", "hxx"});
+    m_fileTypeDatabase.registerFileType("C Source", "cpp", {"c"});
+    m_fileTypeDatabase.registerFileType("C/C++ Header", "cpp", {"h"});
+    m_fileTypeDatabase.registerFileType("GLSL Shader Source", "glsl", {"fsh", "vsh"});
     
     // Populate with standard modes.
     m_modes.insert(std::make_pair("EditMode", std::make_shared<EditMode>()));

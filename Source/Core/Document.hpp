@@ -2,7 +2,6 @@
 
 #include "Location.hpp"
 #include "Signal.hpp"
-#include "Syntax.hpp"
 
 #include <string>
 #include <vector>

@@ -18,11 +18,12 @@
 namespace quip {
   struct Document;
   struct Mode;
+  struct ScriptHost;
   struct Transaction;
   
   struct EditContext {
-    EditContext (PopupService * popupService, StatusService * statusService);
-    EditContext (PopupService * popupService, StatusService * statusService, std::shared_ptr<Document> document);
+    EditContext(PopupService* popupService, StatusService* statusService, ScriptHost* scriptHost);
+    EditContext(PopupService* popupService, StatusService* statusService, ScriptHost* scriptHost, std::shared_ptr<Document> document);
     
     Document & document ();
     SelectionSet & selections ();
@@ -68,8 +69,9 @@ namespace quip {
     std::stack<std::shared_ptr<Transaction>> m_redoStack;
     
     ViewController m_controller;
-    PopupService * m_popupService;
-    StatusService * m_statusService;
+    PopupService* m_popupService;
+    StatusService* m_statusService;
+    ScriptHost* m_scriptHost;
     
     Signal<void (ChangeType)> m_onTransactionApplied;
   };

@@ -3,6 +3,9 @@
 #include <iostream>
 
 namespace quip {
+  Script::Script() {
+  }
+  
   Script::Script(const std::string& identifier)
   : m_identifier(identifier) {
   }

@@ -25,8 +25,6 @@
 		032C567E1E3D5EA100BE61A0 /* Script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032C567C1E3D5EA100BE61A0 /* Script.cpp */; };
 		032C567F1E3D5EA100BE61A0 /* Script.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 032C567D1E3D5EA100BE61A0 /* Script.hpp */; };
 		032C56831E3D739700BE61A0 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 032C56791E3D5D2800BE61A0 /* liblua.a */; };
-		032C56871E3D784400BE61A0 /* boot.lua in Resources */ = {isa = PBXBuildFile; fileRef = 032C56861E3D781700BE61A0 /* boot.lua */; };
-		032C56891E3D81D800BE61A0 /* lpeg.so in Resources */ = {isa = PBXBuildFile; fileRef = 032C56881E3D81D800BE61A0 /* lpeg.so */; };
 		032C568D1E3DABAF00BE61A0 /* ScriptHost.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032C568B1E3DABAF00BE61A0 /* ScriptHost.cpp */; };
 		032C568E1E3DABAF00BE61A0 /* ScriptHost.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 032C568C1E3DABAF00BE61A0 /* ScriptHost.hpp */; };
 		03372BFC1E3C1F19005342DD /* SelectorTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03372BFB1E3C1F19005342DD /* SelectorTests.mm */; };
@@ -69,16 +67,11 @@
 		038ECDE21C698FE2002E571D /* QuipWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDD91C698FE2002E571D /* QuipWindowController.mm */; };
 		038ECDE31C698FE2002E571D /* QuipWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDDA1C698FE2002E571D /* QuipWindowController.xib */; };
 		038ECDE71C699039002E571D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDE61C699039002E571D /* Images.xcassets */; };
-		039037171D09065500CC932C /* UnknownSyntax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039037151D09065500CC932C /* UnknownSyntax.cpp */; };
-		039037181D09065500CC932C /* UnknownSyntax.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 039037161D09065500CC932C /* UnknownSyntax.hpp */; };
-		0390371B1D090D9400CC932C /* MarkdownSyntax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039037191D090D9400CC932C /* MarkdownSyntax.cpp */; };
-		0390371C1D090D9400CC932C /* MarkdownSyntax.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0390371A1D090D9400CC932C /* MarkdownSyntax.hpp */; };
 		03D1C8661C7819E600AF5475 /* EditContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C82A1C78197200AF5475 /* EditContext.cpp */; };
 		03D1C8671C7819ED00AF5475 /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C82D1C78197200AF5475 /* Document.cpp */; };
 		03D1C8681C7819ED00AF5475 /* DocumentIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C82F1C78197200AF5475 /* DocumentIterator.cpp */; };
 		03D1C8691C7819ED00AF5475 /* Location.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8311C78197200AF5475 /* Location.cpp */; };
 		03D1C86A1C7819F400AF5475 /* AttributeRange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8341C78197200AF5475 /* AttributeRange.cpp */; };
-		03D1C86B1C7819F400AF5475 /* Syntax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8361C78197200AF5475 /* Syntax.cpp */; };
 		03D1C86D1C7819FB00AF5475 /* Mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C83D1C78197200AF5475 /* Mode.cpp */; };
 		03D1C86E1C781A0100AF5475 /* EditMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C83F1C78197200AF5475 /* EditMode.cpp */; };
 		03D1C86F1C781A0100AF5475 /* NormalMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8411C78197200AF5475 /* NormalMode.cpp */; };
@@ -91,6 +84,8 @@
 		03DC0F0F1C96674A0082EC8C /* QuipDocumentController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03DC0F0E1C96674A0082EC8C /* QuipDocumentController.mm */; };
 		03E10D961D0C7CF200DFC8D0 /* JumpMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03E10D941D0C7CF200DFC8D0 /* JumpMode.cpp */; };
 		03E10D971D0C7CF200DFC8D0 /* JumpMode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03E10D951D0C7CF200DFC8D0 /* JumpMode.hpp */; };
+		03E287CE1E3E711A00723824 /* Runtime in Resources */ = {isa = PBXBuildFile; fileRef = 03E287CD1E3E711A00723824 /* Runtime */; };
+		03E287D11E3E713100723824 /* lpeg.so in Resources */ = {isa = PBXBuildFile; fileRef = 03E287D01E3E713100723824 /* lpeg.so */; };
 		03E7B5001C9A596700BA1F82 /* Selector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03E7B4FE1C9A596700BA1F82 /* Selector.cpp */; };
 		03E7B5011C9A596700BA1F82 /* Selector.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03E7B4FF1C9A596700BA1F82 /* Selector.hpp */; };
 		03FCA8F91D88BFAF00B1C574 /* FileTypeDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03FCA8F71D88BFAF00B1C574 /* FileTypeDatabase.cpp */; };
@@ -152,8 +147,6 @@
 		032C567C1E3D5EA100BE61A0 /* Script.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Script.cpp; path = Source/Core/Script.cpp; sourceTree = "<group>"; };
 		032C567D1E3D5EA100BE61A0 /* Script.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Script.hpp; path = Source/Core/Script.hpp; sourceTree = "<group>"; };
 		032C56841E3D76DB00BE61A0 /* Lua.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Lua.hpp; path = Source/Core/Lua.hpp; sourceTree = "<group>"; };
-		032C56861E3D781700BE61A0 /* boot.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = boot.lua; path = Source/Runtime/boot.lua; sourceTree = "<group>"; };
-		032C56881E3D81D800BE61A0 /* lpeg.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = lpeg.so; path = Dependencies/lpeg/lpeg.so; sourceTree = "<group>"; };
 		032C568B1E3DABAF00BE61A0 /* ScriptHost.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ScriptHost.cpp; path = Source/Core/ScriptHost.cpp; sourceTree = "<group>"; };
 		032C568C1E3DABAF00BE61A0 /* ScriptHost.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ScriptHost.hpp; path = Source/Core/ScriptHost.hpp; sourceTree = "<group>"; };
 		03372BFB1E3C1F19005342DD /* SelectorTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectorTests.mm; path = Source/Tests/SelectorTests.mm; sourceTree = SOURCE_ROOT; };
@@ -213,10 +206,6 @@
 		038ECDDA1C698FE2002E571D /* QuipWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QuipWindowController.xib; path = Source/Mac/QuipWindowController.xib; sourceTree = "<group>"; };
 		038ECDE61C699039002E571D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
 		038F24351E3C4E6400A8B445 /* DocumentIterator.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = DocumentIterator.inl; path = Source/Core/DocumentIterator.inl; sourceTree = "<group>"; };
-		039037151D09065500CC932C /* UnknownSyntax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UnknownSyntax.cpp; path = Source/Core/UnknownSyntax.cpp; sourceTree = "<group>"; };
-		039037161D09065500CC932C /* UnknownSyntax.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UnknownSyntax.hpp; path = Source/Core/UnknownSyntax.hpp; sourceTree = "<group>"; };
-		039037191D090D9400CC932C /* MarkdownSyntax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MarkdownSyntax.cpp; path = Source/Core/MarkdownSyntax.cpp; sourceTree = "<group>"; };
-		0390371A1D090D9400CC932C /* MarkdownSyntax.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MarkdownSyntax.hpp; path = Source/Core/MarkdownSyntax.hpp; sourceTree = "<group>"; };
 		03CCFAEB1BF1A1BE0033929E /* Quip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D1C8241C78196400AF5475 /* libQuip.Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQuip.Core.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D1C8291C78197200AF5475 /* EditContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EditContext.hpp; path = Source/Core/EditContext.hpp; sourceTree = "<group>"; };
@@ -229,8 +218,6 @@
 		03D1C8311C78197200AF5475 /* Location.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Location.cpp; path = Source/Core/Location.cpp; sourceTree = "<group>"; };
 		03D1C8331C78197200AF5475 /* AttributeRange.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AttributeRange.hpp; path = Source/Core/AttributeRange.hpp; sourceTree = "<group>"; };
 		03D1C8341C78197200AF5475 /* AttributeRange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AttributeRange.cpp; path = Source/Core/AttributeRange.cpp; sourceTree = "<group>"; };
-		03D1C8351C78197200AF5475 /* Syntax.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Syntax.hpp; path = Source/Core/Syntax.hpp; sourceTree = "<group>"; };
-		03D1C8361C78197200AF5475 /* Syntax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Syntax.cpp; path = Source/Core/Syntax.cpp; sourceTree = "<group>"; };
 		03D1C8381C78197200AF5475 /* CursorStyle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CursorStyle.hpp; path = Source/Core/CursorStyle.hpp; sourceTree = "<group>"; };
 		03D1C8391C78197200AF5475 /* Key.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Key.hpp; path = Source/Core/Key.hpp; sourceTree = "<group>"; };
 		03D1C83C1C78197200AF5475 /* Mode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Mode.hpp; path = Source/Core/Mode.hpp; sourceTree = "<group>"; };
@@ -265,6 +252,8 @@
 		03DFA5101D07C5DD004CBE46 /* SelectionSetIterator.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = SelectionSetIterator.inl; path = Source/Core/SelectionSetIterator.inl; sourceTree = "<group>"; };
 		03E10D941D0C7CF200DFC8D0 /* JumpMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JumpMode.cpp; path = Source/Core/JumpMode.cpp; sourceTree = "<group>"; };
 		03E10D951D0C7CF200DFC8D0 /* JumpMode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = JumpMode.hpp; path = Source/Core/JumpMode.hpp; sourceTree = "<group>"; };
+		03E287CD1E3E711A00723824 /* Runtime */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Runtime; path = Source/Runtime; sourceTree = "<group>"; };
+		03E287D01E3E713100723824 /* lpeg.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = lpeg.so; path = Dependencies/lpeg/lpeg.so; sourceTree = "<group>"; };
 		03E7B4FE1C9A596700BA1F82 /* Selector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Selector.cpp; path = Source/Core/Selector.cpp; sourceTree = "<group>"; };
 		03E7B4FF1C9A596700BA1F82 /* Selector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Selector.hpp; path = Source/Core/Selector.hpp; sourceTree = "<group>"; };
 		03FCA8F71D88BFAF00B1C574 /* FileTypeDatabase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileTypeDatabase.cpp; path = Source/Core/FileTypeDatabase.cpp; sourceTree = "<group>"; };
@@ -351,15 +340,6 @@
 			name = Scripting;
 			sourceTree = "<group>";
 		};
-		032C56851E3D77FA00BE61A0 /* Runtime */ = {
-			isa = PBXGroup;
-			children = (
-				032C56861E3D781700BE61A0 /* boot.lua */,
-				032C56881E3D81D800BE61A0 /* lpeg.so */,
-			);
-			name = Runtime;
-			sourceTree = "<group>";
-		};
 		033CA96F1D011EB500ABD567 /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,20 +373,10 @@
 			name = Drawing;
 			sourceTree = "<group>";
 		};
-		035B12A81D07D5B500C7ADF3 /* Syntax */ = {
-			isa = PBXGroup;
-			children = (
-				039037161D09065500CC932C /* UnknownSyntax.hpp */,
-				039037151D09065500CC932C /* UnknownSyntax.cpp */,
-				0390371A1D090D9400CC932C /* MarkdownSyntax.hpp */,
-				039037191D090D9400CC932C /* MarkdownSyntax.cpp */,
-			);
-			name = Syntax;
-			sourceTree = "<group>";
-		};
 		035DCDCD1E3D37A600B52098 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				03E287CF1E3E712500723824 /* lpeg */,
 				032C565E1E3D5CF900BE61A0 /* lua */,
 				035DCDCE1E3D37AE00B52098 /* optional-lite */,
 			);
@@ -503,8 +473,8 @@
 			isa = PBXGroup;
 			children = (
 				038ECDE51C698FF0002E571D /* Application */,
-				032C56851E3D77FA00BE61A0 /* Runtime */,
 				03D1C8551C78197200AF5475 /* Core */,
+				03E287CD1E3E711A00723824 /* Runtime */,
 				035DCDCD1E3D37A600B52098 /* Dependencies */,
 				03D1C87B1C781A4A00AF5475 /* Tests */,
 				032C56781E3D5D2800BE61A0 /* Frameworks */,
@@ -550,11 +520,8 @@
 		03D1C8371C78197200AF5475 /* Highlighting */ = {
 			isa = PBXGroup;
 			children = (
-				035B12A81D07D5B500C7ADF3 /* Syntax */,
 				03D1C8331C78197200AF5475 /* AttributeRange.hpp */,
 				03D1C8341C78197200AF5475 /* AttributeRange.cpp */,
-				03D1C8351C78197200AF5475 /* Syntax.hpp */,
-				03D1C8361C78197200AF5475 /* Syntax.cpp */,
 			);
 			name = Highlighting;
 			sourceTree = "<group>";
@@ -676,6 +643,14 @@
 			path = Quip.Core.Tests;
 			sourceTree = "<group>";
 		};
+		03E287CF1E3E712500723824 /* lpeg */ = {
+			isa = PBXGroup;
+			children = (
+				03E287D01E3E713100723824 /* lpeg.so */,
+			);
+			name = lpeg;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -692,12 +667,10 @@
 				03532D4D1D8B5D700007E2BF /* DrawingService.hpp in Headers */,
 				03532D511D8B5DD30007E2BF /* Extent.hpp in Headers */,
 				038806C81D470E5C001E56F1 /* PopupService.hpp in Headers */,
-				039037181D09065500CC932C /* UnknownSyntax.hpp in Headers */,
 				03532D5A1D8B63D10007E2BF /* Rectangle.hpp in Headers */,
 				037131701E2BC3EE00EE78F6 /* GlobalSettings.hpp in Headers */,
 				037F30701D47A6D5009F6EE2 /* StatusService.hpp in Headers */,
 				035DCDD01E3D37D700B52098 /* optional_lite.hpp in Headers */,
-				0390371C1D090D9400CC932C /* MarkdownSyntax.hpp in Headers */,
 				031FC0D51D3BE9AD00628179 /* MapTrie.hpp in Headers */,
 				03532D5E1D8B65840007E2BF /* Coordinate.hpp in Headers */,
 				031FC0D91D3BEA0700628179 /* MapTrieNode.hpp in Headers */,
@@ -811,8 +784,8 @@
 				038ECDE71C699039002E571D /* Images.xcassets in Resources */,
 				038ECDE31C698FE2002E571D /* QuipWindowController.xib in Resources */,
 				038ECDDE1C698FE2002E571D /* MainMenu.xib in Resources */,
-				032C56871E3D784400BE61A0 /* boot.lua in Resources */,
-				032C56891E3D81D800BE61A0 /* lpeg.so in Resources */,
+				03E287CE1E3E711A00723824 /* Runtime in Resources */,
+				03E287D11E3E713100723824 /* lpeg.so in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -851,11 +824,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03D1C86B1C7819F400AF5475 /* Syntax.cpp in Sources */,
 				03D1C8681C7819ED00AF5475 /* DocumentIterator.cpp in Sources */,
 				031FC0D01D3BE6CF00628179 /* KeySequence.cpp in Sources */,
 				03D1C8671C7819ED00AF5475 /* Document.cpp in Sources */,
-				0390371B1D090D9400CC932C /* MarkdownSyntax.cpp in Sources */,
 				0371316F1E2BC3EE00EE78F6 /* GlobalSettings.cpp in Sources */,
 				03D1C8691C7819ED00AF5475 /* Location.cpp in Sources */,
 				03D1C8721C781A0900AF5475 /* Selection.cpp in Sources */,
@@ -881,7 +852,6 @@
 				0374FD8B1E2AFE9600CA3196 /* AppendTransaction.cpp in Sources */,
 				03D1C8661C7819E600AF5475 /* EditContext.cpp in Sources */,
 				03D1C8701C781A0100AF5475 /* SearchMode.cpp in Sources */,
-				039037171D09065500CC932C /* UnknownSyntax.cpp in Sources */,
 				037F306F1D47A6D5009F6EE2 /* StatusService.cpp in Sources */,
 				03D1C86F1C781A0100AF5475 /* NormalMode.cpp in Sources */,
 				031FC0D81D3BEA0700628179 /* MapTrieNode.cpp in Sources */,

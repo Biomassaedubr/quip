@@ -18,9 +18,12 @@
 - (void)windowDidLoad {
   [super windowDidLoad];
   
-  m_drawingService = std::make_unique<quip::DrawingServiceProvider>([[QuipApplicationDelegate sharedDelegate] settings]);
+  QuipApplicationDelegate* quip = [QuipApplicationDelegate sharedDelegate];
+  
+  m_drawingService = std::make_unique<quip::DrawingServiceProvider>([quip settings]);
   
   [[self textView] attachDrawingService:m_drawingService.get()];
+  [[self textView] attachScriptHost:[quip scriptHost]];
   [[self statusView] attachDrawingService:m_drawingService.get()];
   
   [[self statusView] setAutoresizingMask:NSViewWidthSizable];

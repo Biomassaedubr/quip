@@ -14,7 +14,6 @@
 #include "PopupServiceProvider.hpp"
 #include "Selection.hpp"
 #include "StatusServiceProvider.hpp"
-#include "Syntax.hpp"
 
 #include <cmath>
 #include <map>
@@ -26,12 +25,13 @@
   BOOL m_shouldDrawCursor;
   BOOL m_shouldDrawSelections;
 
-  quip::DrawingService * m_drawingService;
+  quip::DrawingService* m_drawingService;
+  quip::ScriptHost* m_scriptHost;
   std::unique_ptr<quip::PopupServiceProvider> m_popupServiceProvider;
   std::unique_ptr<quip::StatusServiceProvider> m_statusServiceProvider;
   std::shared_ptr<quip::EditContext> m_context;
   
-  QuipStatusView * m_statusView;
+  QuipStatusView* m_statusView;
   
   std::uint32_t m_scrollToLocationToken;
   std::uint32_t m_scrollLocationIntoViewToken;
@@ -235,10 +235,14 @@ static CGFloat gCursorBlinkInterval = 0.57;
   m_context->selections().replace(selection);
 }
 
-- (void)attachDrawingService:(quip::DrawingService *)drawingService {
+- (void)attachDrawingService:(quip::DrawingService*)drawingService {
   m_drawingService = drawingService;
 }
 
+- (void)attachScriptHost:(quip::ScriptHost*)scriptHost {
+  m_scriptHost = scriptHost;
+}
+  
 - (quip::Document &)document {
   return m_context->document();
 }
@@ -258,7 +262,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
     m_transactionAppliedToken = 0;
   }
   
-  m_context = std::make_shared<quip::EditContext>(m_popupServiceProvider.get(), m_statusServiceProvider.get(), document);
+  m_context = std::make_shared<quip::EditContext>(m_popupServiceProvider.get(), m_statusServiceProvider.get(), m_scriptHost, document);
   
   NSWindowController * controller = [[self window] windowController];
   NSDocument * container = [controller document];
@@ -450,7 +454,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
       // Only draw the row if it clips into the dirty rectangle.
       CGRect rowFrame = CGRectMake(gMargin, y, self.frame.size.width - (2.0 *  - gMargin), cellSize.height());
       if (CGRectIntersectsRect(dirtyRect, rowFrame)) {
-        std::vector<quip::AttributeRange> syntaxAttributes = fileType->syntax->parse(m_context->document().row(row), m_context->document().path());
+        std::vector<quip::AttributeRange> syntaxAttributes = m_scriptHost->parseSyntax(fileType->syntax, m_context->document().row(row));
         m_drawingService->drawText(document.row(row), quip::Coordinate(gMargin, y), syntaxAttributes);
       }
       

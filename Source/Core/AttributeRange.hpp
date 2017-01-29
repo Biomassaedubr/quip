@@ -1,20 +1,14 @@
 #pragma once
 
 #include <cstddef>
+#include <string>
 
 namespace quip {
-  enum AttributeName {
-    Keyword,
-    Preprocessor,
-    Comment,
-    AttributeCount
-  };
-  
   struct AttributeRange {
-    AttributeName name;
+    std::string name;
     std::size_t start;
     std::size_t length;
     
-    AttributeRange (AttributeName name, std::size_t start, std::size_t length);
+    AttributeRange (const std::string& name, std::size_t start, std::size_t length);
   };
 }

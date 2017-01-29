@@ -5,6 +5,8 @@
 #include "DrawingService.hpp"
 #include "Rectangle.hpp"
 
+#include <unordered_map>
+
 #import <Cocoa/Cocoa.h>
 
 namespace quip {
@@ -32,6 +34,6 @@ namespace quip {
     CTFontRef m_font;
     CFDictionaryRef m_fontAttributes;
     
-    Highlight m_highlightAttributes[AttributeCount];
+    std::unordered_map<std::string, Highlight> m_highlightAttributes;
   };
 }

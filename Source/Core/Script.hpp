@@ -6,6 +6,7 @@
 
 namespace quip {
   struct Script {
+    Script();
     Script(const std::string& identifier);
     
     const std::string& identifier() const;

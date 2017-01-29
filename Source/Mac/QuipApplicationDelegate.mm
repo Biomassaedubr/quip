@@ -17,13 +17,13 @@
   self = [super init];
   if (self != nil) {
     NSBundle* mainBundle = [NSBundle mainBundle];
-    m_scriptHost = std::make_unique<quip::ScriptHost>();
+    NSString* scriptRootPath = [[mainBundle resourcePath] stringByAppendingPathComponent:@"Runtime"];
+    m_scriptHost = std::make_unique<quip::ScriptHost>([scriptRootPath cStringUsingEncoding:NSUTF8StringEncoding]);
     m_scriptHost->addNativePackagePath([[mainBundle resourcePath] cStringUsingEncoding:NSUTF8StringEncoding]);
     m_settings = std::make_unique<quip::GlobalSettings>();
     
     // Run the boot script.
-    NSString* bootScriptPath = [[NSBundle mainBundle] pathForResource:@"boot" ofType:@"lua"];
-    quip::Script bootScript = m_scriptHost->getScript([bootScriptPath cStringUsingEncoding:NSUTF8StringEncoding]);
+    quip::Script bootScript = m_scriptHost->getScript(m_scriptHost->scriptRootPath() + "/boot.lua");
     m_scriptHost->runScript(bootScript);
   }
   
@@ -32,11 +32,17 @@
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
   m_settings.reset();
+  m_scriptHost.reset();
 }
 
 - (const quip::GlobalSettings &)settings {
   return *m_settings;
 }
+
+- (quip::ScriptHost*)scriptHost {
+  return m_scriptHost.get();
+}
+
 
 + (QuipApplicationDelegate *)sharedDelegate {
   QuipApplicationDelegate * delegate = [[NSApplication sharedApplication] delegate];
