@@ -17,8 +17,9 @@
     m_settings = std::make_unique<quip::GlobalSettings>();
     
     // Run the boot script.
-    NSString * bootScriptPath = [[NSBundle mainBundle] pathForResource:@"boot" ofType:@"lua"];
+    NSString* bootScriptPath = [[NSBundle mainBundle] pathForResource:@"boot" ofType:@"lua"];
     quip::Script bootScript([bootScriptPath cStringUsingEncoding:NSUTF8StringEncoding]);
+    bootScript.addPackagePath([[[NSBundle mainBundle] resourcePath] cStringUsingEncoding:NSUTF8StringEncoding]);
     bootScript.run();
   }
   

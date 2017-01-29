@@ -11,6 +11,8 @@ namespace quip {
     
     void run();
     
+    void addPackagePath(const std::string& path);
+    
   private:
     lua_State* m_state;
     std::string m_path;

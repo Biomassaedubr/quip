@@ -26,6 +26,7 @@
 		032C567F1E3D5EA100BE61A0 /* Script.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 032C567D1E3D5EA100BE61A0 /* Script.hpp */; };
 		032C56831E3D739700BE61A0 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 032C56791E3D5D2800BE61A0 /* liblua.a */; };
 		032C56871E3D784400BE61A0 /* boot.lua in Resources */ = {isa = PBXBuildFile; fileRef = 032C56861E3D781700BE61A0 /* boot.lua */; };
+		032C56891E3D81D800BE61A0 /* lpeg.so in Resources */ = {isa = PBXBuildFile; fileRef = 032C56881E3D81D800BE61A0 /* lpeg.so */; };
 		03372BFC1E3C1F19005342DD /* SelectorTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03372BFB1E3C1F19005342DD /* SelectorTests.mm */; };
 		033CA9721D011ED200ABD567 /* Transaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9701D011ED200ABD567 /* Transaction.cpp */; };
 		033CA9751D011FDA00ABD567 /* InsertTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9731D011FDA00ABD567 /* InsertTransaction.cpp */; };
@@ -150,6 +151,7 @@
 		032C567D1E3D5EA100BE61A0 /* Script.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Script.hpp; path = Source/Core/Script.hpp; sourceTree = "<group>"; };
 		032C56841E3D76DB00BE61A0 /* Lua.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Lua.hpp; path = Source/Core/Lua.hpp; sourceTree = "<group>"; };
 		032C56861E3D781700BE61A0 /* boot.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = boot.lua; path = Source/Runtime/boot.lua; sourceTree = "<group>"; };
+		032C56881E3D81D800BE61A0 /* lpeg.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = lpeg.so; path = Dependencies/lpeg/lpeg.so; sourceTree = "<group>"; };
 		03372BFB1E3C1F19005342DD /* SelectorTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectorTests.mm; path = Source/Tests/SelectorTests.mm; sourceTree = SOURCE_ROOT; };
 		033CA9701D011ED200ABD567 /* Transaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Transaction.cpp; path = Source/Core/Transaction.cpp; sourceTree = "<group>"; };
 		033CA9711D011ED200ABD567 /* Transaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Transaction.hpp; path = Source/Core/Transaction.hpp; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				032C56861E3D781700BE61A0 /* boot.lua */,
+				032C56881E3D81D800BE61A0 /* lpeg.so */,
 			);
 			name = Runtime;
 			sourceTree = "<group>";
@@ -802,6 +805,7 @@
 				038ECDE31C698FE2002E571D /* QuipWindowController.xib in Resources */,
 				038ECDDE1C698FE2002E571D /* MainMenu.xib in Resources */,
 				032C56871E3D784400BE61A0 /* boot.lua in Resources */,
+				032C56891E3D81D800BE61A0 /* lpeg.so in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
