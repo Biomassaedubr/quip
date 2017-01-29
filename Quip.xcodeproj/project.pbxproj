@@ -1022,7 +1022,6 @@
 					"$(PROJECT_DIR)/Dependencies/lua/bin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Dependencies/PEGTL";
 			};
 			name = Debug;
 		};
@@ -1037,7 +1036,6 @@
 					"$(PROJECT_DIR)/Dependencies/lua/bin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Dependencies/PEGTL";
 			};
 			name = Release;
 		};
