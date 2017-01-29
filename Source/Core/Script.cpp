@@ -2,11 +2,6 @@
 
 #include <iostream>
 
-
-extern "C" {
-  extern int luaopen_lpeg(lua_State* state);
-}
-
 namespace quip {
   Script::Script(const std::string& path)
   : m_state(luaL_newstate())
