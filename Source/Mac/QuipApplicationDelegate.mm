@@ -1,5 +1,7 @@
 #import "QuipApplicationDelegate.h"
 
+#include "Script.hpp"
+
 @interface QuipApplicationDelegate () {
 @private
   std::unique_ptr<quip::GlobalSettings> m_settings;
@@ -13,6 +15,11 @@
   self = [super init];
   if (self != nil) {
     m_settings = std::make_unique<quip::GlobalSettings>();
+    
+    // Run the boot script.
+    NSString * bootScriptPath = [[NSBundle mainBundle] pathForResource:@"boot" ofType:@"lua"];
+    quip::Script bootScript([bootScriptPath cStringUsingEncoding:NSUTF8StringEncoding]);
+    bootScript.run();
   }
   
   return self;
