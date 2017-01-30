@@ -1,5 +1,4 @@
-local lpeg = require("lpeg")
+print("Welcome to Quip!")
 
-if (lpeg.P("hello"):match("hello") == 6) then
-  print("Welcome to Quip!")
-end
+quip.settings.fontFace = "Menlo"
+quip.settings.fontSize = 13

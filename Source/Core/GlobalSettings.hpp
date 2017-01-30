@@ -7,11 +7,14 @@ namespace quip {
   struct GlobalSettings {
     GlobalSettings ();
     
-    const std::string& defaultFontFace () const;
-    float defaultFontSize () const;
+    const std::string& fontFace() const;
+    void setFontFace(const std::string& face);
+    
+    float fontSize() const;
+    void setFontSize(float size);
     
   private:
-    std::string m_defaultFontName;
-    float m_defaultFontSize;
+    std::string m_fontFace;
+    float m_fontSize;
   };
 }

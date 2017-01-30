@@ -29,13 +29,13 @@ namespace quip {
   }
   
   DrawingServiceProvider::DrawingServiceProvider(const GlobalSettings & settings) {
-    NSString * name = [NSString stringWithUTF8String:settings.defaultFontFace().c_str()];
-    NSDictionary * attributes = @{NSFontAttributeName: [NSFont fontWithName:name size:settings.defaultFontSize()]};
+    NSString * name = [NSString stringWithUTF8String:settings.fontFace().c_str()];
+    NSDictionary * attributes = @{NSFontAttributeName: [NSFont fontWithName:name size:settings.fontSize()]};
     CGSize size = [@"m" sizeWithAttributes:attributes];
     setCellSize(Extent(size.width, size.height));
     
-    CFStringRef fontNameRef = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, settings.defaultFontFace().c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
-    m_font = CTFontCreateWithName(fontNameRef, settings.defaultFontSize(), nil);
+    CFStringRef fontNameRef = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, settings.fontFace().c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
+    m_font = CTFontCreateWithName(fontNameRef, settings.fontSize(), nil);
     CFRelease(fontNameRef);
     
     CFStringRef keys[] = { kCTFontAttributeName, kCTParagraphStyleAttributeName };

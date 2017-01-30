@@ -1,16 +1,61 @@
 #include "ScriptHost.hpp"
 
 #include "AttributeRange.hpp"
+#include "GlobalSettings.hpp"
 #include "Script.hpp"
 
 #include <iostream>
 
 namespace quip {
-  ScriptHost::ScriptHost(const std::string& rootPath)
+  namespace {
+    int getSettingValue(lua_State* lua) {
+      return 0;
+    }
+    
+    int setSettingValue(lua_State* lua) {
+      std::string field = lua_tostring(lua, -2);
+      void* object = lua_touserdata(lua, -3);
+      
+      GlobalSettings* settings = reinterpret_cast<GlobalSettings*>(object);
+      if(field == "fontFace") {
+        settings->setFontFace(lua_tostring(lua, -1));
+      } else if(field == "fontSize") {
+        settings->setFontSize(lua_tonumber(lua, -1));
+      }
+      
+      // Pop parameters.
+      lua_pop(lua, 3);
+      return 0;
+    }
+  }
+  
+  ScriptHost::ScriptHost(const std::string& rootPath, GlobalSettings& settings)
   : m_lua(luaL_newstate())
   , m_root(rootPath) {
     luaL_openlibs(m_lua);
     addScriptPackagePath(rootPath);
+    
+    // Create the global Quip object.
+    lua_newtable(m_lua);
+    
+    // Create the settings reference.
+    lua_pushlightuserdata(m_lua, &settings);
+    
+    // Create the metatable the global Quip object.
+    lua_newtable(m_lua);
+    
+    lua_pushcfunction(m_lua, getSettingValue);
+    lua_setfield(m_lua, -2, "__index");
+    lua_pushcfunction(m_lua, setSettingValue);
+    lua_setfield(m_lua, -2, "__newindex");
+    
+    // Associate the metatable with the Quip object.
+    lua_setmetatable(m_lua, -2);
+    
+    lua_setfield(m_lua, -2, "settings");
+    
+    // Store the quip object globally.
+    lua_setglobal(m_lua, "quip");
   }
   
   ScriptHost::~ScriptHost() {

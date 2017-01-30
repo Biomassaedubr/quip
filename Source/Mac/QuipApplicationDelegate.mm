@@ -16,11 +16,12 @@
 - (instancetype)init {
   self = [super init];
   if (self != nil) {
+    m_settings = std::make_unique<quip::GlobalSettings>();
+
     NSBundle* mainBundle = [NSBundle mainBundle];
     NSString* scriptRootPath = [[mainBundle resourcePath] stringByAppendingPathComponent:@"Runtime"];
-    m_scriptHost = std::make_unique<quip::ScriptHost>([scriptRootPath cStringUsingEncoding:NSUTF8StringEncoding]);
+    m_scriptHost = std::make_unique<quip::ScriptHost>([scriptRootPath cStringUsingEncoding:NSUTF8StringEncoding], *m_settings);
     m_scriptHost->addNativePackagePath([[mainBundle resourcePath] cStringUsingEncoding:NSUTF8StringEncoding]);
-    m_settings = std::make_unique<quip::GlobalSettings>();
     
     // Run the boot script.
     quip::Script bootScript = m_scriptHost->getScript(m_scriptHost->scriptRootPath() + "/boot.lua");

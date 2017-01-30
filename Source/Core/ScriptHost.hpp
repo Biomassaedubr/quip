@@ -8,10 +8,11 @@
 #include <vector>
 
 namespace quip {
+  struct GlobalSettings;
   struct Script;
   
   struct ScriptHost {
-    ScriptHost(const std::string& rootPath);
+    ScriptHost(const std::string& rootPath, GlobalSettings& settings);
     ~ScriptHost();
     
     const std::string& scriptRootPath() const;

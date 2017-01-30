@@ -2,15 +2,23 @@
 
 namespace quip {
   GlobalSettings::GlobalSettings ()
-  : m_defaultFontName("Menlo")
-  , m_defaultFontSize(13.0f) {
+  : m_fontFace("Menlo")
+  , m_fontSize(13.0f) {
   }
   
-  const std::string & GlobalSettings::defaultFontFace () const {
-    return m_defaultFontName;
+  const std::string& GlobalSettings::fontFace() const {
+    return m_fontFace;
   }
   
-  float GlobalSettings::defaultFontSize () const {
-    return m_defaultFontSize;
+  void GlobalSettings::setFontFace(const std::string& face) {
+    m_fontFace = face;
+  }
+  
+  float GlobalSettings::fontSize () const {
+    return m_fontSize;
+  }
+  
+  void GlobalSettings::setFontSize(float size) {
+    m_fontSize = size;
   }
 }
