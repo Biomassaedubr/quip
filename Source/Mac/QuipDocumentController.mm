@@ -6,19 +6,19 @@
 
 @interface QuipDocumentController () {
 @private
-  QuipDocument * m_transientDocument;
+  QuipDocument* m_transientDocument;
 }
 
 @end
 
 @implementation QuipDocumentController
 
-static const char * kOpenPanelKey = "AssociatedOpenPanel";
+static const char* kOpenPanelKey = "AssociatedOpenPanel";
 
-static NSString * kShowHiddenSettingsKey = @"ShowHiddenFiles";
+static NSString* kShowHiddenSettingsKey = @"ShowHiddenFiles";
 
-static BOOL canDocumentBeTransient (NSDocument * document) {
-  QuipDocument * container = (QuipDocument *)document;
+static BOOL canDocumentBeTransient (NSDocument* document) {
+  QuipDocument* container = (QuipDocument*)document;
   if (container == nil) {
     return YES;
   }
@@ -47,19 +47,19 @@ static BOOL canDocumentBeTransient (NSDocument * document) {
   [super newDocument:sender];
 }
 
-- (void)addDocument:(NSDocument *)document {
+- (void)addDocument:(NSDocument*)document {
   if ([[self documents] count] == 0) {
     if (canDocumentBeTransient(document)) {
       // This is the first document, and it is new, so it becomes the transient document.
-      m_transientDocument = (QuipDocument *)document;
+      m_transientDocument = (QuipDocument*)document;
     }
   }
   
   [super addDocument:document];
 }
 
-- (void)beginOpenPanel:(NSOpenPanel *)openPanel forTypes:(NSArray<NSString *> *)types completionHandler:(void (^)(NSInteger))completionHandler {
-  NSButton * button = [[NSButton alloc] init];
+- (void)beginOpenPanel:(NSOpenPanel*)openPanel forTypes:(NSArray<NSString*>*)types completionHandler:(void (^)(NSInteger))completionHandler {
+  NSButton* button = [[NSButton alloc] init];
   [button setTitle:@"Show Hidden Files"];
   [button setButtonType:NSSwitchButton];
   [button sizeToFit];
@@ -80,12 +80,12 @@ static BOOL canDocumentBeTransient (NSDocument * document) {
   [super beginOpenPanel:openPanel forTypes:types completionHandler:completionHandler];
 }
 
-- (void)openDocumentWithContentsOfURL:(NSURL *)url display:(BOOL)displayDocument completionHandler:(void (^)(NSDocument * _Nullable, BOOL, NSError * _Nullable))completionHandler {
+- (void)openDocumentWithContentsOfURL:(NSURL*)url display:(BOOL)displayDocument completionHandler:(void (^)(NSDocument* _Nullable, BOOL, NSError* _Nullable))completionHandler {
   // Verify that the transient document can still be considered transient before replacing
   // it (it may have been edited since it was recorded).
   if (m_transientDocument != nil && canDocumentBeTransient(m_transientDocument)) {
-    void (^replacementHandler)(NSDocument *, BOOL, NSError *) = ^(NSDocument * document, BOOL, NSError *) {
-      [self replaceDocument:m_transientDocument withDocument:(QuipDocument *)document];
+    void (^replacementHandler)(NSDocument*, BOOL, NSError*) = ^(NSDocument* document, BOOL, NSError*) {
+      [self replaceDocument:m_transientDocument withDocument:(QuipDocument*)document];
       m_transientDocument = nil;
       
       completionHandler(document, NO, nil);
@@ -93,12 +93,29 @@ static BOOL canDocumentBeTransient (NSDocument * document) {
     
     [super openDocumentWithContentsOfURL:url display:NO completionHandler:replacementHandler];
   } else {
-    [super openDocumentWithContentsOfURL:url display:displayDocument completionHandler:completionHandler];
+    NSError* error = nil;
+    if([url checkResourceIsReachableAndReturnError:&error]) {
+      [super openDocumentWithContentsOfURL:url display:displayDocument completionHandler:completionHandler];
+    } else {
+      QuipDocument* proxy = [self makeUntitledDocumentOfType:@"public.data" error:&error];
+      NSString* path = [url path];
+      [proxy document]->setPath([path cStringUsingEncoding:NSUTF8StringEncoding]);
+      [proxy makeWindowControllers];
+      [proxy setFileURL:url];
+      
+      if (displayDocument) {
+        [proxy showWindows];
+      }
+      
+      if(completionHandler != nil) {
+        completionHandler(proxy, NO, nil);
+      }
+    }
   }
 }
 
 - (void)handleShowHiddenClicked:(id)sender {
-  NSOpenPanel * openPanel = objc_getAssociatedObject(sender, kOpenPanelKey);
+  NSOpenPanel* openPanel = objc_getAssociatedObject(sender, kOpenPanelKey);
   BOOL shouldShowHiddenFiles = (BOOL)[sender intValue];
   if (openPanel != nil) {
     [openPanel setShowsHiddenFiles:shouldShowHiddenFiles];
@@ -107,16 +124,16 @@ static BOOL canDocumentBeTransient (NSDocument * document) {
   [[NSUserDefaults standardUserDefaults] setBool:shouldShowHiddenFiles forKey:kShowHiddenSettingsKey];
 }
 
-- (void)replaceDocument:(QuipDocument *)existing withDocument:(QuipDocument *)replacement {
-  NSArray * controllers = [[existing windowControllers] copy];
+- (void)replaceDocument:(QuipDocument*)existing withDocument:(QuipDocument*)replacement {
+  NSArray* controllers = [[existing windowControllers] copy];
   
-  for (NSWindowController * controller in [existing windowControllers]) {
+  for (NSWindowController* controller in [existing windowControllers]) {
     [existing removeWindowController:controller];
   }
   
   [existing close];
   
-  for (NSWindowController * controller in controllers) {
+  for (NSWindowController* controller in controllers) {
     [replacement addWindowController:controller];
   }
 }
