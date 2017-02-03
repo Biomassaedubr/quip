@@ -48,6 +48,18 @@
   return YES;
 }
 
+- (void)saveToURL:(NSURL*)url ofType:(NSString*)typeName forSaveOperation:(NSSaveOperationType)saveOperation completionHandler:(void (^)(NSError* _Nullable))completionHandler {
+  // The intermediate directories of a proxy document may not exist, so create them if needed.
+  // If this fails, the super version will also fail and display an appropriate error sheet.
+  NSFileManager* manager = [NSFileManager defaultManager];
+  NSString* folder = [[url path] stringByDeletingLastPathComponent];
+  if (![manager fileExistsAtPath:folder]) {
+    [manager createDirectoryAtPath:folder withIntermediateDirectories:YES attributes:nil error:nil];
+  }
+
+  [super saveToURL:url ofType:typeName forSaveOperation:saveOperation completionHandler:completionHandler];
+}
+
 + (BOOL)autosavesInPlace {
   return NO;
 }
