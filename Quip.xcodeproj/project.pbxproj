@@ -67,6 +67,7 @@
 		038ECDE21C698FE2002E571D /* QuipWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDD91C698FE2002E571D /* QuipWindowController.mm */; };
 		038ECDE31C698FE2002E571D /* QuipWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDDA1C698FE2002E571D /* QuipWindowController.xib */; };
 		038ECDE71C699039002E571D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDE61C699039002E571D /* Images.xcassets */; };
+		03C7E90E1E42F4C100AAB7A9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C7E90D1E42F4C100AAB7A9 /* main.m */; };
 		03D1C8661C7819E600AF5475 /* EditContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C82A1C78197200AF5475 /* EditContext.cpp */; };
 		03D1C8671C7819ED00AF5475 /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C82D1C78197200AF5475 /* Document.cpp */; };
 		03D1C8681C7819ED00AF5475 /* DocumentIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C82F1C78197200AF5475 /* DocumentIterator.cpp */; };
@@ -108,6 +109,18 @@
 			remoteInfo = Quip.Core;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		03C7E9091E42F4C100AAB7A9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		031FC0CE1D3BE6CF00628179 /* KeySequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KeySequence.cpp; path = Source/Core/KeySequence.cpp; sourceTree = "<group>"; };
@@ -206,6 +219,8 @@
 		038ECDDA1C698FE2002E571D /* QuipWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QuipWindowController.xib; path = Source/Mac/QuipWindowController.xib; sourceTree = "<group>"; };
 		038ECDE61C699039002E571D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
 		038F24351E3C4E6400A8B445 /* DocumentIterator.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = DocumentIterator.inl; path = Source/Core/DocumentIterator.inl; sourceTree = "<group>"; };
+		03C7E90B1E42F4C100AAB7A9 /* quip */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = quip; sourceTree = BUILT_PRODUCTS_DIR; };
+		03C7E90D1E42F4C100AAB7A9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		03CCFAEB1BF1A1BE0033929E /* Quip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D1C8241C78196400AF5475 /* libQuip.Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQuip.Core.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D1C8291C78197200AF5475 /* EditContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EditContext.hpp; path = Source/Core/EditContext.hpp; sourceTree = "<group>"; };
@@ -261,6 +276,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		03C7E9081E42F4C100AAB7A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03CCFAE81BF1A1BE0033929E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -469,12 +491,21 @@
 			name = Application;
 			sourceTree = "<group>";
 		};
+		03C7E90C1E42F4C100AAB7A9 /* Launcher */ = {
+			isa = PBXGroup;
+			children = (
+				03C7E90D1E42F4C100AAB7A9 /* main.m */,
+			);
+			path = Launcher;
+			sourceTree = "<group>";
+		};
 		03CCFAE21BF1A1BE0033929E = {
 			isa = PBXGroup;
 			children = (
 				038ECDE51C698FF0002E571D /* Application */,
 				03D1C8551C78197200AF5475 /* Core */,
 				03E287CD1E3E711A00723824 /* Runtime */,
+				03C7E90C1E42F4C100AAB7A9 /* Launcher */,
 				035DCDCD1E3D37A600B52098 /* Dependencies */,
 				03D1C87B1C781A4A00AF5475 /* Tests */,
 				032C56781E3D5D2800BE61A0 /* Frameworks */,
@@ -488,6 +519,7 @@
 				03CCFAEB1BF1A1BE0033929E /* Quip.app */,
 				03D1C8241C78196400AF5475 /* libQuip.Core.a */,
 				03D1C87A1C781A4A00AF5475 /* Quip.Core.Tests.xctest */,
+				03C7E90B1E42F4C100AAB7A9 /* quip */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -683,6 +715,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		03C7E90A1E42F4C100AAB7A9 /* Launcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03C7E9111E42F4C100AAB7A9 /* Build configuration list for PBXNativeTarget "Launcher" */;
+			buildPhases = (
+				03C7E9071E42F4C100AAB7A9 /* Sources */,
+				03C7E9081E42F4C100AAB7A9 /* Frameworks */,
+				03C7E9091E42F4C100AAB7A9 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Launcher;
+			productName = Launcher;
+			productReference = 03C7E90B1E42F4C100AAB7A9 /* quip */;
+			productType = "com.apple.product-type.tool";
+		};
 		03CCFAEA1BF1A1BE0033929E /* Quip */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 03CCFAFC1BF1A1BE0033929E /* Build configuration list for PBXNativeTarget "Quip" */;
@@ -745,6 +794,10 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Josh Petrie";
 				TargetAttributes = {
+					03C7E90A1E42F4C100AAB7A9 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
 					03CCFAEA1BF1A1BE0033929E = {
 						CreatedOnToolsVersion = 7.1;
 					};
@@ -772,6 +825,7 @@
 				03CCFAEA1BF1A1BE0033929E /* Quip */,
 				03D1C8231C78196400AF5475 /* Quip.Core */,
 				03D1C8791C781A4A00AF5475 /* Quip.Core.Tests */,
+				03C7E90A1E42F4C100AAB7A9 /* Launcher */,
 			);
 		};
 /* End PBXProject section */
@@ -799,6 +853,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		03C7E9071E42F4C100AAB7A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03C7E90E1E42F4C100AAB7A9 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03CCFAE71BF1A1BE0033929E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -892,6 +954,26 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		03C7E90F1E42F4C100AAB7A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				PRODUCT_NAME = quip;
+			};
+			name = Debug;
+		};
+		03C7E9101E42F4C100AAB7A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				PRODUCT_NAME = quip;
+			};
+			name = Release;
+		};
 		03CCFAFA1BF1A1BE0033929E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1066,6 +1148,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		03C7E9111E42F4C100AAB7A9 /* Build configuration list for PBXNativeTarget "Launcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03C7E90F1E42F4C100AAB7A9 /* Debug */,
+				03C7E9101E42F4C100AAB7A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		03CCFAE61BF1A1BE0033929E /* Build configuration list for PBXProject "Quip" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
