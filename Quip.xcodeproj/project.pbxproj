@@ -123,6 +123,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0308DEEA1E5396B10092A626 /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; usesTabs = 1; };
 		031FC0CE1D3BE6CF00628179 /* KeySequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KeySequence.cpp; path = Source/Core/KeySequence.cpp; sourceTree = "<group>"; };
 		031FC0CF1D3BE6CF00628179 /* KeySequence.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = KeySequence.hpp; path = Source/Core/KeySequence.hpp; sourceTree = "<group>"; };
 		031FC0D21D3BE9AD00628179 /* MapTrie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MapTrie.cpp; path = Source/Core/MapTrie.cpp; sourceTree = "<group>"; };
@@ -310,6 +311,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0308DEE91E5396A20092A626 /* Build */ = {
+			isa = PBXGroup;
+			children = (
+				0308DEEA1E5396B10092A626 /* Makefile */,
+			);
+			name = Build;
+			sourceTree = "<group>";
+		};
 		032C565E1E3D5CF900BE61A0 /* lua */ = {
 			isa = PBXGroup;
 			children = (
@@ -502,6 +511,7 @@
 		03CCFAE21BF1A1BE0033929E = {
 			isa = PBXGroup;
 			children = (
+				0308DEE91E5396A20092A626 /* Build */,
 				038ECDE51C698FF0002E571D /* Application */,
 				03D1C8551C78197200AF5475 /* Core */,
 				03E287CD1E3E711A00723824 /* Runtime */,
@@ -715,9 +725,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		03C7E90A1E42F4C100AAB7A9 /* Launcher */ = {
+		03C7E90A1E42F4C100AAB7A9 /* Quip.Launcher */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 03C7E9111E42F4C100AAB7A9 /* Build configuration list for PBXNativeTarget "Launcher" */;
+			buildConfigurationList = 03C7E9111E42F4C100AAB7A9 /* Build configuration list for PBXNativeTarget "Quip.Launcher" */;
 			buildPhases = (
 				03C7E9071E42F4C100AAB7A9 /* Sources */,
 				03C7E9081E42F4C100AAB7A9 /* Frameworks */,
@@ -727,7 +737,7 @@
 			);
 			dependencies = (
 			);
-			name = Launcher;
+			name = Quip.Launcher;
 			productName = Launcher;
 			productReference = 03C7E90B1E42F4C100AAB7A9 /* quip */;
 			productType = "com.apple.product-type.tool";
@@ -825,7 +835,7 @@
 				03CCFAEA1BF1A1BE0033929E /* Quip */,
 				03D1C8231C78196400AF5475 /* Quip.Core */,
 				03D1C8791C781A4A00AF5475 /* Quip.Core.Tests */,
-				03C7E90A1E42F4C100AAB7A9 /* Launcher */,
+				03C7E90A1E42F4C100AAB7A9 /* Quip.Launcher */,
 			);
 		};
 /* End PBXProject section */
@@ -1148,7 +1158,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		03C7E9111E42F4C100AAB7A9 /* Build configuration list for PBXNativeTarget "Launcher" */ = {
+		03C7E9111E42F4C100AAB7A9 /* Build configuration list for PBXNativeTarget "Quip.Launcher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				03C7E90F1E42F4C100AAB7A9 /* Debug */,
