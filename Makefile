@@ -1,20 +1,16 @@
 all: quip launcher
 
-clean:
-	rm -rf build
-
-quip: build/Release/Quip.app
-
-launcher: build/Release/quip
-
-build/Release/Quip.app:
+quip:
 	xcodebuild build -project Quip.xcodeproj -target Quip -configuration Release
 
-build/Release/quip:
+launcher:
 	xcodebuild build -project Quip.xcodeproj -target Quip.Launcher -configuration Release
 
-install: build/Release/Quip.app
+install: quip launcher
 	cp -R build/Release/Quip.app /Applications
 	cp -R build/Release/quip ~/.bin
 
-.PHONY: all clean
+clean:
+	rm -rf build
+
+.PHONY: all quip launcher install clean
