@@ -2,6 +2,19 @@
 
 int main(int argc, const char** argv) {
   @autoreleasepool {
+    // All arguments are currently assumed to be files, since Quip doesn't currently take
+    // any other switches. Any path that isn't already absolute should be made such.
+    NSString* workingDirectory = [[NSFileManager defaultManager] currentDirectoryPath];
+    NSMutableArray* arguments = [[NSMutableArray alloc] initWithCapacity:argc - 1];
+    for(int argument = 1; argument < argc; ++argument) {
+      NSString* path = [NSString stringWithUTF8String:argv[argument]];
+      if (![path isAbsolutePath]) {
+        path = [workingDirectory stringByAppendingPathComponent:path];
+      }
+      
+      [arguments addObject:path];
+    }
+
     // Check to see if Quip is already running.
     NSWorkspace* workspace = [NSWorkspace sharedWorkspace];
     for (NSRunningApplication* application in [workspace runningApplications]) {
@@ -9,9 +22,8 @@ int main(int argc, const char** argv) {
         if (argc > 1) {
           // Open the specified files.
           NSString* executable = [[application bundleURL] path];
-          for(int argument = 1; argument < argc; ++argument) {
-            BOOL deactivate = argument == argc - 1;
-            [workspace openFile:[NSString stringWithUTF8String:argv[argument]] withApplication:executable andDeactivate:deactivate];
+          for(NSString* path in arguments) {
+            [workspace openFile:path withApplication:executable andDeactivate:NO];
           }
         } else {
           // Just show the application.
@@ -38,11 +50,6 @@ int main(int argc, const char** argv) {
     if (bundle == nil) {
       NSLog(@"The Quip bundle at '%@' could not be read.", path);
       return -1;
-    }
-
-    NSMutableArray* arguments = [[NSMutableArray alloc] initWithCapacity:argc - 1];
-    for(int argument = 1; argument < argc; ++argument) {
-      [arguments addObject:[NSString stringWithUTF8String:argv[argument]]];
     }
   
     NSURL* url = [NSURL fileURLWithPath:path];
