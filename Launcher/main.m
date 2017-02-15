@@ -23,14 +23,14 @@ int main(int argc, const char** argv) {
           // Open the specified files.
           NSString* executable = [[application bundleURL] path];
           for(NSString* path in arguments) {
-            [workspace openFile:path withApplication:executable andDeactivate:NO];
+            [workspace openFile:path withApplication:executable];
           }
-        } else {
-          // Just show the application.
-          [application unhide];
-          [application activateWithOptions:NSApplicationActivateAllWindows];
         }
         
+        // Just show the application.
+        [application unhide];
+        BOOL result = [application activateWithOptions:NSApplicationActivateAllWindows|NSApplicationActivateIgnoringOtherApps];
+      
         return 0;
       }
     }
