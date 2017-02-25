@@ -29,7 +29,7 @@ int main(int argc, const char** argv) {
         
         // Just show the application.
         [application unhide];
-        BOOL result = [application activateWithOptions:NSApplicationActivateAllWindows|NSApplicationActivateIgnoringOtherApps];
+        [application activateWithOptions:NSApplicationActivateAllWindows|NSApplicationActivateIgnoringOtherApps];
       
         return 0;
       }
