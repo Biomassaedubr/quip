@@ -19,11 +19,10 @@ namespace quip {
   
   EditContext::EditContext(PopupService* popupService, StatusService* statusService, ScriptHost* scriptHost, std::shared_ptr<Document> document)
   : m_document(document)
+  , m_fileTypeDatabase(*scriptHost) 
   , m_selections(Selection(Location(0, 0)))
   , m_popupService(popupService)
-  , m_statusService(statusService)
-  , m_scriptHost(scriptHost)
-  , m_fileTypeDatabase(*scriptHost) {
+  , m_statusService(statusService) {
     
     // Populate with standard file types.
     m_fileTypeDatabase.registerFileType("Text", "text", {"txt", "text"});

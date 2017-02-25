@@ -71,7 +71,6 @@ namespace quip {
     ViewController m_controller;
     PopupService* m_popupService;
     StatusService* m_statusService;
-    ScriptHost* m_scriptHost;
     
     Signal<void (ChangeType)> m_onTransactionApplied;
   };
