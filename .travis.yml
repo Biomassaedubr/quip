@@ -1,4 +1,7 @@
 language: objective-c
 osx_image: xcode8.2
 script:
+ - mkdir Build
+ - cd Build
+ - cmake -G Xcode ../
  - xcodebuild -project Quip.xcodeproj -scheme Quip -configuration Release build
