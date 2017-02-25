@@ -1,50 +1,44 @@
-#import <XCTest/XCTest.h>
+#include "catch.hpp"
 
 #include "SelectionSet.hpp"
 
-@interface SelectionSetTests : XCTestCase
-
-@end
-
 using namespace quip;
 
-@implementation SelectionSetTests
-
-- (void)testDefaultConstruction {
+TEST_CASE("Selection sets can be default-constructed.", "[SelectionSetTests]") {
   SelectionSet empty;
   
-  XCTAssertEqual(empty.count(), 0);
+  REQUIRE(empty.count() == 0);
 }
 
-- (void)testSingleSelectionConstruction {
+TEST_CASE("Selection sets can be constructed from a single selection.", "[SelectionSetTests]") {
   Selection selection(Location(0, 0), Location(1, 0));
   SelectionSet set(selection);
   
-  XCTAssertEqual(set.count(), 1);
-  XCTAssertEqual(set.primary(), selection);
+  REQUIRE(set.count() == 1);
+  REQUIRE(set.primary() == selection);
 }
 
-- (void)testMultipleSelectionConstruction {
+TEST_CASE("Selection sets can be constructed from multiple selections.", "[SelectionSetTests]") {
   Selection a(Location(0, 0), Location(1, 0));
   Selection b(Location(0, 1), Location(1, 1));
   std::vector<Selection> selections { a, b };
   SelectionSet set(selections);
   
-  XCTAssertEqual(set.count(), 2);
-  XCTAssertEqual(set.primary(), a);
+  REQUIRE(set.count() == 2);
+  REQUIRE(set.primary() == a);
 }
 
-- (void)testIndexing {
+TEST_CASE("Selection sets can be indexed.", "[SelectionSetTests]") {
   Selection a(Location(0, 0), Location(1, 0));
   Selection b(Location(0, 1), Location(1, 1));
   std::vector<Selection> selections { a, b };
   SelectionSet set(selections);
   
-  XCTAssertEqual(set[0], a);
-  XCTAssertEqual(set[1], b);
+  REQUIRE(set[0] == a);
+  REQUIRE(set[1] == b);
 }
 
-- (void)testIteration {
+TEST_CASE("Selection sets can be iterated.", "[SelectionSetTests]") {
   Selection a(Location(0, 0), Location(1, 0));
   Selection b(Location(5, 5), Location(6, 5));
   std::vector<Selection> selections { a, b };
@@ -53,13 +47,13 @@ using namespace quip;
   std::size_t index = 0;
   SelectionSetIterator cursor = set.begin();
   while (cursor != set.end()) {
-    XCTAssertEqual(*cursor, selections[index]);
+    REQUIRE(*cursor == selections[index]);
     ++cursor;
     ++index;
   }
 }
 
-- (void)testSelectionsAreSorted {
+TEST_CASE("Selection sets are sorted by origin.", "[SelectionSetTests]") {
   Selection a(Location(0, 0), Location(0, 5));
   Selection b(Location(5, 10), Location(0, 8));
   Selection c(Location(10, 10), Location(0, 15));
@@ -67,30 +61,30 @@ using namespace quip;
   
   SelectionSet set(selections);
   SelectionSetIterator cursor = set.begin();
-  XCTAssertEqual(*cursor, a);
+  REQUIRE(*cursor == a);
   
   ++cursor;
-  XCTAssertEqual(*cursor, b);
+  REQUIRE(*cursor == b);
   
   ++cursor;
-  XCTAssertEqual(*cursor, c);
+  REQUIRE(*cursor == c);
 }
 
-- (void)testOverlappingSelectionsCollapse {
+TEST_CASE("Selection sets collapse overlapping selections.", "[SelectionSetTests]") {
   Selection a(Location(1, 0), Location(10, 0));
   Selection b(Location(8, 0), Location(0, 5));
   Selection c(Location(0, 3), Location(0, 7));
   std::vector<Selection> selections { c, b, a };
-
+  
   SelectionSet set(selections);
-  XCTAssertEqual(set.count(), 1);
+  REQUIRE(set.count() == 1);
   
   SelectionSetIterator cursor = set.begin();
-  XCTAssertEqual(cursor->origin(), Location(1, 0));
-  XCTAssertEqual(cursor->extent(), Location(0, 7));
+  REQUIRE(cursor->origin() == Location(1, 0));
+  REQUIRE(cursor->extent() == Location(0, 7));
 }
 
-- (void)testPairsOfOverlappingSelectionsCollapse {
+TEST_CASE("Selection sets collapse pairs of overlapping selections.", "[SelectionSetTests]") {
   Selection a(Location(1, 0), Location(10, 0));
   Selection b(Location(5, 0), Location(15, 0));
   Selection c(Location(0, 5), Location(15, 5));
@@ -98,15 +92,13 @@ using namespace quip;
   std::vector<Selection> selections { d, c, b, a };
   
   SelectionSet set(selections);
-  XCTAssertEqual(set.count(), 2);
+  REQUIRE(set.count() == 2);
   
   SelectionSetIterator cursor = set.begin();
-  XCTAssertEqual(cursor->origin(), Location(1, 0));
-  XCTAssertEqual(cursor->extent(), Location(15, 0));
+  REQUIRE(cursor->origin() == Location(1, 0));
+  REQUIRE(cursor->extent() == Location(15, 0));
   
   ++cursor;
-  XCTAssertEqual(cursor->origin(), Location(0, 5));
-  XCTAssertEqual(cursor->extent(), Location(0, 10));
+  REQUIRE(cursor->origin() == Location(0, 5));
+  REQUIRE(cursor->extent() == Location(0, 10));
 }
-
-@end

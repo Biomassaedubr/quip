@@ -1,25 +1,19 @@
-#import <XCTest/XCTest.h>
+#include "catch.hpp"
 
 #include "Signal.hpp"
 
-@interface SignalTests : XCTestCase
-
-@end
-
-@implementation SignalTests
-
 using namespace quip;
 
-- (void)testConnectAndTriggerSingleListener {
+TEST_CASE("Signals can connect and trigger a single listener.", "[SignalTests]") {
   Signal<void ()> signal;
   bool success = false;
   signal.connect([&] { success = true; });
   signal.transmit();
   
-  XCTAssertTrue(success);
+  REQUIRE(success);
 }
 
-- (void)testConnectAndTriggerMultipleListeners {
+TEST_CASE("Signals can connect and trigger multiple listeners.", "[SignalTests]") {
   Signal<void ()> signal;
   bool firstSuccess = false;
   bool secondSuccess = false;
@@ -27,11 +21,11 @@ using namespace quip;
   signal.connect([&] { secondSuccess = true; });
   signal.transmit();
   
-  XCTAssertTrue(firstSuccess);
-  XCTAssertTrue(secondSuccess);
+  REQUIRE(firstSuccess);
+  REQUIRE(secondSuccess);
 }
 
-- (void)testDisconnectListenerFromFront {
+TEST_CASE("Signals can disconnect a listener from the front.", "[SignalTests]") {
   Signal<void ()> signal;
   bool firstSuccess = false;
   bool secondSuccess = false;
@@ -42,12 +36,12 @@ using namespace quip;
   signal.disconnect(token);
   
   signal.transmit();
-  XCTAssertFalse(firstSuccess);
-  XCTAssertTrue(secondSuccess);
-  XCTAssertTrue(thirdSuccess);
+  REQUIRE_FALSE(firstSuccess);
+  REQUIRE(secondSuccess);
+  REQUIRE(thirdSuccess);
 }
 
-- (void)testDisconnectListenerFromMiddle {
+TEST_CASE("Signals can disconnect a listener from the middle.", "[SignalTests]") {
   Signal<void ()> signal;
   bool firstSuccess = false;
   bool secondSuccess = false;
@@ -58,12 +52,12 @@ using namespace quip;
   signal.disconnect(token);
   
   signal.transmit();
-  XCTAssertTrue(firstSuccess);
-  XCTAssertFalse(secondSuccess);
-  XCTAssertTrue(thirdSuccess);
+  REQUIRE(firstSuccess);
+  REQUIRE_FALSE(secondSuccess);
+  REQUIRE(thirdSuccess);
 }
 
-- (void)testDisconnectListenerFromEnd {
+TEST_CASE("Signals can disconnect a listener from the end.", "[SignalTests]") {
   Signal<void ()> signal;
   bool firstSuccess = false;
   bool secondSuccess = false;
@@ -74,20 +68,20 @@ using namespace quip;
   signal.disconnect(token);
   
   signal.transmit();
-  XCTAssertTrue(firstSuccess);
-  XCTAssertTrue(secondSuccess);
-  XCTAssertFalse(thirdSuccess);
+  REQUIRE(firstSuccess);
+  REQUIRE(secondSuccess);
+  REQUIRE_FALSE(thirdSuccess);
   
   // Connect another listener to ensure the tail pointer is correctly
   // updated by the disconnection.
   signal.connect([&] { thirdSuccess = true; });
   signal.transmit();
-  XCTAssertTrue(thirdSuccess);
+  REQUIRE(thirdSuccess);
 }
 
-- (void)testDisconnectOnlyListener {
+TEST_CASE("Signals can disconnect the only listener.", "[SignalTests]") {
   Signal<void ()> signal;
-  std::uint32_t token = signal.connect([&] { XCTFail("Listener should not be called."); });
+  std::uint32_t token = signal.connect([&] { REQUIRE(false); });
   signal.disconnect(token);
   signal.transmit();
   
@@ -96,7 +90,6 @@ using namespace quip;
   bool success = false;
   signal.connect([&] { success = true; });
   signal.transmit();
-  XCTAssertTrue(success);
+  REQUIRE(success);
 }
 
-@end

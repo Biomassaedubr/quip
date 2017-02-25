@@ -1,0 +1,42 @@
+#include "catch.hpp"
+
+#include "Selection.hpp"
+
+using namespace quip;
+
+TEST_CASE("Selections can be constructed from a single location.", "[SelectionTests]") {
+  Selection selection(Location(1, 2));
+  
+  REQUIRE(selection.origin() == selection.extent());
+}
+
+TEST_CASE("Selections can be compared with ==.", "[SelectionTests]") {
+  Selection a(Location(0, 0), Location(10, 5));
+  Selection b(Location(0, 0), Location(10, 5));
+  Selection c(Location(1, 0), Location(1, 5));
+  
+  REQUIRE(a == b);
+  REQUIRE_FALSE(b == c);
+}
+
+TEST_CASE("Selections can be compared with !=.", "[SelectionTests]") {
+  Selection a(Location(0, 0), Location(10, 5));
+  Selection b(Location(0, 0), Location(10, 5));
+  Selection c(Location(1, 0), Location(1, 5));
+  
+  REQUIRE_FALSE(a != b);
+  REQUIRE(b != c);
+}
+
+TEST_CASE("Selections can be swapped.", "[SelectionTests]") {
+  Selection a(Location(0, 0), Location(1, 1));
+  Selection b(Location(2, 2), Location(3, 3));
+  
+  using std::swap;
+  swap(a, b);
+  
+  REQUIRE(a.origin() == Location(2, 2));
+  REQUIRE(b.origin() == Location(0, 0));
+  REQUIRE(a.extent() == Location(3, 3));
+  REQUIRE(b.extent() == Location(1, 1));
+}

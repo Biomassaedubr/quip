@@ -7,12 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		030AC70E1C781B9F00219938 /* DocumentIteratorTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8851C781AFB00AF5475 /* DocumentIteratorTests.mm */; };
-		030AC70F1C781B9F00219938 /* DocumentTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8861C781AFB00AF5475 /* DocumentTests.mm */; };
-		030AC7101C781B9F00219938 /* LocationTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8881C781AFB00AF5475 /* LocationTests.mm */; };
-		030AC7111C781B9F00219938 /* SearchExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8891C781AFB00AF5475 /* SearchExpressionTests.mm */; };
-		030AC7121C781B9F00219938 /* SelectionSetTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C88A1C781AFB00AF5475 /* SelectionSetTests.mm */; };
-		030AC7131C781B9F00219938 /* SelectionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C88B1C781AFB00AF5475 /* SelectionTests.mm */; };
 		030AC7161C781BD300219938 /* libQuip.Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D1C8241C78196400AF5475 /* libQuip.Core.a */; };
 		031FC0D01D3BE6CF00628179 /* KeySequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031FC0CE1D3BE6CF00628179 /* KeySequence.cpp */; };
 		031FC0D11D3BE6CF00628179 /* KeySequence.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 031FC0CF1D3BE6CF00628179 /* KeySequence.hpp */; };
@@ -20,14 +14,12 @@
 		031FC0D51D3BE9AD00628179 /* MapTrie.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 031FC0D31D3BE9AD00628179 /* MapTrie.hpp */; };
 		031FC0D81D3BEA0700628179 /* MapTrieNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031FC0D61D3BEA0700628179 /* MapTrieNode.cpp */; };
 		031FC0D91D3BEA0700628179 /* MapTrieNode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 031FC0D71D3BEA0700628179 /* MapTrieNode.hpp */; };
-		031FC0DD1D3BFD4100628179 /* KeySequenceTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 031FC0DC1D3BFD4100628179 /* KeySequenceTests.mm */; };
 		031FC0E11D3C0F1F00628179 /* Key.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031FC0E01D3C0F1F00628179 /* Key.cpp */; };
 		032C567E1E3D5EA100BE61A0 /* Script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032C567C1E3D5EA100BE61A0 /* Script.cpp */; };
 		032C567F1E3D5EA100BE61A0 /* Script.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 032C567D1E3D5EA100BE61A0 /* Script.hpp */; };
 		032C56831E3D739700BE61A0 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 032C56791E3D5D2800BE61A0 /* liblua.a */; };
 		032C568D1E3DABAF00BE61A0 /* ScriptHost.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 032C568B1E3DABAF00BE61A0 /* ScriptHost.cpp */; };
 		032C568E1E3DABAF00BE61A0 /* ScriptHost.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 032C568C1E3DABAF00BE61A0 /* ScriptHost.hpp */; };
-		03372BFC1E3C1F19005342DD /* SelectorTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03372BFB1E3C1F19005342DD /* SelectorTests.mm */; };
 		033CA9721D011ED200ABD567 /* Transaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9701D011ED200ABD567 /* Transaction.cpp */; };
 		033CA9751D011FDA00ABD567 /* InsertTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9731D011FDA00ABD567 /* InsertTransaction.cpp */; };
 		033CA9791D01273400ABD567 /* EraseTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033CA9771D01273400ABD567 /* EraseTransaction.cpp */; };
@@ -35,16 +27,13 @@
 		03532D4D1D8B5D700007E2BF /* DrawingService.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03532D4B1D8B5D700007E2BF /* DrawingService.hpp */; };
 		03532D501D8B5DD30007E2BF /* Extent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03532D4E1D8B5DD30007E2BF /* Extent.cpp */; };
 		03532D511D8B5DD30007E2BF /* Extent.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03532D4F1D8B5DD30007E2BF /* Extent.hpp */; };
-		03532D531D8B5E5A0007E2BF /* ExtentTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03532D521D8B5E5A0007E2BF /* ExtentTests.mm */; };
 		03532D551D8B5F490007E2BF /* DrawingServiceProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03532D541D8B5F490007E2BF /* DrawingServiceProvider.mm */; };
 		03532D591D8B63D10007E2BF /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03532D571D8B63D10007E2BF /* Rectangle.cpp */; };
 		03532D5A1D8B63D10007E2BF /* Rectangle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03532D581D8B63D10007E2BF /* Rectangle.hpp */; };
 		03532D5D1D8B65840007E2BF /* Coordinate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03532D5B1D8B65840007E2BF /* Coordinate.cpp */; };
 		03532D5E1D8B65840007E2BF /* Coordinate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03532D5C1D8B65840007E2BF /* Coordinate.hpp */; };
-		03532D601D8B65DF0007E2BF /* CoordinateTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03532D5F1D8B65DF0007E2BF /* CoordinateTests.mm */; };
 		035DCDD01E3D37D700B52098 /* optional_lite.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 035DCDCF1E3D37D700B52098 /* optional_lite.hpp */; };
 		036FD3FD1D75356D006EDD9E /* ChangeType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 036FD3FC1D75356D006EDD9E /* ChangeType.hpp */; };
-		036FD3FF1D75CDC7006EDD9E /* SignalTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 036FD3FE1D75CDC7006EDD9E /* SignalTests.mm */; };
 		0371316F1E2BC3EE00EE78F6 /* GlobalSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0371316D1E2BC3EE00EE78F6 /* GlobalSettings.cpp */; };
 		037131701E2BC3EE00EE78F6 /* GlobalSettings.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0371316E1E2BC3EE00EE78F6 /* GlobalSettings.hpp */; };
 		0374FD8B1E2AFE9600CA3196 /* AppendTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0374FD891E2AFE9600CA3196 /* AppendTransaction.cpp */; };
@@ -67,6 +56,19 @@
 		038ECDE21C698FE2002E571D /* QuipWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 038ECDD91C698FE2002E571D /* QuipWindowController.mm */; };
 		038ECDE31C698FE2002E571D /* QuipWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDDA1C698FE2002E571D /* QuipWindowController.xib */; };
 		038ECDE71C699039002E571D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 038ECDE61C699039002E571D /* Images.xcassets */; };
+		039BDD5F1E61EDD40060608C /* SelectionTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039BDD5E1E61EDD40060608C /* SelectionTests.cpp */; };
+		039BDD611E61EE7D0060608C /* DocumentIteratorTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039BDD601E61EE7D0060608C /* DocumentIteratorTests.cpp */; };
+		039BDD631E61EF910060608C /* DocumentTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039BDD621E61EF910060608C /* DocumentTests.cpp */; };
+		039BDD651E61F3CF0060608C /* SignalTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039BDD641E61F3CF0060608C /* SignalTests.cpp */; };
+		039BDD681E61F4ED0060608C /* KeySequenceTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039BDD661E61F4ED0060608C /* KeySequenceTests.cpp */; };
+		039BDD6E1E61F6570060608C /* LocationTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039BDD6C1E61F6570060608C /* LocationTests.cpp */; };
+		039BDD701E61F7810060608C /* SearchExpressionTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039BDD6F1E61F7810060608C /* SearchExpressionTests.cpp */; };
+		039BDD721E61F80D0060608C /* SelectorTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039BDD711E61F80D0060608C /* SelectorTests.cpp */; };
+		039BDD741E61F9360060608C /* SelectionSetTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039BDD731E61F9360060608C /* SelectionSetTests.cpp */; };
+		03C365B61E61E7D300A21596 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03C365B51E61E7D300A21596 /* main.cpp */; };
+		03C365B91E61E82800A21596 /* CoordinateTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03C365B81E61E82800A21596 /* CoordinateTests.cpp */; };
+		03C365BA1E61EB1700A21596 /* libQuip.Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D1C8241C78196400AF5475 /* libQuip.Core.a */; };
+		03C365BC1E61ED0200A21596 /* ExtentTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03C365BB1E61ED0200A21596 /* ExtentTests.cpp */; };
 		03C7E90E1E42F4C100AAB7A9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C7E90D1E42F4C100AAB7A9 /* main.m */; };
 		03D1C8661C7819E600AF5475 /* EditContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C82A1C78197200AF5475 /* EditContext.cpp */; };
 		03D1C8671C7819ED00AF5475 /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C82D1C78197200AF5475 /* Document.cpp */; };
@@ -81,7 +83,6 @@
 		03D1C8721C781A0900AF5475 /* Selection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8491C78197200AF5475 /* Selection.cpp */; };
 		03D1C8731C781A0900AF5475 /* SelectionSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C84B1C78197200AF5475 /* SelectionSet.cpp */; };
 		03D1C8751C781A1000AF5475 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D1C8531C78197200AF5475 /* Color.cpp */; };
-		03D1C87F1C781A4A00AF5475 /* libQuip.Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D1C8241C78196400AF5475 /* libQuip.Core.a */; };
 		03DC0F0F1C96674A0082EC8C /* QuipDocumentController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03DC0F0E1C96674A0082EC8C /* QuipDocumentController.mm */; };
 		03E10D961D0C7CF200DFC8D0 /* JumpMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03E10D941D0C7CF200DFC8D0 /* JumpMode.cpp */; };
 		03E10D971D0C7CF200DFC8D0 /* JumpMode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 03E10D951D0C7CF200DFC8D0 /* JumpMode.hpp */; };
@@ -101,16 +102,18 @@
 			remoteGlobalIDString = 03D1C8231C78196400AF5475;
 			remoteInfo = Quip.Core;
 		};
-		03D1C8801C781A4A00AF5475 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 03CCFAE31BF1A1BE0033929E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 03D1C8231C78196400AF5475;
-			remoteInfo = Quip.Core;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		03C365AC1E61E7A100A21596 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		03C7E9091E42F4C100AAB7A9 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -130,7 +133,6 @@
 		031FC0D31D3BE9AD00628179 /* MapTrie.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MapTrie.hpp; path = Source/Core/MapTrie.hpp; sourceTree = "<group>"; };
 		031FC0D61D3BEA0700628179 /* MapTrieNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MapTrieNode.cpp; path = Source/Core/MapTrieNode.cpp; sourceTree = "<group>"; };
 		031FC0D71D3BEA0700628179 /* MapTrieNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MapTrieNode.hpp; path = Source/Core/MapTrieNode.hpp; sourceTree = "<group>"; };
-		031FC0DC1D3BFD4100628179 /* KeySequenceTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = KeySequenceTests.mm; path = Source/Tests/KeySequenceTests.mm; sourceTree = SOURCE_ROOT; };
 		031FC0E01D3C0F1F00628179 /* Key.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Key.cpp; path = Source/Core/Key.cpp; sourceTree = "<group>"; };
 		032C565F1E3D5D0800BE61A0 /* lapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lapi.h; path = Dependencies/lua/include/lapi.h; sourceTree = "<group>"; };
 		032C56601E3D5D0800BE61A0 /* lauxlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lauxlib.h; path = Dependencies/lua/include/lauxlib.h; sourceTree = "<group>"; };
@@ -163,7 +165,6 @@
 		032C56841E3D76DB00BE61A0 /* Lua.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Lua.hpp; path = Source/Core/Lua.hpp; sourceTree = "<group>"; };
 		032C568B1E3DABAF00BE61A0 /* ScriptHost.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ScriptHost.cpp; path = Source/Core/ScriptHost.cpp; sourceTree = "<group>"; };
 		032C568C1E3DABAF00BE61A0 /* ScriptHost.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ScriptHost.hpp; path = Source/Core/ScriptHost.hpp; sourceTree = "<group>"; };
-		03372BFB1E3C1F19005342DD /* SelectorTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectorTests.mm; path = Source/Tests/SelectorTests.mm; sourceTree = SOURCE_ROOT; };
 		033CA9701D011ED200ABD567 /* Transaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Transaction.cpp; path = Source/Core/Transaction.cpp; sourceTree = "<group>"; };
 		033CA9711D011ED200ABD567 /* Transaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Transaction.hpp; path = Source/Core/Transaction.hpp; sourceTree = "<group>"; };
 		033CA9731D011FDA00ABD567 /* InsertTransaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InsertTransaction.cpp; path = Source/Core/InsertTransaction.cpp; sourceTree = "<group>"; };
@@ -174,19 +175,16 @@
 		03532D4B1D8B5D700007E2BF /* DrawingService.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DrawingService.hpp; path = Source/Core/DrawingService.hpp; sourceTree = "<group>"; };
 		03532D4E1D8B5DD30007E2BF /* Extent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Extent.cpp; path = Source/Core/Extent.cpp; sourceTree = "<group>"; };
 		03532D4F1D8B5DD30007E2BF /* Extent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Extent.hpp; path = Source/Core/Extent.hpp; sourceTree = "<group>"; };
-		03532D521D8B5E5A0007E2BF /* ExtentTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ExtentTests.mm; path = Source/Tests/ExtentTests.mm; sourceTree = SOURCE_ROOT; };
 		03532D541D8B5F490007E2BF /* DrawingServiceProvider.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DrawingServiceProvider.mm; path = Source/Mac/DrawingServiceProvider.mm; sourceTree = "<group>"; };
 		03532D561D8B5F650007E2BF /* DrawingServiceProvider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DrawingServiceProvider.hpp; path = Source/Mac/DrawingServiceProvider.hpp; sourceTree = "<group>"; };
 		03532D571D8B63D10007E2BF /* Rectangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Rectangle.cpp; path = Source/Core/Rectangle.cpp; sourceTree = "<group>"; };
 		03532D581D8B63D10007E2BF /* Rectangle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Rectangle.hpp; path = Source/Core/Rectangle.hpp; sourceTree = "<group>"; };
 		03532D5B1D8B65840007E2BF /* Coordinate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Coordinate.cpp; path = Source/Core/Coordinate.cpp; sourceTree = "<group>"; };
 		03532D5C1D8B65840007E2BF /* Coordinate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Coordinate.hpp; path = Source/Core/Coordinate.hpp; sourceTree = "<group>"; };
-		03532D5F1D8B65DF0007E2BF /* CoordinateTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CoordinateTests.mm; path = Source/Tests/CoordinateTests.mm; sourceTree = SOURCE_ROOT; };
 		035DCDCF1E3D37D700B52098 /* optional_lite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = optional_lite.hpp; path = "Dependencies/optional-lite/optional_lite.hpp"; sourceTree = "<group>"; };
 		035DCDD11E3D37E400B52098 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = "Dependencies/optional-lite/LICENSE"; sourceTree = "<group>"; };
 		035DCDD21E3D383300B52098 /* Optional.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Optional.hpp; path = Source/Core/Optional.hpp; sourceTree = "<group>"; };
 		036FD3FC1D75356D006EDD9E /* ChangeType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ChangeType.hpp; path = Source/Core/ChangeType.hpp; sourceTree = "<group>"; };
-		036FD3FE1D75CDC7006EDD9E /* SignalTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SignalTests.mm; path = Source/Tests/SignalTests.mm; sourceTree = SOURCE_ROOT; };
 		0371316D1E2BC3EE00EE78F6 /* GlobalSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GlobalSettings.cpp; path = Source/Core/GlobalSettings.cpp; sourceTree = "<group>"; };
 		0371316E1E2BC3EE00EE78F6 /* GlobalSettings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GlobalSettings.hpp; path = Source/Core/GlobalSettings.hpp; sourceTree = "<group>"; };
 		0374FD891E2AFE9600CA3196 /* AppendTransaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppendTransaction.cpp; path = Source/Core/AppendTransaction.cpp; sourceTree = "<group>"; };
@@ -220,6 +218,20 @@
 		038ECDDA1C698FE2002E571D /* QuipWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QuipWindowController.xib; path = Source/Mac/QuipWindowController.xib; sourceTree = "<group>"; };
 		038ECDE61C699039002E571D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
 		038F24351E3C4E6400A8B445 /* DocumentIterator.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = DocumentIterator.inl; path = Source/Core/DocumentIterator.inl; sourceTree = "<group>"; };
+		039BDD5E1E61EDD40060608C /* SelectionTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionTests.cpp; path = Source/Tests/SelectionTests.cpp; sourceTree = SOURCE_ROOT; };
+		039BDD601E61EE7D0060608C /* DocumentIteratorTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DocumentIteratorTests.cpp; path = Source/Tests/DocumentIteratorTests.cpp; sourceTree = SOURCE_ROOT; };
+		039BDD621E61EF910060608C /* DocumentTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DocumentTests.cpp; path = Source/Tests/DocumentTests.cpp; sourceTree = SOURCE_ROOT; };
+		039BDD641E61F3CF0060608C /* SignalTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SignalTests.cpp; path = Source/Tests/SignalTests.cpp; sourceTree = SOURCE_ROOT; };
+		039BDD661E61F4ED0060608C /* KeySequenceTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KeySequenceTests.cpp; path = Source/Tests/KeySequenceTests.cpp; sourceTree = SOURCE_ROOT; };
+		039BDD6C1E61F6570060608C /* LocationTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LocationTests.cpp; path = Source/Tests/LocationTests.cpp; sourceTree = SOURCE_ROOT; };
+		039BDD6F1E61F7810060608C /* SearchExpressionTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SearchExpressionTests.cpp; path = Source/Tests/SearchExpressionTests.cpp; sourceTree = SOURCE_ROOT; };
+		039BDD711E61F80D0060608C /* SelectorTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectorTests.cpp; path = Source/Tests/SelectorTests.cpp; sourceTree = SOURCE_ROOT; };
+		039BDD731E61F9360060608C /* SelectionSetTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectionSetTests.cpp; path = Source/Tests/SelectionSetTests.cpp; sourceTree = SOURCE_ROOT; };
+		03C365A91E61E6FA00A21596 /* catch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = catch.hpp; path = Dependencies/catch/catch.hpp; sourceTree = "<group>"; };
+		03C365AE1E61E7A100A21596 /* Quip.Tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Quip.Tests; sourceTree = BUILT_PRODUCTS_DIR; };
+		03C365B51E61E7D300A21596 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Source/Tests/main.cpp; sourceTree = SOURCE_ROOT; };
+		03C365B81E61E82800A21596 /* CoordinateTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CoordinateTests.cpp; path = Source/Tests/CoordinateTests.cpp; sourceTree = SOURCE_ROOT; };
+		03C365BB1E61ED0200A21596 /* ExtentTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExtentTests.cpp; path = Source/Tests/ExtentTests.cpp; sourceTree = SOURCE_ROOT; };
 		03C7E90B1E42F4C100AAB7A9 /* quip */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = quip; sourceTree = BUILT_PRODUCTS_DIR; };
 		03C7E90D1E42F4C100AAB7A9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		03CCFAEB1BF1A1BE0033929E /* Quip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quip.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,14 +267,6 @@
 		03D1C8511C78197200AF5475 /* Signal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Signal.hpp; path = Source/Core/Signal.hpp; sourceTree = "<group>"; };
 		03D1C8521C78197200AF5475 /* Color.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Color.hpp; path = Source/Core/Color.hpp; sourceTree = "<group>"; };
 		03D1C8531C78197200AF5475 /* Color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Color.cpp; path = Source/Core/Color.cpp; sourceTree = "<group>"; };
-		03D1C87A1C781A4A00AF5475 /* Quip.Core.Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Quip.Core.Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		03D1C8851C781AFB00AF5475 /* DocumentIteratorTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DocumentIteratorTests.mm; path = Source/Tests/DocumentIteratorTests.mm; sourceTree = SOURCE_ROOT; };
-		03D1C8861C781AFB00AF5475 /* DocumentTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DocumentTests.mm; path = Source/Tests/DocumentTests.mm; sourceTree = SOURCE_ROOT; };
-		03D1C8871C781AFB00AF5475 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Tests/Info.plist; sourceTree = SOURCE_ROOT; };
-		03D1C8881C781AFB00AF5475 /* LocationTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LocationTests.mm; path = Source/Tests/LocationTests.mm; sourceTree = SOURCE_ROOT; };
-		03D1C8891C781AFB00AF5475 /* SearchExpressionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SearchExpressionTests.mm; path = Source/Tests/SearchExpressionTests.mm; sourceTree = SOURCE_ROOT; };
-		03D1C88A1C781AFB00AF5475 /* SelectionSetTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectionSetTests.mm; path = Source/Tests/SelectionSetTests.mm; sourceTree = SOURCE_ROOT; };
-		03D1C88B1C781AFB00AF5475 /* SelectionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectionTests.mm; path = Source/Tests/SelectionTests.mm; sourceTree = SOURCE_ROOT; };
 		03DC0F0D1C96674A0082EC8C /* QuipDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuipDocumentController.h; path = Source/Mac/QuipDocumentController.h; sourceTree = "<group>"; };
 		03DC0F0E1C96674A0082EC8C /* QuipDocumentController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = QuipDocumentController.mm; path = Source/Mac/QuipDocumentController.mm; sourceTree = "<group>"; };
 		03DFA5101D07C5DD004CBE46 /* SelectionSetIterator.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = SelectionSetIterator.inl; path = Source/Core/SelectionSetIterator.inl; sourceTree = "<group>"; };
@@ -277,6 +281,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		03C365AB1E61E7A100A21596 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03C365BA1E61EB1700A21596 /* libQuip.Core.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03C7E9081E42F4C100AAB7A9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -297,14 +309,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				032C56831E3D739700BE61A0 /* liblua.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		03D1C8771C781A4A00AF5475 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				03D1C87F1C781A4A00AF5475 /* libQuip.Core.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +411,7 @@
 		035DCDCD1E3D37A600B52098 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				03C365A81E61E6DD00A21596 /* catch */,
 				03E287CF1E3E712500723824 /* lpeg */,
 				032C565E1E3D5CF900BE61A0 /* lua */,
 				035DCDCE1E3D37AE00B52098 /* optional-lite */,
@@ -500,6 +505,14 @@
 			name = Application;
 			sourceTree = "<group>";
 		};
+		03C365A81E61E6DD00A21596 /* catch */ = {
+			isa = PBXGroup;
+			children = (
+				03C365A91E61E6FA00A21596 /* catch.hpp */,
+			);
+			name = catch;
+			sourceTree = "<group>";
+		};
 		03C7E90C1E42F4C100AAB7A9 /* Launcher */ = {
 			isa = PBXGroup;
 			children = (
@@ -528,8 +541,8 @@
 			children = (
 				03CCFAEB1BF1A1BE0033929E /* Quip.app */,
 				03D1C8241C78196400AF5475 /* libQuip.Core.a */,
-				03D1C87A1C781A4A00AF5475 /* Quip.Core.Tests.xctest */,
 				03C7E90B1E42F4C100AAB7A9 /* quip */,
+				03C365AE1E61E7A100A21596 /* Quip.Tests */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -668,18 +681,18 @@
 		03D1C87B1C781A4A00AF5475 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				03D1C8871C781AFB00AF5475 /* Info.plist */,
-				03532D5F1D8B65DF0007E2BF /* CoordinateTests.mm */,
-				03D1C8851C781AFB00AF5475 /* DocumentIteratorTests.mm */,
-				03D1C8861C781AFB00AF5475 /* DocumentTests.mm */,
-				03532D521D8B5E5A0007E2BF /* ExtentTests.mm */,
-				031FC0DC1D3BFD4100628179 /* KeySequenceTests.mm */,
-				03D1C8881C781AFB00AF5475 /* LocationTests.mm */,
-				03D1C8891C781AFB00AF5475 /* SearchExpressionTests.mm */,
-				03D1C88A1C781AFB00AF5475 /* SelectionSetTests.mm */,
-				03D1C88B1C781AFB00AF5475 /* SelectionTests.mm */,
-				03372BFB1E3C1F19005342DD /* SelectorTests.mm */,
-				036FD3FE1D75CDC7006EDD9E /* SignalTests.mm */,
+				03C365B51E61E7D300A21596 /* main.cpp */,
+				03C365B81E61E82800A21596 /* CoordinateTests.cpp */,
+				03C365BB1E61ED0200A21596 /* ExtentTests.cpp */,
+				039BDD601E61EE7D0060608C /* DocumentIteratorTests.cpp */,
+				039BDD621E61EF910060608C /* DocumentTests.cpp */,
+				039BDD661E61F4ED0060608C /* KeySequenceTests.cpp */,
+				039BDD6C1E61F6570060608C /* LocationTests.cpp */,
+				039BDD6F1E61F7810060608C /* SearchExpressionTests.cpp */,
+				039BDD5E1E61EDD40060608C /* SelectionTests.cpp */,
+				039BDD731E61F9360060608C /* SelectionSetTests.cpp */,
+				039BDD711E61F80D0060608C /* SelectorTests.cpp */,
+				039BDD641E61F3CF0060608C /* SignalTests.cpp */,
 			);
 			name = Tests;
 			path = Quip.Core.Tests;
@@ -725,6 +738,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		03C365AD1E61E7A100A21596 /* Quip.Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03C365B21E61E7A100A21596 /* Build configuration list for PBXNativeTarget "Quip.Tests" */;
+			buildPhases = (
+				03C365AA1E61E7A100A21596 /* Sources */,
+				03C365AB1E61E7A100A21596 /* Frameworks */,
+				03C365AC1E61E7A100A21596 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Quip.Tests;
+			productName = Quip.Tests;
+			productReference = 03C365AE1E61E7A100A21596 /* Quip.Tests */;
+			productType = "com.apple.product-type.tool";
+		};
 		03C7E90A1E42F4C100AAB7A9 /* Quip.Launcher */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 03C7E9111E42F4C100AAB7A9 /* Build configuration list for PBXNativeTarget "Quip.Launcher" */;
@@ -777,24 +807,6 @@
 			productReference = 03D1C8241C78196400AF5475 /* libQuip.Core.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		03D1C8791C781A4A00AF5475 /* Quip.Core.Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 03D1C8821C781A4A00AF5475 /* Build configuration list for PBXNativeTarget "Quip.Core.Tests" */;
-			buildPhases = (
-				03D1C8761C781A4A00AF5475 /* Sources */,
-				03D1C8771C781A4A00AF5475 /* Frameworks */,
-				03D1C8781C781A4A00AF5475 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				03D1C8811C781A4A00AF5475 /* PBXTargetDependency */,
-			);
-			name = Quip.Core.Tests;
-			productName = Quip.Core.Tests;
-			productReference = 03D1C87A1C781A4A00AF5475 /* Quip.Core.Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -804,6 +816,10 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Josh Petrie";
 				TargetAttributes = {
+					03C365AD1E61E7A100A21596 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
 					03C7E90A1E42F4C100AAB7A9 = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
@@ -812,9 +828,6 @@
 						CreatedOnToolsVersion = 7.1;
 					};
 					03D1C8231C78196400AF5475 = {
-						CreatedOnToolsVersion = 7.2.1;
-					};
-					03D1C8791C781A4A00AF5475 = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
 				};
@@ -834,7 +847,7 @@
 			targets = (
 				03CCFAEA1BF1A1BE0033929E /* Quip */,
 				03D1C8231C78196400AF5475 /* Quip.Core */,
-				03D1C8791C781A4A00AF5475 /* Quip.Core.Tests */,
+				03C365AD1E61E7A100A21596 /* Quip.Tests */,
 				03C7E90A1E42F4C100AAB7A9 /* Quip.Launcher */,
 			);
 		};
@@ -853,16 +866,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		03D1C8781C781A4A00AF5475 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		03C365AA1E61E7A100A21596 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				039BDD5F1E61EDD40060608C /* SelectionTests.cpp in Sources */,
+				039BDD701E61F7810060608C /* SearchExpressionTests.cpp in Sources */,
+				03C365BC1E61ED0200A21596 /* ExtentTests.cpp in Sources */,
+				039BDD6E1E61F6570060608C /* LocationTests.cpp in Sources */,
+				039BDD681E61F4ED0060608C /* KeySequenceTests.cpp in Sources */,
+				03C365B61E61E7D300A21596 /* main.cpp in Sources */,
+				03C365B91E61E82800A21596 /* CoordinateTests.cpp in Sources */,
+				039BDD741E61F9360060608C /* SelectionSetTests.cpp in Sources */,
+				039BDD631E61EF910060608C /* DocumentTests.cpp in Sources */,
+				039BDD651E61F3CF0060608C /* SignalTests.cpp in Sources */,
+				039BDD721E61F80D0060608C /* SelectorTests.cpp in Sources */,
+				039BDD611E61EE7D0060608C /* DocumentIteratorTests.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03C7E9071E42F4C100AAB7A9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -930,24 +955,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		03D1C8761C781A4A00AF5475 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				030AC70F1C781B9F00219938 /* DocumentTests.mm in Sources */,
-				03532D601D8B65DF0007E2BF /* CoordinateTests.mm in Sources */,
-				03532D531D8B5E5A0007E2BF /* ExtentTests.mm in Sources */,
-				03372BFC1E3C1F19005342DD /* SelectorTests.mm in Sources */,
-				036FD3FF1D75CDC7006EDD9E /* SignalTests.mm in Sources */,
-				030AC7111C781B9F00219938 /* SearchExpressionTests.mm in Sources */,
-				031FC0DD1D3BFD4100628179 /* KeySequenceTests.mm in Sources */,
-				030AC7101C781B9F00219938 /* LocationTests.mm in Sources */,
-				030AC7121C781B9F00219938 /* SelectionSetTests.mm in Sources */,
-				030AC7131C781B9F00219938 /* SelectionTests.mm in Sources */,
-				030AC70E1C781B9F00219938 /* DocumentIteratorTests.mm in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -956,14 +963,29 @@
 			target = 03D1C8231C78196400AF5475 /* Quip.Core */;
 			targetProxy = 030AC7141C781BCF00219938 /* PBXContainerItemProxy */;
 		};
-		03D1C8811C781A4A00AF5475 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 03D1C8231C78196400AF5475 /* Quip.Core */;
-			targetProxy = 03D1C8801C781A4A00AF5475 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		03C365B31E61E7A100A21596 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		03C365B41E61E7A100A21596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		03C7E90F1E42F4C100AAB7A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1131,33 +1153,18 @@
 			};
 			name = Release;
 		};
-		03D1C8831C781A4A00AF5475 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Source/Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "net.joshpetrie.Quip-Core-Tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		03D1C8841C781A4A00AF5475 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Source/Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "net.joshpetrie.Quip-Core-Tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		03C365B21E61E7A100A21596 /* Build configuration list for PBXNativeTarget "Quip.Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03C365B31E61E7A100A21596 /* Debug */,
+				03C365B41E61E7A100A21596 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		03C7E9111E42F4C100AAB7A9 /* Build configuration list for PBXNativeTarget "Quip.Launcher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1190,15 +1197,6 @@
 			buildConfigurations = (
 				03D1C8251C78196400AF5475 /* Debug */,
 				03D1C8261C78196400AF5475 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		03D1C8821C781A4A00AF5475 /* Build configuration list for PBXNativeTarget "Quip.Core.Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				03D1C8831C781A4A00AF5475 /* Debug */,
-				03D1C8841C781A4A00AF5475 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
