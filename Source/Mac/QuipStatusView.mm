@@ -12,8 +12,6 @@
 }
 @end
 
-static NSString * gSizeQueryString = @"m";
-
 static CGFloat gStatusLineBottomPadding = 4.0;
 static CGFloat gStatusLineLeftPadding = 2.0;
 
