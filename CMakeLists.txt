@@ -136,7 +136,7 @@ set(QuipRuntimeFiles
 )
 
 set(QuipLauncherSourceFiles
-  Launcher/main.m
+  Source/Launcher/main.m
 )
 
 set(RESOURCE
