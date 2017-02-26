@@ -4,4 +4,5 @@ script:
  - mkdir Build
  - cd Build
  - cmake -G Xcode ../
- - xcodebuild -project Quip.xcodeproj -scheme Quip -configuration Release build
+ - xcodebuild -project Quip.xcodeproj -list
+ - xcodebuild -project Quip.xcodeproj -configuration Release build
