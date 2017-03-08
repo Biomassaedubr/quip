@@ -2,152 +2,173 @@ cmake_minimum_required(VERSION 2.6)
 project(Quip)
 
 set(QuipCoreSourceFiles
-  Source/Core/AppendTransaction.cpp
-  Source/Core/AppendTransaction.hpp
-  Source/Core/AttributeRange.cpp
-  Source/Core/AttributeRange.hpp
-  Source/Core/ChangeType.hpp
-  Source/Core/Color.cpp
-  Source/Core/Color.hpp
-  Source/Core/Coordinate.cpp
-  Source/Core/Coordinate.hpp
-  Source/Core/CursorFlags.hpp
-  Source/Core/CursorStyle.hpp
-  Source/Core/Document.cpp
-  Source/Core/Document.hpp
-  Source/Core/DocumentIterator.cpp
-  Source/Core/DocumentIterator.hpp
-  Source/Core/DocumentIterator.inl
-  Source/Core/DrawingService.cpp
-  Source/Core/DrawingService.hpp
-  Source/Core/EditContext.cpp
-  Source/Core/EditContext.hpp
-  Source/Core/EditMode.cpp
-  Source/Core/EditMode.hpp
-  Source/Core/EraseTransaction.cpp
-  Source/Core/EraseTransaction.hpp
-  Source/Core/Extent.cpp
-  Source/Core/Extent.hpp
-  Source/Core/FileTypeDatabase.cpp
-  Source/Core/FileTypeDatabase.hpp
-  Source/Core/GlobalSettings.cpp
-  Source/Core/GlobalSettings.hpp
-  Source/Core/InsertTransaction.cpp
-  Source/Core/InsertTransaction.hpp
-  Source/Core/JumpMode.cpp
-  Source/Core/JumpMode.hpp
-  Source/Core/Key.cpp
-  Source/Core/Key.hpp
-  Source/Core/KeySequence.cpp
-  Source/Core/KeySequence.hpp
-  Source/Core/Location.cpp
-  Source/Core/Location.hpp
-  Source/Core/Lua.hpp
-  Source/Core/MapTrie.cpp
-  Source/Core/MapTrie.hpp
-  Source/Core/MapTrieNode.cpp
-  Source/Core/MapTrieNode.hpp
-  Source/Core/Mode.cpp
-  Source/Core/Mode.hpp
-  Source/Core/NormalMode.cpp
-  Source/Core/NormalMode.hpp
-  Source/Core/Optional.hpp
-  Source/Core/PopupService.cpp
-  Source/Core/PopupService.hpp
-  Source/Core/Rectangle.cpp
-  Source/Core/Rectangle.hpp
-  Source/Core/Script.cpp
-  Source/Core/Script.hpp
-  Source/Core/ScriptHost.cpp
-  Source/Core/ScriptHost.hpp
-  Source/Core/SearchExpression.cpp
-  Source/Core/SearchExpression.hpp
-  Source/Core/SearchMode.cpp
-  Source/Core/SearchMode.hpp
-  Source/Core/Selection.cpp
-  Source/Core/Selection.hpp
-  Source/Core/SelectionDrawInfo.cpp
-  Source/Core/SelectionDrawInfo.hpp
-  Source/Core/SelectionSet.cpp
-  Source/Core/SelectionSet.hpp
-  Source/Core/SelectionSetIterator.hpp
-  Source/Core/SelectionSetIterator.inl
-  Source/Core/Selector.cpp
-  Source/Core/Selector.hpp
-  Source/Core/Signal.hpp
-  Source/Core/StatusService.cpp
-  Source/Core/StatusService.hpp
-  Source/Core/Transaction.cpp
-  Source/Core/Transaction.hpp
-  Source/Core/ViewController.hpp
+  Code/Core/Documents/Document.cpp
+  Code/Core/Documents/Document.hpp
+  Code/Core/Documents/DocumentIterator.cpp
+  Code/Core/Documents/DocumentIterator.hpp
+  Code/Core/Documents/DocumentIterator.inl
+  Code/Core/Documents/EditContext.cpp
+  Code/Core/Documents/EditContext.hpp
+  Code/Core/Documents/FileTypeDatabase.cpp
+  Code/Core/Documents/FileTypeDatabase.hpp
+  Code/Core/Modes/CursorFlags.hpp
+  Code/Core/Modes/CursorStyle.hpp
+  Code/Core/Modes/Key.cpp
+  Code/Core/Modes/Key.hpp
+  Code/Core/Modes/KeySequence.cpp
+  Code/Core/Modes/KeySequence.hpp
+  Code/Core/Modes/MapTrie.cpp
+  Code/Core/Modes/MapTrie.hpp
+  Code/Core/Modes/MapTrieNode.cpp
+  Code/Core/Modes/MapTrieNode.hpp
+  Code/Core/Modes/Mode.cpp
+  Code/Core/Modes/Mode.hpp
+  Code/Core/Modes/Edit/EditMode.cpp
+  Code/Core/Modes/Edit/EditMode.hpp
+  Code/Core/Modes/Jump/JumpMode.cpp
+  Code/Core/Modes/Jump/JumpMode.hpp
+  Code/Core/Modes/Normal/NormalMode.cpp
+  Code/Core/Modes/Normal/NormalMode.hpp
+  Code/Core/Modes/Search/SearchExpression.cpp
+  Code/Core/Modes/Search/SearchExpression.hpp
+  Code/Core/Modes/Search/SearchMode.cpp
+  Code/Core/Modes/Search/SearchMode.hpp
+  Code/Core/Scripting/Lua.hpp
+  Code/Core/Scripting/Script.cpp
+  Code/Core/Scripting/Script.hpp
+  Code/Core/Scripting/ScriptHost.cpp
+  Code/Core/Scripting/ScriptHost.hpp
+  Code/Core/Selections/Selection.cpp
+  Code/Core/Selections/Selection.hpp
+  Code/Core/Selections/SelectionDrawInfo.cpp
+  Code/Core/Selections/SelectionDrawInfo.hpp
+  Code/Core/Selections/SelectionSet.cpp
+  Code/Core/Selections/SelectionSet.hpp
+  Code/Core/Selections/SelectionSetIterator.hpp
+  Code/Core/Selections/SelectionSetIterator.inl
+  Code/Core/Selections/Selector.cpp
+  Code/Core/Selections/Selector.hpp
+  Code/Core/Services/DrawingService.cpp
+  Code/Core/Services/DrawingService.hpp
+  Code/Core/Services/PopupService.cpp
+  Code/Core/Services/PopupService.hpp
+  Code/Core/Services/StatusService.cpp
+  Code/Core/Services/StatusService.hpp
+  Code/Core/Settings/GlobalSettings.cpp
+  Code/Core/Settings/GlobalSettings.hpp
+  Code/Core/Transactions/AppendTransaction.cpp
+  Code/Core/Transactions/AppendTransaction.hpp
+  Code/Core/Transactions/EraseTransaction.cpp
+  Code/Core/Transactions/EraseTransaction.hpp
+  Code/Core/Transactions/InsertTransaction.cpp
+  Code/Core/Transactions/InsertTransaction.hpp
+  Code/Core/Transactions/Transaction.cpp
+  Code/Core/Transactions/Transaction.hpp
+  Code/Core/Utilities/AttributeRange.cpp
+  Code/Core/Utilities/AttributeRange.hpp
+  Code/Core/Utilities/Color.cpp
+  Code/Core/Utilities/Color.hpp
+  Code/Core/Utilities/Coordinate.cpp
+  Code/Core/Utilities/Coordinate.hpp
+  Code/Core/Utilities/Extent.cpp
+  Code/Core/Utilities/Extent.hpp
+  Code/Core/Utilities/Location.cpp
+  Code/Core/Utilities/Location.hpp
+  Code/Core/Utilities/Optional.hpp
+  Code/Core/Utilities/Rectangle.cpp
+  Code/Core/Utilities/Rectangle.hpp
+  Code/Core/Utilities/Signal.hpp
+  Code/Core/Utilities/ViewController.hpp
 )
 
 set(QuipTestSourceFiles
-  Source/Tests/CoordinateTests.cpp
-  Source/Tests/DocumentIteratorTests.cpp
-  Source/Tests/DocumentTests.cpp
-  Source/Tests/ExtentTests.cpp
-  Source/Tests/KeySequenceTests.cpp
-  Source/Tests/LocationTests.cpp
-  Source/Tests/SearchExpressionTests.cpp
-  Source/Tests/SelectionSetTests.cpp
-  Source/Tests/SelectionTests.cpp
-  Source/Tests/SelectorTests.cpp
-  Source/Tests/SignalTests.cpp
-  Source/Tests/main.cpp
+  Code/Tests/CoordinateTests.cpp
+  Code/Tests/DocumentIteratorTests.cpp
+  Code/Tests/DocumentTests.cpp
+  Code/Tests/ExtentTests.cpp
+  Code/Tests/KeySequenceTests.cpp
+  Code/Tests/LocationTests.cpp
+  Code/Tests/SearchExpressionTests.cpp
+  Code/Tests/SelectionSetTests.cpp
+  Code/Tests/SelectionTests.cpp
+  Code/Tests/SelectorTests.cpp
+  Code/Tests/SignalTests.cpp
+  Code/Tests/main.cpp
 )
 
 set(QuipApplicationSourceFiles
   Dependencies/lpeg/lpeg.so
   Resources/Images.xcassets
-  Source/Mac/DrawingServiceProvider.hpp
-  Source/Mac/DrawingServiceProvider.mm
-  Source/Mac/Info.plist.in
-  Source/Mac/MainMenu.xib
-  Source/Mac/PopupServiceProvider.hpp
-  Source/Mac/PopupServiceProvider.mm
-  Source/Mac/QuipApplicationDelegate.h
-  Source/Mac/QuipApplicationDelegate.mm
-  Source/Mac/QuipDocument.h
-  Source/Mac/QuipDocument.mm
-  Source/Mac/QuipDocumentController.h
-  Source/Mac/QuipDocumentController.mm
-  Source/Mac/QuipPopupView.h
-  Source/Mac/QuipPopupView.mm
-  Source/Mac/QuipStatusView.h
-  Source/Mac/QuipStatusView.mm
-  Source/Mac/QuipTextView.h
-  Source/Mac/QuipTextView.mm
-  Source/Mac/QuipWindowController.h
-  Source/Mac/QuipWindowController.mm
-  Source/Mac/QuipWindowController.xib
-  Source/Mac/StatusServiceProvider.hpp
-  Source/Mac/StatusServiceProvider.mm
-  Source/Mac/main.m
+  Code/Mac/DrawingServiceProvider.hpp
+  Code/Mac/DrawingServiceProvider.mm
+  Code/Mac/Info.plist.in
+  Code/Mac/MainMenu.xib
+  Code/Mac/PopupServiceProvider.hpp
+  Code/Mac/PopupServiceProvider.mm
+  Code/Mac/QuipApplicationDelegate.h
+  Code/Mac/QuipApplicationDelegate.mm
+  Code/Mac/QuipDocument.h
+  Code/Mac/QuipDocument.mm
+  Code/Mac/QuipDocumentController.h
+  Code/Mac/QuipDocumentController.mm
+  Code/Mac/QuipPopupView.h
+  Code/Mac/QuipPopupView.mm
+  Code/Mac/QuipStatusView.h
+  Code/Mac/QuipStatusView.mm
+  Code/Mac/QuipTextView.h
+  Code/Mac/QuipTextView.mm
+  Code/Mac/QuipWindowController.h
+  Code/Mac/QuipWindowController.mm
+  Code/Mac/QuipWindowController.xib
+  Code/Mac/StatusServiceProvider.hpp
+  Code/Mac/StatusServiceProvider.mm
+  Code/Mac/main.m
 )
 
 set(QuipRuntimeFiles
-  Source/Runtime/boot.lua
-  Source/Runtime/syntax.lua
-  Source/Runtime/syntax/cpp.lua
-  Source/Runtime/syntax/glsl.lua
-  Source/Runtime/syntax/markdown.lua
-  Source/Runtime/syntax/text.lua
+  Code/Runtime/boot.lua
+  Code/Runtime/syntax.lua
+  Code/Runtime/syntax/cpp.lua
+  Code/Runtime/syntax/glsl.lua
+  Code/Runtime/syntax/markdown.lua
+  Code/Runtime/syntax/text.lua
 )
 
 set(QuipLauncherSourceFiles
-  Source/Launcher/main.m
+  Code/Launcher/main.m
 )
 
 set(RESOURCE
   Resources/Images.xcassets
 )
 
+foreach(Item ${QuipCoreSourceFiles})
+  get_filename_component(ItemName ${Item} NAME_WE)
+  get_filename_component(ItemExtension ${Item} EXT)
+  get_filename_component(ItemDirectory ${Item} DIRECTORY)
+  get_filename_component(ItemAbsolute ${Item} ABSOLUTE)
+
+  if(${ItemDirectory} MATCHES "^Runtime/.*")
+    set_source_files_properties(${Item} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources/${ItemDirectory}")
+  elseif(${ItemExtension} STREQUAL ".h")
+    list(APPEND IncludeDirectories ${ItemDirectory})
+  elseif(${ItemExtension} STREQUAL ".hpp")
+    list(APPEND IncludeDirectories ${ItemDirectory})
+  elseif(${ItemExtension} STREQUAL ".xib")
+    set_source_files_properties(${Item} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+  endif()
+
+  string(REPLACE "/" "\\" GroupName ${ItemDirectory})
+  source_group(${GroupName} FILES ${Item})
+endforeach()
+
 find_library(CocoaFramework Cocoa)
 find_library(CoreGraphicsFramework CoreGraphics)
 
 add_library(Quip.Core ${QuipCoreSourceFiles})
 set_target_properties(Quip.Core PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
+target_include_directories(Quip.Core PRIVATE ${IncludeDirectories})
+
 target_include_directories(Quip.Core PRIVATE Dependencies/lua/include)
 target_include_directories(Quip.Core PRIVATE Dependencies/optional-lite)
 
@@ -156,7 +177,7 @@ add_executable(Quip.Tests ${QuipTestSourceFiles})
 set_target_properties(Quip.Tests PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
 target_include_directories(Quip.Tests PRIVATE Dependencies/catch)
 target_include_directories(Quip.Tests PRIVATE Dependencies/optional-lite)
-target_include_directories(Quip.Tests PRIVATE Source/Core)
+target_include_directories(Quip.Tests PRIVATE Code/Core)
 target_link_libraries(Quip.Tests PRIVATE Quip.Core)
 
 
@@ -166,12 +187,14 @@ target_link_libraries(Quip.Launcher PRIVATE ${CocoaFramework})
 
 add_executable(Quip MACOSX_BUNDLE ${QuipApplicationSourceFiles} ${QuipRuntimeFiles})
 set_target_properties(Quip PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
-set_target_properties(Quip PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/Source/Mac/Info.plist.in)
+set_target_properties(Quip PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/Code/Mac/Info.plist.in)
 
 target_compile_options(Quip PRIVATE "-fobjc-arc")
 target_include_directories(Quip PRIVATE Dependencies/lua/include)
 target_include_directories(Quip PRIVATE Dependencies/optional-lite)
-target_include_directories(Quip PRIVATE Source/Core)
+target_include_directories(Quip PRIVATE Code/Core)
+target_include_directories(Quip PRIVATE ${IncludeDirectories})
+
 target_link_libraries(Quip PRIVATE Quip.Core)
 target_link_libraries(Quip PRIVATE ${CMAKE_SOURCE_DIR}/Dependencies/lua/bin/liblua.a)
 target_link_libraries(Quip PRIVATE ${CocoaFramework} ${CoreGraphicsFramework})
@@ -179,14 +202,14 @@ target_link_libraries(Quip PRIVATE ${CocoaFramework} ${CoreGraphicsFramework})
 set_target_properties(Quip PROPERTIES RESOURCE Resources/Images.xcassets)
 set_target_properties(Quip PROPERTIES XCODE_ATTRIBUTE_ASSETCATALOG_COMPILER_APPICON_NAME AppIcon)
 
-set_source_files_properties(Source/Mac/MainMenu.xib PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-set_source_files_properties(Source/Mac/QuipWindowController.xib PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+set_source_files_properties(Code/Mac/MainMenu.xib PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+set_source_files_properties(Code/Mac/QuipWindowController.xib PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 
-set_source_files_properties(Source/Runtime/boot.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime)
-set_source_files_properties(Source/Runtime/syntax.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime)
-set_source_files_properties(Source/Runtime/syntax/cpp.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime/syntax)
-set_source_files_properties(Source/Runtime/syntax/glsl.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime/syntax)
-set_source_files_properties(Source/Runtime/syntax/markdown.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime/syntax)
-set_source_files_properties(Source/Runtime/syntax/text.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime/syntax)
+set_source_files_properties(Code/Runtime/boot.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime)
+set_source_files_properties(Code/Runtime/syntax.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime)
+set_source_files_properties(Code/Runtime/syntax/cpp.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime/syntax)
+set_source_files_properties(Code/Runtime/syntax/glsl.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime/syntax)
+set_source_files_properties(Code/Runtime/syntax/markdown.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime/syntax)
+set_source_files_properties(Code/Runtime/syntax/text.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime/syntax)
 
 set_source_files_properties(Dependencies/lpeg/lpeg.so PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
