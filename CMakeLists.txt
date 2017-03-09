@@ -168,16 +168,15 @@ find_library(CoreGraphicsFramework CoreGraphics)
 add_library(Quip.Core ${QuipCoreSourceFiles})
 set_target_properties(Quip.Core PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
 target_include_directories(Quip.Core PRIVATE ${IncludeDirectories})
-
 target_include_directories(Quip.Core PRIVATE Dependencies/lua/include)
 target_include_directories(Quip.Core PRIVATE Dependencies/optional-lite)
 
 
 add_executable(Quip.Tests ${QuipTestSourceFiles})
 set_target_properties(Quip.Tests PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
+target_include_directories(Quip.Tests PRIVATE ${IncludeDirectories})
 target_include_directories(Quip.Tests PRIVATE Dependencies/catch)
 target_include_directories(Quip.Tests PRIVATE Dependencies/optional-lite)
-target_include_directories(Quip.Tests PRIVATE Code/Core)
 target_link_libraries(Quip.Tests PRIVATE Quip.Core)
 
 
@@ -190,10 +189,9 @@ set_target_properties(Quip PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
 set_target_properties(Quip PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/Code/Mac/Info.plist.in)
 
 target_compile_options(Quip PRIVATE "-fobjc-arc")
+target_include_directories(Quip PRIVATE ${IncludeDirectories})
 target_include_directories(Quip PRIVATE Dependencies/lua/include)
 target_include_directories(Quip PRIVATE Dependencies/optional-lite)
-target_include_directories(Quip PRIVATE Code/Core)
-target_include_directories(Quip PRIVATE ${IncludeDirectories})
 
 target_link_libraries(Quip PRIVATE Quip.Core)
 target_link_libraries(Quip PRIVATE ${CMAKE_SOURCE_DIR}/Dependencies/lua/bin/liblua.a)
