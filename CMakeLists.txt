@@ -159,6 +159,7 @@ foreach(Item ${QuipCoreSourceFiles})
   endif()
 
   string(REPLACE "/" "\\" GroupName ${ItemDirectory})
+  string(REPLACE "Code\\Core" "" GroupName ${GroupName})
   source_group(${GroupName} FILES ${Item})
 endforeach()
 
