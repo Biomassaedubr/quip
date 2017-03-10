@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(Quip)
 
-set(QuipCoreSourceFiles
+set(CoreSourceFiles
   Code/Core/Documents/Document.cpp
   Code/Core/Documents/Document.hpp
   Code/Core/Documents/DocumentIterator.cpp
@@ -81,7 +81,7 @@ set(QuipCoreSourceFiles
   Code/Core/Utilities/ViewController.hpp
 )
 
-set(QuipTestSourceFiles
+set(TestSourceFiles
   Code/Tests/CoordinateTests.cpp
   Code/Tests/DocumentIteratorTests.cpp
   Code/Tests/DocumentTests.cpp
@@ -96,7 +96,7 @@ set(QuipTestSourceFiles
   Code/Tests/main.cpp
 )
 
-set(QuipApplicationSourceFiles
+set(ApplicationSourceFiles
   Dependencies/lpeg/lpeg.so
   Resources/Images.xcassets
   Code/Mac/DrawingServiceProvider.hpp
@@ -125,7 +125,11 @@ set(QuipApplicationSourceFiles
   Code/Mac/main.m
 )
 
-set(QuipRuntimeFiles
+set(LauncherSourceFiles
+  Code/Launcher/main.m
+)
+
+set(RuntimeFiles
   Code/Runtime/boot.lua
   Code/Runtime/syntax.lua
   Code/Runtime/syntax/cpp.lua
@@ -134,81 +138,73 @@ set(QuipRuntimeFiles
   Code/Runtime/syntax/text.lua
 )
 
-set(QuipLauncherSourceFiles
-  Code/Launcher/main.m
-)
-
 set(RESOURCE
   Resources/Images.xcassets
 )
 
-foreach(Item ${QuipCoreSourceFiles})
-  get_filename_component(ItemName ${Item} NAME_WE)
-  get_filename_component(ItemExtension ${Item} EXT)
-  get_filename_component(ItemDirectory ${Item} DIRECTORY)
-  get_filename_component(ItemAbsolute ${Item} ABSOLUTE)
+function(process_source_files SourceFiles IncludePathVariable)
+  foreach(Item ${SourceFiles})
+    get_filename_component(ItemName ${Item} NAME_WE)
+    get_filename_component(ItemExtension ${Item} EXT)
+    get_filename_component(ItemDirectory ${Item} DIRECTORY)
+    get_filename_component(ItemAbsolute ${Item} ABSOLUTE)
 
-  if(${ItemDirectory} MATCHES "^Runtime/.*")
-    set_source_files_properties(${Item} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources/${ItemDirectory}")
-  elseif(${ItemExtension} STREQUAL ".h")
-    list(APPEND IncludeDirectories ${ItemDirectory})
-  elseif(${ItemExtension} STREQUAL ".hpp")
-    list(APPEND IncludeDirectories ${ItemDirectory})
-  elseif(${ItemExtension} STREQUAL ".xib")
-    set_source_files_properties(${Item} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-  endif()
+    if(${ItemDirectory} MATCHES "^Runtime/.*")
+      set_source_files_properties(${Item} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources/${ItemDirectory}")
+    elseif(${ItemExtension} STREQUAL ".h")
+      list(APPEND LocalIncludePaths ${ItemDirectory})
+    elseif(${ItemExtension} STREQUAL ".hpp")
+      list(APPEND LocalIncludePaths ${ItemDirectory})
+    elseif(${ItemExtension} STREQUAL ".xib")
+      set_source_files_properties(${Item} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+    endif()
 
-  string(REPLACE "/" "\\" GroupName ${ItemDirectory})
-  string(REPLACE "Code\\Core" "" GroupName ${GroupName})
-  source_group(${GroupName} FILES ${Item})
-endforeach()
+    string(REPLACE "/" "\\" GroupName ${ItemDirectory})
+    string(REPLACE "Code\\" "" GroupName ${GroupName})
+    source_group(${GroupName} FILES ${Item})
+  endforeach()
+
+  set(${IncludePathVariable} ${LocalIncludePaths} PARENT_SCOPE)
+endfunction()
+
+process_source_files("${CoreSourceFiles}" CoreIncludeDirectories)
+process_source_files("${TestSourceFiles}" TestIncludeDirectories)
+process_source_files("${ApplicationSourceFiles}" ApplicationIncludeDirectories)
+process_source_files("${RuntimeFiles}" RuntimeIncludeDirectories)
 
 find_library(CocoaFramework Cocoa)
 find_library(CoreGraphicsFramework CoreGraphics)
 
-add_library(Quip.Core ${QuipCoreSourceFiles})
+add_library(Quip.Core ${CoreSourceFiles})
 set_target_properties(Quip.Core PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
-target_include_directories(Quip.Core PRIVATE ${IncludeDirectories})
+target_include_directories(Quip.Core PRIVATE ${CoreIncludeDirectories})
 target_include_directories(Quip.Core PRIVATE Dependencies/lua/include)
 target_include_directories(Quip.Core PRIVATE Dependencies/optional-lite)
 
-
-add_executable(Quip.Tests ${QuipTestSourceFiles})
+add_executable(Quip.Tests ${TestSourceFiles})
 set_target_properties(Quip.Tests PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
-target_include_directories(Quip.Tests PRIVATE ${IncludeDirectories})
+target_include_directories(Quip.Tests PRIVATE ${CoreIncludeDirectories})
+target_include_directories(Quip.Tests PRIVATE ${TestIncludeDirectories})
 target_include_directories(Quip.Tests PRIVATE Dependencies/catch)
 target_include_directories(Quip.Tests PRIVATE Dependencies/optional-lite)
 target_link_libraries(Quip.Tests PRIVATE Quip.Core)
 
-
-add_executable(Quip.Launcher ${QuipLauncherSourceFiles})
+add_executable(Quip.Launcher ${LauncherSourceFiles})
 target_link_libraries(Quip.Launcher PRIVATE ${CocoaFramework})
 
-
-add_executable(Quip MACOSX_BUNDLE ${QuipApplicationSourceFiles} ${QuipRuntimeFiles})
+add_executable(Quip MACOSX_BUNDLE ${ApplicationSourceFiles} ${RuntimeFiles})
 set_target_properties(Quip PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
 set_target_properties(Quip PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/Code/Mac/Info.plist.in)
-
 target_compile_options(Quip PRIVATE "-fobjc-arc")
-target_include_directories(Quip PRIVATE ${IncludeDirectories})
+target_include_directories(Quip PRIVATE ${ApplicationIncludeDirectories})
+target_include_directories(Quip PRIVATE ${CoreIncludeDirectories})
 target_include_directories(Quip PRIVATE Dependencies/lua/include)
 target_include_directories(Quip PRIVATE Dependencies/optional-lite)
-
 target_link_libraries(Quip PRIVATE Quip.Core)
 target_link_libraries(Quip PRIVATE ${CMAKE_SOURCE_DIR}/Dependencies/lua/bin/liblua.a)
 target_link_libraries(Quip PRIVATE ${CocoaFramework} ${CoreGraphicsFramework})
 
 set_target_properties(Quip PROPERTIES RESOURCE Resources/Images.xcassets)
 set_target_properties(Quip PROPERTIES XCODE_ATTRIBUTE_ASSETCATALOG_COMPILER_APPICON_NAME AppIcon)
-
-set_source_files_properties(Code/Mac/MainMenu.xib PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-set_source_files_properties(Code/Mac/QuipWindowController.xib PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-
-set_source_files_properties(Code/Runtime/boot.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime)
-set_source_files_properties(Code/Runtime/syntax.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime)
-set_source_files_properties(Code/Runtime/syntax/cpp.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime/syntax)
-set_source_files_properties(Code/Runtime/syntax/glsl.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime/syntax)
-set_source_files_properties(Code/Runtime/syntax/markdown.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime/syntax)
-set_source_files_properties(Code/Runtime/syntax/text.lua PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime/syntax)
 
 set_source_files_properties(Dependencies/lpeg/lpeg.so PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
