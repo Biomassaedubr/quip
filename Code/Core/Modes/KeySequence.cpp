@@ -108,6 +108,7 @@ namespace quip {
     KeySequence result(*this);
     if (m_isShiftOpen) {
       result.append(modifierUp(Key::ShiftMask));
+      result.m_isShiftOpen = false;
     }
     
     return result;
