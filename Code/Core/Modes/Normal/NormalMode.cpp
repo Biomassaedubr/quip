@@ -12,10 +12,10 @@
 
 namespace quip {
   NormalMode::NormalMode() {
-    addMapping(Key::H, &NormalMode::doSelectBeforePrimaryOrigin);
-    addMapping(Key::J, &NormalMode::doSelectBelowPrimaryExtent);
-    addMapping(Key::K, &NormalMode::doSelectAbovePrimaryOrigin);
-    addMapping(Key::L, &NormalMode::doSelectAfterPrimaryExtent);
+    addMapping("H", &NormalMode::doSelectBeforePrimaryOrigin);
+    addMapping("J", &NormalMode::doSelectBelowPrimaryExtent);
+    addMapping("K", &NormalMode::doSelectAbovePrimaryOrigin);
+    addMapping("L", &NormalMode::doSelectAfterPrimaryExtent);
     
     addMapping("TW", &NormalMode::doSelectThisWord);
     addMapping("W", &NormalMode::doSelectNextWord);
@@ -28,17 +28,17 @@ namespace quip {
 
     addMapping("RF", &NormalMode::rotateSelectionForward);
     addMapping("RB", &NormalMode::rotateSelectionBackward);
-    addMapping(Key::Z, &NormalMode::collapseSelections);
+    addMapping("Z", &NormalMode::collapseSelections);
 
-    addMapping(Key::F, &NormalMode::enterJumpMode);
+    addMapping("F", &NormalMode::enterJumpMode);
     addMapping("/", &NormalMode::enterSearchMode);
     addMapping("I", &NormalMode::enterEditModeByInserting);
     addMapping("<S-I>", &NormalMode::enterEditModeByInsertingAtStartOfLines);
     addMapping("A", &NormalMode::enterEditModeByAppending);
     addMapping("<S-A>", &NormalMode::enterEditModeByAppendingAtEndOfLines);
 
-    addMapping(Key::X, &NormalMode::deleteSelections);
-    addMapping(Key::C, &NormalMode::changeSelections);
+    addMapping("X", &NormalMode::deleteSelections);
+    addMapping("C", &NormalMode::changeSelections);
 
     m_virtualColumn = 0;
   }

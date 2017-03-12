@@ -30,11 +30,6 @@ namespace quip {
     
   protected:
     template<typename ModeType>
-    void addMapping (Key key, void (ModeType::* callback)(EditContext &)) {
-      addMapping(KeySequence(key), callback);
-    }
-    
-    template<typename ModeType>
     void addMapping (KeySequence sequence, void (ModeType::* callback)(EditContext &)) {
       MapHandler bound = std::bind(callback, static_cast<ModeType *>(this), std::placeholders::_1);
       m_mappings.insert(sequence, bound);
