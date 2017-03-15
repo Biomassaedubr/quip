@@ -23,6 +23,8 @@ set(CoreSourceFiles
   Code/Core/Modes/MapTrieNode.hpp
   Code/Core/Modes/Mode.cpp
   Code/Core/Modes/Mode.hpp
+  Code/Core/Modes/Modifiers.cpp
+  Code/Core/Modes/Modifiers.hpp
   Code/Core/Modes/Edit/EditMode.cpp
   Code/Core/Modes/Edit/EditMode.hpp
   Code/Core/Modes/Jump/JumpMode.cpp

@@ -3,6 +3,7 @@
 #include "ChangeType.hpp"
 #include "FileTypeDatabase.hpp"
 #include "Key.hpp"
+#include "Modifiers.hpp"
 #include "PopupService.hpp"
 #include "SelectionDrawInfo.hpp"
 #include "SelectionSet.hpp"
@@ -44,8 +45,8 @@ namespace quip {
     bool canRedo () const noexcept;
     void redo ();
 
-    bool processKeyEvent (Key key);
-    bool processKeyEvent (Key key, const std::string & text);
+    bool processKeyEvent(Key key, Modifiers modifiers);
+    bool processKeyEvent(Key key, Modifiers modifiers, const std::string& text);
     
     ViewController & controller ();
     PopupService & popupService ();

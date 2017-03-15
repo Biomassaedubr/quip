@@ -39,7 +39,6 @@
   std::uint32_t m_transactionAppliedToken;
   
   quip::KeySequence m_currentKeySequence;
-  NSEventModifierFlags m_previousKeyModifiers;
 }
 @end
 
@@ -172,21 +171,15 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)keyDown:(NSEvent *)event {
-  NSEventModifierFlags currentModifiers = [event modifierFlags];
-  bool shiftIsDown = (currentModifiers & NSEventModifierFlagShift) > 0;
-  bool shiftWasDown = (m_previousKeyModifiers & NSEventModifierFlagShift) > 0;
-  
-  if (shiftIsDown && !shiftWasDown) {
-    m_context->processKeyEvent(quip::modifierDown(quip::Key::ShiftMask));
-  }
+  NSEventModifierFlags modifierFlags = [event modifierFlags];
+  quip::Modifiers modifiers;
+  modifiers.shift = (modifierFlags & NSEventModifierFlagShift) > 0;
   
   quip::Key key = quip::keyFromScanCode(event.keyCode);
   std::string text = key == quip::Key::Return ? "\n" : std::string([[event characters] cStringUsingEncoding:NSUTF8StringEncoding]);
-  if (m_context->processKeyEvent(key, text)) {
+  if (m_context->processKeyEvent(key, modifiers, text)) {
     [self resetCursorBlink];
   }
-  
-  m_previousKeyModifiers = currentModifiers;
 }
 
 - (void)cut:(id)sender {
