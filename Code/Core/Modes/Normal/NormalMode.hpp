@@ -15,7 +15,12 @@ namespace quip {
     void doSelectBelowPrimaryExtent(EditContext& context);
     void doSelectAfterPrimaryExtent(EditContext& context);
     void doSelectAbovePrimaryOrigin(EditContext& context);
-    
+
+    void doShiftSelectionExtentsLeft(EditContext& context);
+    void doShiftSelectionExtentsDown(EditContext& context);
+    void doShiftSelectionExtentsUp(EditContext& context);
+    void doShiftSelectionExtentsRight(EditContext& context);
+
     void doSelectThisWord(EditContext& context);
     void doSelectNextWord(EditContext& context);
     void doSelectPriorWord(EditContext& context);
