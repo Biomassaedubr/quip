@@ -39,6 +39,21 @@ namespace quip {
     return *this;
   }
   
+  DocumentIterator& DocumentIterator::forwardByRows(std::uint64_t rows) {
+    if (m_location.row() == m_document->rows() - 1) {
+      // Attempting to move by a full row while on the last row should advance
+      // the iterator to the end of the document.
+      m_location = m_document->end().location();
+    } else {
+      std::uint64_t targetRow = m_location.row() + rows;
+      std::uint64_t columnsInTargetRow = m_document->row(targetRow).size();
+      
+      m_location = Location(std::min(columnsInTargetRow - 1, m_location.column()), targetRow);
+    }
+    
+    return *this;
+  }
+  
   bool operator==(const DocumentIterator& left, const DocumentIterator& right) {
     return left.m_document == right.m_document && left.m_location == right.m_location;
   }
