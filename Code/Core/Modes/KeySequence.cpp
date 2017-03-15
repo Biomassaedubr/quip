@@ -1,27 +1,24 @@
 #include "KeySequence.hpp"
 
 namespace quip {
-  KeySequence::KeySequence ()
-  : m_isShiftOpen(false) {
+  KeySequence::KeySequence() {
   }
   
-  KeySequence::KeySequence (Key key)
-  : m_keys({key})
-  , m_isShiftOpen(false) {
+  KeySequence::KeySequence(Key key)
+  : m_keys({key}) {
   }
   
-  KeySequence::KeySequence (std::initializer_list<Key> keys)
-  : m_keys(keys)
-  , m_isShiftOpen(false) {
+  KeySequence::KeySequence(std::initializer_list<Key> keys)
+  : m_keys(keys) {
   }
   
-  KeySequence::KeySequence (const char * expression) {
-    const char * cursor = expression;
+  KeySequence::KeySequence(const char* expression) {
+    const char* cursor = expression;
     while (cursor != nullptr && *cursor != 0) {
       if (*cursor == '<') {
         ++cursor;
         
-        const char * anchor = cursor;
+        const char* anchor = cursor;
         while(*cursor != '>' && *cursor != '-') {
           ++cursor;
         }
@@ -31,14 +28,14 @@ namespace quip {
           std::int32_t modifier = 0;
           while (anchor != cursor) {
             switch (*anchor) {
-              case 'S':
-                modifier |= static_cast<std::int32_t>(Key::ShiftMask);
-                break;
               case 'C':
                 modifier |= static_cast<std::int32_t>(Key::ControlMask);
                 break;
               case 'O':
                 modifier |= static_cast<std::int32_t>(Key::OptionMask);
+                break;
+              case 'S':
+                modifier |= static_cast<std::int32_t>(Key::ShiftMask);
                 break;
               default:
                 break;
@@ -71,24 +68,32 @@ namespace quip {
     }
   }
   
-  std::size_t KeySequence::count () const {
+  std::size_t KeySequence::count() const {
     return m_keys.size();
   }
   
-  void KeySequence::append (Key key) {
+  void KeySequence::append(Key key) {
     m_keys.emplace_back(key);
     
+    if (key == modifierDown(Key::ControlMask)) {
+      m_openModifiers.control = true;
+    }
+    
+    if (key == modifierDown(Key::OptionMask)) {
+      m_openModifiers.option = true;
+    }
+    
     if (key == modifierDown(Key::ShiftMask)) {
-      m_isShiftOpen = true;
+      m_openModifiers.shift = true;
     }
   }
   
   void KeySequence::clear () {
     m_keys.clear();
-    m_isShiftOpen = false;
+    m_openModifiers.clear();
   }
   
-  const Key * KeySequence::begin () const {
+  const Key* KeySequence::begin() const {
     if (m_keys.size() == 0) {
       return nullptr;
     }
@@ -96,7 +101,7 @@ namespace quip {
     return m_keys.data();
   }
   
-  const Key * KeySequence::end () const {
+  const Key* KeySequence::end() const {
     if (m_keys.size() == 0) {
       return nullptr;
     }
@@ -104,13 +109,21 @@ namespace quip {
     return m_keys.data() + m_keys.size();
   }
   
-  KeySequence KeySequence::withModifiersClosed () const {
+  KeySequence KeySequence::withModifiersClosed() const {
     KeySequence result(*this);
-    if (m_isShiftOpen) {
-      result.append(modifierUp(Key::ShiftMask));
-      result.m_isShiftOpen = false;
+    if (m_openModifiers.control) {
+      result.append(modifierUp(Key::ControlMask));
     }
     
+    if (m_openModifiers.option) {
+      result.append(modifierUp(Key::OptionMask));
+    }
+    
+    if (m_openModifiers.shift) {
+      result.append(modifierUp(Key::ShiftMask));
+    }
+    
+    result.m_openModifiers.clear();
     return result;
   }
 }

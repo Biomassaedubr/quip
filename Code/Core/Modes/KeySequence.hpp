@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Key.hpp"
+#include "Modifiers.hpp"
 
 #include <string>
 #include <vector>
@@ -10,24 +11,24 @@ namespace quip {
   //
   // A KeySequence is mainly used to associate input with commands in a Mode subclass.
   struct KeySequence {
-    KeySequence ();
-    KeySequence (Key key);
-    KeySequence (std::initializer_list<Key> keys);
-    KeySequence (const char * expression);
+    KeySequence();
+    KeySequence(Key key);
+    KeySequence(std::initializer_list<Key> keys);
+    KeySequence(const char * expression);
     
-    std::size_t count () const;
+    std::size_t count() const;
     
-    void append (Key key);
-    void clear ();
+    void append(Key key);
+    void clear();
     
-    const Key * begin () const;
-    const Key * end () const;
+    const Key* begin() const;
+    const Key* end() const;
     
-    KeySequence withModifiersClosed () const;
+    KeySequence withModifiersClosed() const;
     
   private:
     std::vector<Key> m_keys;
     
-    bool m_isShiftOpen;
+    Modifiers m_openModifiers;
   };
 }
