@@ -41,8 +41,16 @@ namespace quip {
     } else {
       // If any modifiers are present for this keystroke that were not present in the prior keystroke,
       // add them into the sequence.
+      if (modifiers.control && !m_modifiers.control) {
+        m_sequence.append(modifierDown(Key::ControlMask));
+      }
+      
       if (modifiers.shift && !m_modifiers.shift) {
         m_sequence.append(modifierDown(Key::ShiftMask));
+      }
+      
+      if (modifiers.option && !m_modifiers.option) {
+        m_sequence.append(modifierDown(Key::OptionMask));
       }
       
       m_sequence.append(key);

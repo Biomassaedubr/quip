@@ -4,14 +4,12 @@ namespace quip {
   Modifiers::Modifiers()
   : control(false)
   , shift(false)
-  , option(false)
-  , command(false) {
+  , option(false) {
   }
   
   void Modifiers::clear() {
     control = false;
     shift = false;
     option = false;
-    command = false;
   }
 }

@@ -173,7 +173,9 @@ static CGFloat gCursorBlinkInterval = 0.57;
 - (void)keyDown:(NSEvent *)event {
   NSEventModifierFlags modifierFlags = [event modifierFlags];
   quip::Modifiers modifiers;
+  modifiers.control = (modifierFlags & NSEventModifierFlagControl) > 0;
   modifiers.shift = (modifierFlags & NSEventModifierFlagShift) > 0;
+  modifiers.option = (modifierFlags & NSEventModifierFlagOption) > 0;
   
   quip::Key key = quip::keyFromScanCode(event.keyCode);
   std::string text = key == quip::Key::Return ? "\n" : std::string([[event characters] cStringUsingEncoding:NSUTF8StringEncoding]);
