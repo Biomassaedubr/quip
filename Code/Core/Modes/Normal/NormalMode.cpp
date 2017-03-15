@@ -21,6 +21,11 @@ namespace quip {
     addMapping("<S-J>", &NormalMode::doShiftSelectionExtentsDown);
     addMapping("<S-K>", &NormalMode::doShiftSelectionExtentsUp);
     addMapping("<S-L>", &NormalMode::doShiftSelectionExtentsRight);
+
+    addMapping("<O-H>", &NormalMode::doShiftSelectionOriginsLeft);
+    addMapping("<O-J>", &NormalMode::doShiftSelectionOriginsDown);
+    addMapping("<O-K>", &NormalMode::doShiftSelectionOriginsUp);
+    addMapping("<O-L>", &NormalMode::doShiftSelectionOriginsRight);
     
     addMapping("TW", &NormalMode::doSelectThisWord);
     addMapping("W", &NormalMode::doSelectNextWord);
@@ -140,7 +145,6 @@ namespace quip {
     context.controller().scrollLocationIntoView.transmit(context.selections().primary().origin());
   }
   
-  
   void NormalMode::doShiftSelectionExtentsLeft(EditContext& context) {
     Document& document = context.document();
     SelectionSet& selections = context.selections();
@@ -220,6 +224,93 @@ namespace quip {
       ++iterator;
       
       results.emplace_back(selection.origin(), iterator.location());
+    }
+    
+    selections.replace(SelectionSet(results));
+  }
+  
+  void NormalMode::doShiftSelectionOriginsLeft(EditContext& context) {
+    Document& document = context.document();
+    SelectionSet& selections = context.selections();
+    std::vector<Selection> results;
+    results.reserve(selections.count());
+    
+    for(const Selection& selection : selections) {
+      DocumentIterator iterator = document.at(selection.origin());
+      if (iterator == document.begin()) {
+        results.emplace_back(selection);
+      } else {
+        --iterator;
+        results.emplace_back(iterator.location(), selection.extent());
+      }
+    }
+    
+    selections.replace(SelectionSet(results));
+  }
+  
+  void NormalMode::doShiftSelectionOriginsDown(EditContext& context) {
+    Document& document = context.document();
+    SelectionSet& selections = context.selections();
+    std::vector<Selection> results;
+    results.reserve(selections.count());
+    
+    for(const Selection& selection : selections) {
+      if (selection.origin().row() == document.rows() - 1) {
+        results.emplace_back(selection);
+      } else {
+        Location target = selection.origin().adjustBy(0, 1);
+        if (target.column() > document.row(target.row()).size()) {
+          target = Location(document.row(target.row()).size() - 1, target.row());
+        }
+        
+        results.emplace_back(target, selection.extent());
+      }
+    }
+    
+    selections.replace(SelectionSet(results));
+  }
+  
+  void NormalMode::doShiftSelectionOriginsUp(EditContext& context) {
+    Document& document = context.document();
+    SelectionSet& selections = context.selections();
+    std::vector<Selection> results;
+    results.reserve(selections.count());
+    
+    for(const Selection& selection : selections) {
+      if (selection.origin().row() == 0) {
+        results.emplace_back(selection);
+      } else {
+        Location target = selection.origin().adjustBy(0, -1);
+        if (target.column() > document.row(target.row()).size()) {
+          target = Location(document.row(target.row()).size() - 1, target.row());
+        }
+        
+        if (target > selection.extent()) {
+          results.emplace_back(selection);
+        } else {
+          results.emplace_back(target, selection.origin());
+        }
+      }
+    }
+    
+    selections.replace(SelectionSet(results));
+  }
+  
+  void NormalMode::doShiftSelectionOriginsRight(EditContext& context) {
+    Document& document = context.document();
+    SelectionSet& selections = context.selections();
+    std::vector<Selection> results;
+    results.reserve(selections.count());
+    
+    for(const Selection& selection : selections) {
+      DocumentIterator iterator = document.at(selection.origin());
+      ++iterator;
+      
+      if (iterator.location() <= selection.extent()) {
+        results.emplace_back(iterator.location(), selection.extent());
+      } else {
+        results.emplace_back(selection);
+      }
     }
     
     selections.replace(SelectionSet(results));
