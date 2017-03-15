@@ -3,13 +3,13 @@
 namespace quip {
   Modifiers::Modifiers()
   : control(false)
-  , shift(false)
-  , option(false) {
+  , option(false)
+  , shift(false) {
   }
   
   void Modifiers::clear() {
     control = false;
-    shift = false;
     option = false;
+    shift = false;
   }
 }
