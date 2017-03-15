@@ -18,7 +18,8 @@ namespace quip {
     DocumentIterator& operator++();
     DocumentIterator& operator--();
     
-    DocumentIterator& forwardByRows(std::uint64_t rows);
+    DocumentIterator& advanceByRows(std::uint64_t rows);
+    DocumentIterator& reverseByRows(std::uint64_t rows);
     
     // Advance the iterator while a predicate passes for the character referred to by the iterator.
     //

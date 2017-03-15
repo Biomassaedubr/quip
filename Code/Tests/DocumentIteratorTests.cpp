@@ -71,7 +71,7 @@ TEST_CASE("Document iterators can be pre-decremented across rows.", "[DocumentIt
 TEST_CASE("Document iterators can advance by one row.", "[DocumentIteratorTests]") {
   Document document("ABC\nXYZ");
   DocumentIterator cursor = document.at(Location(1, 0));
-  cursor.forwardByRows(1);
+  cursor.advanceByRows(1);
   
   REQUIRE(*cursor == 'Y');
 }
@@ -79,7 +79,7 @@ TEST_CASE("Document iterators can advance by one row.", "[DocumentIteratorTests]
 TEST_CASE("Document iterators can advance by one row to a shorter row.", "[DocumentIteratorTests]") {
   Document document("123456789\nXYZ");
   DocumentIterator cursor = document.at(Location(6, 0));
-  cursor.forwardByRows(1);
+  cursor.advanceByRows(1);
   
   REQUIRE(*cursor == 'Z');
 }
@@ -87,7 +87,7 @@ TEST_CASE("Document iterators can advance by one row to a shorter row.", "[Docum
 TEST_CASE("Document iterators can advance by many rows.", "[DocumentIteratorTests]") {
   Document document("123\n456\n789\nABC");
   DocumentIterator cursor = document.at(Location(1, 0));
-  cursor.forwardByRows(3);
+  cursor.advanceByRows(3);
   
   REQUIRE(*cursor == 'B');
 }
@@ -95,9 +95,41 @@ TEST_CASE("Document iterators can advance by many rows.", "[DocumentIteratorTest
 TEST_CASE("Document iterators can advance by one row from the last row.", "[DocumentIteratorTests]") {
   Document document("ABCDEFG\n1234567");
   DocumentIterator cursor = document.at(Location(2, 1));
-  cursor.forwardByRows(1);
+  cursor.advanceByRows(1);
   
   REQUIRE(cursor == document.end());
+}
+
+TEST_CASE("Document iterators can reverse by one row.", "[DocumentIteratorTests]") {
+  Document document("ABC\nXYZ");
+  DocumentIterator cursor = document.at(Location(1, 1));
+  cursor.reverseByRows(1);
+  
+  REQUIRE(*cursor == 'B');
+}
+
+TEST_CASE("Document iterators can reverse by one row to a shorter row.", "[DocumentIteratorTests]") {
+  Document document("XYZ\n123456789");
+  DocumentIterator cursor = document.at(Location(6, 1));
+  cursor.reverseByRows(1);
+  
+  REQUIRE(*cursor == '\n');
+}
+
+TEST_CASE("Document iterators can reverse by many rows.", "[DocumentIteratorTests]") {
+  Document document("123\n456\n789\nABC");
+  DocumentIterator cursor = document.at(Location(1, 3));
+  cursor.reverseByRows(3);
+  
+  REQUIRE(*cursor == '2');
+}
+
+TEST_CASE("Document iterators can reverse by one row from the first row.", "[DocumentIteratorTests]") {
+  Document document("ABCDEFG\n1234567");
+  DocumentIterator cursor = document.at(Location(2, 0));
+  cursor.reverseByRows(1);
+  
+  REQUIRE(cursor == document.begin());
 }
 
 TEST_CASE("Document iterators can be compared with ==.", "[DocumentIteratorTests]") {
