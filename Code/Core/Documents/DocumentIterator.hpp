@@ -46,11 +46,11 @@ namespace quip {
     template<typename PredicateType>
     DocumentIterator& reverseUntil(PredicateType predicate);
     
-    friend bool operator== (const DocumentIterator & left, const DocumentIterator & right);
-    friend bool operator!= (const DocumentIterator & left, const DocumentIterator & right);
+    friend bool operator== (const DocumentIterator& left, const DocumentIterator& right);
+    friend bool operator!= (const DocumentIterator& left, const DocumentIterator& right);
     
   private:
-    const Document * m_document;
+    const Document* m_document;
     Location m_location;
   };
 }
@@ -60,8 +60,8 @@ namespace std {
   struct iterator_traits<quip::DocumentIterator> {
     typedef char value_type;
     typedef std::ptrdiff_t difference_type;
-    typedef const char * pointer;
-    typedef const char & reference;
+    typedef const char* pointer;
+    typedef const char& reference;
     typedef std::bidirectional_iterator_tag iterator_category;
   };
 }
