@@ -5,18 +5,16 @@
 #include "StatusService.hpp"
 
 #include <cstdint>
-#include <map>
 
 namespace quip {
   struct StatusServiceProvider : StatusService {
-    StatusServiceProvider (QuipStatusView * view);
-    StatusServiceProvider ();
+    StatusServiceProvider(QuipStatusView* view);
     
-    void setStatus (const std::string & text) override;
-    void setFileType (const std::string & fileType) override;
-    void setLineCount (const std::size_t count) override;
+    void setStatus(const std::string& text) override;
+    void setFileType(const std::string& fileType) override;
+    void setLineCount(const std::size_t count) override;
                        
   private:
-    QuipStatusView * m_view;
+    QuipStatusView* m_view;
   };
 }

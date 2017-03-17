@@ -9,6 +9,6 @@ namespace quip {
     std::size_t start;
     std::size_t length;
     
-    AttributeRange (const std::string& name, std::size_t start, std::size_t length);
+    AttributeRange(const std::string& name, std::size_t start, std::size_t length);
   };
 }
