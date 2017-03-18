@@ -14,7 +14,7 @@ namespace quip {
     KeySequence();
     KeySequence(Key key);
     KeySequence(std::initializer_list<Key> keys);
-    KeySequence(const char * expression);
+    KeySequence(const char* expression);
     
     std::size_t count() const;
     
