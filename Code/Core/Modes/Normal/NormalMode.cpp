@@ -27,6 +27,9 @@ namespace quip {
     addMapping("<O-K>", &NormalMode::doShiftSelectionOriginsUp);
     addMapping("<O-L>", &NormalMode::doShiftSelectionOriginsRight);
     
+    addMapping("<S-.>", &NormalMode::doIncreaseSelectionIndentLevel);
+    addMapping("<S-,>", &NormalMode::doDecreaseSelectionIndentLevel);
+    
     addMapping("TW", &NormalMode::doSelectThisWord);
     addMapping("W", &NormalMode::doSelectNextWord);
     addMapping("B", &NormalMode::doSelectPriorWord);
@@ -311,6 +314,50 @@ namespace quip {
       } else {
         results.emplace_back(selection);
       }
+    }
+    
+    selections.replace(SelectionSet(results));
+  }
+  
+  void NormalMode::doIncreaseSelectionIndentLevel(EditContext& context) {
+    Document& document = context.document();
+    SelectionSet& selections = context.selections();
+    std::vector<Selection> results;
+    results.reserve(selections.count());
+    for (const Selection& selection : selections) {
+      Location target(0, selection.origin().row());
+      document.insert(Selection(target), "  ");
+      
+      results.emplace_back(selection.origin().adjustBy(2, 0), selection.extent().adjustBy(2, 0));
+    }
+    
+    selections.replace(SelectionSet(results));
+  }
+  
+  void NormalMode::doDecreaseSelectionIndentLevel(EditContext& context) {
+    Document& document = context.document();
+    SelectionSet& selections = context.selections();
+    std::vector<Selection> results;
+    results.reserve(selections.count());
+    for (const Selection& selection : selections) {
+      std::uint64_t row = selection.origin().row();
+      const std::string& text = document.row(row);
+      
+      std::uint64_t size = 0;
+      if (!std::isspace(text[size])) {
+        results.emplace_back(selection);
+        continue;
+      }
+      
+      while (std::isspace(text[size]) && size < 1) {
+        ++size;
+      }
+      
+      Location start(0, row);
+      Location end(size, row);
+      document.erase(Selection(start, end));
+      
+      results.emplace_back(selection.origin().adjustBy(-size - 1, 0), selection.extent().adjustBy(-size - 1, 0));
     }
     
     selections.replace(SelectionSet(results));
