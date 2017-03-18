@@ -77,6 +77,10 @@ namespace quip {
         return Key::BackSlash;
       case '\\':
         return Key::ForwardSlash;
+      case '.':
+        return Key::Period;
+      case ',':
+        return Key::Comma;
       default:
         return Key::Escape;
     }
