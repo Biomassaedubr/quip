@@ -84,7 +84,8 @@ namespace quip {
     m_useAppendBehavior = how == AppendBehavior;
   }
   
-  bool EditMode::onUnmappedKey (Key key, const std::string & text, EditContext & context) {
+  bool EditMode::onUnmappedKey (Key key, const std::string& text, EditContext& context) {
+    Document& document = context.document();
     switch (key) {
       case Key::Tab:
         if (m_useAppendBehavior) {
@@ -106,8 +107,9 @@ namespace quip {
           if (key == Key::Return) {
             std::vector<std::string> indented(context.selections().count(), text);
             for (std::uint32_t index = 0; index < context.selections().count(); ++index) {
-              const Selection & selection = context.selections()[index];
-              indented[index] += context.document().indentOfRow(selection.extent().row());
+              const Selection& selection = context.selections()[index];
+              std::string indent = document.isEmpty() ? "" : document.indentOfRow(selection.extent().row());
+              indented[index] += indent;
             }
             
             if (m_useAppendBehavior) {
