@@ -5,32 +5,32 @@
 
 namespace quip {
   namespace {
-    static void initializeHighlight (std::unordered_map<std::string, Highlight>& mapping, const std::string& name, quip::Color foreground) {
+    static void initializeHighlight(std::unordered_map<std::string, Highlight>& mapping, const std::string& name, quip::Color foreground) {
       Highlight result;
       result.foregroundColor = CGColorCreateGenericRGB(foreground.r(), foreground.g(), foreground.b(), foreground.a());
       
       CFStringRef keys[] = { kCTForegroundColorAttributeName };
       CFTypeRef values[] = { result.foregroundColor };
-      const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
-      const void ** opaqueValues = reinterpret_cast<const void **>(&values);
+      const void** opaqueKeys = reinterpret_cast<const void **>(&keys);
+      const void** opaqueValues = reinterpret_cast<const void **>(&values);
       result.attributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
       
       mapping[name] = result;
     }
     
-    static void releaseHighlight (Highlight * highlight) {
+    static void releaseHighlight(Highlight* highlight) {
       CFRelease(highlight->attributes);
       CFRelease(highlight->foregroundColor);
     }
     
-    CGRect makeCGRect(const Rectangle & rectangle) {
+    CGRect makeCGRect(const Rectangle& rectangle) {
       return CGRectMake(rectangle.x(), rectangle.y(), rectangle.width(), rectangle.height());
     }
   }
   
-  DrawingServiceProvider::DrawingServiceProvider(const GlobalSettings & settings) {
-    NSString * name = [NSString stringWithUTF8String:settings.fontFace().c_str()];
-    NSDictionary * attributes = @{NSFontAttributeName: [NSFont fontWithName:name size:settings.fontSize()]};
+  DrawingServiceProvider::DrawingServiceProvider(const GlobalSettings& settings) {
+    NSString* name = [NSString stringWithUTF8String:settings.fontFace().c_str()];
+    NSDictionary* attributes = @{NSFontAttributeName: [NSFont fontWithName:name size:settings.fontSize()]};
     CGSize size = [@"m" sizeWithAttributes:attributes];
     setCellSize(Extent(size.width, size.height));
     
@@ -40,8 +40,8 @@ namespace quip {
     
     CFStringRef keys[] = { kCTFontAttributeName, kCTParagraphStyleAttributeName };
     CFTypeRef values[] = { m_font };
-    const void ** opaqueKeys = reinterpret_cast<const void **>(&keys);
-    const void ** opaqueValues = reinterpret_cast<const void **>(&values);
+    const void** opaqueKeys = reinterpret_cast<const void**>(&keys);
+    const void** opaqueValues = reinterpret_cast<const void**>(&values);
     m_fontAttributes = CFDictionaryCreate(kCFAllocatorDefault, opaqueKeys, opaqueValues, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     
     initializeHighlight(m_highlightAttributes, "Keyword", quip::Color(0.0f, 0.0f, 1.0f));
@@ -61,14 +61,13 @@ namespace quip {
     CFRelease(m_font);
   }
   
-  void DrawingServiceProvider::fillRectangle (const Rectangle & rectangle, const Color & color) {
+  void DrawingServiceProvider::fillRectangle(const Rectangle& rectangle, const Color& color) {
     CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
     CGContextSetRGBFillColor(context, color.r(), color.g(), color.b(), color.a());
     CGContextFillRect(context, makeCGRect(rectangle));
   }
   
-  void DrawingServiceProvider::drawUnderline (std::size_t row, std::size_t firstColumn, std::size_t lastColumn, const Color & color, const Rectangle & frame)
-  {
+  void DrawingServiceProvider::drawUnderline(std::size_t row, std::size_t firstColumn, std::size_t lastColumn, const Color& color, const Rectangle& frame) {
     CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
     CGContextSetRGBStrokeColor(context, color.r(), color.g(), color.b(), color.a());
 
@@ -80,8 +79,7 @@ namespace quip {
     CGContextStrokePath(context);
   }
   
-  void DrawingServiceProvider::drawBarBefore (const Location & location, const Color & color, const Rectangle & frame)
-  {
+  void DrawingServiceProvider::drawBarBefore(const Location& location, const Color& color, const Rectangle& frame) {
     CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
     CGContextSetRGBStrokeColor(context, color.r(), color.g(), color.b(), color.a());
     Coordinate origin = coordinateForLocationInFrame(location, frame);
@@ -91,8 +89,7 @@ namespace quip {
     CGContextStrokePath(context);
   }
 
-  void DrawingServiceProvider::drawBarAfter (const Location & location, const Color & color, const Rectangle & frame)
-  {
+  void DrawingServiceProvider::drawBarAfter(const Location& location, const Color& color, const Rectangle& frame) {
     CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
     CGContextSetRGBStrokeColor(context, color.r(), color.g(), color.b(), color.a());
     Coordinate origin = coordinateForLocationInFrame(location, frame);
@@ -102,7 +99,7 @@ namespace quip {
     CGContextStrokePath(context);
   }
 
-  void DrawingServiceProvider::drawText(const std::string & text, const quip::Coordinate & coordinate, const std::vector<AttributeRange> & attributes) {
+  void DrawingServiceProvider::drawText(const std::string& text, const quip::Coordinate& coordinate, const std::vector<AttributeRange>& attributes) {
     CFStringRef string = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, text.c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
     CFMutableAttributedStringRef attributed = CFAttributedStringCreateMutable(kCFAllocatorDefault, CFStringGetLength(string));
     
@@ -126,7 +123,7 @@ namespace quip {
     CFRelease(string);
   }
   
-  Rectangle DrawingServiceProvider::measureText(const std::string & text) {
+  Rectangle DrawingServiceProvider::measureText(const std::string& text) {
     CFStringRef string = CFStringCreateWithCStringNoCopy(kCFAllocatorDefault, text.c_str(), kCFStringEncodingUTF8, kCFAllocatorNull);
     CFAttributedStringRef attributed = CFAttributedStringCreate(kCFAllocatorDefault, string, m_fontAttributes);
     CTLineRef line = CTLineCreateWithAttributedString(attributed);

@@ -3,21 +3,11 @@
 #import "QuipPopupView.h"
 #import "QuipStatusView.h"
 
-#include "AttributeRange.hpp"
-#include "ChangeType.hpp"
-#include "Color.hpp"
 #include "DrawingServiceProvider.hpp"
 #include "EditContext.hpp"
-#include "Extent.hpp"
-#include "Key.hpp"
 #include "Mode.hpp"
 #include "PopupServiceProvider.hpp"
-#include "Selection.hpp"
 #include "StatusServiceProvider.hpp"
-
-#include <cmath>
-#include <map>
-#include <vector>
 
 @interface QuipTextView () {
 @private
@@ -87,7 +77,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   return YES;
 }
 
-- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+- (BOOL)validateMenuItem:(NSMenuItem*)menuItem {
   if([menuItem action] == @selector(performUndo:)) {
     return m_context->canUndo();
   }
@@ -109,7 +99,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   [self setNeedsDisplay:YES];
 }
 
-- (void)tick:(NSTimer *)timer {
+- (void)tick:(NSTimer*)timer {
   m_popupServiceProvider->tick(gTickInterval);
   
   m_cursorTimer -= gTickInterval;
@@ -128,7 +118,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   [self setNeedsDisplay:YES];
 }
 
-- (void)mouseDown:(NSEvent *)event {
+- (void)mouseDown:(NSEvent*)event {
   if (m_context->document().isEmpty()) {
     return;
   }
@@ -155,7 +145,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   [self resetCursorBlink];
 }
 
-- (void)mouseDragged:(NSEvent *)event {
+- (void)mouseDragged:(NSEvent*)event {
   NSPoint location = [self convertPoint:event.locationInWindow fromView:nil];
   quip::Coordinate coordinate(location.x, location.y);
   quip::Rectangle rectangle(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
@@ -170,7 +160,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   [self resetCursorBlink];
 }
 
-- (void)keyDown:(NSEvent *)event {
+- (void)keyDown:(NSEvent*)event {
   NSEventModifierFlags modifierFlags = [event modifierFlags];
   quip::Modifiers modifiers;
   modifiers.control = (modifierFlags & NSEventModifierFlagControl) > 0;
@@ -188,8 +178,8 @@ static CGFloat gCursorBlinkInterval = 0.57;
   NSPasteboard * pasteboard = [NSPasteboard generalPasteboard];
   [pasteboard clearContents];
   
-  NSMutableArray * items = [[NSMutableArray alloc] initWithCapacity:m_context->selections().count()];
-  for (const quip::Selection & selection : m_context->selections()) {
+  NSMutableArray* items = [[NSMutableArray alloc] initWithCapacity:m_context->selections().count()];
+  for (const quip::Selection& selection : m_context->selections()) {
     std::string text = m_context->document().contents(selection);
     [items addObject:[NSString stringWithUTF8String:text.c_str()]];
   }
@@ -199,11 +189,11 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)copy:(id)sender {
-  NSPasteboard * pasteboard = [NSPasteboard generalPasteboard];
+  NSPasteboard* pasteboard = [NSPasteboard generalPasteboard];
   [pasteboard clearContents];
   
-  NSMutableArray * items = [[NSMutableArray alloc] initWithCapacity:m_context->selections().count()];
-  for (const quip::Selection & selection : m_context->selections()) {
+  NSMutableArray* items = [[NSMutableArray alloc] initWithCapacity:m_context->selections().count()];
+  for (const quip::Selection& selection : m_context->selections()) {
     std::string text = m_context->document().contents(selection);
     [items addObject:[NSString stringWithUTF8String:text.c_str()]];
   }
@@ -212,17 +202,17 @@ static CGFloat gCursorBlinkInterval = 0.57;
 }
 
 - (void)paste:(id)sender {
-  NSPasteboard * pasteboard = [NSPasteboard generalPasteboard];
-  NSArray * items = [pasteboard readObjectsForClasses:@[[NSString class]] options:@{}];
+  NSPasteboard* pasteboard = [NSPasteboard generalPasteboard];
+  NSArray* items = [pasteboard readObjectsForClasses:@[[NSString class]] options:@{}];
   if (items != nil) {
-    NSString * item = [items firstObject];
+    NSString* item = [items firstObject];
     std::string text = [item cStringUsingEncoding:NSUTF8StringEncoding];
     m_context->selections().replace(m_context->document().insert(m_context->selections(), text));
   }
 }
 
 - (void)selectAll:(id)sender {
-  const quip::Document & document = m_context->document();
+  const quip::Document& document = m_context->document();
   std::uint64_t row = document.rows() - 1;
   std::uint64_t column = document.row(row).size() - 1;
   
@@ -300,7 +290,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   [self setNeedsDisplay:YES];
 }
 
-- (void)setStatus:(QuipStatusView *)status {
+- (void)setStatus:(QuipStatusView*)status {
   m_statusView = status;
   m_statusServiceProvider = std::make_unique<quip::StatusServiceProvider>(status);
 }
@@ -318,7 +308,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   [self scrollRectToVisible:target];
 }
 
-- (QuipPopupView *)createPopupAtLocation:(NSString *)text atLocation:(quip::Location)location {
+- (QuipPopupView*)createPopupAtLocation:(NSString*)text atLocation:(quip::Location)location {
   NSMutableArray* strings = [[NSMutableArray alloc] init];
   [text enumerateLinesUsingBlock:^(NSString* line, BOOL* stop) {
     [strings addObject:line];
@@ -331,7 +321,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
   CGFloat x = location.column() * cellSize.width();
   CGFloat y = self.frame.size.height - height - cellSize.height();
   
-  QuipPopupView * popup = [[QuipPopupView alloc] initWithFrame:CGRectMake(x, y - 2.0, width, height)];
+  QuipPopupView* popup = [[QuipPopupView alloc] initWithFrame:CGRectMake(x, y - 2.0, width, height)];
   [popup attachDrawingService:m_drawingService];
   [popup setContent:strings];
   [popup setDuration:0.5];
@@ -351,13 +341,13 @@ static CGFloat gCursorBlinkInterval = 0.57;
   [self scrollPoint:CGPointMake(0.0, y - bias)];
 }
 
-- (void)drawSelections:(const quip::SelectionDrawInfo &)drawInfo context:(CGContextRef)context {
+- (void)drawSelections:(const quip::SelectionDrawInfo&)drawInfo context:(CGContextRef)context {
   quip::Extent cellSize = m_drawingService->cellSize();
   quip::Rectangle viewFrame = quip::Rectangle(self.frame.origin.x + gMargin, self.frame.origin.y, self.frame.size.width - (2.0f * gMargin), self.frame.size.height);
-  quip::Document & document = m_context->document();
-  for (const quip::Selection & selection : drawInfo.selections) {
-    const quip::Location & lower = selection.origin();
-    const quip::Location & upper = selection.extent();
+  quip::Document& document = m_context->document();
+  for (const quip::Selection& selection : drawInfo.selections) {
+    const quip::Location& lower = selection.origin();
+    const quip::Location& upper = selection.extent();
     std::size_t row = lower.row();
     
     do {
@@ -366,12 +356,13 @@ static CGFloat gCursorBlinkInterval = 0.57;
       
       CGFloat x = gMargin + (firstColumn * cellSize.width());
       CGFloat y = self.frame.size.height - cellSize.height() - (row * cellSize.height());
-      const quip::Color & color = selection == drawInfo.selections.primary() ? drawInfo.primaryColor : drawInfo.secondaryColor;
+      const quip::Color& color = selection == drawInfo.selections.primary() ? drawInfo.primaryColor : drawInfo.secondaryColor;
+      float heightFactor = row > lower.row() ? 1.0f : 0.75f;
       
       if (m_shouldDrawCursor || (drawInfo.flags & quip::CursorFlags::Blink) == 0) {
         switch (drawInfo.style) {
           case quip::CursorStyle::VerticalBlock:
-            m_drawingService->fillRectangle(quip::Rectangle(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), 0.75 * cellSize.height()), color);
+            m_drawingService->fillRectangle(quip::Rectangle(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), heightFactor * cellSize.height()), color);
             break;
           case quip::CursorStyle::VerticalBlockHalf:
             m_drawingService->fillRectangle(quip::Rectangle(x, y - 2.0, cellSize.width() * (lastColumn + 1 - firstColumn), 0.25 * cellSize.height()), color);
@@ -410,12 +401,12 @@ static CGFloat gCursorBlinkInterval = 0.57;
   m_drawingService->fillRectangle(rectangle, quip::Color::white());
   
   if (m_context != nullptr) {
-    quip::Document & document = m_context->document();
+    quip::Document& document = m_context->document();
 
     // Find the document's extension.
     std::size_t index = m_context->document().path().find_last_of('.');
     std::string extension = "";
-    const quip::FileType * fileType = nullptr;
+    const quip::FileType* fileType = nullptr;
     if (index != std::string::npos) {
       extension = m_context->document().path().substr(index + 1);
     }
@@ -425,7 +416,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
     
     // Draw selections and overlays first (text is drawn over them).
     if (m_shouldDrawSelections) {
-      NSColor * systemHighlightColor = [[NSColor selectedTextBackgroundColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+      NSColor* systemHighlightColor = [[NSColor selectedTextBackgroundColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
       quip::Color primaryColor([systemHighlightColor redComponent], [systemHighlightColor greenComponent], [systemHighlightColor blueComponent]);
       quip::Color secondaryColor(primaryColor.r() * 0.5f, primaryColor.g() * 0.5f, primaryColor.b() * 0.5f);
       
@@ -438,7 +429,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
       [self drawSelections:drawInfo context:context];
     }
     
-    for (auto && overlay : m_context->overlays()) {
+    for (auto&& overlay : m_context->overlays()) {
       [self drawSelections:overlay.second context:context];
     }
     
@@ -456,7 +447,7 @@ static CGFloat gCursorBlinkInterval = 0.57;
       y -= cellSize.height();
     }
     
-    quip::StatusService & status = m_context->statusService();
+    quip::StatusService& status = m_context->statusService();
     status.setStatus(m_context->mode().status().c_str());
     status.setFileType(fileType->name);
     status.setLineCount(m_context->document().rows());
