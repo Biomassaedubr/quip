@@ -1,7 +1,7 @@
 #include "GlobalSettings.hpp"
 
 namespace quip {
-  GlobalSettings::GlobalSettings ()
+  GlobalSettings::GlobalSettings()
   : m_fontFace("Menlo")
   , m_fontSize(13.0f) {
   }
@@ -14,7 +14,7 @@ namespace quip {
     m_fontFace = face;
   }
   
-  float GlobalSettings::fontSize () const {
+  float GlobalSettings::fontSize() const {
     return m_fontSize;
   }
   

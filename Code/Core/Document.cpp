@@ -13,37 +13,37 @@
 #include <string>
 
 namespace quip {
-  Document::Document () {
+  Document::Document() {
   }
   
-  Document::Document (const std::string & content)
+  Document::Document(const std::string& content)
   : m_rows(decompose(content)) {
   }
   
-  std::string Document::contents () const {
+  std::string Document::contents() const {
     std::ostringstream stream;
-    for (const std::string & text : m_rows) {
+    for (const std::string& text : m_rows) {
       stream << text;
     }
     
     return stream.str();
   }
   
-  bool Document::isEmpty () const noexcept {
+  bool Document::isEmpty() const noexcept {
     return m_rows.size() == 0;
   }
   
-  bool Document::isMissingTrailingNewline () const noexcept {
+  bool Document::isMissingTrailingNewline() const noexcept {
     if (m_rows.empty()) {
       // By definition.
       return true;
     }
     
-    const std::string & text = m_rows.back();
+    const std::string& text = m_rows.back();
     return !text.empty() && text.back() != '\n';
   }
   
-  std::string Document::contents (const Selection & selection) const {
+  std::string Document::contents(const Selection& selection) const {
     if (m_rows.size() == 0) {
       // Selections always cover at least one character, so it's not
       // ambiguous to return an empty string for an empty document.
@@ -68,25 +68,25 @@ namespace quip {
     }
   }
   
-  std::vector<std::string> Document::contents (const SelectionSet & selections) const {
+  std::vector<std::string> Document::contents(const SelectionSet& selections) const {
     std::vector<std::string> results;
     if (m_rows.size() == 0) {
       return results;
     }
     
     results.reserve(selections.count());
-    for (const Selection & selection : selections) {
+    for (const Selection& selection : selections) {
       results.emplace_back(contents(selection));
     }
     
     return results;
   }
   
-  DocumentIterator Document::begin () const {
+  DocumentIterator Document::begin() const {
     return DocumentIterator(*this, Location(0, 0));
   }
   
-  DocumentIterator Document::end () const {
+  DocumentIterator Document::end() const {
     if (isEmpty()) {
       return begin();
     }
@@ -94,11 +94,11 @@ namespace quip {
     return DocumentIterator(*this, Location(m_rows.back().size(), m_rows.size() - 1));
   }
   
-  DocumentIterator Document::at (const Location & location) const {
+  DocumentIterator Document::at(const Location& location) const {
     return DocumentIterator(*this, location);
   }
   
-  std::int64_t Document::distance (const Location & from, const Location & to) const {
+  std::int64_t Document::distance(const Location& from, const Location& to) const {
     if (from.row() == to.row()) {
       return to.column() - from.column();
     }
@@ -114,20 +114,20 @@ namespace quip {
     return from <= to ? result : -result;
   }
   
-  const std::string & Document::path () const {
+  const std::string& Document::path() const {
     return m_path;
   }
   
-  void Document::setPath (const std::string & path) {
+  void Document::setPath(const std::string& path) {
     m_path = path;
   }
   
-  const std::string & Document::row (std::size_t index) const {
+  const std::string& Document::row(std::size_t index) const {
     return m_rows[index];
   }
   
-  std::string Document::indentOfRow (std::size_t index) const {
-    const std::string & text = row(index);
+  std::string Document::indentOfRow(std::size_t index) const {
+    const std::string& text = row(index);
     if (text.size() == 0) {
       if (index == 0) {
         return "";
@@ -144,20 +144,20 @@ namespace quip {
     return std::string(text.begin(), cursor);
   }
   
-  std::size_t Document::rows () const {
+  std::size_t Document::rows() const {
     return m_rows.size();
   }
 
-  SelectionSet Document::insert (const Selection & selection, const std::string & text) {
+  SelectionSet Document::insert(const Selection& selection, const std::string& text) {
     return insert(SelectionSet(selection), text);
   }
   
-  SelectionSet Document::insert (const SelectionSet & selections, const std::string & text) {
+  SelectionSet Document::insert(const SelectionSet& selections, const std::string& text) {
     std::vector<std::string> replicated(selections.count(), text);
     return insert(selections, replicated);
   }
   
-  SelectionSet Document::insert (const SelectionSet & selections, const std::vector<std::string> & text) {
+  SelectionSet Document::insert(const SelectionSet& selections, const std::vector<std::string>& text) {
     if (selections.count() == 0 || text.size() == 0) {
       return selections;
     }
@@ -184,7 +184,7 @@ namespace quip {
         break;
       }
       
-      const Selection & selection = selections[index];
+      const Selection& selection = selections[index];
       Location origin = selection.origin().adjustBy(columnShift, rowShift);
       std::string prefix = m_rows[origin.row()].substr(0, origin.column());
       std::string suffix = m_rows[origin.row()].substr(origin.column());
@@ -206,7 +206,7 @@ namespace quip {
       columnShift += lines.front().size();
       rowShift += rowsToInsert;
       if (index + 1 < selections.count()) {
-        const Selection & next = selections[index + 1];
+        const Selection& next = selections[index + 1];
         if (selection.extent().row() != next.origin().row()) {
           // Whether or not adjacent selections have the same line in common impacts how
           // to shift the next selection.
@@ -228,19 +228,19 @@ namespace quip {
     return SelectionSet(updated);
   }
   
-  SelectionSet Document::append (const Selection & selection, const std::string & text) {
+  SelectionSet Document::append(const Selection& selection, const std::string& text) {
     return append(SelectionSet(selection), text);
   }
   
-  SelectionSet Document::append (const SelectionSet & selections, const std::string & text) {
+  SelectionSet Document::append(const SelectionSet& selections, const std::string& text) {
     std::vector<std::string> replicated(selections.count(), text);
     return append(selections, replicated);
   }
   
-  SelectionSet Document::append (const SelectionSet & selections, const std::vector<std::string> & text) {
+  SelectionSet Document::append(const SelectionSet& selections, const std::vector<std::string>& text) {
     std::vector<Selection> adjusted;
     adjusted.reserve(selections.count());
-    for (const Selection & selection : selections) {
+    for (const Selection& selection : selections) {
       DocumentIterator iterator = at(selection.extent());
       if (iterator != end()) {
         ++iterator;
@@ -254,11 +254,11 @@ namespace quip {
     return result;
   }
   
-  SelectionSet Document::erase (const Selection & selection) {
+  SelectionSet Document::erase(const Selection& selection) {
     return erase(SelectionSet(selection));
   }
   
-  SelectionSet Document::erase (const SelectionSet & selections) {
+  SelectionSet Document::erase(const SelectionSet& selections) {
     if (m_rows.size() == 0 || selections.count() == 0) {
       return selections;
     }
@@ -271,7 +271,7 @@ namespace quip {
     std::int64_t columnShift = 0;
     std::int64_t rowShift = 0;
     for (std::uint64_t index = 0; index < selections.count(); ++index) {
-      const Selection & selection = selections[index];
+      const Selection& selection = selections[index];
       Location origin = selection.origin().adjustBy(columnShift, rowShift);
       Location extent = selection.extent().adjustBy(selection.height() == 1 ? columnShift : 0, rowShift);
       std::int64_t rowsToRemove = extent.row() - origin.row();
@@ -298,7 +298,7 @@ namespace quip {
       }
       
       if (index + 1 < selections.count()) {
-        const Selection & next = selections[index + 1];
+        const Selection& next = selections[index + 1];
         
         // Whether or not adjacent selections have the same line in common or are only
         // separated by a newline that will be removed impacts how to shift the
@@ -345,7 +345,7 @@ namespace quip {
     return SelectionSet(updated);
   }
   
-  SelectionSet Document::matches (const SearchExpression & expression) const {
+  SelectionSet Document::matches(const SearchExpression& expression) const {
     std::vector<Selection> results;
     if (expression.valid()) {
       std::string content;
@@ -377,11 +377,11 @@ namespace quip {
     return SelectionSet(results);
   }
   
-  Signal<void()> & Document::onDocumentModified () {
+  Signal<void()>& Document::onDocumentModified() {
     return m_documentModifiedSignal;
   }
   
-  std::vector<std::string> Document::decompose (const std::string & text) const {
+  std::vector<std::string> Document::decompose(const std::string& text) const {
     std::vector<std::string> results;
     if (text.size() == 0) {
       return results;
@@ -403,7 +403,7 @@ namespace quip {
     return results;
   }
   
-  std::vector<std::size_t> Document::buildSpanTable (std::string * contents) const {
+  std::vector<std::size_t> Document::buildSpanTable(std::string * contents) const {
     // A "span table" accelerates the process of finding a column/row location
     // from a linear index into the document.
     std::vector<std::size_t> table;
@@ -411,7 +411,7 @@ namespace quip {
     
     std::ostringstream stream;
     std::size_t length = 0;
-    for (const std::string & text : m_rows) {
+    for (const std::string& text : m_rows) {
       if (contents != nullptr) {
         stream << text;
       }
@@ -427,7 +427,7 @@ namespace quip {
     return table;
   }
   
-  Location Document::linearPositionToLocation(const std::vector<std::size_t> & spanTable, std::size_t position) const {
+  Location Document::linearPositionToLocation(const std::vector<std::size_t>& spanTable, std::size_t position) const {
     std::vector<std::size_t>::const_iterator span = std::lower_bound(spanTable.begin(), spanTable.end(), position);
     auto row = span - spanTable.begin();
     if (position == *span) {

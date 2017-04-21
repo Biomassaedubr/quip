@@ -3,7 +3,7 @@
 #include "Selection.hpp"
 
 namespace {
-  static bool compareSelectionsByLowestLocation (const quip::Selection & left, const quip::Selection & right) {
+  static bool compareSelectionsByLowestLocation(const quip::Selection& left, const quip::Selection& right) {
     return left.origin() < right.origin();
   }
 }
@@ -13,12 +13,12 @@ namespace quip {
   : m_primary(0) {
   }
   
-  SelectionSet::SelectionSet (const Selection & selection)
+  SelectionSet::SelectionSet(const Selection& selection)
   : m_selections({selection})
   , m_primary(0) {
   }
   
-  SelectionSet::SelectionSet (const std::vector<Selection> & selections)
+  SelectionSet::SelectionSet(const std::vector<Selection>& selections)
   : m_selections(selections)
   , m_primary(0) {
     std::sort(m_selections.begin(), m_selections.end(), compareSelectionsByLowestLocation);
@@ -50,67 +50,67 @@ namespace quip {
     }
   }
   
-  SelectionSet::SelectionSet (const SelectionSet & other)
+  SelectionSet::SelectionSet(const SelectionSet& other)
   : m_selections(other.m_selections)
   , m_primary(other.m_primary) {
   }
   
-  SelectionSet::SelectionSet (SelectionSet && other)
+  SelectionSet::SelectionSet(SelectionSet&& other)
   : m_selections(std::move(other.m_selections))
   , m_primary(other.m_primary) {
     other.m_primary = 0;
   }
   
-  SelectionSet & SelectionSet::operator= (const SelectionSet & other) {
+  SelectionSet& SelectionSet::operator=(const SelectionSet& other) {
     m_selections = other.m_selections;
     m_primary = other.m_primary;
     return *this;
   }
   
-  SelectionSet & SelectionSet::operator= (SelectionSet && other) {
+  SelectionSet& SelectionSet::operator=(SelectionSet&& other) {
     m_selections = std::move(other.m_selections);
     m_primary = other.m_primary;
     other.m_primary = 0;
     return *this;
   }
   
-  std::size_t SelectionSet::count () const {
+  std::size_t SelectionSet::count() const {
     return m_selections.size();
   }
   
-  const Selection & SelectionSet::primary () const {
+  const Selection& SelectionSet::primary() const {
     return m_selections[m_primary];
   }
   
-  Selection & SelectionSet::operator[] (std::size_t index) {
+  Selection& SelectionSet::operator[](std::size_t index) {
     return m_selections[index];
   }
   
-  const Selection & SelectionSet::operator[] (std::size_t index) const {
+  const Selection& SelectionSet::operator[](std::size_t index) const {
     return m_selections[index];
   }
   
-  SelectionSetIterator SelectionSet::begin () {
+  SelectionSetIterator SelectionSet::begin() {
     return SelectionSetIterator(*this, 0);
   }
   
-  ConstSelectionSetIterator SelectionSet::begin () const {
+  ConstSelectionSetIterator SelectionSet::begin() const {
     return ConstSelectionSetIterator(*this, 0);
   }
   
-  SelectionSetIterator SelectionSet::end () {
+  SelectionSetIterator SelectionSet::end() {
     return SelectionSetIterator(*this, m_selections.size());
   }
   
-  ConstSelectionSetIterator SelectionSet::end () const {
+  ConstSelectionSetIterator SelectionSet::end() const {
     return ConstSelectionSetIterator(*this, m_selections.size());
   }
 
-  void SelectionSet::rotateForward () {
+  void SelectionSet::rotateForward() {
     m_primary = (m_primary + 1) % m_selections.size();
   }
   
-  void SelectionSet::rotateBackward () {
+  void SelectionSet::rotateBackward() {
     if (m_primary == 0) {
       m_primary = m_selections.size() - 1;
     } else {
@@ -118,13 +118,13 @@ namespace quip {
     }
   }
   
-  void SelectionSet::replace (const Selection & primary) {
+  void SelectionSet::replace(const Selection& primary) {
     m_selections.clear();
     m_selections.emplace_back(primary);
     m_primary = 0;
   }
   
-  void SelectionSet::replace (const SelectionSet & selections) {
+  void SelectionSet::replace(const SelectionSet& selections) {
     m_selections.clear();
     
     // The source selection set will already be sorted and collapsed.

@@ -42,38 +42,38 @@ namespace quip {
     enterMode("NormalMode");
   }
   
-  Document & EditContext::document () {
+  Document& EditContext::document() {
     return *m_document;
   }
   
-  SelectionSet & EditContext::selections () {
+  SelectionSet& EditContext::selections() {
     return m_selections;
   }
   
-  Mode & EditContext::mode () {
+  Mode& EditContext::mode() {
     return *m_modeHistory.top();
   }
   
-  const std::map<std::string, SelectionDrawInfo> & EditContext::overlays () const {
+  const std::map<std::string, SelectionDrawInfo>& EditContext::overlays() const {
     return m_overlays;
   }
   
-  void EditContext::setOverlay (const std::string & name, const SelectionDrawInfo & overlay) {
+  void EditContext::setOverlay(const std::string& name, const SelectionDrawInfo& overlay) {
     m_overlays[name] = overlay;
   }
   
-  void EditContext::clearOverlay (const std::string & name) {
+  void EditContext::clearOverlay(const std::string& name) {
     auto cursor = m_overlays.find(name);
     if (cursor != std::end(m_overlays)) {
       m_overlays.erase(cursor);
     }
   }
   
-  void EditContext::enterMode (const std::string & name) {
+  void EditContext::enterMode(const std::string& name) {
     enterMode(name, 0);
   }
   
-  void EditContext::enterMode (const std::string & name, std::uint64_t how) {
+  void EditContext::enterMode(const std::string& name, std::uint64_t how) {
     std::map<std::string, std::shared_ptr<Mode>>::iterator cursor = m_modes.find(name);
     if (cursor != m_modes.end()) {
       m_modeHistory.push(cursor->second);
@@ -81,7 +81,7 @@ namespace quip {
     }
   }
   
-  void EditContext::leaveMode () {
+  void EditContext::leaveMode() {
     if (m_modeHistory.size() > 1) {
       mode().exit(*this);
       m_modeHistory.pop();
@@ -98,7 +98,7 @@ namespace quip {
     return m_undoStack.size() > 0;
   }
   
-  void EditContext::undo () {
+  void EditContext::undo() {
     if (canUndo()) {
       m_undoStack.top()->rollback(*this);
       m_onTransactionApplied.transmit(ChangeType::Undo);
@@ -112,7 +112,7 @@ namespace quip {
     return m_redoStack.size() > 0;
   }
   
-  void EditContext::redo () {
+  void EditContext::redo() {
     if (canRedo()) {
       m_redoStack.top()->perform(*this);
       m_onTransactionApplied.transmit(ChangeType::Redo);
@@ -130,23 +130,23 @@ namespace quip {
     return mode().processKeyEvent(key, modifiers, text, *this);
   }
   
-  ViewController & EditContext::controller () {
+  ViewController& EditContext::controller() {
     return m_controller;
   }
   
-  PopupService & EditContext::popupService () {
+  PopupService& EditContext::popupService() {
     return *m_popupService;
   }
   
-  StatusService & EditContext::statusService () {
+  StatusService& EditContext::statusService() {
     return *m_statusService;
   }
   
-  const FileTypeDatabase & EditContext::fileTypeDatabase () const {
+  const FileTypeDatabase& EditContext::fileTypeDatabase() const {
     return m_fileTypeDatabase;
   }
   
-  Signal<void (ChangeType)> & EditContext::onTransactionApplied () {
+  Signal<void (ChangeType)>& EditContext::onTransactionApplied() {
     return m_onTransactionApplied;
   }
 }

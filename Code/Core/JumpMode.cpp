@@ -8,21 +8,21 @@
 #include "Location.hpp"
 
 namespace quip {
-  JumpMode::JumpMode ()
+  JumpMode::JumpMode()
   : m_row(0) {
   }
   
-  std::string JumpMode::status () const {
+  std::string JumpMode::status() const {
     return "Jump Forward";
   }
   
-  void JumpMode::onEnter (EditContext & context, std::uint64_t how) {
+  void JumpMode::onEnter(EditContext& context, std::uint64_t how) {
     m_jumps.clear();
     if (context.document().isEmpty()) {
       return;
     }
 
-    const Selection & selection = context.selections().primary();
+    const Selection& selection = context.selections().primary();
     Location start = selection.extent();
     m_row = start.row();
     
@@ -32,7 +32,7 @@ namespace quip {
     std::vector<Selection> overlaySelections;
     bool priorWasWhitespace = std::isspace(line[start.column()]);
     for (std::uint64_t column = start.column() + 1; column < line.size(); ++column) {
-      const char & character = line[column];
+      const char& character = line[column];
       bool thisIsWhitespace = std::isspace(character);
       
       if (priorWasWhitespace && !thisIsWhitespace) {
@@ -54,11 +54,11 @@ namespace quip {
     context.setOverlay("Jump", overlays);
   }
   
-  void JumpMode::onExit (EditContext & context) {
+  void JumpMode::onExit(EditContext& context) {
     context.clearOverlay("Jump");
   }
   
-  bool JumpMode::onUnmappedKey (Key key, const std::string & text, EditContext & context) {
+  bool JumpMode::onUnmappedKey(Key key, const std::string& text, EditContext& context) {
     if (key == Key::Escape) {
       context.leaveMode();
     } else {

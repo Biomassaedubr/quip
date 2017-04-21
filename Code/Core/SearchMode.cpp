@@ -7,16 +7,16 @@
 #include "SelectionDrawInfo.hpp"
 
 namespace quip {
-  SearchMode::SearchMode () {
+  SearchMode::SearchMode() {
     addMapping(Key::Escape, &SearchMode::abortSearch);
     addMapping(Key::Return, &SearchMode::commitSearch);
   }
   
-  std::string SearchMode::status () const {
+  std::string SearchMode::status() const {
     return "s/" + m_search;
   }
   
-  bool SearchMode::onUnmappedKey (Key key, const std::string & text, EditContext & context) {
+  bool SearchMode::onUnmappedKey(Key key, const std::string& text, EditContext& context) {
     if (text.size() == 0 && key != Key::Delete) {
       return false;
     }
@@ -45,14 +45,14 @@ namespace quip {
     return true;
   }
   
-  void SearchMode::abortSearch (EditContext & context) {
+  void SearchMode::abortSearch(EditContext& context) {
     m_search = "";
     
     context.clearOverlay("Search");
     context.leaveMode();
   }
   
-  void SearchMode::commitSearch (EditContext & context) {
+  void SearchMode::commitSearch(EditContext& context) {
     context.selections().replace(context.document().matches(SearchExpression(m_search)));
     m_search = "";
 

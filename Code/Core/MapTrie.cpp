@@ -3,11 +3,11 @@
 #include "KeySequence.hpp"
 
 namespace quip {
-  MapTrie::MapTrie ()
+  MapTrie::MapTrie()
   : m_root(std::make_unique<MapTrieNode>()) {
   }
   
-  void MapTrie::insert (const KeySequence & sequence, MapHandler handler) {
+  void MapTrie::insert(const KeySequence& sequence, MapHandler handler) {
     const Key * key = sequence.begin();
     const Key * end = sequence.end();
     MapTrieNode * node = m_root.get();
@@ -29,7 +29,7 @@ namespace quip {
     node->setHandler(handler);
   }
   
-  const MapTrieNode * MapTrie::find (const KeySequence & sequence) const {
+  const MapTrieNode * MapTrie::find(const KeySequence& sequence) const {
     const Key * key = sequence.begin();
     const Key * end = sequence.end();
     MapTrieNode * node = m_root.get();

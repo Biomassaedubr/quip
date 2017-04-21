@@ -1,7 +1,7 @@
 #include "SearchExpression.hpp"
 
 namespace quip {
-  SearchExpression::SearchExpression (const std::string & expression)
+  SearchExpression::SearchExpression(const std::string& expression)
   : m_valid(true)
   , m_expression(expression) {
     if (expression.length() == 0) {
@@ -13,21 +13,21 @@ namespace quip {
     } else {
       try {
         m_pattern = std::regex(expression);
-      } catch (const std::regex_error &) {
+      } catch (const std::regex_error&) {
         m_valid = false;
       }
     }
   }
   
-  bool SearchExpression::valid () const {
+  bool SearchExpression::valid() const {
     return m_valid;
   }
   
-  const std::string & SearchExpression::expression () const {
+  const std::string& SearchExpression::expression() const {
     return m_expression;
   }
   
-  const std::regex & SearchExpression::pattern () const {
+  const std::regex& SearchExpression::pattern() const {
     return m_pattern;
   }
 }

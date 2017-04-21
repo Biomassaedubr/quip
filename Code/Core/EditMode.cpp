@@ -8,7 +8,7 @@
 
 namespace quip {
   namespace {
-    void backspace (EditContext & context, bool isAppending) {
+    void backspace(EditContext& context, bool isAppending) {
       // Functionally, this is equivalent to erasing a selection that starts just before each
       // actual selection in the set. If appending, it's equivalent to erasing the selection
       // collapsed to its origin.
@@ -17,7 +17,7 @@ namespace quip {
       adjusted.reserve(context.selections().count());
       
       std::size_t bias = isAppending ? 0 : 1;
-      for (const Selection & selection : context.selections()) {
+      for (const Selection& selection : context.selections()) {
         Location origin = selection.origin();
         if (isAppending) {
           adjusted.emplace_back(Selection(origin));
@@ -51,20 +51,20 @@ namespace quip {
     }
   }
   
-  EditMode::EditMode ()
+  EditMode::EditMode()
   : m_useAppendBehavior(false) {
     addMapping(Key::Escape, &EditMode::commitInsert);
   }
   
-  CursorStyle EditMode::cursorStyle () const {
+  CursorStyle EditMode::cursorStyle() const {
     return m_useAppendBehavior ? CursorStyle::VerticalBarAtExtent : CursorStyle::VerticalBarAtOrigin;
   }
   
-  CursorFlags EditMode::cursorFlags () const {
+  CursorFlags EditMode::cursorFlags() const {
     return CursorFlags::Blink;
   }
   
-  std::string EditMode::status () const {
+  std::string EditMode::status() const {
     if (m_useAppendBehavior) {
       return "Edit (Append)";
     }
@@ -72,19 +72,19 @@ namespace quip {
     return "Edit (Insert)";
   }
   
-  bool EditMode::allowsCounts () const {
+  bool EditMode::allowsCounts() const {
     return false;
   }
   
-  bool EditMode::allowsRepeats () const {
+  bool EditMode::allowsRepeats() const {
     return false;
   }
   
-  void EditMode::onEnter(EditContext & context, std::uint64_t how) {
+  void EditMode::onEnter(EditContext& context, std::uint64_t how) {
     m_useAppendBehavior = how == AppendBehavior;
   }
   
-  bool EditMode::onUnmappedKey (Key key, const std::string& text, EditContext& context) {
+  bool EditMode::onUnmappedKey(Key key, const std::string& text, EditContext& context) {
     Document& document = context.document();
     switch (key) {
       case Key::Tab:
@@ -133,7 +133,7 @@ namespace quip {
     return false;
   }
   
-  void EditMode::commitInsert (EditContext & context) {
+  void EditMode::commitInsert(EditContext& context) {
     context.leaveMode();
   }
 }
