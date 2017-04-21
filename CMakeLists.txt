@@ -103,6 +103,7 @@ target_include_directories(Quip.Tests PRIVATE ${CoreIncludeDirectories})
 target_include_directories(Quip.Tests PRIVATE ${TestIncludeDirectories})
 target_include_directories(Quip.Tests PRIVATE Dependencies/catch)
 target_include_directories(Quip.Tests PRIVATE Dependencies/optional-lite)
+target_include_directories(Quip.Tests PRIVATE Code/Core)
 target_link_libraries(Quip.Tests PRIVATE Quip.Core)
 
 add_executable(Quip.Launcher ${LauncherSourceFiles})
