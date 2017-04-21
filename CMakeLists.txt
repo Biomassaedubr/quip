@@ -30,10 +30,6 @@ set(ApplicationSourceFiles
   Code/Mac/main.m
 )
 
-set(LauncherSourceFiles
-  Code/Launcher/main.m
-)
-
 set(RuntimeFiles
   Code/Runtime/boot.lua
   Code/Runtime/syntax.lua
@@ -80,10 +76,8 @@ find_library(CocoaFramework Cocoa)
 find_library(CoreGraphicsFramework CoreGraphics)
 
 add_subdirectory("Code/Core")
+add_subdirectory("Code/Launcher")
 add_subdirectory("Code/Tests")
-
-add_executable(Quip.Launcher ${LauncherSourceFiles})
-target_link_libraries(Quip.Launcher PRIVATE ${CocoaFramework})
 
 add_executable(Quip MACOSX_BUNDLE ${ApplicationSourceFiles} ${RuntimeFiles})
 set_target_properties(Quip PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
