@@ -26,6 +26,9 @@ namespace quip {
     void doShiftSelectionOriginsUp(EditContext& context);
     void doShiftSelectionOriginsRight(EditContext& context);
 
+    void doIncreaseSelectionIndentLevel(EditContext& context);
+    void doDecreaseSelectionIndentLevel(EditContext& context);
+    
     void doSelectThisWord(EditContext& context);
     void doSelectNextWord(EditContext& context);
     void doSelectPriorWord(EditContext& context);

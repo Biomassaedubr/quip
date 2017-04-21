@@ -31,13 +31,6 @@ namespace quip {
     if (allowsCounts() && m_sequence.count() == 0 && keyIsNumber(key)) {
       m_count *= 10;
       m_count += numberFromKey(key);
-    } else if (allowsRepeats() && m_sequence.count() == 0 && m_previousSequence.count() > 0 && key == Key::Period) {
-      const MapTrieNode* node = m_mappings.find(m_previousSequence);
-      if (node != nullptr) {
-        for (std::uint32_t index = 0; index < std::max(1U, m_count); ++index) {
-          node->handler()(context);
-        }
-      }
     } else {
       // If any modifiers are present for this keystroke that were not present in the prior keystroke,
       // add them into the sequence.
