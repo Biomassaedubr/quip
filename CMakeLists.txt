@@ -1,21 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 project(Quip)
 
-set(TestSourceFiles
-  Code/Tests/CoordinateTests.cpp
-  Code/Tests/DocumentIteratorTests.cpp
-  Code/Tests/DocumentTests.cpp
-  Code/Tests/ExtentTests.cpp
-  Code/Tests/KeySequenceTests.cpp
-  Code/Tests/LocationTests.cpp
-  Code/Tests/SearchExpressionTests.cpp
-  Code/Tests/SelectionSetTests.cpp
-  Code/Tests/SelectionTests.cpp
-  Code/Tests/SelectorTests.cpp
-  Code/Tests/SignalTests.cpp
-  Code/Tests/main.cpp
-)
-
 set(ApplicationSourceFiles
   Dependencies/lpeg/lpeg.so
   Resources/Images.xcassets
@@ -88,7 +73,6 @@ function(process_source_files SourceFiles IncludePathVariable)
   set(${IncludePathVariable} ${LocalIncludePaths} PARENT_SCOPE)
 endfunction()
 
-process_source_files("${TestSourceFiles}" TestIncludeDirectories)
 process_source_files("${ApplicationSourceFiles}" ApplicationIncludeDirectories)
 process_source_files("${RuntimeFiles}" RuntimeIncludeDirectories)
 
@@ -96,15 +80,7 @@ find_library(CocoaFramework Cocoa)
 find_library(CoreGraphicsFramework CoreGraphics)
 
 add_subdirectory("Code/Core")
-
-add_executable(Quip.Tests ${TestSourceFiles})
-set_target_properties(Quip.Tests PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
-target_include_directories(Quip.Tests PRIVATE ${CoreIncludeDirectories})
-target_include_directories(Quip.Tests PRIVATE ${TestIncludeDirectories})
-target_include_directories(Quip.Tests PRIVATE Dependencies/catch)
-target_include_directories(Quip.Tests PRIVATE Dependencies/optional-lite)
-target_include_directories(Quip.Tests PRIVATE Code/Core)
-target_link_libraries(Quip.Tests PRIVATE Quip.Core)
+add_subdirectory("Code/Tests")
 
 add_executable(Quip.Launcher ${LauncherSourceFiles})
 target_link_libraries(Quip.Launcher PRIVATE ${CocoaFramework})
