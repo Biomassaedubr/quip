@@ -35,6 +35,10 @@ namespace quip {
   }
   
   Optional<Selection> selectThisWord(const Document& document, const Selection& basis) {
+    if (document.isEmpty()) {
+      return Optional<Selection>();
+    }
+    
     DocumentIterator origin = document.at(basis.origin());
     origin.reverseWhile(isWordCharacter);
     
@@ -46,6 +50,10 @@ namespace quip {
   }
   
   Optional<Selection> selectNextWord(const Document& document, const Selection& basis) {
+    if (document.isEmpty()) {
+      return Optional<Selection>();
+    }
+    
     DocumentIterator origin = document.at(basis.extent());
     origin.advanceUntil(isNotWordCharacter);
     if (origin == document.end()) {
@@ -61,6 +69,10 @@ namespace quip {
   }
   
   Optional<Selection> selectPriorWord(const Document& document, const Selection& basis) {
+    if (document.isEmpty()) {
+      return Optional<Selection>();
+    }
+    
     DocumentIterator origin = document.at(basis.origin());
     origin.reverseUntil(isNotWordCharacter);
     if (origin == document.begin()) {
@@ -76,6 +88,10 @@ namespace quip {
   }
 
   Optional<Selection> selectRemainingWord(const Document& document, const Selection& basis) {
+    if (document.isEmpty()) {
+      return Optional<Selection>();
+    }
+    
     DocumentIterator extent = document.at(basis.extent());
     extent.advanceWhile(isWordCharacter);
     extent = selectTrailingWhitespaceIfApplicable(document, extent);
@@ -96,6 +112,10 @@ namespace quip {
   }
   
   Optional<Selection> selectNextLine(const Document& document, const Selection& basis) {
+    if (document.isEmpty()) {
+      return Optional<Selection>();
+    }
+    
     std::uint64_t row = basis.extent().row();
     if (row + 1 < document.rows()) {
       ++row;
@@ -108,6 +128,10 @@ namespace quip {
   }
   
   Optional<Selection> selectPriorLine(const Document& document, const Selection& basis) {
+    if (document.isEmpty()) {
+      return Optional<Selection>();
+    }
+    
     std::uint64_t row = basis.origin().row();
     if (row > 0) {
       --row;
