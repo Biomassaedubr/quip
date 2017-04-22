@@ -84,6 +84,10 @@ namespace quip {
   }
   
   Optional<Selection> selectThisLine(const Document& document, const Selection& basis) {
+    if (document.isEmpty()) {
+      return Optional<Selection>();
+    }
+    
     Location origin(0, basis.origin().row());
     
     std::uint64_t row = basis.extent().row();
