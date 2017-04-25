@@ -26,18 +26,19 @@ set(SourceFiles
   StatusServiceProvider.mm
   main.m
 )
+source_group(Code FILES ${SourceFiles})
 
 set(RuntimeFiles
   Runtime/boot.lua
   Runtime/syntax.lua
 )
-
 set(SyntaxFiles
   Runtime/syntax/cpp.lua
   Runtime/syntax/glsl.lua
   Runtime/syntax/markdown.lua
   Runtime/syntax/text.lua
 )
+source_group(Runtime FILES ${RuntimeFiles} ${SyntaxFiles})
 
 set(RESOURCE
   Resources/Images.xcassets
