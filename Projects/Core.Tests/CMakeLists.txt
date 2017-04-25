@@ -12,6 +12,7 @@ set(SourceFiles
   SelectorTests.cpp
   SignalTests.cpp
 )
+source_group(Code FILES ${SourceFiles})
 
 add_executable(Quip.Tests ${SourceFiles})
 set_target_properties(Quip.Tests PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
