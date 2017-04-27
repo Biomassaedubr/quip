@@ -42,9 +42,17 @@ namespace quip {
     DocumentIterator origin = document.at(basis.origin());
     origin.reverseWhile(isWordCharacter);
     
-    DocumentIterator extent = origin;
+    DocumentIterator extent = document.at(basis.extent());
     extent.advanceWhile(isWordCharacter);
     extent = selectTrailingWhitespaceIfApplicable(document, extent);
+    
+    // If the selection didn't change, the basis was already a full word selection. In this case,
+    // the next full word should be selected.
+    if(basis.origin() == origin.location() && basis.extent() == extent.location() && extent != document.end()) {
+      origin = ++extent;
+      extent.advanceWhile(isWordCharacter);
+      extent = selectTrailingWhitespaceIfApplicable(document, extent);
+    }
     
     return Optional<Selection>(Selection(origin.location(), extent.location()));
   }

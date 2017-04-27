@@ -30,12 +30,11 @@ namespace quip {
     addMapping("<S-.>", &NormalMode::doIncreaseSelectionIndentLevel);
     addMapping("<S-,>", &NormalMode::doDecreaseSelectionIndentLevel);
     
-    addMapping("TW", &NormalMode::doSelectThisWord);
-    addMapping("W", &NormalMode::doSelectNextWord);
+    addMapping("W", &NormalMode::doSelectThisWord);
     addMapping("B", &NormalMode::doSelectPriorWord);
     addMapping("RW", &NormalMode::doSelectRemainingWord);
     
-    addMapping("TL", &NormalMode::doSelectThisLine);
+    addMapping("L", &NormalMode::doSelectThisLine);
     addMapping("NL", &NormalMode::doSelectNextLine);
     addMapping("PL", &NormalMode::doSelectPriorLine);
     
