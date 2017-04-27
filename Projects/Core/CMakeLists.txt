@@ -40,8 +40,12 @@ source_group(Mode FILES ${ModeSourceFiles})
 
 set(ScriptingSourceFiles
   Lua.hpp
+  LuaBinding.cpp
+  LuaBinding.hpp
   Script.cpp
   Script.hpp
+  ScriptBoundObject.cpp
+  ScriptBoundObject.hpp
   ScriptHost.cpp
   ScriptHost.hpp
   SearchExpression.cpp

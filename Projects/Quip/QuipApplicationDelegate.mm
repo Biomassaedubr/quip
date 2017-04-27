@@ -20,7 +20,8 @@
 
     NSBundle* mainBundle = [NSBundle mainBundle];
     NSString* scriptRootPath = [[mainBundle resourcePath] stringByAppendingPathComponent:@"Runtime"];
-    m_scriptHost = std::make_unique<quip::ScriptHost>([scriptRootPath cStringUsingEncoding:NSUTF8StringEncoding], *m_settings);
+    m_scriptHost = std::make_unique<quip::ScriptHost>([scriptRootPath cStringUsingEncoding:NSUTF8StringEncoding]);
+    m_scriptHost->bind(m_settings.get(), "settings");
     m_scriptHost->addNativePackagePath([[mainBundle resourcePath] cStringUsingEncoding:NSUTF8StringEncoding]);
     
     // Run the boot script.

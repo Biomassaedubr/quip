@@ -21,4 +21,12 @@ namespace quip {
   void GlobalSettings::setFontSize(float size) {
     m_fontSize = size;
   }
+  
+  LuaBinding GlobalSettings::binding() {
+    LuaBinding result;
+    result.addProperty("fontFace", &GlobalSettings::fontFace, &GlobalSettings::setFontFace);
+    result.addProperty("fontSize", &GlobalSettings::fontSize, &GlobalSettings::setFontSize);
+    
+    return result;
+  }
 }

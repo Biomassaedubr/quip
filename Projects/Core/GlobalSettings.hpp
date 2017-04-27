@@ -1,5 +1,7 @@
 #pragma once
 
+#include "LuaBinding.hpp"
+
 #include <string>
 
 namespace quip {
@@ -12,6 +14,8 @@ namespace quip {
     
     float fontSize() const;
     void setFontSize(float size);
+    
+    static LuaBinding binding();
     
   private:
     std::string m_fontFace;
