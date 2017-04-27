@@ -33,6 +33,8 @@ set(ModeSourceFiles
   JumpMode.hpp
   Mode.cpp
   Mode.hpp
+  NormalMode.cpp
+  NormalMode.hpp
   SearchMode.cpp
   SearchMode.hpp
 )
@@ -99,8 +101,6 @@ set(TransactionSourceFiles
   InsertTransaction.hpp
   Transaction.cpp
   Transaction.hpp
-  NormalMode.cpp
-  NormalMode.hpp
 )
 source_group(Transaction FILES ${TransactionSourceFiles})
 
