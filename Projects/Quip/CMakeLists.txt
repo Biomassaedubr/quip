@@ -1,12 +1,9 @@
 set(SourceFiles
   ../../Dependencies/lpeg/lpeg.so
   Resources/Images.xcassets
-  DrawingServiceProvider.hpp
-  DrawingServiceProvider.mm
   Info.plist.in
   MainMenu.xib
-  PopupServiceProvider.hpp
-  PopupServiceProvider.mm
+
   QuipApplicationDelegate.h
   QuipApplicationDelegate.mm
   QuipDocument.h
@@ -22,11 +19,19 @@ set(SourceFiles
   QuipWindowController.h
   QuipWindowController.mm
   QuipWindowController.xib
-  StatusServiceProvider.hpp
-  StatusServiceProvider.mm
   main.m
 )
 source_group(Code FILES ${SourceFiles})
+
+set(ServiceSourceFiles
+  DrawingServiceProvider.hpp
+  DrawingServiceProvider.mm
+  PopupServiceProvider.hpp
+  PopupServiceProvider.mm
+  StatusServiceProvider.hpp
+  StatusServiceProvider.mm
+)
+source_group(Code\\Services FILES ${ServiceSourceFiles})
 
 set(RuntimeFiles
   Runtime/boot.lua
@@ -44,7 +49,7 @@ set(RESOURCE
   Resources/Images.xcassets
 )
 
-add_executable(Quip MACOSX_BUNDLE ${SourceFiles} ${RuntimeFiles} ${SyntaxFiles})
+add_executable(Quip MACOSX_BUNDLE ${SourceFiles} ${ServiceSourceFiles} ${RuntimeFiles} ${SyntaxFiles})
 
 set_target_properties(Quip PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
 set_target_properties(Quip PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_LIST_DIR}/Info.plist.in)
