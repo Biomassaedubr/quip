@@ -37,7 +37,9 @@ namespace quip {
     void doSelectThisLine(EditContext& context);
     void doSelectNextLine(EditContext& context);
     void doSelectPriorLine(EditContext& context);
-    
+
+    void doSelectBlocks(EditContext& context);
+
     void enterJumpMode(EditContext& context);
     void enterSearchMode(EditContext& context);
     void enterEditModeByInserting(EditContext& context);

@@ -6,6 +6,22 @@
 
 namespace quip {
   namespace {
+    bool isOpenBlockCharacter(char character) {
+      return character == '{' || character == '[' || character == '<';
+    }
+    
+    bool isNotOpenBlockCharacter(char character) {
+      return !isOpenBlockCharacter(character);
+    }
+    
+    bool isCloseBlockCharacter(char character) {
+      return character == '}' || character == ']' || character == '>';
+    }
+    
+    bool isNotCloseBlockCharacter(char character) {
+      return !isCloseBlockCharacter(character);
+    }
+    
     bool isWordCharacter(char character) {
       return std::isalnum(character);
     }
@@ -149,5 +165,25 @@ namespace quip {
     }
     
     return Optional<Selection>(selectThisLine(document, basis));
+  }
+  
+  Optional<Selection> selectBlocks(const Document& document, const Selection& basis) {
+    if (document.isEmpty()) {
+      return Optional<Selection>();
+    }
+    
+    DocumentIterator origin = document.at(basis.origin());
+    origin.reverseWhile(isNotOpenBlockCharacter);
+    
+    DocumentIterator extent = document.at(basis.extent());
+    extent.advanceWhile(isNotCloseBlockCharacter);
+    
+    if(basis.origin() == origin.location() && basis.extent() == extent.location() && origin != document.begin() && extent != document.end()) {
+      --origin;
+      ++extent;
+      return selectBlocks(document, Selection(origin.location(), extent.location()));
+    }
+    
+    return Optional<Selection>(Selection(origin.location(), extent.location()));
   }
 }
