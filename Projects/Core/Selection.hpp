@@ -5,13 +5,17 @@
 #include <cstdint>
 
 namespace quip {
+  struct DocumentIterator;
+  
   // A inclusive region of marked text that can be operated on.
   //
   // A selection is defined by an origin location and an extent location. If they
   // are not equal, the origin is always earlier in the document than the extent.
   struct Selection {
     explicit Selection(const Location& location);
-    Selection(const Location& origin, const Location& extent);
+    explicit Selection(const DocumentIterator& location);
+    explicit Selection(const Location& origin, const Location& extent);
+    explicit Selection(const DocumentIterator& origin, const DocumentIterator& extent);
     Selection(const Selection& other);
     Selection(Selection&& other);
     

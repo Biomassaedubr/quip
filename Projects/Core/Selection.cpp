@@ -1,5 +1,7 @@
 #include "Selection.hpp"
 
+#include "DocumentIterator.hpp"
+
 #include <algorithm>
 
 namespace quip {
@@ -8,10 +10,18 @@ namespace quip {
   , m_extent(location) {
   }
   
+  Selection::Selection(const DocumentIterator& location)
+  : Selection(location.location()) {
+  }
+  
   Selection::Selection(const Location& origin, const Location& extent)
   : m_origin(origin)
   , m_extent(extent) {
     normalize();
+  }
+  
+  Selection::Selection(const DocumentIterator& origin, const DocumentIterator& extent)
+  : Selection(origin.location(), extent.location()) {
   }
   
   Selection::Selection(const Selection& other)
