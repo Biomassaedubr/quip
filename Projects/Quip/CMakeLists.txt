@@ -61,7 +61,6 @@ target_include_directories(Quip PRIVATE ../../Dependencies/optional-lite)
 target_include_directories(Quip PRIVATE ../Core)
 
 target_link_libraries(Quip PRIVATE Quip.Core)
-target_link_libraries(Quip PRIVATE ${CMAKE_SOURCE_DIR}/Dependencies/lua/bin/liblua.a)
 target_link_libraries(Quip PRIVATE ${CocoaFramework} ${CoreGraphicsFramework})
 
 set_target_properties(Quip PROPERTIES RESOURCE Resources/Images.xcassets)

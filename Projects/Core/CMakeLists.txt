@@ -131,5 +131,6 @@ add_library(Quip.Core
 )
 
 set_target_properties(Quip.Core PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
-target_include_directories(Quip.Core PRIVATE ../../Dependencies/lua/include)
 target_include_directories(Quip.Core PRIVATE ../../Dependencies/optional-lite)
+
+target_link_libraries(Quip.Core Lua)
