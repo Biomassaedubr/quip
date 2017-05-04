@@ -1,19 +1,20 @@
 #include "catch.hpp"
 
 #include "Document.hpp"
+#include "DocumentIterator.hpp"
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
 
 using namespace quip;
 
-TEST_CASE("Documents can be default-constructed.", "[DocumentTests]") {
+TEST_CASE("Default-construct a document.", "Document") {
   Document document;
   
   REQUIRE(document.rows() == 0);
   REQUIRE(document.isMissingTrailingNewline());
 }
 
-TEST_CASE("Documents can be constructed from a single line of text.", "[DocumentTests]") {
+TEST_CASE("Construct a document from a single line of text.", "Document") {
   Document document("ABCD");
   
   REQUIRE(document.rows() == 1);
@@ -21,7 +22,7 @@ TEST_CASE("Documents can be constructed from a single line of text.", "[Document
   REQUIRE(document.isMissingTrailingNewline());
 }
 
-TEST_CASE("Documents can be constructed from multiple lines of text.", "[DocumentTests]") {
+TEST_CASE("Construct a document from multiple lines of text.", "Document") {
   Document document("ABCD\nEFGH\nIJKL");
   
   REQUIRE(document.rows() == 3);
@@ -30,7 +31,7 @@ TEST_CASE("Documents can be constructed from multiple lines of text.", "[Documen
   REQUIRE(document.row(2) == "IJKL");
 }
 
-TEST_CASE("Documents can be constructed with a trailing newline.", "[DocumentTests]") {
+TEST_CASE("Construct a document with a trailing newline.", "Document") {
   Document document("ABCD\n");
   
   REQUIRE(document.rows() == 1);
@@ -38,7 +39,7 @@ TEST_CASE("Documents can be constructed with a trailing newline.", "[DocumentTes
   REQUIRE_FALSE(document.isMissingTrailingNewline());
 }
 
-TEST_CASE("Documents can tested for emptiness.", "[DocumentTests]") {
+TEST_CASE("Test if a document is empty.", "Document") {
   Document empty;
   REQUIRE(empty.isEmpty());
   
@@ -46,70 +47,70 @@ TEST_CASE("Documents can tested for emptiness.", "[DocumentTests]") {
   REQUIRE_FALSE(filled.isEmpty());
 }
 
-TEST_CASE("Documents can query for distance between the same location.", "[DocumentTests]") {
+TEST_CASE("Get the distance between the same location.", "Document") {
   Document document("ABCD");
   std::int64_t result = document.distance(Location(0, 0), Location(0, 0));
   
   REQUIRE(result == 0);
 }
 
-TEST_CASE("Documents can query for distance between increasing locations on the same row.", "[DocumentTests]") {
+TEST_CASE("Get the distance between increasing locations on the same row.", "Document") {
   Document document("ABCD");
   std::int64_t result = document.distance(Location(1, 0), Location(3, 0));
   
   REQUIRE(result == 2);
 }
 
-TEST_CASE("Documents can query for distance between decreasing locations on the same row.", "[DocumentTests]") {
+TEST_CASE("Get the distance between decreasing locations on the same row.", "Document") {
   Document document("ABCD");
   std::int64_t result = document.distance(Location(3, 0), Location(1, 0));
   
   REQUIRE(result == -2);
 }
 
-TEST_CASE("Documents can query for distance between increasing locations on different rows.", "[DocumentTests]") {
+TEST_CASE("Get the distance between increasing locations on different rows.", "Document") {
   Document document("ABCD\nEFGH\nIJKL\n");
   std::int64_t result = document.distance(Location(1, 0), Location(2, 2));
   
   REQUIRE(result == 11);
 }
 
-TEST_CASE("Documents can query for distance between decreasing locations on different rows.", "[DocumentTests]") {
+TEST_CASE("Get the distance between decreasing locations on different rows.", "Document") {
   Document document("ABCD\nEFGH\nIJKL\n");
   std::int64_t result = document.distance(Location(2, 2), Location(1, 0));
   
   REQUIRE(result == -11);
 }
 
-TEST_CASE("Documents can return their entire contents.", "[DocumentTests]") {
+TEST_CASE("Get the document content.", "Document") {
   Document document("ABCD\nEFGH\n");
   std::string result = document.contents();
   
   REQUIRE(result == "ABCD\nEFGH\n");
 }
 
-TEST_CASE("Documents can return their entire contents when empty.", "[DocumentTests]") {
+TEST_CASE("Get the document content when empty.", "Document") {
   Document document;
   std::string result = document.contents();
   
   REQUIRE(result == "");
 }
 
-TEST_CASE("Documents can return the contents of a selection.", "[DocumentTests]") {
+TEST_CASE("Get a selection's content.", "Document") {
   Document document("ABCD\nEFGH\n");
   std::string result = document.contents(Selection(Location(2, 0), Location(1, 1)));
   
   REQUIRE(result == "CD\nEF");
 }
 
-TEST_CASE("Documents can return the contents of a selection when empty.", "[DocumentTests]") {
+TEST_CASE("Get a selection's content when empty.", "Document") {
   Document document;
   std::string result = document.contents(Selection(Location(0, 0)));
   
   REQUIRE(result == "");
 }
 
-TEST_CASE("Documents can return the contents of a selection set.", "[DocumentTests]") {
+TEST_CASE("Get a selection set's content.", "Document") {
   Document document("ABCD\nEFGH\nIJKL\n");
   SelectionSet selections({
     Selection(Location(3, 0), Location(0, 1)),
@@ -122,7 +123,7 @@ TEST_CASE("Documents can return the contents of a selection set.", "[DocumentTes
   REQUIRE(result[1] == "H\nI");
 }
 
-TEST_CASE("Documents can return the contents of a selection set when empty.", "[DocumentTests]") {
+TEST_CASE("Get a selection set's content when empty.", "Document") {
   Document document;
   SelectionSet selections(Selection(Location(0, 0)));
   std::vector<std::string> result = document.contents(selections);
@@ -130,7 +131,41 @@ TEST_CASE("Documents can return the contents of a selection set when empty.", "[
   REQUIRE(result.size() == 0);
 }
 
-TEST_CASE("Documents can have their path set.", "[DocumentTests]") {
+TEST_CASE("Get an iterator to the start of the document", "Document") {
+  Document document("Hello, world!");
+  DocumentIterator iterator = document.begin();
+  
+  REQUIRE(iterator != document.end());
+  REQUIRE(iterator.location() == Location(0, 0));
+}
+
+TEST_CASE("Get an iterator to the end of the document", "Document") {
+  Document document("Hello, world!");
+  DocumentIterator iterator = document.end();
+  
+  REQUIRE(iterator != document.begin());
+  REQUIRE(iterator.location() == Location(13, 0));
+}
+
+TEST_CASE("Get an iterator to a specific location in the document.", "Document") {
+  Document document("Hello, world!");
+  DocumentIterator iterator = document.at(Location(5, 0));
+  
+  REQUIRE(iterator != document.end());
+  REQUIRE(iterator.location() == Location(5, 0));
+  REQUIRE(*iterator == ',');
+}
+
+TEST_CASE("Get an iterator to a specific column and row in the document.", "Document") {
+  Document document("Hello, world!");
+  DocumentIterator iterator = document.at(5, 0);
+  
+  REQUIRE(iterator != document.end());
+  REQUIRE(iterator.location() == Location(5, 0));
+  REQUIRE(*iterator == ',');
+}
+
+TEST_CASE("Set the path.", "Document") {
   Document document;
   REQUIRE(document.path() == "");
   
@@ -138,7 +173,7 @@ TEST_CASE("Documents can have their path set.", "[DocumentTests]") {
   REQUIRE(document.path() == "~/path.txt");
 }
 
-TEST_CASE("Documents can have text inserted when empty.", "[DocumentTests]") {
+TEST_CASE("Insert text when empty.", "Document") {
   Document document;
   SelectionSet result = document.insert(Selection(Location(0, 0)), "ABCD\nEFGH\n");
   
@@ -149,7 +184,7 @@ TEST_CASE("Documents can have text inserted when empty.", "[DocumentTests]") {
   REQUIRE(result.primary().origin() == Location(5, 1));
 }
 
-TEST_CASE("Documents can have text inserted via a single selection.", "[DocumentTests]") {
+TEST_CASE("Insert text via a single selection.", "Document") {
   Document document("ABD\n");
   SelectionSet result = document.insert(Selection(Location(2, 0)), "C");
   
@@ -159,7 +194,7 @@ TEST_CASE("Documents can have text inserted via a single selection.", "[Document
   REQUIRE(result.primary().origin() == Location(3, 0));
 }
 
-TEST_CASE("Documents can have text inserted via multiple selections.", "[DocumentTests]") {
+TEST_CASE("Insert text via multiple selections.", "Document") {
   Document document("ADF\n");
   std::vector<std::string> text({
     "BC",
@@ -182,7 +217,7 @@ TEST_CASE("Documents can have text inserted via multiple selections.", "[Documen
   REQUIRE(result[2].origin() == Location(8, 0));
 }
 
-TEST_CASE("Documents can have text with leading newlines inserted via a single selection.", "[DocumentTests]") {
+TEST_CASE("Insert text with leading newlines via a single selection.", "Document") {
   Document document("ABCD\n");
   document.insert(Selection(Location(4, 0)), "\nEFGH");
   
@@ -191,7 +226,7 @@ TEST_CASE("Documents can have text with leading newlines inserted via a single s
   REQUIRE(document.row(1) == "EFGH\n");
 }
 
-TEST_CASE("Documents can have text with trailing newlines inserted via a single selection.", "[DocumentTests]") {
+TEST_CASE("Insert text with trailing newlines via a single selection.", "Document") {
   Document document("ABCD\n");
   SelectionSet result = document.insert(Selection(Location(4, 0)), "EFGH\n");
   
@@ -202,7 +237,7 @@ TEST_CASE("Documents can have text with trailing newlines inserted via a single 
   REQUIRE(result.primary().origin() == Location(0, 1));
 }
 
-TEST_CASE("Documents can have text with internal newlines inserted via a single selection.", "[DocumentTests]") {
+TEST_CASE("Insert text with internal newlines via a single selection.", "Document") {
   Document document("AB\nKL\n");
   SelectionSet result = document.insert(Selection(Location(2, 0)), "CD\nEFGH\nIJ");
   
@@ -215,7 +250,7 @@ TEST_CASE("Documents can have text with internal newlines inserted via a single 
   REQUIRE(result.primary().origin() == Location(2, 2));
 }
 
-TEST_CASE("Documents can have text erased when empty.", "[DocumentTests]") {
+TEST_CASE("Erase text when empty.", "Document") {
   Document document;
   Selection selection(Location(0, 0));
   SelectionSet result = document.erase(selection);
@@ -225,7 +260,7 @@ TEST_CASE("Documents can have text erased when empty.", "[DocumentTests]") {
   REQUIRE(result.primary().origin() == Location(0, 0));
 }
 
-TEST_CASE("Documents can have text erased via empty selections.", "[DocumentTests]") {
+TEST_CASE("Erase text via empty selections.", "Document") {
   Document document("ABCD\n");
   SelectionSet empty;
   document.erase(empty);
@@ -234,7 +269,7 @@ TEST_CASE("Documents can have text erased via empty selections.", "[DocumentTest
   REQUIRE(document.row(0) == "ABCD\n");
 }
 
-TEST_CASE("Documents can have a single character erased via a single selection.", "[DocumentTests]") {
+TEST_CASE("Erase a single character erased via a single selection.", "Document") {
   Document document("ABCD\n");
   SelectionSet result = document.erase(Selection(Location(1, 0)));
   
@@ -244,7 +279,7 @@ TEST_CASE("Documents can have a single character erased via a single selection."
   REQUIRE(result.primary().origin() == Location(1, 0));
 }
 
-TEST_CASE("Documents can have a multiple characters erased via a single selection.", "[DocumentTests]") {
+TEST_CASE("Erase multiple characters via a single selection.", "Document") {
   Document document("ABCD\n");
   SelectionSet result = document.erase(Selection(Location(1, 0), Location(2, 0)));
   
@@ -254,7 +289,7 @@ TEST_CASE("Documents can have a multiple characters erased via a single selectio
   REQUIRE(result.primary().origin() == Location(1, 0));
 }
 
-TEST_CASE("Documents can have a single line erased via a single selection.", "[DocumentTests]") {
+TEST_CASE("Erase a single line via a single selection.", "Document") {
   Document document("ABCD\nEFGH\n");
   SelectionSet result = document.erase(Selection(Location(0, 0), Location(4, 0)));
   
@@ -264,7 +299,7 @@ TEST_CASE("Documents can have a single line erased via a single selection.", "[D
   REQUIRE(result.primary().origin() == Location(0, 0));
 }
 
-TEST_CASE("Documents can have multiple lines erased via a single selection.", "[DocumentTests]") {
+TEST_CASE("Erase multiple lines via a single selection.", "Document") {
   Document document("ABCD\nEFGH\nHIJK\n");
   SelectionSet result = document.erase(Selection(Location(0, 0), Location(4, 1)));
   
@@ -273,7 +308,7 @@ TEST_CASE("Documents can have multiple lines erased via a single selection.", "[
   REQUIRE(result.primary().origin() == Location(0, 0));
 }
 
-TEST_CASE("Documents can have multiple characters erased via multiple selections.", "[DocumentTests]") {
+TEST_CASE("Erase multiple characters via multiple selections.", "Document") {
   Document document("ABCDEFGH\n");
   SelectionSet selections({
     Selection(Location(2, 0)),
@@ -290,7 +325,7 @@ TEST_CASE("Documents can have multiple characters erased via multiple selections
   REQUIRE(result[2].origin() == Location(4, 0));
 }
 
-TEST_CASE("Documents can have multiple characters erased across multiple lines via multiple selections.", "[DocumentTests]") {
+TEST_CASE("Erase multiple characters across multiple lines via multiple selections.", "Document") {
   Document document("ABCDEFGH\nIJKLMNOP\n");
   SelectionSet selections({
     Selection(Location(1, 0), Location(2, 0)),
@@ -307,7 +342,7 @@ TEST_CASE("Documents can have multiple characters erased across multiple lines v
   REQUIRE(result[2].origin() == Location(7, 0));
 }
 
-TEST_CASE("Documents can have multiple characters erased across multiple disjoint lines via multiple selections.", "[DocumentTests]") {
+TEST_CASE("Erase multiple characters across multiple disjoint lines via multiple selections.", "Document") {
   Document document("ABCDEFGH\nIJKLMNOP\nQRSTUVWX\n");
   SelectionSet selections({
     Selection(Location(0, 0)),
@@ -328,7 +363,7 @@ TEST_CASE("Documents can have multiple characters erased across multiple disjoin
   REQUIRE(result[3].origin() == Location(2, 2));
 }
 
-TEST_CASE("Documents can have a single newline erased.", "[DocumentTests]") {
+TEST_CASE("Erase a single newline.", "Document") {
   Document document("ABCD\nEFGH\n");
   SelectionSet result = document.erase(Selection(Location(4, 0)));
   
@@ -337,7 +372,7 @@ TEST_CASE("Documents can have a single newline erased.", "[DocumentTests]") {
   REQUIRE(result.primary().origin() == Location(4, 0));
 }
 
-TEST_CASE("Documents can have multiple newlines erased.", "[DocumentTests]") {
+TEST_CASE("Erase multiple newlines.", "Document") {
   Document document("AB\nCD\nEF\nGH\n");
   SelectionSet selections({
     Selection(Location(2, 0)),
@@ -355,7 +390,8 @@ TEST_CASE("Documents can have multiple newlines erased.", "[DocumentTests]") {
   REQUIRE(result[2].origin() == Location(3, 1));
 }
 
-TEST_CASE("Documents can have the last character in the document erased.", "[DocumentTests]") {
+TEST_CASE("Erase the last character in the document.", "Document") {
+  // This tests that the last character in document order can be erased (the document will still be non-empty).
   Document document("ABCD");
   SelectionSet result = document.erase(Selection(Location(3, 0)));
   
@@ -364,10 +400,12 @@ TEST_CASE("Documents can have the last character in the document erased.", "[Doc
   REQUIRE(result.primary().origin() == Location(2, 0));
 }
 
-TEST_CASE("Documents can have the last character of the document erased.", "[DocumentTests]") {
+TEST_CASE("Erase the last character of the document.", "Document") {
+  // This tests that the final character of a document can be erased (thus leaving the document empty).
   Document document("A");
   SelectionSet result = document.erase(Selection(Location(0, 0)));
-  
+
+  REQUIRE(document.isEmpty());
   REQUIRE(document.rows() == 0);
   REQUIRE(result.primary().origin() == Location(0, 0));
 }

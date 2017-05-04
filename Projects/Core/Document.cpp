@@ -98,6 +98,10 @@ namespace quip {
     return DocumentIterator(*this, location);
   }
   
+  DocumentIterator Document::at(std::uint64_t column, std::uint64_t row) const {
+    return at(Location(column, row));
+  }
+  
   std::int64_t Document::distance(const Location& from, const Location& to) const {
     if (from.row() == to.row()) {
       return to.column() - from.column();
