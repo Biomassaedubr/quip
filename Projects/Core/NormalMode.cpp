@@ -39,6 +39,7 @@ namespace quip {
     addMapping("PL", &NormalMode::doSelectPriorLine);
     
     addMapping("<S-B>", &NormalMode::doSelectBlocks);
+    addMapping("<O-I>", &NormalMode::doSelectItems);
     
     addMapping("RF", &NormalMode::rotateSelectionForward);
     addMapping("RB", &NormalMode::rotateSelectionBackward);
@@ -422,6 +423,14 @@ namespace quip {
   
   void NormalMode::doSelectBlocks(EditContext& context) {
     Optional<Selection> result = selectBlocks(context.document(), context.selections().primary());
+    if (result.has_value()) {
+      context.selections().replace(result.value());
+      context.controller().scrollLocationIntoView.transmit(context.selections().primary().extent());
+    }
+  }
+  
+  void NormalMode::doSelectItems(EditContext& context) {
+    Optional<Selection> result = selectItem(context.document(), context.selections().primary());
     if (result.has_value()) {
       context.selections().replace(result.value());
       context.controller().scrollLocationIntoView.transmit(context.selections().primary().extent());

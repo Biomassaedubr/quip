@@ -40,6 +40,8 @@ namespace quip {
 
     void doSelectBlocks(EditContext& context);
 
+    void doSelectItems(EditContext& context);
+    
     void enterJumpMode(EditContext& context);
     void enterSearchMode(EditContext& context);
     void enterEditModeByInserting(EditContext& context);

@@ -6,6 +6,22 @@
 
 namespace quip {
   namespace {
+    bool isStartItemCharacter(char character) {
+      return character == ',' || character == '(';
+    }
+    
+    bool isNotStartItemCharacter(char character) {
+      return !isStartItemCharacter(character);
+    }
+    
+    bool isEndItemCharacter(char character) {
+      return character == ',' || character == ')';
+    }
+    
+    bool isNotEndItemCharacter(char character) {
+      return !isEndItemCharacter(character);
+    }
+    
     bool isOpenBlockCharacter(char character) {
       return character == '{' || character == '[' || character == '<';
     }
@@ -182,6 +198,30 @@ namespace quip {
       --origin;
       ++extent;
       return selectBlocks(document, Selection(origin.location(), extent.location()));
+    }
+    
+    return Optional<Selection>(Selection(origin.location(), extent.location()));
+  }
+  
+  Optional<Selection> selectItem(const Document& document, const Selection& basis) {
+    if (document.isEmpty()) {
+      return Optional<Selection>();
+    }
+    
+    DocumentIterator origin = document.at(basis.origin());
+    origin.reverseWhile(isNotStartItemCharacter);
+    
+    DocumentIterator extent = document.at(basis.extent());
+    extent.advanceWhile(isNotEndItemCharacter);
+    extent = selectTrailingWhitespaceIfApplicable(document, extent);
+    
+    // If the selection didn't change, the basis was already a full item selection. In this case,
+    // the next full item should be selected.
+    if(basis.origin() == origin.location() && basis.extent() == extent.location() && extent != document.end()) {
+      extent.advanceUntil(isStartItemCharacter);
+      origin = ++extent;
+      extent.advanceWhile(isNotEndItemCharacter);
+      extent = selectTrailingWhitespaceIfApplicable(document, extent);
     }
     
     return Optional<Selection>(Selection(origin.location(), extent.location()));
