@@ -30,7 +30,7 @@ namespace quip {
     addMapping("<S-.>", &NormalMode::doIncreaseSelectionIndentLevel);
     addMapping("<S-,>", &NormalMode::doDecreaseSelectionIndentLevel);
     
-    addMapping("W", &NormalMode::doSelectThisWord);
+    addMapping("W", &NormalMode::doSelectWord);
     addMapping("B", &NormalMode::doSelectPriorWord);
     addMapping("RW", &NormalMode::doSelectRemainingWord);
     
@@ -365,19 +365,11 @@ namespace quip {
     selections.replace(SelectionSet(results));
   }
   
-  void NormalMode::doSelectThisWord(EditContext& context) {
-    Optional<Selection> result = selectThisWord(context.document(), context.selections().primary());
+  void NormalMode::doSelectWord(EditContext& context) {
+    Optional<Selection> result = selectWord(context.document(), context.selections().primary());
     if (result.has_value()) {
       context.selections().replace(result.value());
       context.controller().scrollToLocation.transmit(context.selections().primary().extent());
-    }
-  }
-  
-  void NormalMode::doSelectNextWord(EditContext& context) {
-    Optional<Selection> result = selectNextWord(context.document(), context.selections().primary());
-    if (result.has_value()) {
-      context.selections().replace(result.value());
-      context.controller().scrollLocationIntoView.transmit(context.selections().primary().extent());
     }
   }
   

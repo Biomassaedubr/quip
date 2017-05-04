@@ -7,8 +7,8 @@ namespace quip {
   struct Location;
   struct Selection;
 
-  Optional<Selection> selectThisWord(const Document& document, const Selection& basis);
-  Optional<Selection> selectNextWord(const Document& document, const Selection& basis);
+  Optional<Selection> selectWord(const Document& document, const Selection& basis);
+
   Optional<Selection> selectPriorWord(const Document& document, const Selection& basis);
   Optional<Selection> selectRemainingWord(const Document& document, const Selection& basis);
   Optional<Selection> selectThisLine(const Document& document, const Selection& basis);

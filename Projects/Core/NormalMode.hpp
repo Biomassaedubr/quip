@@ -29,8 +29,7 @@ namespace quip {
     void doIncreaseSelectionIndentLevel(EditContext& context);
     void doDecreaseSelectionIndentLevel(EditContext& context);
     
-    void doSelectThisWord(EditContext& context);
-    void doSelectNextWord(EditContext& context);
+    void doSelectWord(EditContext& context);
     void doSelectPriorWord(EditContext& context);
     void doSelectRemainingWord(EditContext& context);
     

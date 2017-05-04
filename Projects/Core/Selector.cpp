@@ -66,7 +66,7 @@ namespace quip {
     }
   }
   
-  Optional<Selection> selectThisWord(const Document& document, const Selection& basis) {
+  Optional<Selection> selectWord(const Document& document, const Selection& basis) {
     if (document.isEmpty()) {
       return Optional<Selection>();
     }
@@ -89,25 +89,6 @@ namespace quip {
     return Optional<Selection>(Selection(origin.location(), extent.location()));
   }
   
-  Optional<Selection> selectNextWord(const Document& document, const Selection& basis) {
-    if (document.isEmpty()) {
-      return Optional<Selection>();
-    }
-    
-    DocumentIterator origin = document.at(basis.extent());
-    origin.advanceUntil(isNotWordCharacter);
-    if (origin == document.end()) {
-      return Optional<Selection>();
-    }
-    
-    origin.advanceUntil(isWordCharacter);
-    if (origin == document.end()) {
-      return Optional<Selection>();
-    }
-    
-    return Optional<Selection>(selectThisWord(document, Selection(origin.location())));
-  }
-  
   Optional<Selection> selectPriorWord(const Document& document, const Selection& basis) {
     if (document.isEmpty()) {
       return Optional<Selection>();
@@ -124,7 +105,7 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    return Optional<Selection>(selectThisWord(document, Selection(origin.location())));
+    return Optional<Selection>(selectWord(document, Selection(origin.location())));
   }
 
   Optional<Selection> selectRemainingWord(const Document& document, const Selection& basis) {
