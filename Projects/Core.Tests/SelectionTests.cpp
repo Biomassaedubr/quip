@@ -1,5 +1,7 @@
 #include "catch.hpp"
 
+#include "Document.hpp"
+#include "DocumentIterator.hpp"
 #include "Selection.hpp"
 
 using namespace quip;
@@ -10,6 +12,15 @@ TEST_CASE("Construct a selection from a single location.", "Selection") {
   REQUIRE(selection.origin() == selection.extent());
   REQUIRE(selection.origin().column() == 1);
   REQUIRE(selection.origin().row() == 2);
+}
+
+TEST_CASE("Construct a selection from a single iterator.", "Selection") {
+  Document document("Hello, world!");
+  Selection selection(document.at(5, 0));
+  
+  REQUIRE(selection.origin() == selection.extent());
+  REQUIRE(selection.origin().column() == 5);
+  REQUIRE(selection.origin().row() == 0);
 }
 
 TEST_CASE("Construct a selection from a column and row pair.", "Selection") {
@@ -27,6 +38,16 @@ TEST_CASE("Construct a selection from two locations.", "Selection") {
   REQUIRE(selection.origin().row() == 2);
   REQUIRE(selection.extent().column() == 2);
   REQUIRE(selection.extent().row() == 4);
+}
+
+TEST_CASE("Construct a selection from two iterators.", "Selection") {
+  Document document("Hello, world!");
+  Selection selection(document.at(5, 0), document.at(6, 0));
+  
+  REQUIRE(selection.origin().column() == 5);
+  REQUIRE(selection.origin().row() == 0);
+  REQUIRE(selection.extent().column() == 6);
+  REQUIRE(selection.extent().row() == 0);
 }
 
 TEST_CASE("Construct a selection from two column and row pairs.", "Selection") {
