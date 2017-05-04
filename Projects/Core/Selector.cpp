@@ -82,6 +82,11 @@ namespace quip {
     // the next full word should be selected.
     if(basis.origin() == origin.location() && basis.extent() == extent.location() && extent != document.end()) {
       origin = ++extent;
+      if (origin == document.end()) {
+        // Reached the end of the document.
+        return Optional<Selection>(basis);
+      }
+      
       extent.advanceWhile(isWordCharacter);
       extent = selectTrailingWhitespaceIfApplicable(document, extent);
     }

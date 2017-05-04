@@ -7,74 +7,66 @@
 
 using namespace quip;
 
-TEST_CASE("One can select this word from the start of a document.", "[SelectorTests]") {
-  Document document("Hello world!");
-  Optional<Selection> result = selectWord(document, Selection(Location(0, 0)));
-  
-  REQUIRE(result->origin() == Location(0, 0));
-  REQUIRE(result->extent() == Location(5, 0));
+TEST_CASE("Select word on an empty document.", "Selector") {
+  Document document;
+  Optional<Selection> result = selectWord(document, Selection(0, 0, 2, 0));
+
+  REQUIRE(!result.has_value());
 }
 
-TEST_CASE("One can select this word from the start of a word.", "[SelectorTests]") {
-  Document document("Hello world!");
-  Optional<Selection> result = selectWord(document, Selection(Location(6, 0)));
+TEST_CASE("Select word with a partial-word basis.", "Selector") {
+  Document document("This is a test.");
+  Optional<Selection> result = selectWord(document, Selection(1, 0, 2, 0));
   
-  REQUIRE(result->origin() == Location(6, 0));
-  REQUIRE(result->extent() == Location(10, 0));
+  REQUIRE(result.has_value());
+  REQUIRE(document.contents(*result) == "This ");
 }
 
-TEST_CASE("One can select this word from the middle of a word.", "[SelectorTests]") {
-  Document document("Hello world!");
-  Optional<Selection> result = selectWord(document, Selection(Location(9, 0)));
+TEST_CASE("Select word with a partial-words basis.", "Selector") {
+  Document document("This is a test.");
+  Optional<Selection> result = selectWord(document, Selection(3, 0, 5, 0));
   
-  REQUIRE(result->origin() == Location(6, 0));
-  REQUIRE(result->extent() == Location(10, 0));
+  REQUIRE(result.has_value());
+  REQUIRE(document.contents(*result) == "This is ");
 }
 
-TEST_CASE("Selecting this word covers the trailing whitespace.", "[SelectorTests]") {
-  Document document("Hello world and friends!");
-  Optional<Selection> result = selectWord(document, Selection(Location(6, 0)));
+TEST_CASE("Select word with a full-word basis.", "Selector") {
+  Document document("This is a test.");
+  Optional<Selection> result = selectWord(document, Selection(0, 0, 4, 0));
   
-  REQUIRE(result->origin() == Location(6, 0));
-  REQUIRE(result->extent() == Location(11, 0));
+  REQUIRE(result.has_value());
+  REQUIRE(document.contents(*result) == "is ");
 }
 
-TEST_CASE("Selecting this word covers the trailing whitespace but not newlines.", "[SelectorTests]") {
-  Document document("Hello world \nand friends!");
-  Optional<Selection> result = selectWord(document, Selection(Location(6, 0)));
+TEST_CASE("Select word with a full-words basis.", "Selector") {
+  Document document("This is a test.");
+  Optional<Selection> result = selectWord(document, Selection(0, 0, 7, 0));
   
-  REQUIRE(result->origin() == Location(6, 0));
-  REQUIRE(result->extent() == Location(11, 0));
+  REQUIRE(result.has_value());
+  REQUIRE(document.contents(*result) == "a ");
 }
 
-TEST_CASE("One can select the remaining word from a word.", "[SelectorTests]") {
-  Document document("Hello world!");
-  Optional<Selection> result = selectRemainingWord(document, Selection(Location(2, 0)));
+TEST_CASE("Select word with a partial-word basis and no trailing whitespace.", "Selector") {
+  Document document("This is a test.");
+  Optional<Selection> result = selectWord(document, Selection(11, 0));
   
-  REQUIRE(result->origin() == Location(2, 0));
-  REQUIRE(result->extent() == Location(5, 0));
+  REQUIRE(result.has_value());
+  REQUIRE(document.contents(*result) == "test");
 }
 
-TEST_CASE("One can select the prior word from a word.", "[SelectorTests]") {
-  Document document("Hello world!");
-  Optional<Selection> result = selectPriorWord(document, Selection(Location(7, 0)));
+TEST_CASE("Select word with a full-word basis and no trailing whitespace.", "Selector") {
+  Document document("This is a test.");
+  Optional<Selection> result = selectWord(document, Selection(10, 0, 13, 0));
   
-  REQUIRE(result->origin() == Location(0, 0));
-  REQUIRE(result->extent() == Location(5, 0));
+  REQUIRE(result.has_value());
+  REQUIRE(document.contents(*result) == ".");
 }
 
-TEST_CASE("One can select the prior word from whitespace.", "[SelectorTests]") {
-  Document document("Hello world!");
-  Optional<Selection> result = selectPriorWord(document, Selection(Location(5, 0)));
+TEST_CASE("Select word with a full-word basis and no words left.", "Selector") {
+  Document document("This is a test.");
+  Optional<Selection> result = selectWord(document, Selection(14, 0));
   
-  REQUIRE(result->origin() == Location(0, 0));
-  REQUIRE(result->extent() == Location(5, 0));
+  REQUIRE(result.has_value());
+  REQUIRE(document.contents(*result) == ".");
 }
 
-TEST_CASE("One can select the prior word from across a newline.", "[SelectorTests]") {
-  Document document("Hello world \nand friends!");
-  Optional<Selection> result = selectPriorWord(document, Selection(Location(1, 1)));
-  
-  REQUIRE(result->origin() == Location(6, 0));
-  REQUIRE(result->extent() == Location(11, 0));
-}
