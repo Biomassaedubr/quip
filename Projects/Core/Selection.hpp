@@ -14,8 +14,10 @@ namespace quip {
   struct Selection {
     explicit Selection(const Location& location);
     explicit Selection(const DocumentIterator& location);
+    explicit Selection(std::uint64_t originColumn, std::uint64_t originRow);
     explicit Selection(const Location& origin, const Location& extent);
     explicit Selection(const DocumentIterator& origin, const DocumentIterator& extent);
+    explicit Selection(std::uint64_t originColumn, std::uint64_t originRow, std::uint64_t extentColumn, std::uint64_t extentRow);
     Selection(const Selection& other);
     Selection(Selection&& other);
     

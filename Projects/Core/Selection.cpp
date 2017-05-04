@@ -14,6 +14,10 @@ namespace quip {
   : Selection(location.location()) {
   }
   
+  Selection::Selection(std::uint64_t originColumn, std::uint64_t originRow)
+  : Selection(Location(originColumn, originRow)) {
+  }
+  
   Selection::Selection(const Location& origin, const Location& extent)
   : m_origin(origin)
   , m_extent(extent) {
@@ -22,6 +26,10 @@ namespace quip {
   
   Selection::Selection(const DocumentIterator& origin, const DocumentIterator& extent)
   : Selection(origin.location(), extent.location()) {
+  }
+  
+  Selection::Selection(std::uint64_t originColumn, std::uint64_t originRow, std::uint64_t extentColumn, std::uint64_t extentRow)
+  : Selection(Location(originColumn, originRow), Location(extentColumn, extentRow)) {
   }
   
   Selection::Selection(const Selection& other)
