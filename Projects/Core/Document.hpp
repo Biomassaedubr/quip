@@ -7,14 +7,16 @@
 #include <vector>
 
 namespace quip {
-  struct DocumentIterator;
   struct SearchExpression;
   struct Selection;
   struct SelectionSet;
 
+  template<typename ElementType, bool IsConst, bool IsReverse>
+  struct DocumentIterator;
+  
   struct Document {
-    typedef DocumentIterator Iterator;
-    typedef std::reverse_iterator<DocumentIterator> ReverseIterator;
+    typedef DocumentIterator<char, true, false> Iterator;
+    typedef std::reverse_iterator<Iterator> ReverseIterator;
     
     Document();
     explicit Document(const std::string& contents);

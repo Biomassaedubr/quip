@@ -111,11 +111,11 @@ namespace quip {
   }
   
   Document::ReverseIterator Document::rfrom(const Location& location) const {
-    return ReverseIterator(from(location));
+    return Document::ReverseIterator(from(location));
   }
   
   Document::ReverseIterator Document::rfrom(std::uint64_t column, std::uint64_t row) const {
-    return ReverseIterator(from(column, row));
+    return rfrom(Location(column, row));
   }
   
   std::int64_t Document::distance(const Location& from, const Location& to) const {

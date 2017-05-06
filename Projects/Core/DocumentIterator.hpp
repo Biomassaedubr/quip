@@ -4,16 +4,26 @@
 
 #include <cstddef>
 #include <iterator>
+#include <type_traits>
 
 namespace quip {
   struct Document;
   
+  template<typename ElementType, bool IsConst, bool IsReverse>
   struct DocumentIterator {
-    DocumentIterator(const Document& document, Location location);
+    typedef ElementType value_type;
+    typedef std::ptrdiff_t difference_type;
+    typedef const ElementType* pointer;
+    typedef const ElementType& reference;
+    typedef std::bidirectional_iterator_tag iterator_category;
     
-    Location location() const;
+    typedef typename std::conditional<IsConst, const Document, Document>::type DocumentType;
     
-    char operator*() const;
+    DocumentIterator(DocumentType& document, Location location);
+    
+    const Location& location() const;
+    
+    ElementType operator*() const;
     
     DocumentIterator& operator++();
     DocumentIterator& operator--();
@@ -49,23 +59,12 @@ namespace quip {
     template<typename PredicateType>
     DocumentIterator& reverseUntil(PredicateType predicate);
     
-    friend bool operator== (const DocumentIterator& left, const DocumentIterator& right);
-    friend bool operator!= (const DocumentIterator& left, const DocumentIterator& right);
+    bool operator==(const DocumentIterator& other);
+    bool operator!=(const DocumentIterator& other);
     
   private:
     const Document* m_document;
     Location m_location;
-  };
-}
-
-namespace std {
-  template<>
-  struct iterator_traits<quip::DocumentIterator> {
-    typedef char value_type;
-    typedef std::ptrdiff_t difference_type;
-    typedef const char* pointer;
-    typedef const char& reference;
-    typedef std::bidirectional_iterator_tag iterator_category;
   };
 }
 
