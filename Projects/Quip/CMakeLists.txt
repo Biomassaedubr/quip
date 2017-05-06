@@ -1,4 +1,6 @@
 set(SourceFiles
+  install.sh.in
+
   Resources/Images.xcassets
   Info.plist.in
   MainMenu.xib
@@ -74,4 +76,7 @@ set_source_files_properties(${RuntimeFiles} PROPERTIES MACOSX_PACKAGE_LOCATION R
 set_source_files_properties(${SyntaxFiles} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/Runtime/syntax)
 set_source_files_properties(MainMenu.xib QuipWindowController.xib PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 
-
+configure_file(install.sh.in ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/install.sh NEWLINE_STYLE UNIX)
+file(COPY ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/install.sh DESTINATION ${PROJECT_BINARY_DIR}
+  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ WORLD_READ
+)

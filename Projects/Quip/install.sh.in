@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cmake --build "${PROJECT_BINARY_DIR}" --config Release --clean-first
+cmake -E copy_directory "${PROJECT_BINARY_DIR}/Projects/Quip/Release/Quip.app" /Applications/Quip.app
