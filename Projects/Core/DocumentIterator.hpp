@@ -19,7 +19,7 @@ namespace quip {
     
     typedef typename std::conditional<IsConst, const Document, Document>::type DocumentType;
     
-    DocumentIterator(DocumentType& document, Location location);
+    DocumentIterator(DocumentType& document, const Location& location);
     
     const Location& location() const;
     

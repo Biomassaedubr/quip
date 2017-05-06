@@ -2,7 +2,7 @@
 
 namespace quip {
   template<typename ElementType, bool IsConst, bool IsReverse>
-  DocumentIterator<ElementType, IsConst, IsReverse>::DocumentIterator(DocumentIterator<ElementType, IsConst, IsReverse>::DocumentType& document, Location location)
+  DocumentIterator<ElementType, IsConst, IsReverse>::DocumentIterator(DocumentIterator<ElementType, IsConst, IsReverse>::DocumentType& document, const Location& location)
   : m_document(&document)
   , m_location(location) {
   }
