@@ -1,7 +1,6 @@
 set(DocumentSourceFiles
   Document.cpp
   Document.hpp
-  DocumentIterator.cpp
   DocumentIterator.hpp
   DocumentIterator.inl
 )
