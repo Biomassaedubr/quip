@@ -50,8 +50,8 @@ namespace quip {
       return std::isspace(character) && character != '\n';
     }
     
-    DocumentIterator selectTrailingWhitespaceIfApplicable(const Document& document, const DocumentIterator& start) {
-      DocumentIterator result = start;
+    Document::Iterator selectTrailingWhitespaceIfApplicable(const Document& document, const Document::Iterator& start) {
+      Document::Iterator result = start;
       if (result != document.end()) {
         // Try to select any (appropriate) trailing whitespace as well.
         ++result;
@@ -71,10 +71,10 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    DocumentIterator origin = document.from(basis.origin());
+    Document::Iterator origin = document.from(basis.origin());
     origin.reverseWhile(isWordCharacter);
     
-    DocumentIterator extent = document.from(basis.extent());
+    Document::Iterator extent = document.from(basis.extent());
     extent.advanceWhile(isWordCharacter);
     extent = selectTrailingWhitespaceIfApplicable(document, extent);
     
@@ -99,7 +99,7 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    DocumentIterator origin = document.from(basis.origin());
+    Document::Iterator origin = document.from(basis.origin());
     origin.reverseUntil(isNotWordCharacter);
     if (origin == document.begin()) {
       return Optional<Selection>();
@@ -118,7 +118,7 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    DocumentIterator extent = document.from(basis.extent());
+    Document::Iterator extent = document.from(basis.extent());
     extent.advanceWhile(isWordCharacter);
     extent = selectTrailingWhitespaceIfApplicable(document, extent);
     
@@ -174,10 +174,10 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    DocumentIterator origin = document.from(basis.origin());
+    Document::Iterator origin = document.from(basis.origin());
     origin.reverseWhile(isNotOpenBlockCharacter);
     
-    DocumentIterator extent = document.from(basis.extent());
+    Document::Iterator extent = document.from(basis.extent());
     extent.advanceWhile(isNotCloseBlockCharacter);
     
     if(basis.origin() == origin.location() && basis.extent() == extent.location() && origin != document.begin() && extent != document.end()) {
@@ -194,10 +194,10 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    DocumentIterator origin = document.from(basis.origin());
+    Document::Iterator origin = document.from(basis.origin());
     origin.reverseWhile(isNotStartItemCharacter);
     
-    DocumentIterator extent = document.from(basis.extent());
+    Document::Iterator extent = document.from(basis.extent());
     extent.advanceWhile(isNotEndItemCharacter);
     extent = selectTrailingWhitespaceIfApplicable(document, extent);
     

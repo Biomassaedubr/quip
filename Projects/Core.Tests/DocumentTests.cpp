@@ -133,7 +133,7 @@ TEST_CASE("Get a selection set's content when empty.", "Document") {
 
 TEST_CASE("Get an iterator to the start of the document", "Document") {
   Document document("Hello, world!");
-  DocumentIterator iterator = document.begin();
+  Document::Iterator iterator = document.begin();
   
   REQUIRE(iterator != document.end());
   REQUIRE(iterator.location() == Location(0, 0));
@@ -141,7 +141,7 @@ TEST_CASE("Get an iterator to the start of the document", "Document") {
 
 TEST_CASE("Get an iterator to the end of the document", "Document") {
   Document document("Hello, world!");
-  DocumentIterator iterator = document.end();
+  Document::Iterator iterator = document.end();
   
   REQUIRE(iterator != document.begin());
   REQUIRE(iterator.location() == Location(13, 0));
@@ -149,7 +149,7 @@ TEST_CASE("Get an iterator to the end of the document", "Document") {
 
 TEST_CASE("Get an iterator to a specific location in the document.", "Document") {
   Document document("Hello, world!");
-  DocumentIterator iterator = document.from(Location(5, 0));
+  Document::Iterator iterator = document.from(Location(5, 0));
   
   REQUIRE(iterator != document.end());
   REQUIRE(iterator.location() == Location(5, 0));
@@ -158,7 +158,7 @@ TEST_CASE("Get an iterator to a specific location in the document.", "Document")
 
 TEST_CASE("Get an iterator to a specific column and row in the document.", "Document") {
   Document document("Hello, world!");
-  DocumentIterator iterator = document.from(5, 0);
+  Document::Iterator iterator = document.from(5, 0);
   
   REQUIRE(iterator != document.end());
   REQUIRE(iterator.location() == Location(5, 0));

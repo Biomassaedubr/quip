@@ -10,7 +10,7 @@ namespace quip {
   , m_extent(location) {
   }
   
-  Selection::Selection(const DocumentIterator& location)
+  Selection::Selection(const Document::Iterator& location)
   : Selection(location.location()) {
   }
   
@@ -24,7 +24,7 @@ namespace quip {
     normalize();
   }
   
-  Selection::Selection(const DocumentIterator& origin, const DocumentIterator& extent)
+  Selection::Selection(const Document::Iterator& origin, const Document::Iterator& extent)
   : Selection(origin.location(), extent.location()) {
   }
   
