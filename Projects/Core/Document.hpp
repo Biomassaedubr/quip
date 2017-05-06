@@ -14,11 +14,14 @@ namespace quip {
   template<typename ElementType, bool IsConst>
   struct DocumentIterator;
   
+  template<typename IteratorType>
+  struct ReverseDocumentIterator;
+  
   struct Document {
     typedef DocumentIterator<char, false> Iterator;
     typedef DocumentIterator<char, true> ConstIterator;
-    typedef std::reverse_iterator<Iterator> ReverseIterator;
-    typedef std::reverse_iterator<ConstIterator> ConstReverseIterator;
+    typedef ReverseDocumentIterator<Iterator> ReverseIterator;
+    typedef ReverseDocumentIterator<ConstIterator> ConstReverseIterator;
     
     Document();
     explicit Document(const std::string& contents);

@@ -13,7 +13,7 @@ namespace quip {
   }
   
   template<typename ElementType, bool IsConst>
-  ElementType DocumentIterator<ElementType, IsConst>::operator*() const {
+  typename DocumentIterator<ElementType, IsConst>::ValueType DocumentIterator<ElementType, IsConst>::operator*() const {
     return m_document->row(m_location.row())[m_location.column()];
   }
   
@@ -141,6 +141,45 @@ namespace quip {
   
   template<typename ElementType, bool IsConst>
   bool DocumentIterator<ElementType, IsConst>::operator!=(const DocumentIterator<ElementType, IsConst>& other) {
+    return !(*this == other);
+  }
+  
+  template<typename IteratorType>
+  ReverseDocumentIterator<IteratorType>::ReverseDocumentIterator(const IteratorType& iterator)
+  : m_iterator(iterator) {
+  }
+  
+  template<typename IteratorType>
+  const Location& ReverseDocumentIterator<IteratorType>::location() const {
+    return m_iterator.location();
+  }
+  
+  template<typename IteratorType>
+  typename IteratorType::ValueType ReverseDocumentIterator<IteratorType>::operator*() const {
+    IteratorType actual = m_iterator;
+    --actual;
+    return *actual;
+  }
+  
+  template<typename IteratorType>
+  ReverseDocumentIterator<IteratorType>& ReverseDocumentIterator<IteratorType>::operator++() {
+    --m_iterator;
+    return *this;
+  }
+  
+  template<typename IteratorType>
+  ReverseDocumentIterator<IteratorType>& ReverseDocumentIterator<IteratorType>::operator--() {
+    ++m_iterator;
+    return *this;
+  }
+
+  template<typename IteratorType>
+  bool ReverseDocumentIterator<IteratorType>::operator==(const ReverseDocumentIterator<IteratorType>& other) {
+    return m_iterator == other.m_iterator;
+  }
+  
+  template<typename IteratorType>
+  bool ReverseDocumentIterator<IteratorType>::operator!=(const ReverseDocumentIterator<IteratorType>& other) {
     return !(*this == other);
   }
 }

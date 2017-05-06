@@ -3,7 +3,6 @@
 #include "Location.hpp"
 
 #include <cstddef>
-#include <iterator>
 #include <type_traits>
 
 namespace quip {
@@ -11,19 +10,14 @@ namespace quip {
   
   template<typename ElementType, bool IsConst>
   struct DocumentIterator {
-    typedef ElementType value_type;
-    typedef std::ptrdiff_t difference_type;
-    typedef const ElementType* pointer;
-    typedef const ElementType& reference;
-    typedef std::bidirectional_iterator_tag iterator_category;
-    
+    typedef ElementType ValueType;
     typedef typename std::conditional<IsConst, const Document, Document>::type DocumentType;
     
     DocumentIterator(DocumentType& document, const Location& location);
     
     const Location& location() const;
     
-    ElementType operator*() const;
+    ValueType operator*() const;
     
     DocumentIterator& operator++();
     DocumentIterator& operator--();
@@ -65,6 +59,39 @@ namespace quip {
   private:
     DocumentType* m_document;
     Location m_location;
+  };
+  
+  template<typename IteratorType>
+  struct ReverseDocumentIterator {
+    ReverseDocumentIterator(const IteratorType& underlying);
+    
+    const Location& location() const;
+    
+    typename IteratorType::ValueType operator*() const;
+    
+    ReverseDocumentIterator& operator++();
+    ReverseDocumentIterator& operator--();
+    
+    ReverseDocumentIterator& advanceByRows(std::uint64_t rows);
+    ReverseDocumentIterator& reverseByRows(std::uint64_t rows);
+    
+    template<typename PredicateType>
+    ReverseDocumentIterator& advanceWhile(PredicateType predicate);
+    
+    template<typename PredicateType>
+    ReverseDocumentIterator& advanceUntil(PredicateType predicate);
+    
+    template<typename PredicateType>
+    ReverseDocumentIterator& reverseWhile(PredicateType predicate);
+    
+    template<typename PredicateType>
+    ReverseDocumentIterator& reverseUntil(PredicateType predicate);
+    
+    bool operator==(const ReverseDocumentIterator& other);
+    bool operator!=(const ReverseDocumentIterator& other);
+    
+  private:
+    IteratorType m_iterator;
   };
 }
 

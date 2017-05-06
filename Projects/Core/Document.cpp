@@ -91,7 +91,7 @@ namespace quip {
   }
   
   Document::ReverseIterator Document::rbegin() {
-    return Document::ReverseIterator(end());
+    return ReverseDocumentIterator<Iterator>(end());
   }
   
   Document::ConstReverseIterator Document::rbegin() const {
