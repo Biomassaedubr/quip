@@ -90,12 +90,20 @@ namespace quip {
     return Document::ConstIterator(*this, Location(0, 0));
   }
   
+  Document::ConstIterator Document::cbegin() {
+    return Document::ConstIterator(*this, Location(0, 0));
+  }
+  
   Document::ReverseIterator Document::rbegin() {
     return ReverseDocumentIterator<Iterator>(end());
   }
   
   Document::ConstReverseIterator Document::rbegin() const {
     return Document::ConstReverseIterator(end());
+  }
+  
+  Document::ConstReverseIterator Document::crbegin() {
+    return Document::ConstReverseIterator(cend());
   }
   
   Document::Iterator Document::end() {
@@ -114,12 +122,24 @@ namespace quip {
     return Document::ConstIterator(*this, Location(m_rows.back().size(), m_rows.size() - 1));
   }
   
+  Document::ConstIterator Document::cend() {
+    if (isEmpty()) {
+      return cbegin();
+    }
+    
+    return Document::ConstIterator(*this, Location(m_rows.back().size(), m_rows.size() - 1));
+  }
+  
   Document::ReverseIterator Document::rend() {
     return Document::ReverseIterator(begin());
   }
   
   Document::ConstReverseIterator Document::rend() const {
     return Document::ConstReverseIterator(begin());
+  }
+  
+  Document::ConstReverseIterator Document::crend() {
+    return Document::ConstReverseIterator(cbegin());
   }
   
   Document::Iterator Document::from(const Location& location) {
@@ -138,6 +158,14 @@ namespace quip {
     return from(Location(column, row));
   }
   
+  Document::ConstIterator Document::cfrom(const Location& location) {
+    return Document::ConstIterator(*this, location);
+  }
+  
+  Document::ConstIterator Document::cfrom(std::uint64_t column, std::uint64_t row) {
+    return cfrom(Location(column, row));
+  }
+  
   Document::ReverseIterator Document::rfrom(const Location& location) {
     return Document::ReverseIterator(from(location));
   }
@@ -152,6 +180,14 @@ namespace quip {
   
   Document::ConstReverseIterator Document::rfrom(std::uint64_t column, std::uint64_t row) const {
     return rfrom(Location(column, row));
+  }
+  
+  Document::ConstReverseIterator Document::crfrom(const Location& location) {
+    return Document::ConstReverseIterator(cfrom(location));
+  }
+  
+  Document::ConstReverseIterator Document::crfrom(std::uint64_t column, std::uint64_t row) {
+    return crfrom(Location(column, row));
   }
   
   std::int64_t Document::distance(const Location& from, const Location& to) const {

@@ -35,23 +35,30 @@ namespace quip {
     
     Iterator begin();
     ConstIterator begin() const;
+    ConstIterator cbegin();
     ReverseIterator rbegin();
     ConstReverseIterator rbegin() const;
+    ConstReverseIterator crbegin();
     
     Iterator end();
     ConstIterator end() const;
+    ConstIterator cend();
     ReverseIterator rend();
     ConstReverseIterator rend() const;
+    ConstReverseIterator crend();
     
     Iterator from(const Location& location);
     Iterator from(std::uint64_t column, std::uint64_t row);
     ConstIterator from(const Location& location) const;
     ConstIterator from(std::uint64_t column, std::uint64_t row) const;
-
+    ConstIterator cfrom(const Location& location);
+    ConstIterator cfrom(std::uint64_t column, std::uint64_t row);
     ReverseIterator rfrom(const Location& location);
     ReverseIterator rfrom(std::uint64_t column, std::uint64_t row);
     ConstReverseIterator rfrom(const Location& location) const;
     ConstReverseIterator rfrom(std::uint64_t column, std::uint64_t row) const;
+    ConstReverseIterator crfrom(const Location& location);
+    ConstReverseIterator crfrom(std::uint64_t column, std::uint64_t row);
     
     std::int64_t distance(const Location& from, const Location& to) const;
     
