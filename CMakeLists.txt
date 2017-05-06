@@ -4,6 +4,7 @@ project(Quip)
 find_library(CocoaFramework Cocoa)
 find_library(CoreGraphicsFramework CoreGraphics)
 
+add_subdirectory("Dependencies/lpeg")
 add_subdirectory("Dependencies/lua")
 
 add_subdirectory("Projects/Core")

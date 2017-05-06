@@ -64,5 +64,5 @@ set(ReferenceFiles
 source_group(Reference FILES ${ReferenceFiles})
 
 add_library(Lua STATIC ${SourceFiles} ${ReferenceFiles})
-
+set_target_properties(Lua PROPERTIES COMPILE_DEFINITIONS "LUA_USE_MACOSX")
 target_include_directories(Lua INTERFACE ${CMAKE_CURRENT_LIST_DIR}/${LuaDistribution}/src)
