@@ -11,12 +11,14 @@ namespace quip {
   struct Selection;
   struct SelectionSet;
 
-  template<typename ElementType, bool IsConst, bool IsReverse>
+  template<typename ElementType, bool IsConst>
   struct DocumentIterator;
   
   struct Document {
-    typedef DocumentIterator<char, true, false> Iterator;
+    typedef DocumentIterator<char, false> Iterator;
+    typedef DocumentIterator<char, true> ConstIterator;
     typedef std::reverse_iterator<Iterator> ReverseIterator;
+    typedef std::reverse_iterator<ConstIterator> ConstReverseIterator;
     
     Document();
     explicit Document(const std::string& contents);
@@ -28,16 +30,25 @@ namespace quip {
     std::string contents(const Selection& selection) const;
     std::vector<std::string> contents(const SelectionSet& selection) const;
     
-    Iterator begin() const;
-    ReverseIterator rbegin() const;
+    Iterator begin();
+    ConstIterator begin() const;
+    ReverseIterator rbegin();
+    ConstReverseIterator rbegin() const;
     
-    Iterator end() const;
-    ReverseIterator rend() const;
+    Iterator end();
+    ConstIterator end() const;
+    ReverseIterator rend();
+    ConstReverseIterator rend() const;
     
-    Iterator from(const Location& location) const;
-    Iterator from(std::uint64_t column, std::uint64_t row) const;
-    ReverseIterator rfrom(const Location& location) const;
-    ReverseIterator rfrom(std::uint64_t column, std::uint64_t row) const;
+    Iterator from(const Location& location);
+    Iterator from(std::uint64_t column, std::uint64_t row);
+    ConstIterator from(const Location& location) const;
+    ConstIterator from(std::uint64_t column, std::uint64_t row) const;
+
+    ReverseIterator rfrom(const Location& location);
+    ReverseIterator rfrom(std::uint64_t column, std::uint64_t row);
+    ConstReverseIterator rfrom(const Location& location) const;
+    ConstReverseIterator rfrom(std::uint64_t column, std::uint64_t row) const;
     
     std::int64_t distance(const Location& from, const Location& to) const;
     

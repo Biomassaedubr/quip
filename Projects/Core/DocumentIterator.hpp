@@ -9,7 +9,7 @@
 namespace quip {
   struct Document;
   
-  template<typename ElementType, bool IsConst, bool IsReverse>
+  template<typename ElementType, bool IsConst>
   struct DocumentIterator {
     typedef ElementType value_type;
     typedef std::ptrdiff_t difference_type;
@@ -63,7 +63,7 @@ namespace quip {
     bool operator!=(const DocumentIterator& other);
     
   private:
-    const Document* m_document;
+    DocumentType* m_document;
     Location m_location;
   };
 }
