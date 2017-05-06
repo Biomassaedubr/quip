@@ -82,24 +82,40 @@ namespace quip {
     return results;
   }
   
-  DocumentIterator Document::begin() const {
-    return DocumentIterator(*this, Location(0, 0));
+  Document::Iterator Document::begin() const {
+    return Document::Iterator(*this, Location(0, 0));
   }
   
-  DocumentIterator Document::end() const {
+  Document::ReverseIterator Document::rbegin() const {
+    return Document::ReverseIterator(end());
+  }
+  
+  Document::Iterator Document::end() const {
     if (isEmpty()) {
       return begin();
     }
     
-    return DocumentIterator(*this, Location(m_rows.back().size(), m_rows.size() - 1));
+    return Document::Iterator(*this, Location(m_rows.back().size(), m_rows.size() - 1));
   }
   
-  DocumentIterator Document::at(const Location& location) const {
-    return DocumentIterator(*this, location);
+  Document::ReverseIterator Document::rend() const {
+    return Document::ReverseIterator(begin());
   }
   
-  DocumentIterator Document::at(std::uint64_t column, std::uint64_t row) const {
-    return at(Location(column, row));
+  Document::Iterator Document::from(const Location& location) const {
+    return Document::Iterator(*this, location);
+  }
+  
+  Document::Iterator Document::from(std::uint64_t column, std::uint64_t row) const {
+    return from(Location(column, row));
+  }
+  
+  Document::ReverseIterator Document::rfrom(const Location& location) const {
+    return ReverseIterator(from(location));
+  }
+  
+  Document::ReverseIterator Document::rfrom(std::uint64_t column, std::uint64_t row) const {
+    return ReverseIterator(from(column, row));
   }
   
   std::int64_t Document::distance(const Location& from, const Location& to) const {
@@ -245,7 +261,7 @@ namespace quip {
     std::vector<Selection> adjusted;
     adjusted.reserve(selections.count());
     for (const Selection& selection : selections) {
-      DocumentIterator iterator = at(selection.extent());
+      Document::Iterator iterator = from(selection.extent());
       if (iterator != end()) {
         ++iterator;
       }

@@ -157,7 +157,7 @@ namespace quip {
     results.reserve(selections.count());
     
     for(const Selection& selection : selections) {
-      DocumentIterator iterator = document.at(selection.extent());
+      DocumentIterator iterator = document.from(selection.extent());
       --iterator;
       
       if (iterator.location() < selection.origin()) {
@@ -225,7 +225,7 @@ namespace quip {
     results.reserve(selections.count());
     
     for(const Selection& selection : selections) {
-      DocumentIterator iterator = document.at(selection.extent());
+      DocumentIterator iterator = document.from(selection.extent());
       ++iterator;
       
       results.emplace_back(selection.origin(), iterator.location());
@@ -241,7 +241,7 @@ namespace quip {
     results.reserve(selections.count());
     
     for(const Selection& selection : selections) {
-      DocumentIterator iterator = document.at(selection.origin());
+      DocumentIterator iterator = document.from(selection.origin());
       if (iterator == document.begin()) {
         results.emplace_back(selection);
       } else {
@@ -308,7 +308,7 @@ namespace quip {
     results.reserve(selections.count());
     
     for(const Selection& selection : selections) {
-      DocumentIterator iterator = document.at(selection.origin());
+      DocumentIterator iterator = document.from(selection.origin());
       ++iterator;
       
       if (iterator.location() <= selection.extent()) {

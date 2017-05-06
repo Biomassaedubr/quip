@@ -13,6 +13,9 @@ namespace quip {
   struct SelectionSet;
 
   struct Document {
+    typedef DocumentIterator Iterator;
+    typedef std::reverse_iterator<DocumentIterator> ReverseIterator;
+    
     Document();
     explicit Document(const std::string& contents);
     
@@ -23,10 +26,16 @@ namespace quip {
     std::string contents(const Selection& selection) const;
     std::vector<std::string> contents(const SelectionSet& selection) const;
     
-    DocumentIterator begin() const;
-    DocumentIterator end() const;
-    DocumentIterator at(const Location& location) const;
-    DocumentIterator at(std::uint64_t column, std::uint64_t row) const;
+    Iterator begin() const;
+    ReverseIterator rbegin() const;
+    
+    Iterator end() const;
+    ReverseIterator rend() const;
+    
+    Iterator from(const Location& location) const;
+    Iterator from(std::uint64_t column, std::uint64_t row) const;
+    ReverseIterator rfrom(const Location& location) const;
+    ReverseIterator rfrom(std::uint64_t column, std::uint64_t row) const;
     
     std::int64_t distance(const Location& from, const Location& to) const;
     

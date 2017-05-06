@@ -71,10 +71,10 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    DocumentIterator origin = document.at(basis.origin());
+    DocumentIterator origin = document.from(basis.origin());
     origin.reverseWhile(isWordCharacter);
     
-    DocumentIterator extent = document.at(basis.extent());
+    DocumentIterator extent = document.from(basis.extent());
     extent.advanceWhile(isWordCharacter);
     extent = selectTrailingWhitespaceIfApplicable(document, extent);
     
@@ -99,7 +99,7 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    DocumentIterator origin = document.at(basis.origin());
+    DocumentIterator origin = document.from(basis.origin());
     origin.reverseUntil(isNotWordCharacter);
     if (origin == document.begin()) {
       return Optional<Selection>();
@@ -118,7 +118,7 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    DocumentIterator extent = document.at(basis.extent());
+    DocumentIterator extent = document.from(basis.extent());
     extent.advanceWhile(isWordCharacter);
     extent = selectTrailingWhitespaceIfApplicable(document, extent);
     
@@ -174,10 +174,10 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    DocumentIterator origin = document.at(basis.origin());
+    DocumentIterator origin = document.from(basis.origin());
     origin.reverseWhile(isNotOpenBlockCharacter);
     
-    DocumentIterator extent = document.at(basis.extent());
+    DocumentIterator extent = document.from(basis.extent());
     extent.advanceWhile(isNotCloseBlockCharacter);
     
     if(basis.origin() == origin.location() && basis.extent() == extent.location() && origin != document.begin() && extent != document.end()) {
@@ -194,10 +194,10 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    DocumentIterator origin = document.at(basis.origin());
+    DocumentIterator origin = document.from(basis.origin());
     origin.reverseWhile(isNotStartItemCharacter);
     
-    DocumentIterator extent = document.at(basis.extent());
+    DocumentIterator extent = document.from(basis.extent());
     extent.advanceWhile(isNotEndItemCharacter);
     extent = selectTrailingWhitespaceIfApplicable(document, extent);
     
