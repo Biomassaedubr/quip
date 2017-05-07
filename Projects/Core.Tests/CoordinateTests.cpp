@@ -11,7 +11,7 @@ TEST_CASE("Default-construct a coordinate.", "Coordinate") {
   REQUIRE(coordinate.y == Approx(0.0f));
 }
 
-TEST_CASE("Construct a coordinate from X and Y values.", "Coordinate") {
+TEST_CASE("Construct a coordinate from X and Y.", "Coordinate") {
   Coordinate coordinate(-10.5f, 91.2f);
   
   REQUIRE(coordinate.x == Approx(-10.5f));
