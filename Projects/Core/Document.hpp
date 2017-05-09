@@ -11,15 +11,15 @@ namespace quip {
   struct Selection;
   struct SelectionSet;
 
-  template<typename ElementType, bool IsConst>
+  template<bool IsConst>
   struct DocumentIterator;
   
   template<typename IteratorType>
   struct ReverseDocumentIterator;
   
   struct Document {
-    typedef DocumentIterator<char, false> Iterator;
-    typedef DocumentIterator<char, true> ConstIterator;
+    typedef DocumentIterator<false> Iterator;
+    typedef DocumentIterator<true> ConstIterator;
     typedef ReverseDocumentIterator<Iterator> ReverseIterator;
     typedef ReverseDocumentIterator<ConstIterator> ConstReverseIterator;
     

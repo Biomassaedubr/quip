@@ -8,16 +8,15 @@
 namespace quip {
   struct Document;
   
-  template<typename ElementType, bool IsConst>
+  template<bool IsConst>
   struct DocumentIterator {
-    typedef ElementType ValueType;
     typedef typename std::conditional<IsConst, const Document, Document>::type DocumentType;
     
     DocumentIterator(DocumentType& document, const Location& location);
     
     const Location& location() const;
     
-    ValueType operator*() const;
+    char operator*() const;
     
     DocumentIterator& operator++();
     DocumentIterator operator++(int);
@@ -69,7 +68,7 @@ namespace quip {
     
     const Location& location() const;
     
-    typename IteratorType::ValueType operator*() const;
+    char operator*() const;
     
     ReverseDocumentIterator& operator++();
     ReverseDocumentIterator& operator--();

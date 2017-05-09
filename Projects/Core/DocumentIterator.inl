@@ -1,24 +1,24 @@
 #include "Document.hpp"
 
 namespace quip {
-  template<typename ElementType, bool IsConst>
-  DocumentIterator<ElementType, IsConst>::DocumentIterator(DocumentIterator<ElementType, IsConst>::DocumentType& document, const Location& location)
+  template<bool IsConst>
+  DocumentIterator<IsConst>::DocumentIterator(DocumentIterator<IsConst>::DocumentType& document, const Location& location)
   : m_document(&document)
   , m_location(location) {
   }
   
-  template<typename ElementType, bool IsConst>
-  const Location& DocumentIterator<ElementType, IsConst>::location() const {
+  template<bool IsConst>
+  const Location& DocumentIterator<IsConst>::location() const {
     return m_location;
   }
   
-  template<typename ElementType, bool IsConst>
-  typename DocumentIterator<ElementType, IsConst>::ValueType DocumentIterator<ElementType, IsConst>::operator*() const {
+  template<bool IsConst>
+  char DocumentIterator<IsConst>::operator*() const {
     return m_document->row(m_location.row())[m_location.column()];
   }
   
-  template<typename ElementType, bool IsConst>
-  DocumentIterator<ElementType, IsConst>& DocumentIterator<ElementType, IsConst>::operator++() {
+  template<bool IsConst>
+  DocumentIterator<IsConst>& DocumentIterator<IsConst>::operator++() {
     bool isOnLastColumn = m_location.column() == m_document->row(m_location.row()).length() - 1;
     bool isOnLastRow = m_location.row() == m_document->rows() - 1;
     if (isOnLastColumn && !isOnLastRow) {
@@ -30,15 +30,15 @@ namespace quip {
     return *this;
   }
   
-  template<typename ElementType, bool IsConst>
-  DocumentIterator<ElementType, IsConst> DocumentIterator<ElementType, IsConst>::operator++(int) {
-    DocumentIterator<ElementType, IsConst> result = *this;
+  template<bool IsConst>
+  DocumentIterator<IsConst> DocumentIterator<IsConst>::operator++(int) {
+    DocumentIterator<IsConst> result = *this;
     ++result;
     return result;
   }
   
-  template<typename ElementType, bool IsConst>
-  DocumentIterator<ElementType, IsConst>& DocumentIterator<ElementType, IsConst>::operator--() {
+  template<bool IsConst>
+  DocumentIterator<IsConst>& DocumentIterator<IsConst>::operator--() {
     if (m_location.column() == 0) {
       std::size_t row = m_location.row() - 1;
       m_location = Location(m_document->row(row).size() - 1, row);
@@ -49,15 +49,15 @@ namespace quip {
     return *this;
   }
   
-  template<typename ElementType, bool IsConst>
-  DocumentIterator<ElementType, IsConst> DocumentIterator<ElementType, IsConst>::operator--(int) {
-    DocumentIterator<ElementType, IsConst> result = *this;
+  template<bool IsConst>
+  DocumentIterator<IsConst> DocumentIterator<IsConst>::operator--(int) {
+    DocumentIterator<IsConst> result = *this;
     --result;
     return result;
   }
   
-  template<typename ElementType, bool IsConst>
-  DocumentIterator<ElementType, IsConst>& DocumentIterator<ElementType, IsConst>::advanceByRows(std::uint64_t rows) {
+  template<bool IsConst>
+  DocumentIterator<IsConst>& DocumentIterator<IsConst>::advanceByRows(std::uint64_t rows) {
     if (m_location.row() == m_document->rows() - 1) {
       // Attempting to move by a full row while on the last row should advance
       // the iterator to the end of the document.
@@ -72,8 +72,8 @@ namespace quip {
     return *this;
   }
   
-  template<typename ElementType, bool IsConst>
-  DocumentIterator<ElementType, IsConst>& DocumentIterator<ElementType, IsConst>::reverseByRows(std::uint64_t rows) {
+  template<bool IsConst>
+  DocumentIterator<IsConst>& DocumentIterator<IsConst>::reverseByRows(std::uint64_t rows) {
     if (m_location.row() == 0) {
       // Attempting to move by a full row while on the first row should advance
       // the iterator to the start of the document.
@@ -88,10 +88,10 @@ namespace quip {
     return *this;
   }
   
-  template<typename ElementType, bool IsConst>
+  template<bool IsConst>
   template<typename PredicateType>
-  DocumentIterator<ElementType, IsConst>& DocumentIterator<ElementType, IsConst>::advanceWhile(PredicateType predicate) {
-    DocumentIterator<ElementType, IsConst>& self = *this;
+  DocumentIterator<IsConst>& DocumentIterator<IsConst>::advanceWhile(PredicateType predicate) {
+    DocumentIterator<IsConst>& self = *this;
     bool pass = predicate(*self);
     if (pass) {
       while (self != m_document->end() && pass) {
@@ -107,9 +107,9 @@ namespace quip {
     return self;
   }
   
-  template<typename ElementType, bool IsConst>
+  template<bool IsConst>
   template<typename PredicateType>
-  DocumentIterator<ElementType, IsConst>& DocumentIterator<ElementType, IsConst>::advanceUntil(PredicateType predicate) {
+  DocumentIterator<IsConst>& DocumentIterator<IsConst>::advanceUntil(PredicateType predicate) {
     DocumentIterator& self = *this;
     while(self != m_document->end() && !predicate(*self)) {
       ++self;
@@ -118,10 +118,10 @@ namespace quip {
     return self;
   }
   
-  template<typename ElementType, bool IsConst>
+  template<bool IsConst>
   template<typename PredicateType>
-  DocumentIterator<ElementType, IsConst>& DocumentIterator<ElementType, IsConst>::reverseWhile(PredicateType predicate) {
-    DocumentIterator<ElementType, IsConst>& self = *this;
+  DocumentIterator<IsConst>& DocumentIterator<IsConst>::reverseWhile(PredicateType predicate) {
+    DocumentIterator<IsConst>& self = *this;
     bool pass = predicate(*self);
     if (pass) {
       while (self != m_document->begin() && pass) {
@@ -137,10 +137,10 @@ namespace quip {
     return self;
   }
   
-  template<typename ElementType, bool IsConst>
+  template<bool IsConst>
   template<typename PredicateType>
-  DocumentIterator<ElementType, IsConst>& DocumentIterator<ElementType, IsConst>::reverseUntil(PredicateType predicate) {
-    DocumentIterator<ElementType, IsConst>& self = *this;
+  DocumentIterator<IsConst>& DocumentIterator<IsConst>::reverseUntil(PredicateType predicate) {
+    DocumentIterator<IsConst>& self = *this;
     while(self != m_document->begin() && !predicate(*self)) {
       --self;
     }
@@ -148,13 +148,13 @@ namespace quip {
     return self;
   }
   
-  template<typename ElementType, bool IsConst>
-  bool DocumentIterator<ElementType, IsConst>::operator==(const DocumentIterator<ElementType, IsConst>& other) {
+  template<bool IsConst>
+  bool DocumentIterator<IsConst>::operator==(const DocumentIterator<IsConst>& other) {
     return m_document == other.m_document && m_location == other.m_location;
   }
   
-  template<typename ElementType, bool IsConst>
-  bool DocumentIterator<ElementType, IsConst>::operator!=(const DocumentIterator<ElementType, IsConst>& other) {
+  template<bool IsConst>
+  bool DocumentIterator<IsConst>::operator!=(const DocumentIterator<IsConst>& other) {
     return !(*this == other);
   }
   
@@ -169,7 +169,7 @@ namespace quip {
   }
   
   template<typename IteratorType>
-  typename IteratorType::ValueType ReverseDocumentIterator<IteratorType>::operator*() const {
+  char ReverseDocumentIterator<IteratorType>::operator*() const {
     IteratorType actual = m_iterator;
     --actual;
     return *actual;
