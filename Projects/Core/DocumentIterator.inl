@@ -174,6 +174,20 @@ namespace quip {
   }
 
   template<typename IteratorType>
+  template<typename PredicateType>
+  ReverseDocumentIterator<IteratorType>& ReverseDocumentIterator<IteratorType>::advanceWhile(PredicateType predicate) {
+    m_iterator.reverseWhile(predicate);
+    return *this;
+  }
+  
+  template<typename IteratorType>
+  template<typename PredicateType>
+  ReverseDocumentIterator<IteratorType>& ReverseDocumentIterator<IteratorType>::reverseWhile(PredicateType predicate) {
+    m_iterator.advanceWhile(predicate);
+    return *this;
+  }
+
+  template<typename IteratorType>
   bool ReverseDocumentIterator<IteratorType>::operator==(const ReverseDocumentIterator<IteratorType>& other) {
     return m_iterator == other.m_iterator;
   }
