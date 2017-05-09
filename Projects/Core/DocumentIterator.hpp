@@ -20,7 +20,9 @@ namespace quip {
     ValueType operator*() const;
     
     DocumentIterator& operator++();
+    DocumentIterator operator++(int);
     DocumentIterator& operator--();
+    DocumentIterator operator--(int);
     
     DocumentIterator& advanceByRows(std::uint64_t rows);
     DocumentIterator& reverseByRows(std::uint64_t rows);

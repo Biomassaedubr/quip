@@ -5,14 +5,14 @@
 
 using namespace quip;
 
-TEST_CASE("Document begin iterator is zero-zero.", "[Document::IteratorTests]") {
+TEST_CASE("Document begin iterator is zero-zero.", "DocumentIterator") {
   Document document("A\nB");
   Document::Iterator cursor = document.begin();
   
   REQUIRE(cursor.location() == Location(0, 0));
 }
 
-TEST_CASE("Document end iterator is one-past the last column on the last row.", "[Document::IteratorTests]") {
+TEST_CASE("Document end iterator is one-past the last column on the last row.", "DocumentIterator") {
   Document document("A\nB");
   Document::Iterator cursor = document.end();
   REQUIRE(cursor.location() == Location(1, 1));
@@ -24,7 +24,7 @@ TEST_CASE("Document end iterator is one-past the last column on the last row.", 
   REQUIRE(cursor == document.end());
 }
 
-TEST_CASE("Document iterators can be dereferenced.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can be dereferenced.", "DocumentIterator") {
   Document document("Q");
   Document::Iterator cursor = document.begin();
   
@@ -32,7 +32,7 @@ TEST_CASE("Document iterators can be dereferenced.", "[Document::IteratorTests]"
   REQUIRE(cursor.location() == Location(0, 0));
 }
 
-TEST_CASE("Document iterators can be pre-incremented.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can be pre-incremented.", "DocumentIterator") {
   Document document("Quip!");
   Document::Iterator cursor = document.begin();
   ++cursor;
@@ -41,7 +41,16 @@ TEST_CASE("Document iterators can be pre-incremented.", "[Document::IteratorTest
   REQUIRE(cursor.location() == Location(1, 0));
 }
 
-TEST_CASE("Document iterators can be pre-incremented across rows.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can be post-incremented.", "DocumentIterator") {
+  Document document("Quip!");
+  Document::Iterator cursor = document.begin();
+  Document::Iterator result = cursor++;
+  
+  REQUIRE(cursor == document.begin());
+  REQUIRE(*result == 'u');
+}
+
+TEST_CASE("Document iterators can be pre-incremented across rows.", "DocumentIterator") {
   Document document("A\nB");
   Document::Iterator cursor = document.begin();
   ++cursor;
@@ -51,7 +60,7 @@ TEST_CASE("Document iterators can be pre-incremented across rows.", "[Document::
   REQUIRE(cursor.location() == Location(0, 1));
 }
 
-TEST_CASE("Document iterators can be pre-decremented.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can be pre-decremented.", "DocumentIterator") {
   Document document("Quip!");
   Document::Iterator cursor = document.end();
   --cursor;
@@ -59,7 +68,16 @@ TEST_CASE("Document iterators can be pre-decremented.", "[Document::IteratorTest
   REQUIRE(*cursor == '!');
 }
 
-TEST_CASE("Document iterators can be pre-decremented across rows.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can be post-decremented.", "DocumentIterator") {
+  Document document("Quip!");
+  Document::Iterator cursor = document.end();
+  Document::Iterator result = cursor--;
+  
+  REQUIRE(cursor == document.end());
+  REQUIRE(*result == '!');
+}
+
+TEST_CASE("Document iterators can be pre-decremented across rows.", "DocumentIterator") {
   Document document("A\nB");
   Document::Iterator cursor = document.end();
   --cursor;
@@ -68,7 +86,7 @@ TEST_CASE("Document iterators can be pre-decremented across rows.", "[Document::
   REQUIRE(*cursor == '\n');
 }
 
-TEST_CASE("Document iterators can advance by one row.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can advance by one row.", "DocumentIterator") {
   Document document("ABC\nXYZ");
   Document::Iterator cursor = document.from(Location(1, 0));
   cursor.advanceByRows(1);
@@ -76,7 +94,7 @@ TEST_CASE("Document iterators can advance by one row.", "[Document::IteratorTest
   REQUIRE(*cursor == 'Y');
 }
 
-TEST_CASE("Document iterators can advance by one row to a shorter row.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can advance by one row to a shorter row.", "DocumentIterator") {
   Document document("123456789\nXYZ");
   Document::Iterator cursor = document.from(Location(6, 0));
   cursor.advanceByRows(1);
@@ -84,7 +102,7 @@ TEST_CASE("Document iterators can advance by one row to a shorter row.", "[Docum
   REQUIRE(*cursor == 'Z');
 }
 
-TEST_CASE("Document iterators can advance by many rows.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can advance by many rows.", "DocumentIterator") {
   Document document("123\n456\n789\nABC");
   Document::Iterator cursor = document.from(Location(1, 0));
   cursor.advanceByRows(3);
@@ -92,7 +110,7 @@ TEST_CASE("Document iterators can advance by many rows.", "[Document::IteratorTe
   REQUIRE(*cursor == 'B');
 }
 
-TEST_CASE("Document iterators can advance by one row from the last row.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can advance by one row from the last row.", "DocumentIterator") {
   Document document("ABCDEFG\n1234567");
   Document::Iterator cursor = document.from(Location(2, 1));
   cursor.advanceByRows(1);
@@ -100,7 +118,7 @@ TEST_CASE("Document iterators can advance by one row from the last row.", "[Docu
   REQUIRE(cursor == document.end());
 }
 
-TEST_CASE("Document iterators can reverse by one row.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can reverse by one row.", "DocumentIterator") {
   Document document("ABC\nXYZ");
   Document::Iterator cursor = document.from(Location(1, 1));
   cursor.reverseByRows(1);
@@ -108,7 +126,7 @@ TEST_CASE("Document iterators can reverse by one row.", "[Document::IteratorTest
   REQUIRE(*cursor == 'B');
 }
 
-TEST_CASE("Document iterators can reverse by one row to a shorter row.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can reverse by one row to a shorter row.", "DocumentIterator") {
   Document document("XYZ\n123456789");
   Document::Iterator cursor = document.from(Location(6, 1));
   cursor.reverseByRows(1);
@@ -116,7 +134,7 @@ TEST_CASE("Document iterators can reverse by one row to a shorter row.", "[Docum
   REQUIRE(*cursor == '\n');
 }
 
-TEST_CASE("Document iterators can reverse by many rows.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can reverse by many rows.", "DocumentIterator") {
   Document document("123\n456\n789\nABC");
   Document::Iterator cursor = document.from(Location(1, 3));
   cursor.reverseByRows(3);
@@ -124,7 +142,7 @@ TEST_CASE("Document iterators can reverse by many rows.", "[Document::IteratorTe
   REQUIRE(*cursor == '2');
 }
 
-TEST_CASE("Document iterators can reverse by one row from the first row.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can reverse by one row from the first row.", "DocumentIterator") {
   Document document("ABCDEFG\n1234567");
   Document::Iterator cursor = document.from(Location(2, 0));
   cursor.reverseByRows(1);
@@ -132,7 +150,7 @@ TEST_CASE("Document iterators can reverse by one row from the first row.", "[Doc
   REQUIRE(cursor == document.begin());
 }
 
-TEST_CASE("Document iterators can be compared with ==.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can be compared with ==.", "DocumentIterator") {
   Document document("Quip!");
   Document::Iterator a = document.begin();
   Document::Iterator b = document.begin();
@@ -140,7 +158,7 @@ TEST_CASE("Document iterators can be compared with ==.", "[Document::IteratorTes
   REQUIRE(a == b);
 }
 
-TEST_CASE("Document iterators can be compared with !=.", "[Document::IteratorTests]") {
+TEST_CASE("Document iterators can be compared with !=.", "DocumentIterator") {
   Document document("Quip!");
   Document::Iterator a = document.begin();
   Document::Iterator b = document.begin();

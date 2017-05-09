@@ -31,6 +31,13 @@ namespace quip {
   }
   
   template<typename ElementType, bool IsConst>
+  DocumentIterator<ElementType, IsConst> DocumentIterator<ElementType, IsConst>::operator++(int) {
+    DocumentIterator<ElementType, IsConst> result = *this;
+    ++result;
+    return result;
+  }
+  
+  template<typename ElementType, bool IsConst>
   DocumentIterator<ElementType, IsConst>& DocumentIterator<ElementType, IsConst>::operator--() {
     if (m_location.column() == 0) {
       std::size_t row = m_location.row() - 1;
@@ -40,6 +47,13 @@ namespace quip {
     }
     
     return *this;
+  }
+  
+  template<typename ElementType, bool IsConst>
+  DocumentIterator<ElementType, IsConst> DocumentIterator<ElementType, IsConst>::operator--(int) {
+    DocumentIterator<ElementType, IsConst> result = *this;
+    --result;
+    return result;
   }
   
   template<typename ElementType, bool IsConst>
