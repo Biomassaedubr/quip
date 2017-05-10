@@ -12,10 +12,10 @@ namespace quip {
   // are not equal, the origin is always earlier in the document than the extent.
   struct Selection {
     explicit Selection(const Location& location);
-    explicit Selection(const Document::Iterator& location);
+    explicit Selection(const DocumentIterator& location);
     explicit Selection(std::uint64_t originColumn, std::uint64_t originRow);
     explicit Selection(const Location& origin, const Location& extent);
-    explicit Selection(const Document::Iterator& origin, const Document::Iterator& extent);
+    explicit Selection(const DocumentIterator& origin, const DocumentIterator& extent);
     explicit Selection(std::uint64_t originColumn, std::uint64_t originRow, std::uint64_t extentColumn, std::uint64_t extentRow);
     Selection(const Selection& other);
     Selection(Selection&& other);

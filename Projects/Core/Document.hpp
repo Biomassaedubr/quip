@@ -7,22 +7,13 @@
 #include <vector>
 
 namespace quip {
+  struct DocumentIterator;
+  struct ReverseDocumentIterator;
   struct SearchExpression;
   struct Selection;
   struct SelectionSet;
 
-  template<bool IsConst>
-  struct DocumentIterator;
-  
-  template<typename IteratorType>
-  struct ReverseDocumentIterator;
-  
   struct Document {
-    typedef DocumentIterator<false> Iterator;
-    typedef DocumentIterator<true> ConstIterator;
-    typedef ReverseDocumentIterator<Iterator> ReverseIterator;
-    typedef ReverseDocumentIterator<ConstIterator> ConstReverseIterator;
-    
     Document();
     explicit Document(const std::string& contents);
     
@@ -33,33 +24,17 @@ namespace quip {
     std::string contents(const Selection& selection) const;
     std::vector<std::string> contents(const SelectionSet& selection) const;
     
-    Iterator begin();
-    ConstIterator begin() const;
-    ConstIterator cbegin();
-    ReverseIterator rbegin();
-    ConstReverseIterator rbegin() const;
-    ConstReverseIterator crbegin();
+    DocumentIterator begin() const;
+    ReverseDocumentIterator rbegin() const;
     
-    Iterator end();
-    ConstIterator end() const;
-    ConstIterator cend();
-    ReverseIterator rend();
-    ConstReverseIterator rend() const;
-    ConstReverseIterator crend();
+    DocumentIterator end() const;
+    ReverseDocumentIterator rend() const;
     
-    Iterator from(const Location& location);
-    Iterator from(std::uint64_t column, std::uint64_t row);
-    ConstIterator from(const Location& location) const;
-    ConstIterator from(std::uint64_t column, std::uint64_t row) const;
-    ConstIterator cfrom(const Location& location);
-    ConstIterator cfrom(std::uint64_t column, std::uint64_t row);
-    ReverseIterator rfrom(const Location& location);
-    ReverseIterator rfrom(std::uint64_t column, std::uint64_t row);
-    ConstReverseIterator rfrom(const Location& location) const;
-    ConstReverseIterator rfrom(std::uint64_t column, std::uint64_t row) const;
-    ConstReverseIterator crfrom(const Location& location);
-    ConstReverseIterator crfrom(std::uint64_t column, std::uint64_t row);
-    
+    DocumentIterator from(const Location& location) const;
+    DocumentIterator from(std::uint64_t column, std::uint64_t row) const;
+    ReverseDocumentIterator rfrom(const Location& location) const;
+    ReverseDocumentIterator rfrom(std::uint64_t column, std::uint64_t row) const;
+   
     std::int64_t distance(const Location& from, const Location& to) const;
     
     const std::string& path() const;

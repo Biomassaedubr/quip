@@ -2,6 +2,7 @@
 
 #include "Document.hpp"
 #include "DocumentIterator.hpp"
+#include "ReverseDocumentIterator.hpp"
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
 
@@ -133,7 +134,7 @@ TEST_CASE("Get a selection set's content when empty.", "Document") {
 
 TEST_CASE("Get an iterator to the start of the document", "Document") {
   Document document("Hello, world!");
-  Document::Iterator iterator = document.begin();
+  DocumentIterator iterator = document.begin();
   
   REQUIRE(iterator != document.end());
   REQUIRE(iterator.location() == Location(0, 0));
@@ -141,7 +142,7 @@ TEST_CASE("Get an iterator to the start of the document", "Document") {
 
 TEST_CASE("Get an iterator to the end of the document", "Document") {
   Document document("Hello, world!");
-  Document::Iterator iterator = document.end();
+  DocumentIterator iterator = document.end();
   
   REQUIRE(iterator != document.begin());
   REQUIRE(iterator.location() == Location(13, 0));
@@ -149,7 +150,7 @@ TEST_CASE("Get an iterator to the end of the document", "Document") {
 
 TEST_CASE("Get an iterator to a specific location in the document.", "Document") {
   Document document("Hello, world!");
-  Document::Iterator iterator = document.from(Location(5, 0));
+  DocumentIterator iterator = document.from(Location(5, 0));
   
   REQUIRE(iterator != document.end());
   REQUIRE(iterator.location() == Location(5, 0));
@@ -158,7 +159,7 @@ TEST_CASE("Get an iterator to a specific location in the document.", "Document")
 
 TEST_CASE("Get an iterator to a specific column and row in the document.", "Document") {
   Document document("Hello, world!");
-  Document::Iterator iterator = document.from(5, 0);
+  DocumentIterator iterator = document.from(5, 0);
   
   REQUIRE(iterator != document.end());
   REQUIRE(iterator.location() == Location(5, 0));
@@ -169,8 +170,8 @@ TEST_CASE("Iterate a document in reverse.", "Document") {
   Document document("43210");
   std::string expected = "01234";
   std::stringstream result;
-  Document::ReverseIterator cursor = document.rbegin();
-  Document::ReverseIterator end = document.rend();
+  ReverseDocumentIterator cursor = document.rbegin();
+  ReverseDocumentIterator end = document.rend();
   while(cursor != end) {
     result << *cursor;
     ++cursor;

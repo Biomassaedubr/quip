@@ -8,11 +8,12 @@
 namespace quip {
   struct Document;
   
-  template<bool IsConst>
+  // An iterator for a document, providing character-by-character traversal of the content
+  // of a document.
+  //
+  // Document iterators only provide read-only access to the underlying document.
   struct DocumentIterator {
-    typedef typename std::conditional<IsConst, const Document, Document>::type DocumentType;
-    
-    DocumentIterator(DocumentType& document, const Location& location);
+    DocumentIterator(const Document& document, const Location& location);
     
     const Location& location() const;
     
@@ -58,41 +59,8 @@ namespace quip {
     bool operator!=(const DocumentIterator& other);
     
   private:
-    DocumentType* m_document;
+    const Document* m_document;
     Location m_location;
-  };
-  
-  template<typename IteratorType>
-  struct ReverseDocumentIterator {
-    ReverseDocumentIterator(const IteratorType& underlying);
-    
-    const Location& location() const;
-    
-    char operator*() const;
-    
-    ReverseDocumentIterator& operator++();
-    ReverseDocumentIterator& operator--();
-    
-    ReverseDocumentIterator& advanceByRows(std::uint64_t rows);
-    ReverseDocumentIterator& reverseByRows(std::uint64_t rows);
-    
-    template<typename PredicateType>
-    ReverseDocumentIterator& advanceWhile(PredicateType predicate);
-    
-    template<typename PredicateType>
-    ReverseDocumentIterator& advanceUntil(PredicateType predicate);
-    
-    template<typename PredicateType>
-    ReverseDocumentIterator& reverseWhile(PredicateType predicate);
-    
-    template<typename PredicateType>
-    ReverseDocumentIterator& reverseUntil(PredicateType predicate);
-    
-    bool operator==(const ReverseDocumentIterator& other);
-    bool operator!=(const ReverseDocumentIterator& other);
-    
-  private:
-    IteratorType m_iterator;
   };
 }
 
