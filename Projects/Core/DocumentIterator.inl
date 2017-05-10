@@ -3,57 +3,48 @@
 namespace quip {
   template<typename PredicateType>
   DocumentIterator& DocumentIterator::advanceWhile(PredicateType predicate) {
-    DocumentIterator& self = *this;
-    bool pass = predicate(*self);
-    if (pass) {
-      while (self != m_document->end() && pass) {
-        ++self;
-        pass = predicate(*self);
-      }
-      
-      if (!pass) {
-        --self;
-      }
-    }
-    
-    return self;
+    return moveWhile(moveNext, predicate);
   }
   
   template<typename PredicateType>
   DocumentIterator& DocumentIterator::advanceUntil(PredicateType predicate) {
-    DocumentIterator& self = *this;
-    while(self != m_document->end() && !predicate(*self)) {
-      ++self;
-    }
-    
-    return self;
+    return moveUntil(movePrior, predicate);
   }
   
   template<typename PredicateType>
   DocumentIterator& DocumentIterator::reverseWhile(PredicateType predicate) {
-    DocumentIterator& self = *this;
-    bool pass = predicate(*self);
-    if (pass) {
-      while (self != m_document->begin() && pass) {
-        --self;
-        pass = predicate(*self);
-      }
-      
-      if (!pass) {
-        ++self;
-      }
-    }
-    
-    return self;
+    return moveWhile(movePrior, predicate);
   }
   
   template<typename PredicateType>
   DocumentIterator& DocumentIterator::reverseUntil(PredicateType predicate) {
-    DocumentIterator& self = *this;
-    while(self != m_document->begin() && !predicate(*self)) {
-      --self;
+    return moveUntil(movePrior, predicate);
+  }
+  
+  template<typename MoveType, typename PredicateType>
+  DocumentIterator& DocumentIterator::moveWhile(MoveType move, PredicateType predicate) {
+    DocumentIterator cursor = *this;
+    bool pass = predicate(*cursor);
+    while (pass && cursor != m_document->begin() && cursor != m_document->end()) {
+      DocumentIterator speculative = move(cursor);
+      pass = predicate(*speculative);
+      if(pass) {
+        cursor = speculative;
+      }
     }
     
-    return self;
+    m_location = cursor.location();
+    return *this;
+  }
+  
+  template<typename MoveType, typename PredicateType>
+  DocumentIterator& DocumentIterator::moveUntil(MoveType move, PredicateType predicate) {
+    DocumentIterator cursor = *this;
+    while(!predicate(*cursor) && cursor != m_document->begin() && cursor != m_document->end()) {
+      cursor = move(cursor);
+    }
+    
+    m_location = cursor.location();
+    return *this;
   }
 }

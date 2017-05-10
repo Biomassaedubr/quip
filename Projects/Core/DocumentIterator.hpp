@@ -3,7 +3,6 @@
 #include "Location.hpp"
 
 #include <cstddef>
-#include <type_traits>
 
 namespace quip {
   struct Document;
@@ -55,12 +54,21 @@ namespace quip {
     template<typename PredicateType>
     DocumentIterator& reverseUntil(PredicateType predicate);
     
+    template<typename MoveType, typename PredicateType>
+    DocumentIterator& moveWhile(MoveType move, PredicateType predicate);
+    
+    template<typename MoveType, typename PredicateType>
+    DocumentIterator& moveUntil(MoveType move, PredicateType predicate);
+    
     bool operator==(const DocumentIterator& other);
     bool operator!=(const DocumentIterator& other);
     
   private:
     const Document* m_document;
     Location m_location;
+    
+    static DocumentIterator moveNext(DocumentIterator value) { return value++; }
+    static DocumentIterator movePrior(DocumentIterator value) { return value--; }
   };
 }
 
