@@ -3,6 +3,7 @@
 #include "Location.hpp"
 
 #include <cstddef>
+#include <iterator>
 
 namespace quip {
   struct Document;
@@ -12,6 +13,12 @@ namespace quip {
   //
   // Document iterators only provide read-only access to the underlying document.
   struct DocumentIterator {
+    typedef std::int64_t difference_type;
+    typedef const char value_type;
+    typedef const char* pointer;
+    typedef const char& reference;
+    typedef std::bidirectional_iterator_tag iterator_category;
+    
     DocumentIterator(const Document& document, const Location& location);
     
     const Location& location() const;
@@ -65,10 +72,7 @@ namespace quip {
     
   private:
     const Document* m_document;
-    Location m_location;
-    
-    static DocumentIterator moveNext(DocumentIterator value) { return value++; }
-    static DocumentIterator movePrior(DocumentIterator value) { return value--; }
+    Location m_location;    
   };
 }
 

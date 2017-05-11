@@ -3,22 +3,22 @@
 namespace quip {
   template<typename PredicateType>
   DocumentIterator& DocumentIterator::advanceWhile(PredicateType predicate) {
-    return moveWhile(moveNext, predicate);
+    return moveWhile([](auto x) { return std::next(x); }, predicate);
   }
   
   template<typename PredicateType>
   DocumentIterator& DocumentIterator::advanceUntil(PredicateType predicate) {
-    return moveUntil(movePrior, predicate);
+    return moveUntil([](auto x) { return std::next(x); }, predicate);
   }
   
   template<typename PredicateType>
   DocumentIterator& DocumentIterator::reverseWhile(PredicateType predicate) {
-    return moveWhile(movePrior, predicate);
+    return moveWhile([](auto x) { return std::prev(x); }, predicate);
   }
   
   template<typename PredicateType>
   DocumentIterator& DocumentIterator::reverseUntil(PredicateType predicate) {
-    return moveUntil(movePrior, predicate);
+    return moveUntil([](auto x) { return std::prev(x); }, predicate);
   }
   
   template<typename MoveType, typename PredicateType>
