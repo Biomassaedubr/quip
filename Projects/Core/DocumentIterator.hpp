@@ -36,31 +36,15 @@ namespace quip {
     DocumentIterator& advanceByRows(std::uint64_t rows);
     DocumentIterator& reverseByRows(std::uint64_t rows);
     
-    // Advance the iterator while a predicate passes for the character referred to by the iterator.
-    //
-    // The iterator is not updated if the predicate fails for the character initially referred to.
-    // Otherwise, the iterator will refer to the last character that passed the predicate.
     template<typename PredicateType>
     DocumentIterator& advanceWhile(PredicateType predicate);
-    
-    // Advance the iterator until a predicate passes for the character referred to by the iterator.
-    //
-    // The iterator is not updated if the predicate passes for the character initially referred to.
-    // Otherwise, the iterator will refer to the first character that passed the predicate.
+  
     template<typename PredicateType>
     DocumentIterator& advanceUntil(PredicateType predicate);
     
-    // Reverse the iterator while a predicate passes for the character referred to by the iterator.
-    //
-    // The iterator is not updated if the predicate fails for the character initially referred to.
-    // Otherwise, the iterator will refer to the last character that passed the predicate.
     template<typename PredicateType>
     DocumentIterator& reverseWhile(PredicateType predicate);
-    
-    // Reverse the iterator until a predicate passes for the character referred to by the iterator.
-    //
-    // The iterator is not updated if the predicate passes for the character initially referred to.
-    // Otherwise, the iterator will refer to the first character that passed the predicate.
+
     template<typename PredicateType>
     DocumentIterator& reverseUntil(PredicateType predicate);
     
@@ -79,8 +63,8 @@ namespace quip {
     Traversal(MovementFunction advanceFunction, const DocumentIterator& advanceTo, MovementFunction retreatFunction, const DocumentIterator& retreatTo)
     : m_advance(advanceFunction)
     , m_retreat(retreatFunction)
-    , m_advanceGoal(advanceTo)
-    , m_retreatGoal(retreatTo) {
+    , m_advanceTo(advanceTo)
+    , m_retreatTo(retreatTo) {
     }
     
     DocumentIterator advance(const DocumentIterator& iterator) const {
@@ -88,7 +72,7 @@ namespace quip {
     }
     
     const DocumentIterator& advanceTo() const {
-      return m_advanceGoal;
+      return m_advanceTo;
     }
     
     DocumentIterator retreat(const DocumentIterator& iterator) const {
@@ -96,14 +80,20 @@ namespace quip {
     }
     
     const DocumentIterator& retreatTo() const {
-      return m_retreatGoal;
+      return m_retreatTo;
     }
     
+    // Move an iterator in the traversal direction while a predicate passes for the character referred
+    // to by the iterator.
+    //
+    // The resulting iterator is at the same position as the input if the predicate fails for the
+    // character initially referred to. Otherwise, the resulting iterator will refer to the last
+    // character encountered that passed the predicate.
     template<typename PredicateType>
     DocumentIterator advanceWhile(const DocumentIterator& iterator, PredicateType predicate) const {
       DocumentIterator cursor = iterator;
       bool pass = predicate(*cursor);
-      while (pass && cursor != m_advanceGoal) {
+      while (pass && cursor != m_advanceTo) {
         DocumentIterator speculative = advance(cursor);
         pass = predicate(*speculative);
         if(pass) {
@@ -114,11 +104,31 @@ namespace quip {
       return cursor;
     }
     
+    // Move an iterator in the traversal direction until a predicate passes for the character referred
+    // to by the iterator.
+    //
+    // The resulting iterator will refer to the first character encountered that passed the predicate.
+    template<typename PredicateType>
+    DocumentIterator advanceUntil(const DocumentIterator& iterator, PredicateType predicate) const {
+      DocumentIterator cursor = iterator;
+      while(!predicate(*cursor) && cursor != m_advanceTo) {
+        cursor = advance(cursor);
+      }
+      
+      return cursor;
+    }
+    
+    // Move an iterator in the direction opposite the traversal direction while a predicate passes for
+    // the character referred to by the iterator.
+    //
+    // The resulting iterator is at the same position as the input if the predicate fails for the
+    // character initially referred to. Otherwise, the resulting iterator will refer to the first
+    // character encountered that passed the predicate.
     template<typename PredicateType>
     DocumentIterator retreatWhile(const DocumentIterator& iterator, PredicateType predicate) const {
       DocumentIterator cursor = iterator;
       bool pass = predicate(*cursor);
-      while (pass && cursor != m_retreatGoal) {
+      while (pass && cursor != m_retreatTo) {
         DocumentIterator speculative = retreat(cursor);
         pass = predicate(*speculative);
         if(pass) {
@@ -129,11 +139,15 @@ namespace quip {
       return cursor;
     }
     
+    // Move an iterator in the direction opposite the traversal direction until a predicate passes for
+    // the character referred to by the iterator.
+    //
+    // The resulting iterator will refer to the first character encountered that passed the predicate.
     template<typename PredicateType>
-    DocumentIterator advanceUntil(const DocumentIterator& iterator, PredicateType predicate) const {
+    DocumentIterator retreatUntil(const DocumentIterator& iterator, PredicateType predicate) const {
       DocumentIterator cursor = iterator;
-      while(!predicate(*cursor) && cursor != m_advanceGoal) {
-        cursor = advance(cursor);
+      while(!predicate(*cursor) && cursor != m_retreatTo) {
+        cursor = retreat(cursor);
       }
       
       return cursor;
@@ -145,8 +159,8 @@ namespace quip {
   private:
     MovementFunction m_advance;
     MovementFunction m_retreat;
-    DocumentIterator m_advanceGoal;
-    DocumentIterator m_retreatGoal;
+    DocumentIterator m_advanceTo;
+    DocumentIterator m_retreatTo;
     
     static DocumentIterator nextInDocumentOrder(const DocumentIterator& iterator) {
       return std::next(iterator);
