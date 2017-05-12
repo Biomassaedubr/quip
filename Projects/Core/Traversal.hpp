@@ -16,21 +16,11 @@ namespace quip {
   // to implement a "next" or "prior" version of that selector simply by providing a different
   // traversal instance.
   struct Traversal {
-    DocumentIterator advance(const DocumentIterator& iterator) const {
-      return m_advance(iterator);
-    }
+    DocumentIterator advance(const DocumentIterator& iterator) const;
+    DocumentIterator retreat(const DocumentIterator& iterator) const;
     
-    const DocumentIterator& advanceTo() const {
-      return m_advanceTo;
-    }
-    
-    DocumentIterator retreat(const DocumentIterator& iterator) const {
-      return m_retreat(iterator);
-    }
-    
-    const DocumentIterator& retreatTo() const {
-      return m_retreatTo;
-    }
+    const DocumentIterator& advanceTo() const;
+    const DocumentIterator& retreatTo() const;
     
     // Move an iterator in the traversal direction while a predicate passes for the character referred
     // to by the iterator.
@@ -75,20 +65,10 @@ namespace quip {
     DocumentIterator m_advanceTo;
     DocumentIterator m_retreatTo;
     
-    Traversal(MovementFunction advanceFunction, const DocumentIterator& advanceTo, MovementFunction retreatFunction, const DocumentIterator& retreatTo)
-    : m_advance(advanceFunction)
-    , m_retreat(retreatFunction)
-    , m_advanceTo(advanceTo)
-    , m_retreatTo(retreatTo) {
-    }
+    Traversal(MovementFunction advanceFunction, const DocumentIterator& advanceTo, MovementFunction retreatFunction, const DocumentIterator& retreatTo);
     
-    static DocumentIterator nextInDocumentOrder(const DocumentIterator& iterator) {
-      return std::next(iterator);
-    }
-    
-    static DocumentIterator priorInDocumentOrder(const DocumentIterator& iterator) {
-      return std::prev(iterator);
-    }
+    static DocumentIterator nextInDocumentOrder(const DocumentIterator& iterator);
+    static DocumentIterator priorInDocumentOrder(const DocumentIterator& iterator);
   };
 }
 
