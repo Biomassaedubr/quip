@@ -53,17 +53,19 @@ namespace quip {
     Location m_location;    
   };
   
-  // A direction-agnostic mechanism for moving an iterator.
+  // A traversal provides a mechanism for moving an iterator in a particular direction
+  // (such as in document order, or in reverse document order).
+  //
+  // Traversals expose the concept of advancing an iterator in the traversal's direction or
+  // retreating it (in the opposite of the traversal's direction). These operations don't
+  // always correspond with the increment and decrement functionality of the iterator. For
+  // example, a document order traversal will increment an iterator when advancing, but a
+  // reverse-document-order traversal will decrement it instead.
+  //
+  // Traversals are useful for writing direction-agnostic selector code which can be used
+  // to implement a "next" or "prior" version of that selector simply by providing a different
+  // traversal instance.
   struct Traversal {
-    typedef std::function<DocumentIterator (const DocumentIterator&)> MovementFunction;
-    
-    Traversal(MovementFunction advanceFunction, const DocumentIterator& advanceTo, MovementFunction retreatFunction, const DocumentIterator& retreatTo)
-    : m_advance(advanceFunction)
-    , m_retreat(retreatFunction)
-    , m_advanceTo(advanceTo)
-    , m_retreatTo(retreatTo) {
-    }
-    
     DocumentIterator advance(const DocumentIterator& iterator) const {
       return m_advance(iterator);
     }
@@ -154,10 +156,19 @@ namespace quip {
     static Traversal reverseDocumentOrder(const Document& document);
     
   private:
+    typedef std::function<DocumentIterator (const DocumentIterator&)> MovementFunction;
+
     MovementFunction m_advance;
     MovementFunction m_retreat;
     DocumentIterator m_advanceTo;
     DocumentIterator m_retreatTo;
+    
+    Traversal(MovementFunction advanceFunction, const DocumentIterator& advanceTo, MovementFunction retreatFunction, const DocumentIterator& retreatTo)
+    : m_advance(advanceFunction)
+    , m_retreat(retreatFunction)
+    , m_advanceTo(advanceTo)
+    , m_retreatTo(retreatTo) {
+    }
     
     static DocumentIterator nextInDocumentOrder(const DocumentIterator& iterator) {
       return std::next(iterator);
