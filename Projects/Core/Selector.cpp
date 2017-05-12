@@ -108,9 +108,10 @@ namespace quip {
       return Optional<Selection>();
     }
     
+    Traversal traveral = Traversal::documentOrder(document);
     DocumentIterator extent = document.at(basis.extent());
-    extent.advanceWhile(isWordCharacter);
-    extent = selectTrailingWhitespaceIfApplicable(extent, Traversal::documentOrder(document));
+    extent = traveral.advanceWhile(extent, isWordCharacter);
+    extent = selectTrailingWhitespaceIfApplicable(extent, traveral);
     
     return Optional<Selection>(Selection(basis.origin(), extent.location()));
   }
@@ -164,11 +165,12 @@ namespace quip {
       return Optional<Selection>();
     }
     
+    Traversal traversal = Traversal::documentOrder(document);
     DocumentIterator origin = document.at(basis.origin());
-    origin.reverseWhile(isNotOpenBlockCharacter);
+    origin = traversal.retreatWhile(origin, isNotOpenBlockCharacter);
     
     DocumentIterator extent = document.at(basis.extent());
-    extent.advanceWhile(isNotCloseBlockCharacter);
+    extent = traversal.advanceWhile(extent, isNotCloseBlockCharacter);
     
     if(basis.origin() == origin.location() && basis.extent() == extent.location() && origin != document.begin() && extent != document.end()) {
       --origin;
@@ -184,19 +186,21 @@ namespace quip {
       return Optional<Selection>();
     }
     
+    Traversal traversal = Traversal::documentOrder(document);
     DocumentIterator origin = document.at(basis.origin());
-    origin.reverseWhile(isNotStartItemCharacter);
+    origin = traversal.retreatWhile(origin, isNotStartItemCharacter);
     
     DocumentIterator extent = document.at(basis.extent());
-    extent.advanceWhile(isNotEndItemCharacter);
-    extent = selectTrailingWhitespaceIfApplicable(extent, Traversal::documentOrder(document));
+    extent = traversal.advanceWhile(extent, isNotEndItemCharacter);
+    extent = selectTrailingWhitespaceIfApplicable(extent, traversal);
     
     // If the selection didn't change, the basis was already a full item selection. In this case,
     // the next full item should be selected.
     if(basis.origin() == origin.location() && basis.extent() == extent.location() && extent != document.end()) {
-      extent.advanceUntil(isStartItemCharacter);
-      origin = ++extent;
-      extent.advanceWhile(isNotEndItemCharacter);
+      extent = traversal.advanceUntil(extent, isStartItemCharacter);
+      extent = traversal.advance(extent);
+      origin = extent;
+      extent = traversal.advanceWhile(extent, isNotEndItemCharacter);
       extent = selectTrailingWhitespaceIfApplicable(extent, Traversal::documentOrder(document));
     }
     

@@ -32,19 +32,7 @@ namespace quip {
     DocumentIterator operator++(int);
     DocumentIterator& operator--();
     DocumentIterator operator--(int);
-    
-    template<typename PredicateType>
-    DocumentIterator& advanceWhile(PredicateType predicate);
-  
-    template<typename PredicateType>
-    DocumentIterator& advanceUntil(PredicateType predicate);
-    
-    template<typename PredicateType>
-    DocumentIterator& reverseWhile(PredicateType predicate);
 
-    template<typename PredicateType>
-    DocumentIterator& reverseUntil(PredicateType predicate);
-    
     bool operator==(const DocumentIterator& other);
     bool operator!=(const DocumentIterator& other);
     
@@ -179,5 +167,3 @@ namespace quip {
     }
   };
 }
-
-#include "DocumentIterator.inl"

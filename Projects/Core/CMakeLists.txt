@@ -3,7 +3,6 @@ set(DocumentSourceFiles
   Document.hpp
   DocumentIterator.cpp
   DocumentIterator.hpp
-  DocumentIterator.inl
 )
 source_group(Document FILES ${DocumentSourceFiles})
 
