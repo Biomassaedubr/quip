@@ -8,7 +8,6 @@
 
 namespace quip {
   struct DocumentIterator;
-  struct ReverseDocumentIterator;
   struct SearchExpression;
   struct Selection;
   struct SelectionSet;
