@@ -3,6 +3,7 @@
 #include "Document.hpp"
 #include "DocumentIterator.hpp"
 #include "Selection.hpp"
+#include "Traversal.hpp"
 
 namespace quip {
   namespace {

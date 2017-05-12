@@ -3,6 +3,9 @@ set(DocumentSourceFiles
   Document.hpp
   DocumentIterator.cpp
   DocumentIterator.hpp
+  Traversal.cpp
+  Traversal.hpp
+  Traversal.inl
 )
 source_group(Document FILES ${DocumentSourceFiles})
 
