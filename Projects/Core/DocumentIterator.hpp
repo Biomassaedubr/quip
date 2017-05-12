@@ -33,9 +33,6 @@ namespace quip {
     DocumentIterator& operator--();
     DocumentIterator operator--(int);
     
-    DocumentIterator& advanceByRows(std::uint64_t rows);
-    DocumentIterator& reverseByRows(std::uint64_t rows);
-    
     template<typename PredicateType>
     DocumentIterator& advanceWhile(PredicateType predicate);
   
