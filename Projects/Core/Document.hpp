@@ -25,15 +25,9 @@ namespace quip {
     std::vector<std::string> contents(const SelectionSet& selection) const;
     
     DocumentIterator begin() const;
-    ReverseDocumentIterator rbegin() const;
-    
     DocumentIterator end() const;
-    ReverseDocumentIterator rend() const;
-    
-    DocumentIterator from(const Location& location) const;
-    DocumentIterator from(std::uint64_t column, std::uint64_t row) const;
-    ReverseDocumentIterator rfrom(const Location& location) const;
-    ReverseDocumentIterator rfrom(std::uint64_t column, std::uint64_t row) const;
+    DocumentIterator at(const Location& location) const;
+    DocumentIterator at(std::uint64_t column, std::uint64_t row) const;
    
     std::int64_t distance(const Location& from, const Location& to) const;
     

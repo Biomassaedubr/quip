@@ -2,7 +2,6 @@
 
 #include "Document.hpp"
 #include "DocumentIterator.hpp"
-#include "ReverseDocumentIterator.hpp"
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
 
@@ -150,7 +149,7 @@ TEST_CASE("Get an iterator to the end of the document", "Document") {
 
 TEST_CASE("Get an iterator to a specific location in the document.", "Document") {
   Document document("Hello, world!");
-  DocumentIterator iterator = document.from(Location(5, 0));
+  DocumentIterator iterator = document.at(Location(5, 0));
   
   REQUIRE(iterator != document.end());
   REQUIRE(iterator.location() == Location(5, 0));
@@ -159,25 +158,11 @@ TEST_CASE("Get an iterator to a specific location in the document.", "Document")
 
 TEST_CASE("Get an iterator to a specific column and row in the document.", "Document") {
   Document document("Hello, world!");
-  DocumentIterator iterator = document.from(5, 0);
+  DocumentIterator iterator = document.at(5, 0);
   
   REQUIRE(iterator != document.end());
   REQUIRE(iterator.location() == Location(5, 0));
   REQUIRE(*iterator == ',');
-}
-
-TEST_CASE("Iterate a document in reverse.", "Document") {
-  Document document("43210");
-  std::string expected = "01234";
-  std::stringstream result;
-  ReverseDocumentIterator cursor = document.rbegin();
-  ReverseDocumentIterator end = document.rend();
-  while(cursor != end) {
-    result << *cursor;
-    ++cursor;
-  }
-  
-  REQUIRE(result.str() == expected);
 }
 
 TEST_CASE("Set the path.", "Document") {

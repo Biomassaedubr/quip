@@ -1,7 +1,6 @@
 #include "Document.hpp"
 
 #include "DocumentIterator.hpp"
-#include "ReverseDocumentIterator.hpp"
 #include "SearchExpression.hpp"
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
@@ -87,10 +86,6 @@ namespace quip {
     return DocumentIterator(*this, Location(0, 0));
   }
   
-  ReverseDocumentIterator Document::rbegin() const {
-    return ReverseDocumentIterator(end());
-  }
-  
   DocumentIterator Document::end() const {
     if (isEmpty()) {
       return begin();
@@ -99,26 +94,14 @@ namespace quip {
     return DocumentIterator(*this, Location(m_rows.back().size(), m_rows.size() - 1));
   }
   
-  ReverseDocumentIterator Document::rend() const {
-    return ReverseDocumentIterator(begin());
-  }
-  
-  DocumentIterator Document::from(const Location& location) const {
+  DocumentIterator Document::at(const Location& location) const {
     return DocumentIterator(*this, location);
   }
   
-  DocumentIterator Document::from(std::uint64_t column, std::uint64_t row) const {
-    return from(Location(column, row));
+  DocumentIterator Document::at(std::uint64_t column, std::uint64_t row) const {
+    return at(Location(column, row));
   }
   
-  ReverseDocumentIterator Document::rfrom(const Location& location) const {
-    return ReverseDocumentIterator(from(location));
-  }
-  
-  ReverseDocumentIterator Document::rfrom(std::uint64_t column, std::uint64_t row) const {
-    return rfrom(Location(column, row));
-  }
-    
   std::int64_t Document::distance(const Location& from, const Location& to) const {
     if (from.row() == to.row()) {
       return to.column() - from.column();
@@ -262,7 +245,7 @@ namespace quip {
     std::vector<Selection> adjusted;
     adjusted.reserve(selections.count());
     for (const Selection& selection : selections) {
-      DocumentIterator iterator = from(selection.extent());
+      DocumentIterator iterator = at(selection.extent());
       if (iterator != end()) {
         ++iterator;
       }

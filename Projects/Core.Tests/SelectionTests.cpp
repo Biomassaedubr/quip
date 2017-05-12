@@ -16,7 +16,7 @@ TEST_CASE("Construct a selection from a single location.", "Selection") {
 
 TEST_CASE("Construct a selection from a single iterator.", "Selection") {
   Document document("Hello, world!");
-  Selection selection(document.from(5, 0));
+  Selection selection(document.at(5, 0));
   
   REQUIRE(selection.origin() == selection.extent());
   REQUIRE(selection.origin().column() == 5);
@@ -42,7 +42,7 @@ TEST_CASE("Construct a selection from two locations.", "Selection") {
 
 TEST_CASE("Construct a selection from two iterators.", "Selection") {
   Document document("Hello, world!");
-  Selection selection(document.from(5, 0), document.from(6, 0));
+  Selection selection(document.at(5, 0), document.at(6, 0));
   
   REQUIRE(selection.origin().column() == 5);
   REQUIRE(selection.origin().row() == 0);

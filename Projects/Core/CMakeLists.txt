@@ -4,8 +4,6 @@ set(DocumentSourceFiles
   DocumentIterator.cpp
   DocumentIterator.hpp
   DocumentIterator.inl
-  ReverseDocumentIterator.cpp
-  ReverseDocumentIterator.hpp
 )
 source_group(Document FILES ${DocumentSourceFiles})
 

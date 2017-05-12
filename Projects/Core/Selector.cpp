@@ -92,14 +92,14 @@ namespace quip {
   }
   
   Optional<Selection> selectWord(const Document& document, const Selection& basis) {
-    DocumentIterator head = document.from(basis.origin());
-    DocumentIterator tail = document.from(basis.extent());
+    DocumentIterator head = document.at(basis.origin());
+    DocumentIterator tail = document.at(basis.extent());
     return selectWord(document, basis, head, tail, Traversal::documentOrder(document));
   }
   
   Optional<Selection> selectPriorWord(const Document& document, const Selection& basis) {
-    DocumentIterator head = document.from(basis.extent());
-    DocumentIterator tail = document.from(basis.origin());
+    DocumentIterator head = document.at(basis.extent());
+    DocumentIterator tail = document.at(basis.origin());
     return selectWord(document, basis, head, tail, Traversal::reverseDocumentOrder(document));
   }
 
@@ -108,7 +108,7 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    DocumentIterator extent = document.from(basis.extent());
+    DocumentIterator extent = document.at(basis.extent());
     extent.advanceWhile(isWordCharacter);
     extent = selectTrailingWhitespaceIfApplicable(extent, Traversal::documentOrder(document));
     
@@ -164,10 +164,10 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    DocumentIterator origin = document.from(basis.origin());
+    DocumentIterator origin = document.at(basis.origin());
     origin.reverseWhile(isNotOpenBlockCharacter);
     
-    DocumentIterator extent = document.from(basis.extent());
+    DocumentIterator extent = document.at(basis.extent());
     extent.advanceWhile(isNotCloseBlockCharacter);
     
     if(basis.origin() == origin.location() && basis.extent() == extent.location() && origin != document.begin() && extent != document.end()) {
@@ -184,10 +184,10 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    DocumentIterator origin = document.from(basis.origin());
+    DocumentIterator origin = document.at(basis.origin());
     origin.reverseWhile(isNotStartItemCharacter);
     
-    DocumentIterator extent = document.from(basis.extent());
+    DocumentIterator extent = document.at(basis.extent());
     extent.advanceWhile(isNotEndItemCharacter);
     extent = selectTrailingWhitespaceIfApplicable(extent, Traversal::documentOrder(document));
     
