@@ -11,6 +11,7 @@ set(SourceFiles
   SelectionTests.cpp
   SelectorTests.cpp
   SignalTests.cpp
+  TraversalTests.cpp
 )
 source_group(Code FILES ${SourceFiles})
 
