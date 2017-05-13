@@ -33,8 +33,8 @@ namespace quip {
     DocumentIterator& operator--();
     DocumentIterator operator--(int);
 
-    bool operator==(const DocumentIterator& other);
-    bool operator!=(const DocumentIterator& other);
+    bool operator==(const DocumentIterator& other) const;
+    bool operator!=(const DocumentIterator& other) const;
     
   private:
     const Document* m_document;

@@ -51,11 +51,11 @@ namespace quip {
     return result;
   }
   
-  bool DocumentIterator::operator==(const DocumentIterator& other) {
+  bool DocumentIterator::operator==(const DocumentIterator& other) const {
     return m_document == other.m_document && m_location == other.m_location;
   }
   
-  bool DocumentIterator::operator!=(const DocumentIterator& other) {
+  bool DocumentIterator::operator!=(const DocumentIterator& other) const {
     return !(*this == other);
   }
 }
