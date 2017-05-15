@@ -54,3 +54,18 @@ TEST_CASE("Retreat using a reverse-document-order traversal.", "Traversal") {
   REQUIRE(iterator.location() == Location(1, 0));
 }
 
+TEST_CASE("Advance-while using a document-order traversal with a predicate that fails immediately.", "Traversal") {
+  Document document("ABCD");
+  Traversal traversal = Traversal::documentOrder(document);
+  DocumentIterator iterator = traversal.advanceWhile(document.begin(), [](char value) { return value == 'X'; });
+  
+  REQUIRE(iterator.location() == Location(0, 0));
+}
+
+TEST_CASE("Advance-while using a document-order traversal with a predicate that fails eventually.", "Traversal") {
+  Document document("ABCD");
+  Traversal traversal = Traversal::documentOrder(document);
+  DocumentIterator iterator = traversal.advanceWhile(document.begin(), [](char value) { return value != 'D'; });
+  
+  REQUIRE(iterator.location() == Location(2, 0));
+}
