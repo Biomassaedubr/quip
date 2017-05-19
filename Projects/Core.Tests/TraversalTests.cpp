@@ -69,3 +69,11 @@ TEST_CASE("Advance-while using a document-order traversal with a predicate that 
   
   REQUIRE(iterator.location() == Location(2, 0));
 }
+
+TEST_CASE("Advance-while using a document-order traversal with a predicate that never fails.", "Traversal") {
+  Document document("ABCD");
+  Traversal traversal = Traversal::documentOrder(document);
+  DocumentIterator iterator = traversal.advanceWhile(document.begin(), [](char value) { return value != 'X'; });
+  
+  REQUIRE(iterator == document.end());
+}
