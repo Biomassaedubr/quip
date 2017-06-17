@@ -2,6 +2,7 @@
 
 #include "Document.hpp"
 #include "DocumentIterator.hpp"
+#include "ReverseDocumentIterator.hpp"
 #include "Selection.hpp"
 #include "Traversal.hpp"
 
@@ -47,44 +48,46 @@ namespace quip {
       return std::isspace(character) && character != '\n';
     }
     
-    DocumentIterator selectTrailingWhitespaceIfApplicable(DocumentIterator& start, const Traversal& traversal) {
-      DocumentIterator result = start;
-      if (result != traversal.advanceTo()) {
+    template<typename IteratorType>
+    IteratorType selectTrailingWhitespaceIfApplicable(IteratorType& start) {
+      IteratorType result = start;
+      if (!result.isEnd()) {
         // Try to select any (appropriate) trailing whitespace as well.
-        result = traversal.advance(result);
+        result = std::next(result);
         if (isWhitespaceExceptNewline(*result)) {
-          result = traversal.advanceWhile(result, isWhitespaceExceptNewline);
+          result = Traversal::advanceWhile(result, isWhitespaceExceptNewline);
         } else {
-          result = traversal.retreat(result);
+          result = std::prev(result);
         }
       }
       
       return result;
     }
     
-    Optional<Selection> selectWord(const Document& document, const Selection& basis, DocumentIterator origin, DocumentIterator extent, const Traversal& traversal) {
+    template<typename IteratorType>
+    Optional<Selection> selectWord(const Document& document, const Selection& basis, IteratorType origin, IteratorType extent) {
       if (document.isEmpty()) {
         return Optional<Selection>();
       }
       
-      DocumentIterator basisOrigin = origin;
-      DocumentIterator basisExtent = extent;
-      origin = traversal.retreatWhile(origin, isWordCharacter);
-      extent = traversal.advanceWhile(extent, isWordCharacter);
-      extent = selectTrailingWhitespaceIfApplicable(extent, traversal);
+      IteratorType basisOrigin = origin;
+      IteratorType basisExtent = extent;
+      origin = Traversal::retreatWhile(origin, isWordCharacter);
+      extent = Traversal::advanceWhile(extent, isWordCharacter);
+      extent = selectTrailingWhitespaceIfApplicable(extent);
       
       // If the selection didn't change, the basis was already a full word selection. In this case,
       // the next full word should be selected.
-      if(basisOrigin.location() == origin.location() && basisExtent.location() == extent.location() && extent != traversal.advanceTo()) {
-        extent = traversal.advance(extent);
+      if(basisOrigin.location() == origin.location() && basisExtent.location() == extent.location() && !extent.isEnd()) {
+        extent = std::next(extent);
         origin = extent;
-        if (origin == traversal.advanceTo()) {
+        if (origin.isEnd()) {
           // Reached the end of the document.
           return Optional<Selection>(basis);
         }
         
-        extent = traversal.advanceWhile(extent, isWordCharacter);
-        extent = selectTrailingWhitespaceIfApplicable(extent, traversal);
+        extent = Traversal::advanceWhile(extent, isWordCharacter);
+        extent = selectTrailingWhitespaceIfApplicable(extent);
       }
       
       return Optional<Selection>(Selection(origin.location(), extent.location()));
@@ -95,13 +98,13 @@ namespace quip {
   Optional<Selection> selectWord(const Document& document, const Selection& basis) {
     DocumentIterator head = document.at(basis.origin());
     DocumentIterator tail = document.at(basis.extent());
-    return selectWord(document, basis, head, tail, Traversal::documentOrder(document));
+    return selectWord(document, basis, head, tail);
   }
   
   Optional<Selection> selectPriorWord(const Document& document, const Selection& basis) {
-    DocumentIterator head = document.at(basis.extent());
-    DocumentIterator tail = document.at(basis.origin());
-    return selectWord(document, basis, head, tail, Traversal::reverseDocumentOrder(document));
+    ReverseDocumentIterator head = document.rat(basis.extent());
+    ReverseDocumentIterator tail = document.rat(basis.origin());
+    return selectWord(document, basis, head, tail);
   }
 
   Optional<Selection> selectRemainingWord(const Document& document, const Selection& basis) {
@@ -109,10 +112,9 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    Traversal traveral = Traversal::documentOrder(document);
     DocumentIterator extent = document.at(basis.extent());
-    extent = traveral.advanceWhile(extent, isWordCharacter);
-    extent = selectTrailingWhitespaceIfApplicable(extent, traveral);
+    extent = Traversal::advanceWhile(extent, isWordCharacter);
+    extent = selectTrailingWhitespaceIfApplicable(extent);
     
     return Optional<Selection>(Selection(basis.origin(), extent.location()));
   }
@@ -166,12 +168,11 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    Traversal traversal = Traversal::documentOrder(document);
     DocumentIterator origin = document.at(basis.origin());
-    origin = traversal.retreatWhile(origin, isNotOpenBlockCharacter);
+    origin = Traversal::retreatWhile(origin, isNotOpenBlockCharacter);
     
     DocumentIterator extent = document.at(basis.extent());
-    extent = traversal.advanceWhile(extent, isNotCloseBlockCharacter);
+    extent = Traversal::advanceWhile(extent, isNotCloseBlockCharacter);
     
     if(basis.origin() == origin.location() && basis.extent() == extent.location() && origin != document.begin() && extent != document.end()) {
       --origin;
@@ -187,22 +188,21 @@ namespace quip {
       return Optional<Selection>();
     }
     
-    Traversal traversal = Traversal::documentOrder(document);
     DocumentIterator origin = document.at(basis.origin());
-    origin = traversal.retreatWhile(origin, isNotStartItemCharacter);
+    origin = Traversal::retreatWhile(origin, isNotStartItemCharacter);
     
     DocumentIterator extent = document.at(basis.extent());
-    extent = traversal.advanceWhile(extent, isNotEndItemCharacter);
-    extent = selectTrailingWhitespaceIfApplicable(extent, traversal);
+    extent = Traversal::advanceWhile(extent, isNotEndItemCharacter);
+    extent = selectTrailingWhitespaceIfApplicable(extent);
     
     // If the selection didn't change, the basis was already a full item selection. In this case,
     // the next full item should be selected.
     if(basis.origin() == origin.location() && basis.extent() == extent.location() && extent != document.end()) {
-      extent = traversal.advanceUntil(extent, isStartItemCharacter);
-      extent = traversal.advance(extent);
+      extent = Traversal::advanceUntil(extent, isStartItemCharacter);
+      extent = std::next(extent);
       origin = extent;
-      extent = traversal.advanceWhile(extent, isNotEndItemCharacter);
-      extent = selectTrailingWhitespaceIfApplicable(extent, Traversal::documentOrder(document));
+      extent = Traversal::advanceWhile(extent, isNotEndItemCharacter);
+      extent = selectTrailingWhitespaceIfApplicable(extent);
     }
     
     return Optional<Selection>(Selection(origin.location(), extent.location()));

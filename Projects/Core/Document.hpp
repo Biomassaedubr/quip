@@ -31,6 +31,8 @@ namespace quip {
 
     ReverseDocumentIterator rbegin() const;
     ReverseDocumentIterator rend() const;
+    ReverseDocumentIterator rat(const Location& location) const;
+    ReverseDocumentIterator rat(std::uint64_t column, std::uint64_t row) const;
     
     std::int64_t distance(const Location& from, const Location& to) const;
     

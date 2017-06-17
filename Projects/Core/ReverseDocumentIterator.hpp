@@ -20,7 +20,11 @@ namespace quip {
     
     explicit ReverseDocumentIterator(const DocumentIterator& basis);
     
+    const Document& document() const;
     Location location() const;
+    
+    bool isBegin() const;
+    bool isEnd() const;
     
     char operator*() const;
     

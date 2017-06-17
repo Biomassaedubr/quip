@@ -7,9 +7,21 @@ namespace quip {
   : m_document(&document)
   , m_location(location) {
   }
-  
+
   Location DocumentIterator::location() const {
     return m_location;
+  }
+  
+  const Document& DocumentIterator::document() const {
+    return *m_document;
+  }
+  
+  bool DocumentIterator::isBegin() const {
+    return *this == m_document->begin();
+  }
+  
+  bool DocumentIterator::isEnd() const {
+    return *this == m_document->end();
   }
   
   char DocumentIterator::operator*() const {

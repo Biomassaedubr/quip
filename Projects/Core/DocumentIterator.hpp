@@ -21,9 +21,13 @@ namespace quip {
     typedef const char& reference;
     typedef std::bidirectional_iterator_tag iterator_category;
     
-    DocumentIterator(const Document& document, const Location& location);
+    explicit DocumentIterator(const Document& document, const Location& location);
     
+    const Document& document() const;
     Location location() const;
+    
+    bool isBegin() const;
+    bool isEnd() const;
     
     char operator*() const;
     

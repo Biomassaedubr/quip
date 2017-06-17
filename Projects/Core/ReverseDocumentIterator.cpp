@@ -1,8 +1,14 @@
 #include "ReverseDocumentIterator.hpp"
 
+#include "Document.hpp"
+
 namespace quip {
   ReverseDocumentIterator::ReverseDocumentIterator(const DocumentIterator& basis)
   : m_basis(basis) {
+  }
+  
+  const Document& ReverseDocumentIterator::document() const {
+    return m_basis.document();
   }
   
   Location ReverseDocumentIterator::location() const {
@@ -11,6 +17,14 @@ namespace quip {
     }
     
     return std::prev(m_basis).location();
+  }
+  
+  bool ReverseDocumentIterator::isBegin() const {
+    return *this == document().rbegin();
+  }
+  
+  bool ReverseDocumentIterator::isEnd() const {
+    return *this == document().rend();
   }
   
   char ReverseDocumentIterator::operator*() const {

@@ -5,9 +5,7 @@ set(DocumentSourceFiles
   DocumentIterator.hpp
   ReverseDocumentIterator.cpp
   ReverseDocumentIterator.hpp
-  Traversal.cpp
   Traversal.hpp
-  Traversal.inl
 )
 source_group(Document FILES ${DocumentSourceFiles})
 

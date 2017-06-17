@@ -111,6 +111,18 @@ namespace quip {
     return ReverseDocumentIterator(begin());
   }
   
+  ReverseDocumentIterator Document::rat(const Location& location) const {
+    if (isEmpty()) {
+      return rend();
+    }
+    
+    return ReverseDocumentIterator(std::next(at(location)));
+  }
+  
+  ReverseDocumentIterator Document::rat(std::uint64_t column, std::uint64_t row) const {
+    return rat(Location(column, row));
+  }
+  
   std::int64_t Document::distance(const Location& from, const Location& to) const {
     if (from.row() == to.row()) {
       return to.column() - from.column();
