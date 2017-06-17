@@ -1,8 +1,14 @@
 #include "Location.hpp"
 
+#include <limits>
 #include <utility>
 
 namespace quip {
+  namespace {
+    constexpr std::uint64_t InvalidLocationColumn = std::numeric_limits<std::uint64_t>::max() - 1;
+    constexpr std::uint64_t InvalidLocationRow = std::numeric_limits<std::uint64_t>::max() - 1;
+  }
+  
   Location::Location()
   : Location(0, 0) {
   }
@@ -10,6 +16,10 @@ namespace quip {
   Location::Location(std::uint64_t column, std::uint64_t row)
   : m_column(column)
   , m_row(row) {
+  }
+  
+  bool Location::isValid() const {
+    return m_column != InvalidLocationColumn && m_row != InvalidLocationRow;
   }
   
   std::uint64_t Location::column() const {
@@ -31,6 +41,10 @@ namespace quip {
     }
     
     return Location(m_column + columnDelta, m_row + rowDelta);
+  }
+  
+  Location Location::invalid() {
+    return Location(InvalidLocationColumn, InvalidLocationRow);
   }
   
   bool operator==(const Location& left, const Location& right) {

@@ -9,10 +9,9 @@
 
 namespace quip {
   struct Document;
-  struct Traversal;
   
   // An iterator for a document, providing character-by-character traversal of the content
-  // of a document.
+  // of a document in document order.
   //
   // Document iterators only provide read-only access to the underlying document.
   struct DocumentIterator {
@@ -24,7 +23,7 @@ namespace quip {
     
     DocumentIterator(const Document& document, const Location& location);
     
-    const Location& location() const;
+    Location location() const;
     
     char operator*() const;
     

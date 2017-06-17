@@ -6,6 +6,7 @@ set(SourceFiles
   KeySequenceTests.cpp
   LocationTests.cpp
   main.cpp
+  ReverseDocumentIteratorTests.cpp
   SearchExpressionTests.cpp
   SelectionSetTests.cpp
   SelectionTests.cpp

@@ -8,6 +8,7 @@
 
 namespace quip {
   struct DocumentIterator;
+  struct ReverseDocumentIterator;
   struct SearchExpression;
   struct Selection;
   struct SelectionSet;
@@ -27,7 +28,10 @@ namespace quip {
     DocumentIterator end() const;
     DocumentIterator at(const Location& location) const;
     DocumentIterator at(std::uint64_t column, std::uint64_t row) const;
-   
+
+    ReverseDocumentIterator rbegin() const;
+    ReverseDocumentIterator rend() const;
+    
     std::int64_t distance(const Location& from, const Location& to) const;
     
     const std::string& path() const;

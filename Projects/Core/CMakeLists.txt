@@ -3,6 +3,8 @@ set(DocumentSourceFiles
   Document.hpp
   DocumentIterator.cpp
   DocumentIterator.hpp
+  ReverseDocumentIterator.cpp
+  ReverseDocumentIterator.hpp
   Traversal.cpp
   Traversal.hpp
   Traversal.inl

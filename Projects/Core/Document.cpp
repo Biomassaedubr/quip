@@ -1,6 +1,7 @@
 #include "Document.hpp"
 
 #include "DocumentIterator.hpp"
+#include "ReverseDocumentIterator.hpp"
 #include "SearchExpression.hpp"
 #include "Selection.hpp"
 #include "SelectionSet.hpp"
@@ -100,6 +101,14 @@ namespace quip {
   
   DocumentIterator Document::at(std::uint64_t column, std::uint64_t row) const {
     return at(Location(column, row));
+  }
+  
+  ReverseDocumentIterator Document::rbegin() const {
+    return ReverseDocumentIterator(end());
+  }
+  
+  ReverseDocumentIterator Document::rend() const {
+    return ReverseDocumentIterator(begin());
   }
   
   std::int64_t Document::distance(const Location& from, const Location& to) const {

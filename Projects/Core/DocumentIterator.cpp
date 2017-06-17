@@ -8,7 +8,7 @@ namespace quip {
   , m_location(location) {
   }
   
-  const Location& DocumentIterator::location() const {
+  Location DocumentIterator::location() const {
     return m_location;
   }
   

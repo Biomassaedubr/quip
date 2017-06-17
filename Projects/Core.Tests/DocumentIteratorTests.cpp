@@ -41,15 +41,6 @@ TEST_CASE("Document iterators can be pre-incremented.", "DocumentIterator") {
   REQUIRE(cursor.location() == Location(1, 0));
 }
 
-TEST_CASE("Document iterators can be post-incremented.", "DocumentIterator") {
-  Document document("Quip!");
-  DocumentIterator cursor = document.begin();
-  DocumentIterator result = cursor++;
-  
-  REQUIRE(cursor == document.begin());
-  REQUIRE(*result == 'u');
-}
-
 TEST_CASE("Document iterators can be pre-incremented across rows.", "DocumentIterator") {
   Document document("A\nB");
   DocumentIterator cursor = document.begin();
@@ -60,21 +51,21 @@ TEST_CASE("Document iterators can be pre-incremented across rows.", "DocumentIte
   REQUIRE(cursor.location() == Location(0, 1));
 }
 
+TEST_CASE("Document iterators can be post-incremented.", "DocumentIterator") {
+  Document document("Quip!");
+  DocumentIterator cursor = document.begin();
+  DocumentIterator result = cursor++;
+  
+  REQUIRE(cursor == document.begin());
+  REQUIRE(*result == 'u');
+}
+
 TEST_CASE("Document iterators can be pre-decremented.", "DocumentIterator") {
   Document document("Quip!");
   DocumentIterator cursor = document.end();
   --cursor;
   
   REQUIRE(*cursor == '!');
-}
-
-TEST_CASE("Document iterators can be post-decremented.", "DocumentIterator") {
-  Document document("Quip!");
-  DocumentIterator cursor = document.end();
-  DocumentIterator result = cursor--;
-  
-  REQUIRE(cursor == document.end());
-  REQUIRE(*result == '!');
 }
 
 TEST_CASE("Document iterators can be pre-decremented across rows.", "DocumentIterator") {
@@ -84,6 +75,15 @@ TEST_CASE("Document iterators can be pre-decremented across rows.", "DocumentIte
   --cursor;
   
   REQUIRE(*cursor == '\n');
+}
+
+TEST_CASE("Document iterators can be post-decremented.", "DocumentIterator") {
+  Document document("Quip!");
+  DocumentIterator cursor = document.end();
+  DocumentIterator result = cursor--;
+  
+  REQUIRE(cursor == document.end());
+  REQUIRE(*result == '!');
 }
 
 TEST_CASE("Document iterators can be compared with ==.", "DocumentIterator") {
