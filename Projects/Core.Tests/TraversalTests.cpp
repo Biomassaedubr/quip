@@ -24,5 +24,5 @@ TEST_CASE("Advance-while using a document-order traversal with a predicate that 
   Document document("ABCD");
   DocumentIterator iterator = Traversal::advanceWhile(document.begin(), [](char value) { return value != 'X'; });
   
-  REQUIRE(iterator == document.end());
+  REQUIRE(iterator == std::prev(document.end()));
 }

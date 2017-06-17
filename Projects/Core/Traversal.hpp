@@ -16,7 +16,7 @@ namespace quip {
       bool pass = predicate(*cursor);
       while (pass && !cursor.isEnd()) {
         IteratorType speculative = std::next(cursor);
-        pass = predicate(*speculative);
+        pass = !speculative.isEnd() && predicate(*speculative);
         if(pass) {
           cursor = speculative;
         }
@@ -51,7 +51,7 @@ namespace quip {
       bool pass = predicate(*cursor);
       while (pass && !cursor.isBegin()) {
         IteratorType speculative = std::prev(cursor);
-        pass = predicate(*speculative);
+        pass = !speculative.isEnd() && predicate(*speculative);
         if(pass) {
           cursor = speculative;
         }
