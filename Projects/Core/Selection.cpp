@@ -1,6 +1,7 @@
 #include "Selection.hpp"
 
 #include "DocumentIterator.hpp"
+#include "ReverseDocumentIterator.hpp"
 
 #include <algorithm>
 
@@ -11,6 +12,10 @@ namespace quip {
   }
   
   Selection::Selection(const DocumentIterator& location)
+  : Selection(location.location()) {
+  }
+  
+  Selection::Selection(const ReverseDocumentIterator& location)
   : Selection(location.location()) {
   }
   
@@ -26,6 +31,10 @@ namespace quip {
   
   Selection::Selection(const DocumentIterator& origin, const DocumentIterator& extent)
   : Selection(origin.location(), extent.location()) {
+  }
+  
+  Selection::Selection(const ReverseDocumentIterator& origin, const ReverseDocumentIterator& extent)
+  : Selection(extent.location(), origin.location()) {
   }
   
   Selection::Selection(std::uint64_t originColumn, std::uint64_t originRow, std::uint64_t extentColumn, std::uint64_t extentRow)

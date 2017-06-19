@@ -6,6 +6,9 @@
 #include <cstdint>
 
 namespace quip {
+  struct DocumentIterator;
+  struct ReverseDocumentIterator;
+  
   // A inclusive region of marked text that can be operated on.
   //
   // A selection is defined by an origin location and an extent location. If they
@@ -13,9 +16,11 @@ namespace quip {
   struct Selection {
     explicit Selection(const Location& location);
     explicit Selection(const DocumentIterator& location);
+    explicit Selection(const ReverseDocumentIterator& location);
     explicit Selection(std::uint64_t originColumn, std::uint64_t originRow);
     explicit Selection(const Location& origin, const Location& extent);
     explicit Selection(const DocumentIterator& origin, const DocumentIterator& extent);
+    explicit Selection(const ReverseDocumentIterator& origin, const ReverseDocumentIterator& extent);
     explicit Selection(std::uint64_t originColumn, std::uint64_t originRow, std::uint64_t extentColumn, std::uint64_t extentRow);
     Selection(const Selection& other);
     Selection(Selection&& other);

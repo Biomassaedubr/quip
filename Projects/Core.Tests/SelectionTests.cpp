@@ -2,6 +2,7 @@
 
 #include "Document.hpp"
 #include "DocumentIterator.hpp"
+#include "ReverseDocumentIterator.hpp"
 #include "Selection.hpp"
 
 using namespace quip;
@@ -17,6 +18,15 @@ TEST_CASE("Construct a selection from a single location.", "Selection") {
 TEST_CASE("Construct a selection from a single iterator.", "Selection") {
   Document document("Hello, world!");
   Selection selection(document.at(5, 0));
+  
+  REQUIRE(selection.origin() == selection.extent());
+  REQUIRE(selection.origin().column() == 5);
+  REQUIRE(selection.origin().row() == 0);
+}
+
+TEST_CASE("Construct a selection from a single reverse iterator.", "Selection") {
+  Document document("Hello, world!");
+  Selection selection(document.rat(5, 0));
   
   REQUIRE(selection.origin() == selection.extent());
   REQUIRE(selection.origin().column() == 5);
@@ -43,6 +53,16 @@ TEST_CASE("Construct a selection from two locations.", "Selection") {
 TEST_CASE("Construct a selection from two iterators.", "Selection") {
   Document document("Hello, world!");
   Selection selection(document.at(5, 0), document.at(6, 0));
+  
+  REQUIRE(selection.origin().column() == 5);
+  REQUIRE(selection.origin().row() == 0);
+  REQUIRE(selection.extent().column() == 6);
+  REQUIRE(selection.extent().row() == 0);
+}
+
+TEST_CASE("Construct a selection from two reverse iterators.", "Selection") {
+  Document document("Hello, world!");
+  Selection selection(document.rat(6, 0), document.rat(5, 0));
   
   REQUIRE(selection.origin().column() == 5);
   REQUIRE(selection.origin().row() == 0);
