@@ -65,46 +65,48 @@ namespace quip {
     }
     
     template<typename IteratorType>
-    Optional<Selection> selectWord(const Document& document, const Selection& basis, IteratorType origin, IteratorType extent) {
-      if (document.isEmpty()) {
-        return Optional<Selection>();
-      }
-      
-      IteratorType basisOrigin = origin;
-      IteratorType basisExtent = extent;
+    Optional<Selection> selectWord(const Selection& basis, IteratorType origin, IteratorType extent) {
       origin = Traversal::retreatWhile(origin, isWordCharacter);
       extent = Traversal::advanceWhile(extent, isWordCharacter);
       extent = selectTrailingWhitespaceIfApplicable(extent);
       
       // If the selection didn't change, the basis was already a full word selection. In this case,
       // the next full word should be selected.
-      if(basisOrigin.location() == origin.location() && basisExtent.location() == extent.location() && !extent.isEnd()) {
-        extent = std::next(extent);
-        origin = extent;
+      Selection result(origin, extent);
+      if (result == basis && !extent.isEnd()) {
+        origin = std::next(extent);
         if (origin.isEnd()) {
           // Reached the end of the document.
           return Optional<Selection>(basis);
         }
         
-        extent = Traversal::advanceWhile(extent, isWordCharacter);
+        extent = Traversal::advanceWhile(origin, isWordCharacter);
         extent = selectTrailingWhitespaceIfApplicable(extent);
+        return Optional<Selection>(Selection(origin.location(), extent.location()));
       }
       
-      return Optional<Selection>(Selection(origin.location(), extent.location()));
-
+      return result;
     }
   }
   
   Optional<Selection> selectWord(const Document& document, const Selection& basis) {
+    if (document.isEmpty()) {
+      return Optional<Selection>();
+    }
+    
     DocumentIterator head = document.at(basis.origin());
     DocumentIterator tail = document.at(basis.extent());
-    return selectWord(document, basis, head, tail);
+    return selectWord(basis, head, tail);
   }
   
   Optional<Selection> selectPriorWord(const Document& document, const Selection& basis) {
+    if (document.isEmpty()) {
+      return Optional<Selection>();
+    }
+    
     ReverseDocumentIterator head = document.rat(basis.extent());
     ReverseDocumentIterator tail = document.rat(basis.origin());
-    return selectWord(document, basis, head, tail);
+    return selectWord(basis, head, tail);
   }
 
   Optional<Selection> selectRemainingWord(const Document& document, const Selection& basis) {
