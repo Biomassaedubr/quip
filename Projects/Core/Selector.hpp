@@ -13,8 +13,9 @@ namespace quip {
   Optional<Selection> selectRemainingWord(const Document& document, const Selection& basis);
   
   Optional<Selection> selectThisOrNextLine(const Document& document, const Selection& basis);
-  Optional<Selection> selectNextLine(const Document& document, const Selection& basis);
   Optional<Selection> selectPriorLine(const Document& document, const Selection& basis);
+  
   Optional<Selection> selectBlocks(const Document& document, const Selection& basis);
+  
   Optional<Selection> selectItem(const Document& document, const Selection& basis);
 }

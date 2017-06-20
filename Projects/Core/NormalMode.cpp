@@ -35,7 +35,6 @@ namespace quip {
     addMapping("RW", &NormalMode::doSelectRemainingWord);
     
     addMapping("L", &NormalMode::doSelectThisLine);
-    addMapping("NL", &NormalMode::doSelectNextLine);
     addMapping("PL", &NormalMode::doSelectPriorLine);
     
     addMapping("<S-B>", &NormalMode::doSelectBlocks);
@@ -396,15 +395,7 @@ namespace quip {
       context.controller().scrollToLocation.transmit(context.selections().primary().extent());
     }
   }
-  
-  void NormalMode::doSelectNextLine(EditContext& context) {
-    Optional<Selection> result = selectNextLine(context.document(), context.selections().primary());
-    if (result.has_value()) {
-      context.selections().replace(result.value());
-      context.controller().scrollToLocation.transmit(context.selections().primary().extent());
-    }
-  }
-  
+
   void NormalMode::doSelectPriorLine(EditContext& context) {
     Optional<Selection> result = selectPriorLine(context.document(), context.selections().primary());
     if (result.has_value()) {

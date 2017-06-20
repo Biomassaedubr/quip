@@ -34,7 +34,6 @@ namespace quip {
     void doSelectRemainingWord(EditContext& context);
     
     void doSelectThisLine(EditContext& context);
-    void doSelectNextLine(EditContext& context);
     void doSelectPriorLine(EditContext& context);
 
     void doSelectBlocks(EditContext& context);

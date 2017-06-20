@@ -133,22 +133,6 @@ namespace quip {
     return Optional<Selection>(Selection(origin, extent));
   }
   
-  Optional<Selection> selectNextLine(const Document& document, const Selection& basis) {
-    if (document.isEmpty()) {
-      return Optional<Selection>();
-    }
-    
-    std::uint64_t row = basis.extent().row();
-    if (row + 1 < document.rows()) {
-      ++row;
-      Location origin(0, row);
-      Location extent(document.row(row).size() - 1, row);
-      return Optional<Selection>(Selection(origin, extent));
-    }
-    
-    return Optional<Selection>(selectThisOrNextLine(document, basis));
-  }
-  
   Optional<Selection> selectPriorLine(const Document& document, const Selection& basis) {
     if (document.isEmpty()) {
       return Optional<Selection>();
