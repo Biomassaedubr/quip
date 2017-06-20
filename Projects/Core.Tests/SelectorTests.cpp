@@ -9,14 +9,14 @@ using namespace quip;
 
 TEST_CASE("Select word on an empty document.", "Selector") {
   Document document;
-  Optional<Selection> result = selectWord(document, Selection(0, 0, 2, 0));
+  Optional<Selection> result = selectThisOrNextWord(document, Selection(0, 0, 2, 0));
 
   REQUIRE(!result.has_value());
 }
 
 TEST_CASE("Select word with a partial-word basis.", "Selector") {
   Document document("This is a test.");
-  Optional<Selection> result = selectWord(document, Selection(1, 0, 2, 0));
+  Optional<Selection> result = selectThisOrNextWord(document, Selection(1, 0, 2, 0));
   
   REQUIRE(result.has_value());
   REQUIRE(document.contents(*result) == "This ");
@@ -24,7 +24,7 @@ TEST_CASE("Select word with a partial-word basis.", "Selector") {
 
 TEST_CASE("Select word with a partial-words basis.", "Selector") {
   Document document("This is a test.");
-  Optional<Selection> result = selectWord(document, Selection(3, 0, 5, 0));
+  Optional<Selection> result = selectThisOrNextWord(document, Selection(3, 0, 5, 0));
   
   REQUIRE(result.has_value());
   REQUIRE(document.contents(*result) == "This is ");
@@ -32,7 +32,7 @@ TEST_CASE("Select word with a partial-words basis.", "Selector") {
 
 TEST_CASE("Select word with a full-word basis.", "Selector") {
   Document document("This is a test.");
-  Optional<Selection> result = selectWord(document, Selection(0, 0, 4, 0));
+  Optional<Selection> result = selectThisOrNextWord(document, Selection(0, 0, 4, 0));
   
   REQUIRE(result.has_value());
   REQUIRE(document.contents(*result) == "is ");
@@ -40,7 +40,7 @@ TEST_CASE("Select word with a full-word basis.", "Selector") {
 
 TEST_CASE("Select word with a full-words basis.", "Selector") {
   Document document("This is a test.");
-  Optional<Selection> result = selectWord(document, Selection(0, 0, 7, 0));
+  Optional<Selection> result = selectThisOrNextWord(document, Selection(0, 0, 7, 0));
   
   REQUIRE(result.has_value());
   REQUIRE(document.contents(*result) == "a ");
@@ -48,7 +48,7 @@ TEST_CASE("Select word with a full-words basis.", "Selector") {
 
 TEST_CASE("Select word with a partial-word basis and no trailing whitespace.", "Selector") {
   Document document("This is a test.");
-  Optional<Selection> result = selectWord(document, Selection(11, 0));
+  Optional<Selection> result = selectThisOrNextWord(document, Selection(11, 0));
   
   REQUIRE(result.has_value());
   REQUIRE(document.contents(*result) == "test");
@@ -56,7 +56,7 @@ TEST_CASE("Select word with a partial-word basis and no trailing whitespace.", "
 
 TEST_CASE("Select word with a full-word basis and no trailing whitespace.", "Selector") {
   Document document("This is a test.");
-  Optional<Selection> result = selectWord(document, Selection(10, 0, 13, 0));
+  Optional<Selection> result = selectThisOrNextWord(document, Selection(10, 0, 13, 0));
   
   REQUIRE(result.has_value());
   REQUIRE(document.contents(*result) == ".");
@@ -64,7 +64,7 @@ TEST_CASE("Select word with a full-word basis and no trailing whitespace.", "Sel
 
 TEST_CASE("Select word with a full-word basis and no words left.", "Selector") {
   Document document("This is a test.");
-  Optional<Selection> result = selectWord(document, Selection(14, 0));
+  Optional<Selection> result = selectThisOrNextWord(document, Selection(14, 0));
   
   REQUIRE(result.has_value());
   REQUIRE(document.contents(*result) == ".");

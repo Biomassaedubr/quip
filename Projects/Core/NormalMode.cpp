@@ -366,7 +366,7 @@ namespace quip {
   }
   
   void NormalMode::doSelectWord(EditContext& context) {
-    Optional<Selection> result = selectWord(context.document(), context.selections().primary());
+    Optional<Selection> result = selectThisOrNextWord(context.document(), context.selections().primary());
     if (result.has_value()) {
       context.selections().replace(result.value());
       context.controller().scrollToLocation.transmit(context.selections().primary().extent());
@@ -390,7 +390,7 @@ namespace quip {
   }
   
   void NormalMode::doSelectThisLine(EditContext& context) {
-    Optional<Selection> result = selectThisLine(context.document(), context.selections().primary());
+    Optional<Selection> result = selectThisOrNextLine(context.document(), context.selections().primary());
     if (result.has_value()) {
       context.selections().replace(result.value());
       context.controller().scrollToLocation.transmit(context.selections().primary().extent());

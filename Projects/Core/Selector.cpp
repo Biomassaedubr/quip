@@ -89,7 +89,7 @@ namespace quip {
     }
   }
   
-  Optional<Selection> selectWord(const Document& document, const Selection& basis) {
+  Optional<Selection> selectThisOrNextWord(const Document& document, const Selection& basis) {
     if (document.isEmpty()) {
       return Optional<Selection>();
     }
@@ -121,7 +121,7 @@ namespace quip {
     return Optional<Selection>(Selection(basis.origin(), extent.location()));
   }
   
-  Optional<Selection> selectThisLine(const Document& document, const Selection& basis) {
+  Optional<Selection> selectThisOrNextLine(const Document& document, const Selection& basis) {
     if (document.isEmpty()) {
       return Optional<Selection>();
     }
@@ -146,7 +146,7 @@ namespace quip {
       return Optional<Selection>(Selection(origin, extent));
     }
     
-    return Optional<Selection>(selectThisLine(document, basis));
+    return Optional<Selection>(selectThisOrNextLine(document, basis));
   }
   
   Optional<Selection> selectPriorLine(const Document& document, const Selection& basis) {
@@ -162,7 +162,7 @@ namespace quip {
       return Optional<Selection>(Selection(origin, extent));
     }
     
-    return Optional<Selection>(selectThisLine(document, basis));
+    return Optional<Selection>(selectThisOrNextLine(document, basis));
   }
   
   Optional<Selection> selectBlocks(const Document& document, const Selection& basis) {
