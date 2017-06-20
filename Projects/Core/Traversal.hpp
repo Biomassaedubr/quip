@@ -31,7 +31,7 @@ namespace quip {
     // The resulting iterator will refer to the first character encountered that passed the predicate.
     template<typename IteratorType, typename PredicateType>
     inline IteratorType advanceUntil(const IteratorType& iterator, PredicateType predicate) {
-      DocumentIterator cursor = iterator;
+      IteratorType cursor = iterator;
       while(!predicate(*cursor) && !cursor.isEnd()) {
         cursor = std::next(cursor);
       }
